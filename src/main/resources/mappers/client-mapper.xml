@@ -5,5 +5,40 @@
 
 
  <mapper namespace="clientMapper">
- 
+ 	
+ 	
+ 	<!-- PagingNav -->
+ 	<select id="getPageNaviC" parameterType="String" resultType="int">
+ 		select count(*) as totalCnt from tbl_client where client_category=#{client_category}
+ 	</select>
+ 	
+ 	<select id="getPageNavi"  resultType="int">
+ 		select count(*) as totalCnt from tbl_client
+ 	</select>
+ 	
+ 	<!-- 게시판 저장 -->
+ 	 <insert id="insert" parameterType="com.market.client.ClientDTO">
+ 		<selectKey order="BEFORE" keyProperty="client_seq" resultType="int">
+ 		select client_seq.nextval from dual
+ 		</selectKey>
+ 		insert into tbl_client
+ 			 values(#{client_seq},#{client_title},#{client_content},#{client_category},#{user_id},#{user_category})
+ 	</insert> 
+ 	<!-- 게시판 목록 -->
+ 	<select id="selectAll" resultType="com.market.client.ClientDTO">
+ 		select * from tbl_client
+ 	</select>
+ 	
+ 	<select id="selectAllP" parameterType="Integer" resultType="com.market.client.ClientDTO">
+ 	select * from  (select tbl_client.*, row_number() over(order by client_seq desc) as num from tbl_client)
+		where num between #{start} and #{end} 
+ 	</select>
+ 	
+ 	<select id="totalCnt" parameterType="int" resultType="int">
+ 	select count(*) as totalCnt from tbl_client
+ 	</select>
+ 	<!-- 원하는 게시판 목록 -->
+ 	<select id="search" parameterType="string" resultType="com.market.client.ClientDTO">
+ 		select * from tbl_client where client_category = #{category}
+ 	</select>
  </mapper>
