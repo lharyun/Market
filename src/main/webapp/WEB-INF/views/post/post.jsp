@@ -902,7 +902,7 @@
 
     <!-- footer -->
      <div class="logo2">
-        <a class="nav-link" href="/client/toClient_post">
+        <a class="nav-link" href="/client/toClient_post?curPage=1">
             <img src="/resources/images/header_pooter/고객게시판.png">
          </a>
     </div>
