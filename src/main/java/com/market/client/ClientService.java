@@ -20,15 +20,6 @@ public class ClientService {
 	public List<ClientDTO> search(String category) throws Exception{
 		return clientDAO.search(category);
 	}
-	public List<ClientDTO> selectAllP(int start,int end) throws Exception{
-		return clientDAO.selectAllP(start,end);
-	}
 	
-	public HashMap<String,Object> getPageNaviC(int curPage,String category) throws Exception{
-		return clientDAO.getPageNaviC(curPage, category);
-	}
 	
-	public HashMap<String,Object> getPageNavi(int curPage,String category) throws Exception{
-		return clientDAO.getPageNaviC(curPage, category);
-	}
 }
