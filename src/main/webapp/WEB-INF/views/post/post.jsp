@@ -675,6 +675,7 @@
     </div>
 
 
+
     <!-- footer --> 
        <!-- Modal -->
        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -746,8 +747,9 @@
          </a>
     </div>
     <div class="logo2">
-        <a class="nav-link" href="/client/toClient_post">
+        <a class="nav-link" href="/client/toClient_post?curPage=1">
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
+
          </a>
     </div>
     

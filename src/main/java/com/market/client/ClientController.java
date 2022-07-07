@@ -36,9 +36,11 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value = "/toClient_post")	//QnA게시판 이동
-	public String toClient_post(Model model) throws Exception {
-	
-		List<ClientDTO> list =service.selectAll();//전체항목
+	public String toClient_post(int curPage,Model model) throws Exception {
+		System.out.println("curpage : "+ curPage);
+		//List<ClientDTO> list =service.selectAll();//전체항목
+		HashMap<String,Object> map =service.getPageNavi(curPage);
+		List<ClientDTO> list =service.selectAllP(curPage*10-9,curPage*10);
 		List<ClientDTO> buySell =service.search("buySell");
 		List<ClientDTO> account =service.search("account");
 		List<ClientDTO> items =service.search("items");
@@ -46,6 +48,7 @@ public class ClientController {
 		List<ClientDTO> sanction =service.search("sanction");
 		List<ClientDTO> addition =service.search("addition");
 			
+		model.addAttribute("naviMap",map);
 		model.addAttribute("list",list);
 		model.addAttribute("buySell",buySell);
 		model.addAttribute("account",account);
