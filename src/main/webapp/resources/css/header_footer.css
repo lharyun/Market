@@ -1,0 +1,255 @@
+header {
+    position: sticky;
+    top: 0;
+    display: block;
+    background-color: white;
+    z-index: 3;
+}
+
+/* 헤더 상단 */
+.heder_top {
+    height: 40px;
+    margin: auto;
+    font-size: 13px;
+}
+
+.heder_top a {
+    color: gray;
+}
+
+.heder_top a:hover {
+    color: orange;
+}
+
+.heder_top .dropdown:hover .dropdown-menu {
+
+    display: block;
+    margin-top: 0;
+
+}
+
+
+/* 헤더 중간 */
+
+.heder_middleBox {
+    margin: auto;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+    border-top: 1px solid rgba(128, 128, 128, 0.233);
+
+}
+
+.heder_middle {
+    height: 40px;
+    margin: auto;
+}
+
+.heder_middle a {
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.menu_right>li::after {
+    color: #72787e;
+    content: "|";
+    align-items: center;
+}
+
+.menu_right>li:last-child::after {
+    content: "";
+}
+
+.menu_right a:hover {
+    color: orange;
+}
+
+
+.searchInput {
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid #f47d39;
+    outline: 1px solid #f47d39;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 91%;
+    top: 7px;
+}
+
+/* 헤더 하단 */
+.heder_bottom {
+    height: 70px;
+    margin: auto;
+}
+
+.heder_bottom a {
+    text-decoration: none;
+    color: black;
+}
+
+.category_line>div {
+    border-right: 1px solid #72787e4f;
+}
+
+.category_line>div:last-child {
+    border: 0;
+
+}
+
+.category_line .nav-link {
+    color: #36393b;
+}
+
+.category_line .nav-link:hover {
+    font-weight: 600;
+    background-color: #ffad0a2d;
+}
+
+
+
+/* ===contetnt 영역==== */
+
+
+
+
+
+/* ==================== */
+.n_date{
+    font-size: small;
+    color: gray;
+}
+.n_content>.row:hover{
+
+    background-color: #e9a6805e;
+}
+.logo2 {
+    position: fixed;
+    bottom: 60px;
+    right:10px;
+    z-index: 2;
+    animation: box-ani 0.5s linear forwards;
+
+}
+.logo3 {
+    position: fixed;
+    bottom: 140px;
+    right:10px;
+    z-index: 2;
+    animation: box-ani 0.5s linear forwards;
+    /* animation: box-ani2 0.5s linear forwards; */
+}
+.logo3 img, .logo2 img{
+    transition: 1s;
+}
+.logo3 img:hover, .logo2 img:hover{
+    
+    transform: rotate( 45deg );
+    
+}
+@keyframes box-ani {
+	from {
+		transform: translate(90px, 0);
+	}
+	to {
+		transform: translate(0px, 0px);
+	}
+}
+
+#closeBtn,#frashBtn{
+    background-color: rgba(240, 248, 255, 0);
+    border: 0;
+}
+.n_title{
+    font-weight: 600;
+    font-size: large;
+}
+
+/* 푸터 */
+
+footer {
+    overflow: hidden;
+    z-index: 1;
+    background-color: #495057;
+}
+
+footer .nav-link {
+    color: rgb(170, 170, 170);
+    text-decoration: none;
+}
+
+footer .nav-link:hover {
+    color: white;
+}
+
+.pooterLine {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.479);
+}
+
+.pooterText {
+    color: gray;
+    font-size: 14px;
+}
+
+@media (max-width: 992px) {
+    #Non_reaction {
+        display: none;
+    }
+
+    #checkBox {
+        width: 450px;
+    }
+
+    .category_line li {
+        height: 35px;
+    }
+
+    #searchBox {
+        width: 300px;
+    }
+
+    .font_a {
+        color: red;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 540px) {
+    .a_reaction {
+        display: none;
+    }
+
+}
+
+
+
+@media (min-width: 992px) {
+    #reaction {
+        display: none;
+    }
+
+    #footerBox {
+        width: 992px;
+    }
+
+    .heder_top {
+        width: 992px;
+    }
+
+    .heder_middle {
+        width: 992px;
+    }
+
+    #checkBox {
+        width: 922px;
+    }
+
+    .heder_middleBox {
+        padding-top: 35px;
+    }
+
+    .heder_bottom {
+        width: 992px;
+    }
+}
