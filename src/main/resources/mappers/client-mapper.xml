@@ -26,7 +26,7 @@
  	</select>
  	
  	<!-- 페이징 적용 게시글 -->
- 	<select id="selectAllP" parameterType="int" resultType="com.market.client.ClientDTO">
+  <select id="selectAllP" parameterType="int" resultType="com.market.client.ClientDTO">
  		select * from ( select tbl_client.*, row_number() over(order by client_seq desc)
  		 as num from tbl_client)where num between #{start} and #{end}
  	</select>

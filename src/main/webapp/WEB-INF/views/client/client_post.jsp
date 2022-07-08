@@ -978,7 +978,7 @@ footer .nav-link:hover {
 		<button type="button" id="managerBtn">Manager</button>
 		<script>
 			$("#managerBtn").on("click", function() {
-				location.href = "/client/toManager"
+				location.href = "/member/toManager"
 			})
 		</script>
 		<div class="board">
