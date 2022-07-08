@@ -27,12 +27,16 @@ public class BlackListController {
 	
 	@RequestMapping(value="/black")
 	@ResponseBody
-	public String black(@RequestParam(value="arr[]") String[] arr) throws Exception{ 	//manager에서 체크박스 선택 삭제
-		System.out.println("black");
+	public String black(@RequestParam(value="arr[]") String[] arr,String blackList_content) throws Exception{ 	//manager에서 체크박스 선택 삭제
+		
+		System.out.println("blackList content : " + blackList_content);
 		System.out.println(arr);
-		for(String id : arr) {
-			service.black(id);	
-		}
+		
+	 for(String user_id : arr) { 
+		 service.insert(new BlackListDTO(0,null,blackList_content,user_id,"abc")); 
+		 service.black(user_id);
+		 }
+		
 		
 		return "success";
 	}
