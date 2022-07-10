@@ -30,14 +30,12 @@ public class ClientController {
 	@Autowired
 	private HttpSession session;
 	
-	
 	public ClientController() {
 		System.out.println("ClientController 인스턴스 생성");
 	}
 	
 	@RequestMapping(value = "/toClient_post")	//QnA게시판 이동
 	public String toClient_post(int curPage,Model model) throws Exception {
-		System.out.println("curpage : "+ curPage);
 		//List<ClientDTO> list =service.selectAll();//전체항목
 		HashMap<String,Object> map =service.getPageNavi(curPage);
 		List<ClientDTO> list =service.selectAllP(curPage*10-9,curPage*10);
@@ -71,28 +69,19 @@ public class ClientController {
 		System.out.println("toManager");
 		return "/manager/manager";
 	}
-	
-	
+		
 	@RequestMapping(value="/write")	//게시글 작성 요청
 	public String write(ClientDTO dto) throws Exception { 
 		System.out.println("ClientDTO : "+ dto.toString());
 		service.insert(dto);		
-		return "redirect:/client/toClient_post";
+		return "redirect:/client/toClient_post?curPage=1";
 	}
-	
-	
-	
-	
-	
+
 	//서머노트 이미지 콜백 함수
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
 		JsonObject jsonObject = new JsonObject();
-		
-        /*
-		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-		 */
 		
 		// 내부경로로 저장
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
