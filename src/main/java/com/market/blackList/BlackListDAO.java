@@ -14,8 +14,6 @@ public class BlackListDAO {
 	private SqlSession session;
 	
 	public void insert(BlackListDTO dto)throws Exception{//블랙시키기
-		
-		System.out.println("dao insert : "+dto);
 		session.insert("blackListMapper.insert",dto);
 	}
 	
@@ -27,9 +25,7 @@ public class BlackListDAO {
 		session.update("blackListMapper.unblack",user_id);
 	}
 	
-	public List<BlackListDTO> selectAll() throws Exception{
-		System.out.println("블랙 dao실행");
-	
+	public List<BlackListDTO> selectAll() throws Exception{	
 		return session.selectList("blackListMapper.selectAll");
 	}
 	

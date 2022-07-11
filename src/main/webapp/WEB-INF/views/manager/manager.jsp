@@ -30,11 +30,28 @@
 	border: 1px solid #f47d39;
 	border-radius: 3px;
 	min-height: 500px;
-	padding: 10px;
+	padding: 20px;
 }
 
-.cheader {
+.Cheader {
 	text-align: center;
+	margin-bottom:20px;
+}
+
+#searchInput {
+	display: inline-block;
+}
+
+.Cbody>.row{
+
+padding:10px;
+border-top: 1px solid #f57e76;
+}
+.Cbody>.row>div{
+text-align:center;
+}
+.Cheader>.row{
+	padding:5px;
 }
 </style>
 <body>
@@ -59,7 +76,17 @@
 				<!-- 1Page -->
 				<div class="Cheader">
 					<div class="row">
-						<div class="col-1">체크박스</div>
+					<div class="col-8"></div>	
+					<div class="col-3">
+					<input type="text" class="form-control" placeholder="id찾기"
+								id="MsearchInput">			
+					</div>
+					<div class="col-1">
+							<button type="button" id="MsearchBtn" class="btn btn-info">찾기</button>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-1">선택</div>
 						<div class="col-2">아이디</div>
 						<div class="col-2">카테고리</div>
 						<div class="col-2">닉네임</div>
@@ -68,13 +95,15 @@
 						<div class="col-1">블랙</div>
 
 					</div>
-					<hr style="border: 1px solid #f47d39;">
+		
 				</div>
-				<div class="Cbody">
-					<div class="row">
+				<div class="Cbody"><!-- 멤버 -->
+					
 						<c:forEach items="${list }" var="dto">
+						<div class="row">
 							<div class="col-1">
-								<input class="check" type="checkbox" value="${dto.user_id }" />
+								<input class="check" type="checkbox" onclick="setBox(this)"
+									value="${dto.user_id }" />
 							</div>
 							<div class="col-2">${dto.user_id }</div>
 							<div class="col-2">${dto.user_category }</div>
@@ -83,14 +112,15 @@
 							<div class="col-2">${dto.user_phone }</div>
 							<div class="col-1">${dto.blackList_check }</div>
 
-							<hr style="border: 1px solid #f47d39;">
+						
+							</div>
 						</c:forEach>
 
-					</div>
+					
 					<div class="cfooter">
 						<div class="row">
 							<div class="col text-end">
-							
+
 								<button class="btn btn-danger" id="deleteBtn">삭제</button>
 								<button type="button" class="btn btn-primary"
 									data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -108,34 +138,79 @@
 				aria-labelledby="nav-BlackList-tab">
 				<div class="Cheader">
 					<div class="row">
+						<div class="col-auto text-end">
+							<input type="text" class="form-control" placeholder="id찾기"
+								id="BsearchInput">
+						</div>
+						<div class="col-auto text-end">
+							<button type="button" id="BsearchBtn" class="btn btn-info">찾기</button>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-1">번호</div>
 						<div class="col-2">날짜</div>
 						<div class="col-5">사유</div>
 						<div class="col-2">아이디</div>
 						<div class="col-2">카테고리</div>
-						
+
+					</div>
+				</div>
+
+				<div class="Cbody"><!-- 블랙리스트 -->
+
+					<c:forEach items="${blackList }" var="dto">
+						<div class="row">
+							<div class="col-1"><input type="checkbox" value="${dto.blackList_seq }"></div>
+							<div class="col-2">${dto.blackList_date }</div>
+							<div class="col-5">${dto.blackList_content }</div>
+							<div class="col-2">${dto.user_id }</div>
+							<div class="col-2">${dto.user_category }</div>
+						</div>
+
+					</c:forEach>
+
+
+				</div>
+			</div>
+			<!-- 2Page -->
+			<div class="tab-pane fade" id="nav-Report" role="tabpanel"
+				aria-labelledby="nav-Report-tab">
+				<div class="Cheader">
+					<div class="row">
+						<div class="col-auto text-end">
+							<input type="text" class="form-control" placeholder="id찾기"
+								id="searchInput">
+						</div>
+						<div class="col-auto text-end">
+							<button type="button" class="btn btn-info">찾기</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-1">신고번호</div>				
+							<div class="col-7">신고내역</div>
+							<div class="col-2">아이디</div>
+							<div class="col-2">카테고리</div>
+
 					</div>
 				</div>
 
 				<div class="Cbody">
 					<div class="row">
-						<c:forEach items="${blackList }" var="dto">
+						<c:forEach items="${reportList }" var="dto"><!-- 신고 -->
 
-							<div class="col-1">${dto.blackList_seq }</div>
-						<div class="col-2">${dto.blackList_date }</div>
-						<div class="col-5">${dto.blackList_content }</div>
-						<div class="col-2">${dto.user_id }</div>
-						<div class="col-2">${dto.user_category }</div>
-						
+							<div class="col-1">${dto.report_seq }</div>				
+							<div class="col-7">${dto.report_content }</div>
+							<div class="col-2">${dto.user_id }</div>
+							<div class="col-2">${dto.user_category }</div>
+
 
 						</c:forEach>
 
 					</div>
 				</div>
+
+
 			</div>
-			<!-- 2Page -->
-			<div class="tab-pane fade" id="nav-Report" role="tabpanel"
-				aria-labelledby="nav-Report-tab">...</div>
 			<!-- 3Page -->
 		</div>
 	</div>
@@ -161,25 +236,31 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" id="sendBtn" class="btn btn-primary">Send message</button>
+					<button type="button" id="sendBtn" class="btn btn-primary">Send
+						message</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
-
-
 	<script>
+		function setBox(e) {
+			td = e.parentNode;
+			td.style.backgroundColor = (e.checked) ? "#ffafa1" : "white";
+			tr = e.parentNode.parentNode;
+			tr.style.backgroundColor=(e.checked)?"#f4ffe8":"#fff";
+		}
+
 		var exampleModal = document.getElementById('exampleModal')
 		exampleModal.addEventListener('show.bs.modal', function(event) {//블랙리스트 버튼을 클릭했을때
-			
-				var button = event.relatedTarget		
-				var recipient = button.getAttribute('data-bs-whatever')
-				var modalTitle = exampleModal.querySelector('.modal-title')
-				var modalBodyInput = exampleModal
-						.querySelector('.modal-body input')
 
-				modalTitle.textContent = "블랙리스트"
+			var button = event.relatedTarget
+			var recipient = button.getAttribute('data-bs-whatever')
+			var modalTitle = exampleModal.querySelector('.modal-title')
+			var modalBodyInput = exampleModal
+					.querySelector('.modal-body input')
+
+			modalTitle.textContent = "블랙리스트"
 
 		})
 
@@ -193,28 +274,27 @@
 			for (let i = 0; i < checkArr.length; i++) {
 				arr.push(checkArr[i].value);
 			}
-			let blackList_content=$("#blackList_content").val();
+			let blackList_content = $("#blackList_content").val();
 			console.log(blackList_content);
-				if (confirm("해당 회원을 블랙리스트 시키겠습니까?")) {
-					$.ajax({
-						url : "/blackList/black",
-						type : 'post',
-						data : {
-							"arr[]" : arr,
-							"blackList_content":blackList_content
-						},
-						success : function(data) {
-							console.log(data);
-							alert("해당 데이터가 블랙되었습니다.")
-							location.href = "/member/toManager";
-						},
-						error : function(e) {
-							console.log(e);
-						}
-					});
-				}
+			if (confirm("해당 회원을 블랙리스트 시키겠습니까?")) {
+				$.ajax({
+					url : "/blackList/black",
+					type : 'post',
+					data : {
+						"arr[]" : arr,
+						"blackList_content" : blackList_content
+					},
+					success : function(data) {
+						console.log(data);
+						alert("해당 데이터가 블랙되었습니다.")
+						location.href = "/member/toManager";
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			}
 
-			
 		})
 		$("#deleteBtn").on("click", function() {
 			let checkArr = $(".check:checked");
