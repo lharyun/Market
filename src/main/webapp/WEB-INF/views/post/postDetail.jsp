@@ -2,10 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -15,18 +18,20 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>메인페이지</title>
+    <title>상세페이지</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
-     <!-- css -->
-    <link href="/resources/css/header_footer.css" rel="stylesheet" type="text/css">
+    <!-- css -->
+    <link href="/resources/css/header_footer.css" rel="stylesheet">
 </head>
 <style>
+
     /* ===contetnt 영역==== */
 
-
-    .middle {
-    height: 100%;
+    input:focus {
+        outline: none;
     }
+
+ 
 
     .slideBox>button {
         border: 0;
@@ -95,6 +100,7 @@
     /* 여기까지 경고창 */
 
 
+    /* 반응 */
     @media (max-width: 840px) {
         .car_before {
             display: none;
@@ -105,11 +111,112 @@
         }
 
         .alertBox {
-            width: 100%;
+            width: 540px;
         }
+
+        #contentsBox {
+            width: 540px;
+            
+        }
+
+        .afterImg {
+            display: none;
+        }
+
+        /* 이미지관련 */
+        .middle_postBox {
+            width: 540px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .middle_title {
+            color: black;
+        }
+
+        .postBox {
+            position: relative;
+            text-align: left;
+            display: inline-block;
+            border-radius: 12px;
+            width: calc(50% - 5px);
+            /* height: 160px; */
+            padding: 20px;
+
+            overflow: hidden;
+        }
+
+        .imgDiv {
+            position: relative;
+            background-color: #efefef;
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            border: 2px solid rgba(128, 128, 128, 0.233);
+            overflow: hidden;
+            transition: all 0.2s linear;
+        }
+
+        .hicary {
+            position: absolute;
+            z-index: 2;
+            top: -50%;
+            right: 0px;
+            width: 650px;
+            height: 350px;
+
+            transition: all 0.09s linear;
+
+        }
+
+        .hicary:hover {
+            position: absolute;
+            z-index: 2;
+            top: -50%;
+            right: -120%;
+            width: 450px;
+            height: 350px;
+        }
+
+        .imgDiv:hover {
+            transform: scale(1.1);
+            border-radius: 16px;
+            box-shadow: 5px 5px 6px 0 rgba(58, 47, 38, 0.102);
+        }
+
+
+        .imgDiv>.postImg {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+
+        /* 상세 글 관련 */
+        .postInformation {
+
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .middle_lgText {
+            color: black;
+            font-weight: 600;
+            font-size: large;
+        }
+
+
+        .middle_smText {
+            font-size: small;
+            color: gray;
+        }
+
 
     }
 
+    /* 반응 */
     @media (min-width: 840px) {
         .car_after {
             display: none;
@@ -122,9 +229,114 @@
         .alertBox {
             width: 677px;
         }
+
+        .beforeImg {
+            display: none;
+        }
+
+        .afterImg {
+            display: block;
+        }
+
+        /* 이미지관련 */
+        .middle_postBox {
+            width: 677px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .middle_title {
+            color: black;
+        }
+
+        .postBox {
+            position: relative;
+            text-align: left;
+            display: inline-block;
+            border-radius: 12px;
+            width: calc(33.3% - 5px);
+            /* height: 160px; */
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .imgDiv {
+            position: relative;
+            background-color: #efefef;
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            border: 2px solid rgba(128, 128, 128, 0.233);
+            overflow: hidden;
+            transition: all 0.2s linear;
+        }
+
+        .hicary {
+            position: absolute;
+            z-index: 2;
+            top: -50%;
+            right: 0px;
+            width: 450px;
+            height: 350px;
+
+            transition: all 0.09s linear;
+
+        }
+
+        .hicary:hover {
+            position: absolute;
+            z-index: 2;
+            top: -50%;
+            right: -180%;
+            width: 450px;
+            height: 350px;
+        }
+
+        .imgDiv:hover {
+            transform: scale(1.1);
+            border-radius: 16px;
+            box-shadow: 5px 5px 6px 0 rgba(58, 47, 38, 0.102);
+        }
+
+
+        .imgDiv>.postImg {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+
+        /* 상세 글 관련 */
+        .postInformation {
+
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .middle_lgText {
+            color: black;
+            font-weight: 600;
+            font-size: large;
+        }
+
+
+        .middle_smText {
+            font-size: small;
+            color: gray;
+        }
     }
 
 
+    .topLine {
+        border-top: 1px solid rgba(128, 128, 128, 0.233);
+    }
+
+    .middle_bottomLine {
+        padding-top: 40px;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+    }
 
     .middle_profile {
         border-bottom: 1px solid rgba(128, 128, 128, 0.233);
@@ -151,11 +363,20 @@
     .middle_bottom {
         border-bottom: 1px solid rgba(128, 128, 128, 0.233);
         border-top: 1px solid rgba(128, 128, 128, 0.233);
-
     }
 
     .middle_heartBtn {
         border-right: 1px solid rgba(128, 128, 128, 0.233);
+    }
+
+    .hoverIcon {
+        border: 0;
+        background-color: #36393b00;
+        transition: all 0.2s linear;
+    }
+
+    .hoverIcon:hover {
+        transform: scale(0.8);
     }
 
     .middle_heartBtn button {
@@ -165,9 +386,9 @@
     }
 
     .middle_heartBtn button:hover {
-        transform: scale(1.4);
         transform: scale(0.8);
     }
+
 
     .middle_orangeText>a {
         font-size: small;
@@ -184,22 +405,66 @@
         font-weight: 600;
     }
 
-    .middle_chattingBtn {
+    #exampleModa2 .modal-content {
+        height: 250px;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    #exampleModa3 .modal-content {
+        height: 250px;
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    /* 완료버튼 */
+    #modalBtn>button {
+        width: 80px;
+    }
+
+    .middle_writeBtn {
         background-color: rgb(255, 177, 88);
-        border: 2px solid rgb(165, 133, 69);
+        border: 2px solid rgb(137, 111, 58);
         border-radius: 6px;
         height: 32px;
         font-size: small;
-        box-shadow: -1px 2px 2px rgba(158, 136, 93, 0.712);
+        box-shadow: -2px 2px 2px rgba(158, 136, 93, 0.712);
     }
-    .middle_chattingBtn:hover{
+
+    .middle_writeBtn:hover {
         color: white;
     }
-    .middle_chattingBtn:active{
+
+    .middle_writeBtn:active {
         margin-right: 3px;
         /* margin-top: 3px; */
         box-shadow: none;
     }
+
+    /* 버튼 */
+    .middleBtn {
+        background-color: rgb(255, 177, 88);
+        border: 2px solid rgb(137, 111, 58);
+        border-radius: 6px;
+        height: 32px;
+        font-size: small;
+        box-shadow: -2px 2px 2px rgba(158, 136, 93, 0.712);
+    }
+
+    .middleBtn:hover {
+        color: white;
+    }
+
+    .middleBtn:active {
+        margin-right: 3px;
+        /* margin-top: 3px; */
+        box-shadow: none;
+    }
+
+
+
+
+
 
     /* 이벤트 */
     particule {
@@ -962,16 +1227,48 @@
         <div class="middle_profile py-3">
             프로필
         </div>
+        <!-- 해당 벨류값으로 selected 주기 -->
+        <div class="row mt-3 ">
+            <div class="col">
+                <select class="form-select post_category" id="post_category" aria-label="Default select example"
+                    name="post_category" onchange="location.href=this.value">
+                    <option selected valpue="/post/toPost_category?post_category=판매중">판매중</option>
+                    <option value="/post/toPost_category?post_category=예약중">예약중</option>
+                    <option value="/post/toPost_category?post_category=거래완료">거래완료</option>
+                </select>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button type="button" class="hoverIcon">
+                    <img src="/resources/images/post/edit.png" height="25px">
+                </button>
+                <span class="me-2"></span>
+                <!-- 신고버튼 모달 -->
+                <button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
+                    <img src="/resources/images/post/report.png" height="25px">
+                </button>
+                <!-- Modal -->
+                <div id="modal_delete">
+                    <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                            <div class="row align-items-center modal-content ">
+                                <div class="row align-items-center middle_bottomLine">
+                                    <div class="col d-flex justify-content-center" id="modalTitle" style="width:auto;">
+                                        <input type="text" class="form-control-plaintext fw-bolder" id="report_content"
+                                            name="report_content" value="" placeholder="내용을 입력하세요">
+                                    </div>
+                                </div>
 
-        <div class="mt-3">
-            <select class="form-select post_category" id="post_category" aria-label="Default select example"
-                name="post_category">
-                <option selected valpue="판매중">판매중</option>
-                <option value="예약중">예약중</option>
-                <option value="거래완료">거래완료</option>
-            </select>
+                                <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                    <button type="button" class="middle_writeBtn" id="post_reportBtn"
+                                        data-bs-dismiss="modal">신고하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="my-3">
+        <div class="my-3 pt-3 topLine">
             <div class="middle_lgText">양파 12kg</div>
             <div class="middle_smText mt-1">생활/가공식품·4시간전</div>
             <div class="py-3">타이틀 내용</div>
@@ -998,10 +1295,40 @@
                         </button>
                     </span>
                     <span class="px-2 fw-bolder"> 170,000원</span>
-                    <span class="middle_orangeText"><a href="#">가격제안하기</a></span>
+                    <span class="middle_orangeText">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
+                        <!-- Modal -->
+                        <div id="modal_delete">
+                            <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                                    <div class="row align-items-center modal-content ">
+                                        <div class="row align-items-center middle_bottomLine">
+                                            <div class="col d-flex justify-content-center" id="modalTitle"
+                                                style="width:auto;">
+                                                <input type="text" class="form-control-plaintext fw-bolder"
+                                                    id="price_restriction" maxlength="11" name="price_restriction"
+                                                    value="" placeholder="제안금액"
+                                                    oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
+                                                    onkeyup="inputNumberFormat(this)">
+                                            </div>
+                                            <div class="col-1 fw-bolder">
+                                                원
+                                            </div>
+                                        </div>
+
+                                        <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                            <button type="button" class="middle_writeBtn" id="price_restrictionBtn"
+                                                data-bs-dismiss="modal">제안하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="middle_chattingBtn">채팅하기</button>
+                    <button type="button" class="middleBtn">채팅하기</button>
                 </div>
             </div>
         </div>
@@ -1017,29 +1344,149 @@
                 </div>
             </div>
         </div>
+        <!-- 인기중고 best 6개 -->
+        <!-- 비반응 -->
+        <div class="py-2 middle_postBox beforeImg">
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+        </div>
+        <!-- 반응 4개 -->
+        <div class="py-2 middle_postBox afterImg">
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+        </div>
 
     </div>
 
 
 
     <!-- footer -->
-        <!-- Modal 창-->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal 창-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="col-1">
                         <button type="button" id="closeBtn" data-bs-dismiss="modal" aria-label="Close">
                             <img src="/resources/images/post/left.png" height="25px">
-                        </button>  
+                        </button>
                     </div>
                     <div class="col n_title">
                         알림 창
                     </div>
                     <div class="col-1">
                         <button type="button" id="frashBtn">
-                        <img src="/resources/images/header_pooter/trash.png" height="25px">
-                    </button>
+                            <img src="/resources/images/header_pooter/trash.png" height="25px">
+                        </button>
                     </div>
                 </div>
                 <div class="modal-body container n_content">
@@ -1055,7 +1502,7 @@
                             <button type="button" class="btn-close"></button>
                         </div>
                     </div>
-                
+
                     <div class="row p-1 ">
                         <div class="col-2 text-center n_logo">
                             <img src="/resources/images/header_pooter/가격.png" height="40px">
@@ -1068,7 +1515,7 @@
                             <button type="button" class="btn-close"></button>
                         </div>
                     </div>
-                
+
                     <div class="row p-1 ">
                         <div class="col-2 text-center n_logo">
                             <img src="/resources/images/header_pooter/후기.png" height="40px">
@@ -1087,16 +1534,16 @@
     </div>
 
     <!-- 로고 클릭하면 모달 -->
-    <div class="logo3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
+    <div class="logo3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <a class="nav-link" href="#">
             <img src="/resources/images/header_pooter/알림.png" height="56px" width="56px">
-         </a>
+        </a>
     </div>
     <!-- 고객게시판 -->
     <div class="logo2">
-        <a class="nav-link" href="/client/toClient_post">
+        <a class="nav-link" href="/client/toClient_post?curPage=1">
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
-         </a>
+        </a>
     </div>
     <footer class="py-4 text-light">
         <div class="container" id="footerBox">
@@ -1112,7 +1559,8 @@
                 <div class="col">
                     <ul class="nav flex-column pt-3">
                         <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1" class="nav-link p-0">자주 묻는
+                                질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
@@ -1172,9 +1620,27 @@
             </div>
         </div>
     </footer>
-    
-  
+
+
     <script>
+    	
+    
+    
+
+        //콤마
+        function inputNumberFormat(obj) {
+            obj.value = comma(uncomma(obj.value));
+        }
+
+        function comma(str) {
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        }
+
+        function uncomma(str) {
+            str = String(str);
+            return str.replace(/[^\d]+/g, '');
+        }
 
         // 빈하트 클릭시 찜추가해주기
         $(".heartBefore").on("click", function () {
@@ -1202,8 +1668,9 @@
     </script>
 
 </body>
-    <!-- js -->
-    <!-- 폭죽 -->
-    <script src="/resources/js/header_footer.js"></script>
-    <script src="/resources/js/Firecracker.js"></script>
+<!-- js -->
+<!-- 폭죽 -->
+<script src="/resources/js/header_footer.js"></script>
+<script src="/resources/js/Firecracker.js"></script>
+
 </html>

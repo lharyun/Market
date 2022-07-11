@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -17,11 +17,157 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>메인페이지</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
-     <!-- css -->
-    <link href="/resources/css/header_footer.css" rel="stylesheet" type="text/css">
+    <!-- css -->
+    <link href="/resources/css/header_footer.css" rel="stylesheet">
+    
 </head>
 <style>
     
+   
+    .carousel-inner{
+        border-radius: 12px;
+    }
+    .slideBox>button {
+        border: 0;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    /* 캐러셀 중앙 3칸 */
+   
+
+    
+    #imgSlider2{
+            border-radius: 12px;
+    }
+
+    .carousel-item>img {
+        margin: auto;
+        height: 500px;
+        border-radius: 12px;
+    }
+   
+   /* 이미지관련 */
+   a{
+       text-decoration: none;
+   }
+
+   .middle_title{
+    color: black;
+   }
+   
+
+    .imgDiv {
+        position: relative;
+        background-color: #efefef;
+        width: 100%;
+        height: 150px;
+        border-radius: 12px;
+        border: 2px solid rgba(128, 128, 128, 0.233);
+        overflow: hidden;
+        transition: all 0.2s linear;
+    }
+    .hicary{
+        position:absolute;
+        z-index: 2;
+        top: -50%;
+        right: 0px;
+        width: 450px;
+        height: 350px;
+        
+        transition: all 0.09s linear;
+       
+    }
+    .hicary:hover{
+        position:absolute;
+        z-index: 2;
+        top: -50%;
+        right: -200%;
+        width: 450px;
+        height: 350px;
+    }
+    .imgDiv:hover {
+        transform: scale(1.1);
+        border-radius: 16px;
+        box-shadow: 5px 5px 6px 0 rgba(58, 47, 38, 0.102);
+    }
+    
+
+    .imgDiv>.postImg {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+    }
+
+    /* 상세 글 관련 */
+    .postInformation {
+
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+    }
+   
+    .middle_lgText {
+        color: black;
+        font-weight: 600;
+        font-size: large;
+    }
+    .middle_lgText:hover {
+        color: orange;
+        font-weight: 600;
+        font-size: large;
+    }
+    
+
+    .middle_smText {
+        font-size: small;
+        color: gray;
+    }
+    
+    @media (max-width: 992px) {
+        #contentsBox {
+            width: 677px;
+        }
+        #imgSlider2{
+            width: 677px;
+    }
+    
+     /* 이미지관련 */
+   .middle_postBox{
+        width: 677px;
+   }
+   .postBox {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        border-radius: 12px;
+        width: calc(33.3% - 5px);
+        padding: 20px;
+        overflow: hidden;
+    }
+    }
+    /* 전 */
+    @media (min-width: 992px) {
+        #contentsBox {
+            width: 800px;
+        }
+        #imgSlider2{
+            width: 800px;
+    }
+    
+     /* 이미지관련 */
+   .middle_postBox{
+        width: 800px;
+   }
+   .postBox {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        border-radius: 12px;
+        width: calc(25% - 5px);
+        padding: 20px;
+        overflow: hidden;
+    }
+    }
+   
 </style>
 
 <body>
@@ -666,14 +812,105 @@
     </header>
 
     <!-- Contents -->
-    <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-    <div class="container middle" style="height: 500px;">
+ 
+    <div class="container my-3" id="contentsBox">
 
+        <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item active">
+                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imgSlider2" data-bs-slide="prev">
+                <img src="/resources/images/post/left.png" height="30px">
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imgSlider2" data-bs-slide="next">
+                <img src="/resources/images/post/right.png" height="30px">
+            </button>
+        </div>
+        <div class="py-2 middle_postBox">
+            <article class="postBox">
+                <a href="/post/toPostDetail">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+            <article class="postBox">
+                <a href="#">
+                    <div class="imgDiv">
+                        <img class="hicary" src="/resources/images/post/반짝.png">
+                        <img class="postImg" src="/resources/images/post/NoImg.webp">
+                    </div>
+                    <div class="postInformation">
+                        <div class="mt-2 middle_title">양파 12kg</div>
+                        <div class="middle_lgText mt-1">170,000원</div>
+                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
+                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
+                    </div>
+                </a>
+            </article>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
 
   
      
     </div>
-
 
 
     <!-- footer --> 
@@ -746,10 +983,10 @@
             <img src="/resources/images/header_pooter/알림.png" height="56px" width="56px">
          </a>
     </div>
+     <!-- 고객게시판 -->
     <div class="logo2">
         <a class="nav-link" href="/client/toClient_post?curPage=1">
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
-
          </a>
     </div>
     
@@ -758,7 +995,7 @@
             <div class="row pooterLine pb-3">
                 <div class="col a_reaction">
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="/post/toPost" class="nav-link p-0">
+                        <li class="nav-item mb-2 "><a href="/post/toPost" class="nav-link p-0">
                                 <img src="/resources/images/header_pooter/로고white.png" height="46px" alt="로고">
                             </a></li>
 
@@ -767,7 +1004,7 @@
                 <div class="col">
                     <ul class="nav flex-column pt-3">
                         <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1" class="nav-link p-0">자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
@@ -827,10 +1064,15 @@
         </div>
     </footer>
 
-
+    
     <script>
+        
+
+       
+
     </script>
-    <script src="/resources/js/header_footer.js"></script>
 
 </body>
+<!-- js -->
+<script src="/resources/js/header_footer.js"></script>
 </html>
