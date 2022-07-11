@@ -15,7 +15,7 @@ public class ReportService {
 	}
 	
 	public void delete(String user_id) throws Exception{
-		reportDAO.delete();
+		reportDAO.delete(user_id);
 	}
 	
 }

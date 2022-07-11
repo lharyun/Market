@@ -1,8 +1,11 @@
 package com.market.member;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -10,13 +13,10 @@ import com.market.blackList.BlackListDTO;
 import com.market.blackList.BlackListService;
 import com.market.report.ReportDTO;
 import com.market.report.ReportService;
-=======
->>>>>>> 25d71df902aac67d2dc3c4275018a227c490404d
 
 @RequestMapping(value = "/member")
 @Controller
 public class MemberController {
-<<<<<<< HEAD
 	@Autowired
 	private MemberService service;
 	@Autowired
@@ -24,8 +24,6 @@ public class MemberController {
 	@Autowired
 	private ReportService reportService;
 	
-=======
->>>>>>> 25d71df902aac67d2dc3c4275018a227c490404d
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
@@ -34,7 +32,6 @@ public class MemberController {
 	public String toLogin() {
 		return "member/login";
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value="/toManager")
 	public String MemberList(Model model) throws Exception {	//manager에서 회원 정보 가져올때
@@ -63,7 +60,5 @@ public class MemberController {
 	}
 	
 	
-=======
->>>>>>> 25d71df902aac67d2dc3c4275018a227c490404d
 
 }
