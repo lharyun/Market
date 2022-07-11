@@ -145,8 +145,9 @@
     }
 
     .imgDiv>.uploadImg {
-        width: 100%;
-        height: 100%;
+    	position: absolute;
+        width: 110%;
+        height: 110%;
         border-radius: 12px;
     }
 
@@ -1249,7 +1250,7 @@
 
     <script>
  // 사용자가 profile_image 파일태그를 이용해 프로필 사진을 선택했을 때 profile_default 이미지 태그에 선택된 사진을 띄워주는 작업
-	document.getElementById("uploadImgBtn").onchange = function(){
+	document.getElementById("ex_file").onchange = function(){
 		let reader = new FileReader(); // 사용자가 파일태그를 이용해 파일을 선택했을 때 사용자의 로컬에 있는 파일의 정보를 브라우저에서 사용 가능하게끔 해주는 클래스(객체)
 		reader.readAsDataURL(this.files[0]) // -> 인자값으로 file 객체
 		
