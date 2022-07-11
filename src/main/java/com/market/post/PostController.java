@@ -20,4 +20,8 @@ public class PostController {
 	public String toPostWrite() {
 		return "post/postWrite";
 	}
+	@RequestMapping(value = "/toPostDetail")
+	public String toPostDetail() {
+		return "post/postDetail";
+	}
 }

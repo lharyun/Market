@@ -26,7 +26,6 @@
 <script
 	src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 <style>
-
 /* 헤더 푸터 UI */
 header {
 	position: sticky;
@@ -35,59 +34,48 @@ header {
 	background-color: white;
 	z-index: 1;
 }
-
 /* 헤더 상단 */
 .heder_top {
 	height: 40px;
 	margin: auto;
 	font-size: 13px;
 }
-
 .heder_top a {
 	color: gray;
 }
-
 .heder_top a:hover {
 	color: orange;
 }
-
 .heder_top .dropdown:hover .dropdown-menu {
 	display: block;
 	margin-top: 0;
 }
-
 /* 헤더 중간 */
 .heder_middleBox {
 	margin: auto;
 	border-bottom: 1px solid rgba(128, 128, 128, 0.233);
 	border-top: 1px solid rgba(128, 128, 128, 0.233);
 }
-
 .heder_middle {
 	height: 40px;
 	margin: auto;
 }
-
 .heder_middle a {
 	color: black;
 	display: inline-block;
 	font-weight: bold;
 }
-
 .menu_right>li::after {
 	color: #72787e;
 	content: "|";
 	align-items: center;
 }
-
 .menu_right>li:last-child::after {
 	content: "";
 }
-
 .menu_right a:hover {
 	color: orange;
 }
-
 .searchInput {
 	width: 100%;
 	height: 38px;
@@ -95,44 +83,35 @@ header {
 	border: 1px solid #f47d39;
 	outline: 1px solid #f47d39;
 }
-
 .searchIcon {
 	position: absolute;
 	left: 91%;
 	top: 7px;
 }
-
 /* 헤더 하단 */
 .heder_bottom {
 	height: 70px;
 	margin: auto;
 	word-break: break-all
 }
-
 .heder_bottom a {
 	text-decoration: none;
 	color: black;
 }
-
 .category_line>div {
 	border-right: 1px solid #72787e4f;
 }
-
 .category_line>div:last-child {
 	border: 0;
 }
-
 .category_line .nav-link {
 	color: #36393b;
 }
-
 .category_line .nav-link:hover {
 	font-weight: 600;
 	background-color: #ffad0a2d;
 }
-
 /* ===contetnt 영역==== */
-
 /* ==================== */
 .logo2 {
 	position: fixed;
@@ -144,29 +123,23 @@ header {
 .middle {
 	height: 100%;
 }
-
 footer {
 	background-color: #495057;
 }
-
 footer .nav-link {
 	color: rgb(170, 170, 170);
 	text-decoration: none;
 }
-
 footer .nav-link:hover {
 	color: white;
 }
-
 .pooterLine {
 	border-bottom: 1px solid rgba(128, 128, 128, 0.479);
 }
-
 .pooterText {
 	color: gray;
 	font-size: 14px;
 }
-
 @media ( max-width : 992px) {
 	#Non_reaction {
 		display: none;
@@ -186,13 +159,11 @@ footer .nav-link:hover {
 		font-weight: 700;
 	}
 }
-
 @media ( max-width : 540px) {
 	.a_reaction {
 		display: none;
 	}
 }
-
 @media ( min-width : 992px) {
 	#reaction {
 		display: none;
@@ -216,9 +187,7 @@ footer .nav-link:hover {
 		width: 992px;
 	}
 }
-
 /* container=========================================== */
-
 #container{
 	border: 2px solid #f47d39;
 	border-radius: 15px;	
@@ -237,7 +206,6 @@ color:#f47d39
 .write{
 background-color:coral;
 }
-
 .selectFont option{
 font-size:14px;
 }
@@ -1083,7 +1051,6 @@ font-size:14px;
 		$(document)
 				.ready(
 						function() {
-
 							var toolbar = [
 									// 글꼴 설정
 									[ 'fontname', [ 'fontname' ] ],
@@ -1108,7 +1075,6 @@ font-size:14px;
 									[
 											'view',
 											[ 'codeview', 'fullscreen', 'help' ] ] ];
-
 							var setting = {
 								height : 500,
 								minHeight : null,
@@ -1126,10 +1092,8 @@ font-size:14px;
 									}
 								}
 							};
-
 							$('#summernote').summernote(setting);
 						});
-
 		function uploadSummernoteImageFile(file, el) {
 			data = new FormData();
 			data.append("file", file);
@@ -1146,7 +1110,6 @@ font-size:14px;
 				}
 			});
 		}
-
 		$("#submitBtn").on("click", function() {
 			if($("#title").val()==""){
 				alert("제목을 입력해 주세요");
@@ -1204,19 +1167,15 @@ font-size:14px;
                 document.getElementById("SearchForm2").submit();
             }
         })
-
         //즐겨찾기 버튼
         $(".bookmark").on("click", function () {
             alert(" Ctrl+D 키를 누르면 즐겨찾기에 추가하실 수 있습니다.")
         })
-
         //지역카테고리
         $("#district").change(function () {
             console.log($(this).val());
-
             $(".b_dong").addClass('d-none');
             $("#dong").addClass('d-none');
-
             if ($(this).val() == "강남구") {
                 $("#gangnam").removeClass('d-none');
             } else if ($(this).val() == "강동구") {
@@ -1259,14 +1218,12 @@ font-size:14px;
             $("#roadAddrInput").val($(this).val());
             document.getElementById("districeForm").submit();
         })
-
         //동네카테고리
         $(".a_dong").change(function () {
             console.log($(this).val());
             $("#extraAddrInput").val($(this).val());
             document.getElementById("districeForm").submit();
         })
-
 	</script>
 </body>
 </html>

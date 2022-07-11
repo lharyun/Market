@@ -108,5 +108,3 @@ public class ClientController {
 		return a;
 	}
 }
-	
-
