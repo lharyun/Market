@@ -15,6 +15,10 @@
  		 values(#{blackList_seq},sysdate,#{blackList_content},#{user_id},#{user_category})
  	</insert>
  	
+ 	<select id="search" parameterType="string" resultType="com.market.blackList.BlackListDTO">
+ 		select * from tbl_blackList where id like '%{user_id}%'
+ 	</select>
+ 	
  	<update id="black" parameterType="string">
  		update tbl_member set  blacklist_check = 'true' where user_id=#{user_id}
  	</update>
