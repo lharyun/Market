@@ -21,25 +21,21 @@
     <link href="/resources/css/header_footer.css" rel="stylesheet">
 </head>
 <style>
-    a {
+    a{
         text-decoration: none;
     }
-
-    #exampleModa2 .modal-content {
+    #exampleModa2 .modal-content{
         height: 250px;
         border-radius: 12px;
         padding-top: 60px;
     }
-
-    #modalTitle {
+    #modalTitle{
         font-size: 26px;
     }
-
-    #modalBtn>button {
+    #modalBtn>button{
         width: 80px;
     }
-
-    /* 판매 등록 버튼 */
+     /* 판매 등록 버튼 */
     .middle_writeBtn {
         background-color: rgb(255, 177, 88);
         border: 2px solid rgb(137, 111, 58);
@@ -59,25 +55,23 @@
         box-shadow: none;
     }
 
-
+  
     /* 가격 */
-    .change label:hover {
+    .change label:hover{
         color: orange;
         font-weight: 550;
         cursor: pointer;
     }
-
     .change input {
         accent-color: orange;
         cursor: pointer;
     }
 
-    /* 카테고리 */
-    .naviBtn {
+     /* 카테고리 */
+     .naviBtn {
         cursor: pointer;
     }
-
-    .naviBtn input:hover {
+    .naviBtn input:hover{
         color: orange;
         font-weight: 550;
 
@@ -92,10 +86,10 @@
         background-color: #ffad0a2d;
     }
 
-    .text_money {
+    .text_money{
         color: gray;
     }
-
+   
     input:focus {
         outline: none;
     }
@@ -141,13 +135,12 @@
         border-radius: 12px;
         border: 2px solid rgba(128, 128, 128, 0.233);
         overflow: hidden;
-
+       
     }
 
     .imgDiv>.uploadImg {
-    	position: absolute;
-        width: 110%;
-        height: 110%;
+        width: 100%;
+        height: 100%;
         border-radius: 12px;
     }
 
@@ -868,22 +861,20 @@
                     </a>중고거래 글쓰기
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="submit" class="middle_writeBtn" id="WriteBtn" data-bs-toggle="modal"
+                    <button type="submit" class="middle_writeBtn" id="writeBtn" data-bs-toggle="modal"
                         data-bs-target="#exampleModa2">
                         판매 등록
                     </button>
                     <!-- Modal -->
                     <div id="modal_delete">
-                        <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
                                 <div class="row align-items-center modal-content ">
                                     <div class="col d-flex justify-content-center" id="modalTitle">
                                     </div>
-
+    
                                     <div class="col d-flex justify-content-center pt-5" id="modalBtn">
-                                        <button type="button" class="middle_writeBtn"
-                                            data-bs-dismiss="modal">확인</button>
+                                        <button type="button" class="middle_writeBtn" data-bs-dismiss="modal">확인</button>
                                     </div>
                                 </div>
                             </div>
@@ -892,46 +883,32 @@
                 </div>
             </div>
 
-
-            <div class="py-2 middle_bottomLine">
+            <!-- 이미지 업로드 -->
+            <div class="py-2 middle_bottomLine" id="totalBox">
                 <article class="imgBox ">
                     <label class="imgDiv" id="uploadImgBtn" for="ex_file">
                         <div class="d-flex justify-content-center pt-4">
                             <img src="/resources/images/post/camera.png" height="40px">
                         </div>
-                        <div class="d-flex justify-content-center fw-bolder">0/3</div>
+                        <div class="d-flex justify-content-center fw-bolder" id="imgCnt">0/3</div>
                     </label>
-                    <input type="file" class="d-none" id="ex_file" name="zz">
-
+                    <input type="file" class="d-none" id="ex_file" name="zz" accept="image/gif, image/jpeg, image/png" multiple="multiple">
                 </article>
-                <article class="imgBox">
-                    <div class="imgDiv">
-                        <div class="xBtn">
-                            <img src="/resources/images/post/x.png" height="20px">
-                        </div>
-                        <img class="uploadImg" id="uploadImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                </article>
-                <article class="imgBox">
+                <!-- <article class="imgBox">
                     <div class="imgDiv">
                         <div class="xBtn">
                             <img src="/resources/images/post/x.png" height="20px">
                         </div>
                         <img class="uploadImg" src="/resources/images/post/NoImg.webp">
                     </div>
-                </article>
-                <article class="imgBox">
-                    <div class="imgDiv">
-                        <div class="xBtn">
-                            <img src="/resources/images/post/x.png" height="20px">
-                        </div>
-                        <img class="uploadImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                </article>
+                </article> -->
+            
+                
+                
+                
             </div>
             <div class="py-2 middle_bottomLine">
-                <input type="text" class="form-control-plaintext ps-2" id="post_title" name="post_title"
-                    placeholder="제목">
+                <input type="text" class="form-control-plaintext ps-2" id="post_title" name="post_title" placeholder="제목">
             </div>
             <!-- 카테고리 선택창 -->
             <div class="py-2 middle_bottomLine" style="margin: auto;">
@@ -1063,7 +1040,7 @@
                         <div class="col-1 ms-2 text_money">₩</div>
                         <div class="col p-0">
                             <input type="text" class="form-control-plaintext" id="price_selling" name="price_selling"
-                                maxlength="11" placeholder="가격(숫자)"
+                                maxlength = "11" placeholder="가격(숫자)"
                                 oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
                                 onkeyup="inputNumberFormat(this)">
                         </div>
@@ -1185,8 +1162,7 @@
                 <div class="col">
                     <ul class="nav flex-column pt-3">
                         <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1" class="nav-link p-0">자주 묻는
-                                질문</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1" class="nav-link p-0">자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
@@ -1248,25 +1224,104 @@
     </footer>
 
 
-    <script>
- // 사용자가 profile_image 파일태그를 이용해 프로필 사진을 선택했을 때 profile_default 이미지 태그에 선택된 사진을 띄워주는 작업
-	document.getElementById("ex_file").onchange = function(){
-		let reader = new FileReader(); // 사용자가 파일태그를 이용해 파일을 선택했을 때 사용자의 로컬에 있는 파일의 정보를 브라우저에서 사용 가능하게끔 해주는 클래스(객체)
-		reader.readAsDataURL(this.files[0]) // -> 인자값으로 file 객체
-		
-		// onload 함수가 트리거됨 -> onload 이벤트가 발생했을때 콜백펑션안에서 위에있는 이미지 태그의 src 에 이미지를 띄워줄 수 있는 경로값으로 대체  
-		reader.onload = function(e){
-			// e.target.result -> 브라우저에서 바로 해석(로드)이 가능하게끔 변환된 이미지의 경로값 
-			console.log("e.target ", e.target.result);
-			// 위에 있는 이미지 태그의 src 속성값을 변환된 이미지 경로값으로 셋팅 해주기(사용자가 선택한 이미지 띄우기)
-			document.getElementById("uploadImg").src = e.target.result;
-		}
-	}
-    
-    
-    
-    
-    
+<script>
+        ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+            imageView = function imageView(att_zone, btn) {
+                var imgCount = 0;
+                var attZone = document.getElementById(att_zone);
+                var btnAtt = document.getElementById(btn)
+                var sel_files = [];
+
+                // 미리보기 이미지 속성
+                var img_style = 'width:100%;height:100%;z-index:none';
+                // 이미지안에 표시되는 체크박스의 속성
+                var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
+                    + 'right:25px;top:20px;z-index:999;background-color:rgba(255,255,255,0);border:0';
+
+                btnAtt.onchange = function (e) {
+                    var files = e.target.files;
+                    var fileArr = Array.prototype.slice.call(files)
+                    for (f of fileArr) {
+                        imageLoader(f);
+                    }
+                }
+                /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+                imageLoader = function (file) {
+                    sel_files.push(file);
+                    var reader = new FileReader();
+                    reader.onload = function (ee) {
+                        let img = document.createElement('img')
+                        img.setAttribute('style', img_style)
+                        img.src = ee.target.result;
+
+                        //갯수제한
+                        var length = $(".imgBox").length;
+
+                        $("#imgCnt").innerHTML = length + "/3";
+
+                        if (length == 4) {//파일 3개이상 올라가면 리턴
+                            // 3개이상 올릴수 없습니다!
+                            alert("3개이상 올릴수 없습니다!")
+                            return
+                        }
+
+                        attZone.appendChild(makeDiv(img, file));
+                    }
+                    reader.readAsDataURL(file);
+                }
+                /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+                makeDiv = function (img, file) {
+
+                    let article = document.createElement('article')
+                    article.classList.add('imgBox')
+                    let divImgDiv = document.createElement('div')
+                    divImgDiv.classList.add('imgDiv')
+                    let divxBtn = document.createElement('div')
+                    divxBtn.classList.add('xBtn')
+                    let img1 = document.createElement('img')
+                    img1.src = "/resources/images/post/x.png";
+                    img1.style.height = "20px";
+                    img.classList.add('uploadImg')
+
+                    divxBtn.append(img1);
+                    divImgDiv.append(divxBtn, img);
+                    article.append(divImgDiv);
+
+                    var btn = document.createElement('input')
+                    btn.setAttribute('type', 'button')
+                    btn.setAttribute('delFile', file.name);
+                    btn.setAttribute('style', chk_style);
+                    btn.onclick = function (ev) {
+                        var ele = ev.srcElement;
+                        var delFile = ele.getAttribute('delFile');
+                        for (var i = 0; i < sel_files.length; i++) {
+                            if (delFile == sel_files[i].name) {
+                                sel_files.splice(i, 1);
+                            }
+                        }
+
+                        dt = new DataTransfer();
+                        for (f in sel_files) {
+                            var file = sel_files[f];
+                            dt.items.add(file);
+                        }
+                        btnAtt.files = dt.files;
+                        var p = ele.parentNode;
+                        attZone.removeChild(p)
+                        imgCount--
+                        console.log(imgCount)
+                        $("#imgCnt").text(imgCount + "/3");
+                    }
+
+                    article.appendChild(btn)
+                    imgCount++
+                    console.log(imgCount)
+                    $("#imgCnt").text(imgCount + "/3");
+                    return article
+                }
+            }
+        )('totalBox', 'ex_file')
+
         // 카테고리 선택시 변경
         $('.category_line span').on('click', function (e) {
             $("#post_category").val($(this).html());
@@ -1335,9 +1390,9 @@
         })
 
     </script>
-
-</body>
-<!-- js -->
-<script src="/resources/js/header_footer.js"></script>
-
-</html>
+    
+    </body>
+    <!-- js -->
+    <script src="/resources/js/header_footer.js"></script>
+    
+    </html>
