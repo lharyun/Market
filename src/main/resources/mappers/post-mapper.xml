@@ -4,6 +4,21 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
- <mapper namespace="postMapper">
- 
- </mapper>
+<mapper namespace="postMapper">
+	<!-- 게시글 저장 -->
+	<insert id="insert" parameterType="com.market.post.PostDTO">
+		insert into tbl_post values
+		(#{post_seq}, #{post_title}, #{post_content}, #{post_category}, 0, 0, 0, #{price_selling}
+		, #{price_check}, #{post_addr}, sysdate, #{post_state}, #{user_id}, #{user_category})
+	</insert>
+
+	<!-- 새로운 post seq 생성 -->
+	<select id="selectSeq" resultType="int">
+		select post_seq.nextval from dual
+	</select>
+	
+		<!-- 모든 게시글 조회 -->
+	<select id="selectAll" resultType="com.market.post.PostDTO">
+		select*from tbl_post order by post_seq
+	</select>
+</mapper>

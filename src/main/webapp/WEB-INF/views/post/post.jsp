@@ -813,6 +813,9 @@
 
     <!-- Contents -->
  
+ <c:forEach items="${map.post_img}" var="post_img">
+ <div><img src="/imgfiles/${post_img.post_sys_name}"></div>
+ </c:forEach>
     <div class="container my-3" id="contentsBox">
 
         <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
