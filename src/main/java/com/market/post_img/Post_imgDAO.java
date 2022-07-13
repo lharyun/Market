@@ -17,8 +17,14 @@ public class Post_imgDAO {
 	public void insert(Post_imgDTO dto) throws Exception{
 		session.insert("post_imgMapper.insert", dto);
 	}
-	// 모든 이미지 조회
-		public List<Post_imgDTO> selectAll() throws Exception{
-			return session.selectList("post_imgMapper.selectAll");
+	
+	// 모든 이미지 하나씩 조회
+			public List<Post_imgDTO> selectOneAll() throws Exception{
+				return session.selectList("post_imgMapper.selectOneAll");
+			}
+	
+	// post 이미지 조회
+		public List<Post_imgDTO> selectPost_seq(int post_seq) throws Exception{
+			return session.selectList("post_imgMapper.selectPost_seq", post_seq);
 		}
 }

@@ -1175,6 +1175,13 @@
                         aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner car_img p-0">
+                	<c:if test="${map.imgDTO.size() == 0}">
+                		<div class="carousel-item active">
+                        	<img src="/resources/images/post/NoImg.webp" class="" alt="...">
+                    	</div>
+                	</c:if>
+                	
+                	<c:if test="${map.imgDTO.size() > 0}">
                     <div class="carousel-item active">
                         <img src="/resources/images/post/NoImg.webp" class="" alt="...">
                     </div>
@@ -1184,7 +1191,7 @@
                     <div class="carousel-item">
                         <img src="/resources/images/post/NoImg.webp" class="" alt="...">
                     </div>
-
+                    </c:if>
                 </div>
 
                 <div class="col slideBox">
@@ -1269,10 +1276,11 @@
             </div>
         </div>
         <div class="my-3 pt-3 topLine">
-            <div class="middle_lgText">양파 12kg</div>
-            <div class="middle_smText mt-1">생활/가공식품·4시간전</div>
-            <div class="py-3">타이틀 내용</div>
-            <div class="middle_smText">관심1·채팅1·조회242</div>
+            <div class="middle_lgText">${map.postDTO.post_title}</div>
+            <div class="middle_smText mt-1">${map.postDTO.post_category}·4시간전</div>
+            <div class="py-3">${map.postDTO.post_content}</div>
+            <div class="middle_smText">관심${map.postDTO.post_interest_cnt}
+            ·채팅${map.postDTO.post_chatting_cnt}·조회${map.postDTO.post_inquiry_cnt}</div>
         </div>
         <div class="middle_bottom py-2 position-relative">
             <div class="alert alertBox">
@@ -1294,38 +1302,47 @@
                             <img src="/resources/images/post/heart.png" height="20px" width="20px">
                         </button>
                     </span>
-                    <span class="px-2 fw-bolder"> 170,000원</span>
-                    <span class="middle_orangeText">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
-                        <!-- Modal -->
-                        <div id="modal_delete">
-                            <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
-                                    <div class="row align-items-center modal-content ">
-                                        <div class="row align-items-center middle_bottomLine">
-                                            <div class="col d-flex justify-content-center" id="modalTitle"
-                                                style="width:auto;">
-                                                <input type="text" class="form-control-plaintext fw-bolder"
-                                                    id="price_restriction" maxlength="11" name="price_restriction"
-                                                    value="" placeholder="제안금액"
-                                                    oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
-                                                    onkeyup="inputNumberFormat(this)">
-                                            </div>
-                                            <div class="col-1 fw-bolder">
-                                                원
-                                            </div>
-                                        </div>
-
-                                        <div class="col d-flex justify-content-center pt-5" id="modalBtn">
-                                            <button type="button" class="middle_writeBtn" id="price_restrictionBtn"
-                                                data-bs-dismiss="modal">제안하기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </span>
+                    <span class="px-2 fw-bolder"> ${map.postDTO.price_selling}원</span>
+                    
+                    
+                    <c:if test="${map.postDTO.price_check ne 1}">
+                    	<span class="middle_smText">
+                    		가격제안불가
+                    	</span>
+                    </c:if>
+                    <c:if test="${map.postDTO.price_check eq 1}">
+	                    <span class="middle_orangeText">
+	                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
+	                        <!-- Modal -->
+	                        <div id="modal_delete">
+	                            <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel"
+	                                aria-hidden="true">
+	                                <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+	                                    <div class="row align-items-center modal-content ">
+	                                        <div class="row align-items-center middle_bottomLine">
+	                                            <div class="col d-flex justify-content-center" id="modalTitle"
+	                                                style="width:auto;">
+	                                                <input type="text" class="form-control-plaintext fw-bolder"
+	                                                    id="price_restriction" maxlength="11" name="price_restriction"
+	                                                    value="" placeholder="제안금액"
+	                                                    oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
+	                                                    onkeyup="inputNumberFormat(this)">
+	                                            </div>
+	                                            <div class="col-1 fw-bolder">
+	                                                원
+	                                            </div>
+	                                        </div>
+	
+	                                        <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+	                                            <button type="button" class="middle_writeBtn" id="price_restrictionBtn"
+	                                                data-bs-dismiss="modal">제안하기</button>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </span>
+                    </c:if>
                 </div>
                 <div class="col d-flex justify-content-end">
                     <button type="button" class="middleBtn">채팅하기</button>

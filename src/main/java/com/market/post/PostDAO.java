@@ -1,6 +1,7 @@
 package com.market.post;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,12 @@ public class PostDAO {
 		return session.selectOne("postMapper.selectSeq");
 	}
 	
-	public List<PostDTO> selectAll() throws Exception{ // 모든 게시글 조회
-		return session.selectList("postMapper.selectAll");
+	public PostDTO selectPost_seq(int post_seq) throws Exception{ // post_seq 번호로 조회
+		return session.selectOne("postMapper.selectPost_seq", post_seq);
+	}
+	
+	public List<Map<String,Object>> selectJoin() throws Exception{ // 조인된 테이블 데이터 조회
+		return session.selectList("postMapper.selectJoin");
 	}
 
 	

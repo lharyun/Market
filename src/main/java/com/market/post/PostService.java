@@ -2,6 +2,7 @@ package com.market.post;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,34 +19,39 @@ public class PostService {
 	private PostDAO postDao;
 	@Autowired
 	private Post_imgDAO post_imgDao;
-	
-	public Map<String, Object> selectAll() throws Exception{
+
+	// 조인된 테이블 데이터 조회
+	public List<Map<String, Object>> selectJoin() throws Exception {
+		return postDao.selectJoin();
+	}
+
+	public Map<String, Object> selectPost_seq(int post_seq) throws Exception{ //  게시글 조회
 		// 다른 타입의 데이터를 반환하기 위해 map를 이용
 		Map<String, Object> map = new HashMap<>();
-		map.put("post_img", post_imgDao.selectAll()); // 파일 데이터 가져오기
-		map.put("post", postDao.selectAll()); // 게시글 데이터 가져오기
+		map.put("imgDTO", post_imgDao.selectPost_seq(post_seq)); // 이미지 데이터 가져오기
+		map.put("postDTO", postDao.selectPost_seq(post_seq)); // 판매 게시글 데이터 가져오기
 		return map;
 	}
 	
-	//이미지와 게시글 저장
-	public void insert(PostDTO dto, String realPath, MultipartFile[] imgfiles) throws Exception{
-		//다음번호 가져오기
+	// 이미지와 게시글 저장
+	public void insert(PostDTO dto, String realPath, MultipartFile[] imgfiles) throws Exception {
+		// 다음번호 가져오기
 		int post_seq = postDao.selectSeq();
-		
-		//게시글 저장
+
+		// 게시글 저장
 		dto.setPost_seq(post_seq);
 		postDao.insert(dto);
-		
-		
-		//이미지 저장
+
+		// 이미지 저장
 		File realPathFile = new File(realPath);
-		if(!realPathFile.exists()) realPathFile.mkdir();
-		for(MultipartFile mf : imgfiles) {
-			if(!mf.isEmpty()) { // 파일이 들어있다면 
+		if (!realPathFile.exists())
+			realPathFile.mkdir();
+		for (MultipartFile mf : imgfiles) {
+			if (!mf.isEmpty()) { // 파일이 들어있다면
 				String ori_name = mf.getOriginalFilename();
-				String sys_name = UUID.randomUUID()+"_"+ori_name;
-				
-				mf.transferTo(new File(realPathFile+File.separator+sys_name));
+				String sys_name = UUID.randomUUID() + "_" + ori_name;
+
+				mf.transferTo(new File(realPathFile + File.separator + sys_name));
 				post_imgDao.insert(new Post_imgDTO(0, ori_name, sys_name, post_seq));
 			}
 		}
