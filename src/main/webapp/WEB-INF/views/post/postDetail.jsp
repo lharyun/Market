@@ -989,10 +989,12 @@
                 <!-- 반응 -->
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
-                        <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/resources/images/header_pooter/navibar.png" height="35px"><img class="a_reaction"
-                                src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
-                        </a>
+                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                         </a>   
+                         <a href="/post/toPost">
+                                <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                         </a> 
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
 
@@ -1161,36 +1163,40 @@
     </header>
 
     <!-- Contents -->
-
     <div class="container middle p-0 mt-3" id="contentsBox">
         <!-- 캐러셀 비반응 -->
         <div id="imgSlider" class="carousel slide car_before" data-bs-ride="carousel">
             <div class="row align-items-center position-relative">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+                <%-- 이미지 값이 없다면 --%>
+                	 <c:if test="${map.imgDTO.size() == 0}">
+			             <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="${status.index}" class="active"
+			             	aria-label="Slide 1"></button>
+	                </c:if>
+                 <%-- 이미지 값이 있다면 --%>
+	                <c:if test="${map.imgDTO.size() > 0}">
+	                	<c:forEach items="${map.imgDTO}" var="imgDTO" varStatus="status">
+		                    <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="${status.index}" class="active"
+		                        aria-label="Slide 1"></button>
+	                   </c:forEach>
+	                </c:if>
                 </div>
+                <%-- 이미지 반복문 --%>
+                <!-- 이미지 값이 없다면 -->
                 <div class="carousel-inner car_img p-0">
                 	<c:if test="${map.imgDTO.size() == 0}">
-                		<div class="carousel-item active">
+                		<div class="carousel-item">
                         	<img src="/resources/images/post/NoImg.webp" class="" alt="...">
                     	</div>
                 	</c:if>
                 	
+                	<!-- 이미지 값이 있다면 -->
                 	<c:if test="${map.imgDTO.size() > 0}">
-                    <div class="carousel-item active">
-                        <img src="/resources/images/post/NoImg.webp" class="" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/resources/images/post/NoImg.webp" class="" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/resources/images/post/NoImg.webp" class="" alt="...">
-                    </div>
+                		<c:forEach items="${map.imgDTO}" var="imgDTO">
+		                    <div class="carousel-item">
+		                        <img src="/imgfiles/${imgDTO.post_sys_name}">
+		                    </div>
+                    	</c:forEach>
                     </c:if>
                 </div>
 
@@ -1207,21 +1213,34 @@
         <!-- 캐러셀 반응 -->
         <div id="imgSlider2" class="carousel slide car_after" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+             <%-- 이미지 값이 없다면 --%>
+                	 <c:if test="${map.imgDTO.size() == 0}">
+			             <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="${status.index}" class="active"
+			             	aria-label="Slide 1"></button>
+	                </c:if>
+                 <%-- 이미지 값이 있다면 --%>
+	                <c:if test="${map.imgDTO.size() > 0}">
+	                	<c:forEach items="${map.imgDTO}" var="imgDTO" varStatus="status">
+		                    <button type="button" data-bs-target="#imgSlider" data-bs-slide-to="${status.index}" class="active"
+		                        aria-label="Slide 1"></button>
+	                   </c:forEach>
+	                </c:if>
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item">
-                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item active">
-                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
-                </div>
+            <div class="carousel-inner car_img2">
+            		<c:if test="${map.imgDTO.size() == 0}">
+                		<div class="carousel-item">
+                        	<img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                    	</div>
+                	</c:if>
+                	
+                	<!-- 이미지 값이 있다면 -->
+                	<c:if test="${map.imgDTO.size() > 0}">
+                		<c:forEach items="${map.imgDTO}" var="imgDTO">
+		                    <div class="carousel-item">
+		                        <img src="/imgfiles/${imgDTO.post_sys_name}" class="d-block w-100">
+		                    </div>
+                    	</c:forEach>
+                    </c:if>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#imgSlider2" data-bs-slide="prev">
                 <img src="/resources/images/post/left.png" height="30px">
@@ -1237,17 +1256,28 @@
         <!-- 해당 벨류값으로 selected 주기 -->
         <div class="row mt-3 ">
             <div class="col">
-                <select class="form-select post_category" id="post_category" aria-label="Default select example"
-                    name="post_category" onchange="location.href=this.value">
-                    <option selected valpue="/post/toPost_category?post_category=판매중">판매중</option>
-                    <option value="/post/toPost_category?post_category=예약중">예약중</option>
-                    <option value="/post/toPost_category?post_category=거래완료">거래완료</option>
-                </select>
+            	<c:if test="${loginSession.user_id eq map.postDTO.user_id}">
+	                <select class="form-select post_category" id="post_category" aria-label="Default select example"
+	                    name="post_category" onchange="location.href=this.value">
+	                    <option selected disabled hidden>${map.postDTO.post_state}</option>
+	                    <option value="/post/toPost_category?post_category=판매중&post_seq=${map.postDTO.post_seq}">판매중</option>
+	                    <option value="/post/toPost_category?post_category=예약중&post_seq=${map.postDTO.post_seq}">예약중</option>
+	                    <option value="/post/toPost_category?post_category=거래완료&post_seq=${map.postDTO.post_seq}">거래완료</option>
+	                </select>
+                </c:if>
+                <c:if test="${loginSession.user_id ne map.postDTO.user_id}">
+                	<select class="form-select post_category" id="post_category" aria-label="Default select example"
+	                    name="post_category" disabled>
+	                	<option selected disabled hidden>${map.postDTO.post_state}</option>
+	                </select>
+                </c:if>
             </div>
             <div class="col d-flex justify-content-end">
-                <button type="button" class="hoverIcon">
-                    <img src="/resources/images/post/edit.png" height="25px">
-                </button>
+            	<c:if test="${loginSession.user_id eq map.postDTO.user_id}">
+	                <button type="button" class="hoverIcon">
+	                    <img src="/resources/images/post/edit.png" height="25px">
+	                </button>
+                </c:if>
                 <span class="me-2"></span>
                 <!-- 신고버튼 모달 -->
                 <button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
@@ -1277,10 +1307,13 @@
         </div>
         <div class="my-3 pt-3 topLine">
             <div class="middle_lgText">${map.postDTO.post_title}</div>
-            <div class="middle_smText mt-1">${map.postDTO.post_category}·4시간전</div>
+            <div class="middle_smText mt-1">${map.postDTO.post_category}·${map.postDTO.post_time}</div>
             <div class="py-3">${map.postDTO.post_content}</div>
-            <div class="middle_smText">관심${map.postDTO.post_interest_cnt}
-            ·채팅${map.postDTO.post_chatting_cnt}·조회${map.postDTO.post_inquiry_cnt}</div>
+            <div class="middle_smText" id="cntBox">
+            관심${map.postDTO.post_interest_cnt}
+            ·채팅${map.postDTO.post_chatting_cnt}
+            ·조회${map.postDTO.post_inquiry_cnt}
+            </div>
         </div>
         <div class="middle_bottom py-2 position-relative">
             <div class="alert alertBox">
@@ -1295,12 +1328,17 @@
                 <div class="col">
                     <span class="middle_heartBtn px-1">
                         <!-- 찜이 등록되어있다면 after 아니면 before 해주기 -->
-                        <button type="button" class="heartBefore">
-                            <img src="/resources/images/post/heartLine.png" height="20px" width="20px">
-                        </button>
-                        <button type="button" class="heartAfter d-none">
-                            <img src="/resources/images/post/heart.png" height="20px" width="20px">
-                        </button>
+                        
+                        <c:if test="${empty basketDto}">
+	                        <button type="button" class="heartBefore">
+	                            <img src="/resources/images/post/heartLine.png" height="20px" width="20px">
+	                        </button>
+                        </c:if>
+                        <c:if test="${!empty basketDto}">
+	                        <button type="button" class="heartAfter">
+	                            <img src="/resources/images/post/heart.png" height="20px" width="20px">
+	                        </button>
+                        </c:if>
                     </span>
                     <span class="px-2 fw-bolder"> ${map.postDTO.price_selling}원</span>
                     
@@ -1640,9 +1678,14 @@
 
 
     <script>
-    	
-    
-    
+   
+   
+    	// 첫번째 자식 클래스 추가
+	    $(function() {
+			$(".carousel-inner").children().first().addClass('active');
+			$(".car_img2").children().first().addClass('active');
+	
+	    });
 
         //콤마
         function inputNumberFormat(obj) {
@@ -1661,26 +1704,79 @@
 
         // 빈하트 클릭시 찜추가해주기
         $(".heartBefore").on("click", function () {
-            $(".alertBox").fadeIn(1000);
-            setTimeout(function () {
-                $(".alertBox").fadeOut(1000);
-            }, 2500);
-            $(".heartBefore").fadeOut(1000);
-            setTimeout(function () {
-                $(".heartAfter").fadeIn(1000);
-                $(".heartAfter").removeClass('d-none');
-
-            }, 1000);
+            let user_id="${loginSession.user_id}";
+            let user_category="${loginSession.user_category}";
+            let post_seq = "${map.postDTO.post_seq}"
+            console.log (user_id, user_category, post_seq)
+             $.ajax({
+    		url: "/post/interestUp"
+    		, type: "get"
+    		, data: {user_id : user_id, 
+    				user_category : user_category,
+    				post_seq : post_seq}
+    		, success: function(data){
+    			if(data >= 0){//성공시 하트 효과
+    				console.log("${map.postDTO.post_interest_cnt}")
+    				 $(".alertBox").fadeIn(1000);
+    		            setTimeout(function () {
+    		                $(".alertBox").fadeOut(1000);
+    		            }, 2500);
+    		            $(".heartBefore").fadeOut(1000);
+    		            setTimeout(function () {
+    		                $(".heartAfter").fadeIn(1000);
+    		                $(".heartAfter").removeClass('d-none');
+    		            }, 1000);
+    		            $("#cntBox").empty();
+        				$("#cntBox").append("관심"+data
+        	            +"·채팅${map.postDTO.post_chatting_cnt}"
+        	            +"·조회${map.postDTO.post_inquiry_cnt}")
+    			}else if(data == -1){
+    				alert("닉네임 수정에 실패했습니다. 다시 시도해 주세요.");
+    			}
+    		}, error: function(e){
+    			console.log(e);
+    		}
+    	}) 
         })
         // 꽉찬하트 클릭시 찜삭제
+        
+        $(".heartAfter").on("click", function () {
+            let user_id="${loginSession.user_id}";
+            let user_category="${loginSession.user_category}";
+            let post_seq = "${map.postDTO.post_seq}"
+            console.log (user_id, user_category, post_seq)
+             $.ajax({
+    		url: "/post/interestDown"
+    		, type: "get"
+    		, data: {user_id : user_id, 
+    				user_category : user_category,
+    				post_seq : post_seq}
+    		, success: function(data){
+    			if(data >= 0){//성공시 하트 효과
+    				console.log("${map.postDTO.post_interest_cnt}")
+    				 $(".heartAfter").fadeOut(1000);
+		                setTimeout(function () {
+		                    $(".heartBefore").fadeIn(1000);
+		                    $(".heartBefore").removeClass('d-none');
+		    
+		                }, 1000);
+    		            $("#cntBox").empty();
+        				$("#cntBox").append("관심"+data
+        	            +"·채팅${map.postDTO.post_chatting_cnt}"
+        	            +"·조회${map.postDTO.post_inquiry_cnt}")
+    			}else if(data == -1){
+    				alert("닉네임 수정에 실패했습니다. 다시 시도해 주세요.");
+    			}
+    		}, error: function(e){
+    			console.log(e);
+    		}
+    	}) 
+        })
+        
         $(".heartAfter").on("click", function () {
 
             $(".heartAfter").fadeOut(1000);
-            setTimeout(function () {
-                $(".heartBefore").fadeIn(1000);
-                $(".heartBefore").removeClass('d-none');
-
-            }, 1000);
+            
         })
     </script>
 

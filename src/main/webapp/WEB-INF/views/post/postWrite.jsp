@@ -679,10 +679,12 @@
                 <!-- 반응 -->
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
-                        <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/resources/images/header_pooter/navibar.png" height="35px"><img class="a_reaction"
-                                src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
-                        </a>
+                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                            </a>   
+                            <a href="/post/toPost">
+                                <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                            </a> 
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
 

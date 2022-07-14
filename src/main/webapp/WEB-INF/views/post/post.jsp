@@ -810,9 +810,8 @@
             </div>
         </div>
     </header>
-
+${list.size()}
     <!-- Contents -->
-	
     <div class="container my-3" id="contentsBox">
 
         <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
@@ -894,7 +893,7 @@
 		                        <div class="mt-2 middle_title">${list.post_title}</div>
 		                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
 		                        <div class="middle_smText mt-1">${list.post_addr}</div>
-		                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}
+		                        <div class="middle_smText mt-1">관심
 		                        ·채팅${list.post_chatting_cnt}·조회${list.post_inquiry_cnt}</div>
 		                    </div>
 		                </a>

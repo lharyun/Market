@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.market.basket.BasketDTO;
 import com.market.post_img.Post_imgDAO;
 import com.market.post_img.Post_imgDTO;
 
@@ -19,7 +20,19 @@ public class PostService {
 	private PostDAO postDao;
 	@Autowired
 	private Post_imgDAO post_imgDao;
+	
 
+	
+	
+	// 관심수 업
+	public void interestUpdate(int post_interest_cnt, int post_seq) throws Exception{ 
+		postDao.interestUpdate(post_interest_cnt, post_seq);
+	}
+	
+	// 조회수 업
+	public void inquiry_cnt(int post_seq) throws Exception{ 
+		postDao.inquiry_cnt(post_seq);
+	}
 	// 조인된 테이블 데이터 조회
 	public List<Map<String, Object>> selectJoin() throws Exception {
 		return postDao.selectJoin();
