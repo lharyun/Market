@@ -812,9 +812,13 @@
     </header>
 
     <!-- Contents -->
- 
-    <div class="container my-3" id="contentsBox">
-
+ <%-- 이미지 확인
+ <c:forEach items="${map.post_img}" var="post_img">
+ <div><img src="/imgfiles/${post_img.post_sys_name}"></div>
+ </c:forEach>
+    
+ --%>
+ 	<div class="container my-3" id="contentsBox">
         <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="0" class="active"

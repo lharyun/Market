@@ -855,6 +855,10 @@
     <div class="container middle_bottomLine p-0 my-3" id="contentsBox">
         <form id="writeForm" action="/post/toWrite" method="post" enctype="multipart/form-data">
             <div class="row align-items-center py-3 middle_lgText middle_bottomLine">
+               
+                    <%-- 컨트롤러 작업후 데이터 있을시로 수정해주기 --%>
+                    <input type="text" class="d-none" name="post_state" value="판매중" >
+               
                 <div class="col">
                     <a href="javascript:history.back(-1)">
                         <img src="/resources/images/post/left.png" height="20px">
@@ -892,7 +896,7 @@
                         </div>
                         <div class="d-flex justify-content-center fw-bolder" id="imgCnt">0/3</div>
                     </label>
-                    <input type="file" class="d-none" id="ex_file" name="zz" accept="image/gif, image/jpeg, image/png" multiple="multiple">
+                    <input type="file" class="d-none" id="ex_file" name="imgfiles" accept="image/gif, image/jpeg, image/png" multiple="multiple">
                 </article>
                 <!-- <article class="imgBox">
                     <div class="imgDiv">
@@ -1385,6 +1389,11 @@
                 $("#modalTitle").append($("<div>" + "내용을 입력해주세요." + "</div>"));
                 $('#post_content').focus();
                 return false;
+            }else{
+            	$("#modalTitle").empty();
+            	$("#modalTitle").append($('<div class="spinner-border" role="status"'>
+            	  +'<span class="visually-hidden">Loading...</span>'
+            	  +' </div>'));
             }
 
         })
