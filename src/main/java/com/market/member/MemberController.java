@@ -1,5 +1,6 @@
 package com.market.member;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,23 +34,68 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@RequestMapping(value="/toManager")
-	public String MemberList(Model model) throws Exception {	//manager에서 회원 정보 가져올때
+// 회원리스트 중에서 찾기
+	@RequestMapping(value="/mSearch")
+	@ResponseBody
+	public List<MemberDTO> mSearch(String user_id) throws Exception{
+		System.out.println(user_id);
+		List<MemberDTO> list =service.mSearch(user_id);	
+		return list;
+	}
+	
+//	블랙리스트 pagination
+	@RequestMapping(value="/toBlackPage")
+	@ResponseBody
+	public List<BlackListDTO> toBlackPage(int curPage) throws Exception{
+		System.out.println(curPage);
+		List<BlackListDTO> blackList=blackService.selectAll(curPage*10-9,curPage*10);	
+		return blackList;
+	}
+//	멤버리스트 pagination
+	@RequestMapping(value="/toMemberPage")
+	@ResponseBody
+	public List<MemberDTO> toMemberPage(int curPage) throws Exception{
+		List<MemberDTO> list =service.selectAll(curPage*10-9,curPage*10);	
+		return list;
+	}
+	
+//	신고리스트 pagination
+	@RequestMapping(value="/toReportPage")
+	@ResponseBody
+	public List<ReportDTO> toReportPage(int curPage) throws Exception{
+		List<ReportDTO> reportList=reportService.selectAll(curPage*10-9,curPage*10);
 		
-		List<BlackListDTO> blackList=blackService.selectAll();
-		List<MemberDTO> list =service.selectAll();
-		List<ReportDTO> reportList=reportService.selectAll();
+		return reportList;
+	}
+	
+//	관리자 페이지 이동
+	@RequestMapping(value="/toManager")
+	public String MemberList(int curPage,Model model) throws Exception {	//manager에서 회원 정보 가져올때
+		
+		List<BlackListDTO> blackList=blackService.selectAll(curPage*10-9,curPage*10);
+		List<MemberDTO> list =service.selectAll(curPage*10-9,curPage*10);
+		List<ReportDTO> reportList=reportService.selectAll(curPage*10-9,curPage*10);
+		
+		HashMap<String,Object> map =service.getPageNavi(curPage);
+		HashMap<String,Object> blackMap =blackService.getPageNavi(curPage);
+		HashMap<String,Object> reportMap =reportService.getPageNavi(curPage);
+		
+		model.addAttribute("naviMap",map);
+		model.addAttribute("blackNaviMap",blackMap);
+		model.addAttribute("reportNaviMap",reportMap);
 		
 		model.addAttribute("reportList",reportList);//신고리스트
 		model.addAttribute("blackList", blackList);//블랙리스트
 		model.addAttribute("list",list);//멤버 리스트
 		
-		return "manager/manager";
+		
+		return "manager/manager2";
 	}
 	
+	//manager에서 회원 체크박스 선택 삭제	
 	@RequestMapping(value="/delete")
 	@ResponseBody
-	public String delete(@RequestParam(value="arr[]") String[] arr) throws Exception{ 	//manager에서 체크박스 선택 삭제
+	public String delete(@RequestParam(value="arr[]") String[] arr) throws Exception{ 	
 		System.out.println("delete");
 		System.out.println(arr);
 		for(String id : arr) {

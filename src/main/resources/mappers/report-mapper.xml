@@ -6,9 +6,18 @@
 
 
  <mapper namespace="reportMapper">
- 	<select id="selectAll" resultType="com.market.report.ReportDTO">
- 	select * from tbl_report
- 	
+ 	<select id="selectAll" parameterType="int" resultType="com.market.report.ReportDTO">
+ 	select * from ( select tbl_report.*, row_number() over(order by report_seq desc)
+ 		 as num from tbl_report)where num between #{start} and #{end}
+ 	 	
+ 	</select>
+ 
+ <select id="search" parameterType="string" resultType="com.market.report.ReportDTO">
+ 	select * from tbl_report where user_id like '%' || #{user_id} || '%'
+ 	</select>
+ 
+ <select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_report
  	</select>
  
  	<delete id="delete" parameterType="int">

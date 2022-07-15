@@ -17,12 +17,14 @@ public class MemberDTO {
 	private int grade;
 	private int rating;
 	private String blackList_check;
+	private int user_seq;
 
 	public MemberDTO() {}
 
 	public MemberDTO(String user_id, String user_category, String user_k, String user_pw, String user_birth,
 			String user_nickname, String user_profile, String user_name, String user_phone, String postcode,
-			String oradAddr, String detailAddr, String extraAddr, int grade, int rating, String blackList_check) {
+			String oradAddr, String detailAddr, String extraAddr, int grade, int rating, String blackList_check,
+			int user_seq) {
 		super();
 		this.user_id = user_id;
 		this.user_category = user_category;
@@ -40,6 +42,7 @@ public class MemberDTO {
 		this.grade = grade;
 		this.rating = rating;
 		this.blackList_check = blackList_check;
+		this.user_seq = user_seq;
 	}
 
 	public String getUser_id() {
@@ -170,15 +173,24 @@ public class MemberDTO {
 		this.blackList_check = blackList_check;
 	}
 
+	public int getUser_seq() {
+		return user_seq;
+	}
+
+	public void setUser_seq(int user_seq) {
+		this.user_seq = user_seq;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDTO [user_id=" + user_id + ", user_category=" + user_category + ", user_k=" + user_k
 				+ ", user_pw=" + user_pw + ", user_birth=" + user_birth + ", user_nickname=" + user_nickname
 				+ ", user_profile=" + user_profile + ", user_name=" + user_name + ", user_phone=" + user_phone
 				+ ", postcode=" + postcode + ", oradAddr=" + oradAddr + ", detailAddr=" + detailAddr + ", extraAddr="
-				+ extraAddr + ", grade=" + grade + ", rating=" + rating + ", blackList_check=" + blackList_check + "]";
+				+ extraAddr + ", grade=" + grade + ", rating=" + rating + ", blackList_check=" + blackList_check
+				+ ", user_seq=" + user_seq + "]";
 	}
 
-
+	
 
 }

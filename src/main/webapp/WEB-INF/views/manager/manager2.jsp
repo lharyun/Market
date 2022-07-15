@@ -3,20 +3,63 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>고객게시판</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 부트스트랩 -->
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous" />
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+<title>싸다구 장터 : 내 정보 수정</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="/resources/images/header_pooter/pepoel.png">
+</head>
 <style>
-/* 헤더 푸터 UI */
+
+/* manager스타일 */
+.tab-content {
+	border: 1px solid #f47d39;
+	border-radius: 3px;
+	min-height: 500px;
+	padding: 20px;
+}
+
+.Cheader {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#searchInput {
+	display: inline-block;
+}
+
+.Cbody>div>.row {
+	padding: 10px;
+	border-top: 1px solid #f57e76;
+}
+
+.Cbody>div {
+	min-height: 450px;
+}
+
+.Cbody>div>.row>div {
+	text-align: center;
+}
+
+.Cheader>.row {
+	padding: 5px;
+}
+/* manager끝 */
 header {
 	position: sticky;
 	top: 0;
@@ -24,6 +67,7 @@ header {
 	background-color: white;
 	z-index: 1;
 }
+
 /* 헤더 상단 */
 .heder_top {
 	height: 40px;
@@ -43,6 +87,7 @@ header {
 	display: block;
 	margin-top: 0;
 }
+
 /* 헤더 중간 */
 .heder_middleBox {
 	margin: auto;
@@ -88,6 +133,7 @@ header {
 	left: 91%;
 	top: 7px;
 }
+
 /* 헤더 하단 */
 .heder_bottom {
 	height: 70px;
@@ -116,7 +162,300 @@ header {
 	font-weight: 600;
 	background-color: #ffad0a2d;
 }
+
 /* ===contetnt 영역==== */
+.mypageContainer {
+	width: 1250px;
+	height: 850px;
+}
+/* 프로필 */
+.profileBox {
+	width: 25%;
+	height: 450px;
+	float: left;
+	text-align: center;
+}
+
+.profile_border {
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: inline-block;
+	margin-top: 40px;
+}
+/* 프로필 사진 */
+#profile_image {
+	width: 100%;
+	height: 100%;
+}
+/* 닉네임 */
+.profileNickname {
+	text-align: center;
+	margin-top: 10px;
+}
+/* 내 정보(등록 상품, 거래후기) */
+.profileInfo {
+	width: 60%;
+	margin-top: 15px;
+	display: inline-block;
+}
+
+.productInfo {
+	width: 38%;
+	text-align: left;
+	float: left;
+}
+
+.productCount {
+	width: 55%;
+	text-align: right;
+	float: right;
+}
+
+.profileInfo2 {
+	width: 60%;
+	display: inline-block;
+}
+
+.productInfo2 {
+	width: 38%;
+	text-align: left;
+	float: left;
+}
+
+.productCount2 {
+	width: 55%;
+	text-align: right;
+	float: right;
+}
+/* 수정 버튼 */
+.modifyBox {
+	width: 70%;
+	height: 70px;
+	display: inline-block;
+	margin-top: 15px;
+}
+/* 카테고리 */
+.categoryBox {
+	float: left;
+	margin-top: 20px;
+}
+
+.categoryBox a {
+	text-decoration: none;
+	color: black;
+	font-size: large;
+	margin-left: 5px;
+}
+
+.categoryBox a:hover {
+	text-decoration: underline;
+}
+/* 컨텐츠 영역 */
+.content {
+	width: 75%;
+	height: 90%;
+	float: right;
+	margin-top: 10px;
+}
+/* 전체 글 개수 */
+.totalCount {
+	margin: 5px;
+}
+/* 카테고리 나타내는 글 */
+.categoryText {
+	margin-top: 10px;
+}
+/* 카테고리 해당 물품 */
+.mypost {
+	width: 100%;
+	height: 90%;
+}
+/* 물품 나타내는 박스 */
+.postpriceBox {
+	width: 22%;
+	height: 31%;
+	margin: 10px;
+	float: left;
+	margin-top: 40px;
+}
+
+.postpriceBox :hover {
+	cursor: pointer;
+}
+
+#postimage {
+	width: 100%;
+	height: 100%;
+}
+
+.posttitle {
+	text-align: left;
+}
+/* 물품 박스 줄1 */
+.mypost1st {
+	width: 100%;
+	float: left;
+}
+/* 물품 박스 줄2 */
+.mypost2nd {
+	width: 100%;
+	float: left;
+}
+/* 물품 박스 푸터 */
+.mypostfooter {
+	width: 100%;
+	float: left;
+	margin-top: 50px;
+}
+/* 물품 박스 페이징 처리할 곳 */
+.mypostpaging {
+	text-align: center;
+}
+
+/* 반응형 웹페이지 800px 이하일때 반응 */
+@media ( max-width : 992px) {
+	.mypageContainer {
+		width: 100%;
+		height: 850px;
+	}
+	/* 프로필 */
+	.profileBox {
+		width: 100%;
+		height: 450px;
+		float: left;
+		text-align: center;
+	}
+	.profile_border {
+		width: 180px;
+		height: 180px;
+		border-radius: 50%;
+		overflow: hidden;
+		display: inline-block;
+		margin-top: 40px;
+	}
+	/* 프로필 사진 */
+	#profile_image {
+		width: 100%;
+		height: 100%;
+	}
+	/* 닉네임 */
+	.profileNickname {
+		text-align: center;
+		margin-top: 10px;
+	}
+	/* 내 정보(등록 상품, 거래후기) */
+	.profileInfo {
+		width: 60%;
+		margin-top: 15px;
+		display: inline-block;
+	}
+	.productInfo {
+		width: 38%;
+		text-align: left;
+		float: left;
+	}
+	.productCount {
+		width: 55%;
+		text-align: right;
+		float: right;
+	}
+	.profileInfo2 {
+		width: 60%;
+		display: inline-block;
+	}
+	.productInfo2 {
+		width: 38%;
+		text-align: left;
+		float: left;
+	}
+	.productCount2 {
+		width: 55%;
+		text-align: right;
+		float: right;
+	}
+	/* 수정 버튼 */
+	.modifyBox {
+		width: 70%;
+		height: 70px;
+		display: inline-block;
+		margin-top: 15px;
+	}
+	/* 카테고리 */
+	.categoryBox {
+		float: left;
+		margin-top: 10px;
+	}
+	.categoryBox a {
+		text-decoration: none;
+		color: black;
+		font-size: large;
+		margin-left: 5px;
+	}
+	.categoryBox a:hover {
+		text-decoration: underline;
+	}
+	/* 컨텐츠 영역 */
+	.content {
+		width: 100%;
+		height: 75%;
+		float: right;
+		margin-top: 10px;
+	}
+	/* 전체 글 개수 */
+	.totalCount {
+		margin: 5px;
+	}
+	/* 카테고리 나타내는 글 */
+	.categoryText {
+		margin-top: 10px;
+	}
+	/* 카테고리 해당 물품 */
+	.mypost {
+		width: 100%;
+		height: 80%;
+	}
+	/* 물품 나타내는 박스 */
+	.postpriceBox {
+		width: 45%;
+		height: 31%;
+		margin: 10px;
+		float: left;
+		margin-top: 40px;
+	}
+	.postpriceBox :hover {
+		cursor: pointer;
+	}
+	#postimage {
+		width: 100%;
+		height: 100%;
+	}
+	.posttitle {
+		text-align: left;
+	}
+	/* 물품 박스 줄1 */
+	.mypost1st {
+		width: 100%;
+		float: left;
+	}
+	/* 물품 박스 줄2 */
+	.mypost2nd {
+		width: 100%;
+		float: left;
+	}
+	/* 물품 박스 푸터 */
+	.mypostfooter {
+		width: 100%;
+		float: left;
+		margin-top: 50px;
+	}
+	/* 물품 박스 페이징 처리할 곳 */
+	.mypostpaging {
+		text-align: center;
+	}
+}
+
 /* ==================== */
 .logo2 {
 	position: fixed;
@@ -200,79 +539,8 @@ footer .nav-link:hover {
 		width: 992px;
 	}
 }
-/* 콘테이너============================================== */
-#container {
-	border: 2px solid #f47d39;
-	border-radius: 15px;
-	min-height: 1100px;
-	text-align: center;
-	margin: auto;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-.title {
-	width: 100%;
-}
-
-.board {
-	padding: 30px;
-	margin: auto;
-	text-align: center;
-	margin: auto;
-}
-
-.q { /* Q로고 */
-	width: 30px;
-	height: 30px;
-	border-radius: 15px;
-	border: 1px solid #f47d39;
-}
-
-.a { /* A로고 */
-	width: 30px;
-	height: 30px;
-	border-radius: 5px;
-	border: 1px solid blue;
-}
-
-.write { /* 글쓰기로고 */
-	width: 40px;
-	height: 40px;
-	border-radius: 15px;
-	border: 1px solid black;
-}
-
-.qna {
-	color: #f47d39
-}
-
-.QnA { /* QnA로고 */
-	width: 160px;
-	height: 80px;
-}
-
-.pagination {
-	margin-top: 30px;
-}
-
-.title {
-	margin-left: 10px;
-}
-
-.col-11 img {
-	max-width: 100%
-}
-
-.col-1 {
-	text-align: center;
-}
-
-#writeBtn {
-	background-color: #FF947D;
-}
 </style>
-</head>
+
 <body>
 	<!-- Header -->
 	<header>
@@ -375,7 +643,7 @@ footer .nav-link:hover {
 							싸다구 카테고리 >
 						</a>
 						<div class="dropdown-menu mt-4 py-4" id="checkBox">
-							<div class="container" id="">
+							<div class="container " id="">
 								<div class="row category_line">
 									<div class="col">
 										<ul class="nav flex-column pt-2 ps-3">
@@ -967,529 +1235,331 @@ footer .nav-link:hover {
 			</div>
 		</div>
 	</header>
-	<div class="container" id="container">
-		<button type="button" id="managerBtn">Manager</button>
-		<script>
-			$("#managerBtn").on("click", function() {
-				location.href = "/member/toManager?curPage=1";
-			})
-		</script>
-		<div class="board">
-			<div id="bHeader">
-				<div class="row">
-					<div class="col-10 text-start">
-						<span class="fs-2 fw-bold fst-italic qna">자주묻는<img
-							src="/resources/images/client/QnA4.jpg" class="QnA"></span>
-					</div>
-					<div class="col-2">
-						<!-- 만약 관리자 계정이면 버튼 활성화 -->
-						<button type="button" class="btn btn-write fw-bold" id="writeBtn">
-							<img src="/resources/images/client/w33.png" class="write">
-							글쓰기
-						</button>
-					</div>
-					<hr style="border: 2px solid #f47d39" />
 
-					<!-- 태그박스 -->
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<button class="nav-link active" id="nav-home-tab" value="all"
-								data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-								role="tab" aria-controls="home" aria-selected="true">전체</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-buySell-tab"
-								data-bs-toggle="tab" data-bs-target="#nav-buySell" type="button"
-								role="tab" value="buy" aria-controls="buySell"
-								aria-selected="false">구매/판매</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-account-tab"
-								data-bs-toggle="tab" data-bs-target="#nav-account" type="button"
-								role="tab" value="account" aria-controls="account"
-								aria-selected="false">계정/인증</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-items-tab" data-bs-toggle="tab"
-								data-bs-target="#nav-items" type="button" role="tab"
-								value="items" aria-controls="items" aria-selected="false">거래품목</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-manner-tab" data-bs-toggle="tab"
-								data-bs-target="#nav-manner" type="button" role="tab"
-								value="manner" aria-controls="manner" aria-selected="false">거래매너</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-sanction-tab"
-								data-bs-toggle="tab" data-bs-target="#nav-sanction"
-								type="button" role="tab" value="sanction"
-								aria-controls="sanction" aria-selected="false">이용제재</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="nav-addition-tab"
-								data-bs-toggle="tab" data-bs-target="#nav-addition"
-								type="button" role="tab" value="addition"
-								aria-controls="addition" aria-selected="false">기타</button>
-						</li>
-					</ul>
-
+	<!-- Contents -->
+	<!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
+	<div class="container middle" style="height: 1100px">
+		<div class="mypageContainer">
+			<div class="profileBox">
+				<div class="profile_border">
+					<img src="/resources/images/mypage/default_profileimage.jpg"
+						id="profile_image">
+				</div>
+				<div class="profileNickname">
+					<strong>닉네임 값</strong>
+				</div>
+				<div class="profileInfo">
+					<div class="productInfo">
+						<span><strong>상품</strong></span>
+					</div>
+					<div class="productCount">
+						<span><strong>0</strong></span>
+					</div>
+				</div>
+				<div class="profileInfo2">
+					<div class="productInfo2">
+						<span><strong>거래후기</strong></span>
+					</div>
+					<div class="productCount2">
+						<span><strong>☆☆☆☆☆&nbsp;0</strong></span>
+					</div>
+				</div>
+				<div class="modifyBox">
+					<button type="button" class="btn btn-warning" id="modifyBtn">내
+						정보 수정하기</button>
 				</div>
 			</div>
-			<div id="bBody">
-				<div class="row ">
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="nav-home"
-							role="tabpanel" aria-labelledby="home">
 
-							<!-- content Post-->
-							<c:if test="${list.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${list.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${list}" var="dto" varStatus="status">
-
-
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="row title">
-														<div class="col-1">
-															<img src="/resources/images/client/Q.png" class="q">
-														</div>
-														<div class="col-11">
-															<p class="fw-bold title">${dto.client_title }</p>
-														</div>
-													</div>
-
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body text-start">
-
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-															
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn" 
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-
-									</c:forEach>
+			<div class="content">
+				<nav>
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+						<button class="nav-link active" id="nav-Member-tab"
+							data-bs-toggle="tab" data-bs-target="#nav-Member" type="button"
+							role="tab" aria-controls="nav-Member" aria-selected="true">Member</button>
+						<button class="nav-link" id="nav-BlackList-tab"
+							data-bs-toggle="tab" data-bs-target="#nav-BlackList"
+							type="button" role="tab" aria-controls="nav-BlackList"
+							aria-selected="false">BlackList</button>
+						<button class="nav-link" id="nav-Report-tab" data-bs-toggle="tab"
+							data-bs-target="#nav-Report" type="button" role="tab"
+							aria-controls="nav-Report" aria-selected="false">Report</button>
+					</div>
+				</nav>
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-Member"
+						role="tabpanel" aria-labelledby="nav-Member-tab">
+						<!-- 1Page -->
+						<div class="Cheader">
+							<div class="row">
+								<div class="col-7 text-start"></div>
+								<div class="col-3">
+									<input type="text" class="form-control" placeholder="id찾기"
+										id="mSearchInput">
 								</div>
-							</c:if>
-							<nav class="pagination justify-content-center">
-								<ul class="pagination">
-									<c:if test="${naviMap.needPrev eq true }">
-										<li class="page-item"><a class="page-link"
-											href="/client/toClient_post?curPage=${naviMap.startNavi-1}">Previous</a></li>
-									</c:if>
-									<c:forEach var="pageNum" begin="${naviMap.startNavi }"
-										end="${naviMap.endNavi }" step="1">
-										<li class="page-item"><a class="page-link"
-											href="/client/toClient_post?curPage=${pageNum }">${ pageNum}</a></li>
-									</c:forEach>
-									<c:if test="${naviMap.needNext eq true }">
-										<li class="page-item"><a class="page-link"
-											href="/client/toClient_post?curPage=${naviMap.endNavi+1}">Next</a></li>
-									</c:if>
-								</ul>
-							</nav>
-							<!-- end Content -->
-						</div>
-						<div class="tab-pane fade" id="nav-buySell" role="tabpanel"
-							aria-labelledby="buy">
-							<!-- content -->
-							<c:if test="${buySell.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${buySell.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${buySell}" var="dto" varStatus="status">
-
-
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="row title">
-														<div class="col-1">
-															<img src="/resources/images/client/Q.png" class="q">
-														</div>
-														<div class="col-11">
-															<p class="fw-bold title">${dto.client_title }</p>
-														</div>
-													</div>
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body text-start">
-
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn"
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-
-									</c:forEach>
+								<div class="col-2">
+									<button type="button" id="mSearchBtn" class="btn btn-info">찾기</button>
 								</div>
-							</c:if>
+							</div>
+							<div class="row">
+								<div class="col-1">
+									<input type="checkbox" id="memberAll">선택
+								</div>
+								<div class="col-2">아이디</div>
+								<div class="col-2">카테고리</div>
+								<div class="col-2">닉네임</div>
+								<div class="col-2">이름</div>
+								<div class="col-2">핸드폰번호</div>
+								<div class="col-1">블랙</div>
 
-							<!-- end Content -->
+							</div>
 
 						</div>
-						<div class="tab-pane fade" id="nav-account" role="tabpanel"
-							aria-labelledby="account">
-							<!-- content -->
-							<c:if test="${account.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${account.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${account}" var="dto" varStatus="status">
-
-
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="row title">
-														<div class="col-1">
-															<img src="/resources/images/client/Q.png" class="q">
-														</div>
-														<div class="col-11">
-															<p class="fw-bold title">${dto.client_title }</p>
-														</div>
-													</div>
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body text-start">
-
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn"
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
+						<div class="Cbody">
+							<!-- 멤버 -->
+							<div id="memberList">
+								<c:forEach items="${list }" var="dto">
+									<div class="row">
+										<div class="col-1">
+											<input class="check" type="checkbox" onclick="setBox(this)"
+												value="${dto.user_id }" />
 										</div>
+										<div class="col-2">${dto.user_id }</div>
+										<div class="col-2">${dto.user_category }</div>
+										<div class="col-2">${dto.user_nickname }</div>
+										<div class="col-2">${dto.user_name }</div>
+										<div class="col-2">${dto.user_phone }</div>
+										<div class="col-1">${dto.blackList_check }</div>
 
 
-									</c:forEach>
-								</div>
-							</c:if>
-
-							<!-- end Content -->
-
+									</div>
+								</c:forEach>
+							</div>
 						</div>
-						<div class="tab-pane fade" id="nav-items" role="tabpanel"
-							aria-labelledby="list">
-							<!-- content -->
-							<c:if test="${items.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${items.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${items}" var="dto" varStatus="status">
 
-
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="row title">
-														<div class="col-1">
-															<img src="/resources/images/client/Q.png" class="q">
-														</div>
-														<div class="col-11">
-															<p class="fw-bold title">${dto.client_title }</p>
-														</div>
-													</div>
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body text-start">
-
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn"
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-
-
-									</c:forEach>
+						<div class="cfooter">
+							<div class="row">
+								<div class="col">
+								<div id="pagination">
+									<nav class="pagination justify-content-center">
+										<ul class="pagination">
+											<c:if test="${naviMap.needPrev eq true }">
+												<li class="page-item"><a class="page-link"
+													href="/member/toManager?curPage=${naviMap.startNavi-1}">Previous</a></li>
+											</c:if>
+											<c:forEach var="pageNum" begin="${naviMap.startNavi }"
+												end="${naviMap.endNavi }" step="1">
+												<li class="page-item"><button
+														class="page-link memberPage " value="${ pageNum}">${ pageNum}</button></li>
+											</c:forEach>
+											<c:if test="${naviMap.needNext eq true }">
+												<li class="page-item"><a class="page-link"
+													href="/member/toManager?curPage=${naviMap.endNavi+1}">Next</a></li>
+											</c:if>
+										</ul>
+									</nav>
+									</div>
 								</div>
-							</c:if>
+							</div>
+							<div class="row">
+								<div class="col text-end">
 
-							<!-- end Content -->
+									<button class="btn btn-danger" id="deleteBtn">삭제</button>
+									<button type="button" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="#exampleModal"
+										data-bs-whatever="@mdo">블랙리스트</button>
+								</div>
+							</div>
 						</div>
-						<div class="tab-pane fade" id="nav-manner" role="tabpanel"
-							aria-labelledby="manner">
-							<!-- content -->
-							<c:if test="${manner.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${manner.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${manner}" var="dto" varStatus="status">
 
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="row title">
-														<div class="col-1">
-															<img src="/resources/images/client/Q.png" class="q">
-														</div>
-														<div class="col-11">
-															<p class="fw-bold title">${dto.client_title }</p>
-														</div>
-													</div>
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body text-start">
 
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn"
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
 
-									</c:forEach>
+
+
+					</div>
+					<div class="tab-pane fade" id="nav-BlackList" role="tabpanel"
+						aria-labelledby="nav-BlackList-tab">
+						<div class="Cheader">
+							<div class="row">
+								<div class="col-auto text-end">
+									<input type="text" class="form-control" placeholder="id찾기"
+										id="bSearchInput">
 								</div>
-							</c:if>
+								<div class="col-auto text-end">
+									<button type="button" id="bSearchBtn" class="btn btn-info">찾기</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-1">
+									<input type="checkbox" id="blackAll">선택
+								</div>
+								<div class="col-2">날짜</div>
+								<div class="col-5">사유</div>
+								<div class="col-2">아이디</div>
+								<div class="col-2">카테고리</div>
 
-							<!-- end Content -->
+							</div>
 						</div>
-						<div class="tab-pane fade" id="nav-sanction" role="tabpanel"
-							aria-labelledby="sanction">
-							<!-- content -->
-							<c:if test="${sanction.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${sanction.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${sanction}" var="dto" varStatus="status">
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="row title">
-														<div class="col-1">
-															<img src="/resources/images/client/Q.png" class="q">
-														</div>
-														<div class="col-11">
-															<p class="fw-bold title">${dto.client_title }</p>
-														</div>
-													</div>
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body text-start">
 
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn"
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
+						<div class="Cbody">
+							<!-- 블랙리스트 -->
+							<div id="blackList">
+								<c:forEach items="${blackList }" var="dto">
+									<div class="row">
+										<div class="col-1">
+											<input type="checkbox" class="bCheck" value="${dto.user_id }"
+												onclick="setBox(this)">
 										</div>
+										<div class="col-2">${dto.blackList_date }</div>
+										<div class="col-5">${dto.blackList_content }</div>
+										<div class="col-2">${dto.user_id }</div>
+										<div class="col-2">${dto.user_category }</div>
+									</div>
 
-
-									</c:forEach>
-								</div>
-							</c:if>
-
-							<!-- end Content -->
-
+								</c:forEach>
+							</div>
 						</div>
-						<div class="tab-pane fade" id="nav-addition" role="tabpanel"
-							aria-labelledby="addition">
-							<!-- content -->
-							<c:if test="${addition.size() == 0}">
-								<tr>
-									<td colspan="5"><br>
-										<h3>등록된 글이 없습니다.</h3></td>
-								</tr>
-							</c:if>
-							<c:if test="${addition.size() > 0}">
-								<div class="accordion" id="accordionExample">
-									<c:forEach items="${addition}" var="dto" varStatus="status">
-
-
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.count}">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.count}"
-													aria-expanded="true"
-													aria-controls="collapse${status.count}">
-													<div class="col-1">
-														<img src="/resources/images/client/Q.png" class="q">
-													</div>
-													<div class="col-11">
-														<p class="fw-bold title">${dto.client_title }</p>
-													</div>
-												</button>
-											</h2>
-											<div id="collapse${status.count}"
-												class="accordion-collapse collapse collapsed"
-												aria-labelledby="headingOne"
-												data-bs-parent="#accordionExample">
-												<div class="accordion-body">
-													<div class="row">
-														<div class="col-1">
-															<img src="/resources/images/client/A2.png" class="a">
-														</div>
-														<div class="col-11">${dto.client_content }</div>
-													</div>
-													<div class="row">
-														<div class="col text-center">
-															<button type="button" class="btn btn-primary modifyBtn"
-																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn"
-																value="${dto.client_seq }">삭제</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-
-									</c:forEach>
+						<div class="cfooter">
+							<div class="row">
+								<div class="col">
+									<div id="bPagination">
+										<nav class="pagination justify-content-center">
+											<ul class="pagination">
+												<c:if test="${blackNaviMap.needPrev eq true }">
+													<li class="page-item"><a class="page-link"
+														href="/member/toManager?curPage=${blackNaviMap.startNavi-1}">Previous</a></li>
+												</c:if>
+												<c:forEach var="pageNum" begin="${naviMap.startNavi }"
+													end="${blackNaviMap.endNavi }" step="1">
+													<li class="page-item"><button
+															class="page-link blackPage" value="${ pageNum}">${ pageNum}</button></li>
+												</c:forEach>
+												<c:if test="${blackNaviMap.needNext eq true }">
+													<li class="page-item"><a class="page-link"
+														href="/member/toManager?curPage=${blackNaviMap.endNavi+1}">Next</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
 								</div>
-							</c:if>
-							<!-- end Content -->
+							</div>
+							<div class="row">
+								<div class="col text-end">
+									<button class="btn btn-danger" id="unBlackBtn">블랙리스트
+										해제</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- 2Page -->
+					<div class="tab-pane fade" id="nav-Report" role="tabpanel"
+						aria-labelledby="nav-Report-tab">
+						<div class="Cheader">
+							<div class="row">
+								<div class="col-auto text-end">
+									<input type="text" class="form-control" placeholder="id찾기"
+										id="rSearchInput">
+								</div>
+								<div class="col-auto text-end">
+									<button type="button" id="rSearchBtn" class="btn btn-info">찾기</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-1">
+									<input type="checkbox" id="reportAll">선택
+								</div>
+								<div class="col-5">신고내역</div>
+								<div class="col-2">신고 받은 아이디</div>
+								<div class="col-2">신고한 아이디</div>
+
+								<div class="col-2">카테고리</div>
+
+							</div>
+						</div>
+
+						<div class="Cbody">
+							<div id="reportList">
+								<c:forEach items="${reportList }" var="dto">
+									<!-- 신고 -->
+									<div class="row">
+										<div class="col-1">
+											<input type="checkbox" class="rCheck"
+												value="${dto.report_seq }" onclick="setBox(this)">
+										</div>
+										<div class="col-5">${dto.report_content }</div>
+										<div class="col-2">${dto.reported_id }</div>
+										<div class="col-2">${dto.user_id }</div>
+										<div class="col-2">${dto.user_category }</div>
+
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="cfooter">
+							<div class="row">
+								<div class="col">
+									<div id="rPagination">
+										<nav class="pagination justify-content-center">
+											<ul class="pagination">
+												<c:if test="${reportNaviMap.needPrev eq true }">
+													<li class="page-item"><a class="page-link"
+														href="/member/toManager?curPage=${reportNaviMap.startNavi-1}">Previous</a></li>
+												</c:if>
+												<c:forEach var="pageNum" begin="${naviMap.startNavi }"
+													end="${reportNaviMap.endNavi }" step="1">
+													<li class="page-item"><button
+															class="page-link reportPage" value="${ pageNum}">${ pageNum}</button></li>
+												</c:forEach>
+												<c:if test="${reportNaviMap.needNext eq true }">
+													<li class="page-item"><a class="page-link"
+														href="/member/toManager?curPage=${reportNaviMap.endNavi+1}">Next</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col text-end">
+									<button class="btn btn-danger" id="reportBtn">신고내역 삭제</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- 3Page -->
+				</div>
+			</div>
+
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="mb-3">
+									<label for="message-text" class="col-form-label">Reseon:</label>
+									<textarea class="form-control" id="blackList_content"
+										placeholder="이유를 적어주세요!"></textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="button" id="sendBtn" class="btn btn-primary">Send
+								message</button>
 						</div>
 					</div>
-					<!-- 태그박스 끝 -->
 				</div>
+
+
 			</div>
 		</div>
 	</div>
@@ -1497,7 +1567,7 @@ footer .nav-link:hover {
 
 	<!-- footer -->
 	<div class="logo2">
-		<a class="nav-link" href="/client/toClient_post?curPage=1"> <img
+		<a class="nav-link" href="/client/toClient_post"> <img
 			src="/resources/images/header_pooter/고객게시판.png">
 		</a>
 	</div>
@@ -1586,107 +1656,605 @@ footer .nav-link:hover {
 		</div>
 	</footer>
 
+
 	<script>
-		/* 게시글 수정 */
-		$(".modifyBtn").on("click",function(e){
-			location.href="/client/toModify?client_seq="+$(e.target).val();
-		})
-		
-		/* 게시글 삭제 */
-		$(".deleteBtn").on("click",function(e){
-			if(!confirm("해당게시글을 정말 삭제하겠습니까?")){
-				return;
-			}
-			location.href="/client/delete?client_seq="+$(e.target).val();
-		})
-	
-	
-		$("#writeBtn").on("click", function() {
-			location.href = "/client/toWrite";
-		})
-
-		/* HEADER FOOTER 스크립트 */
-
-		$('#SearchForm').on('keypress', function(e) { // 인풋창 클릭후 엔터누르면 실행
-			if (e.keyCode == '13') {
-				if ($("#titleSearch").val() !== "") {//검색창이 널값이 아니라면
-					document.getElementById("SearchForm").submit();
+    /* 신고 회원 찾기 */
+      $("#rSearchBtn").on("click",function(){
+    	let user_id=$("#rSearchInput").val();
+    	console.log(user_id);
+    	$.ajax({
+    		url:"/report/rSearch",
+    		type:"get",
+    		data:{'user_id':user_id},
+    		success:function(data){
+    			console.log(data);
+    			$("#reportList").empty();
+    			$("#rPagination").empty();
+				if(data.length ==0){ //검색 결과 없음
+					let row=$("<div>").addClass("row");
+					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
+					row.append(col);
+					row.appendTo("#reportList");
+			}else{
+				
+				for(let dto of data){
+					let row=$("<div>").addClass("row");
+					let deleteCheckbox =$("<input>").attr({
+						type:"checkbox",
+						class:"rCheck",
+						onclick:"setBox(this)",
+						value:dto.report_seq
+						
+					});
+					let col1=$("<div>").addClass("col-1").append(deleteCheckbox);
+					let col2=$("<div>").addClass("col-5").append(dto.report_content);
+					let col3=$("<div>").addClass("col-2").append(dto.reported_id);
+					
+					let col4= $("<div>").addClass("col-2").append(dto.user_id);
+					let col5= $("<div>").addClass("col-2").append(dto.user_category);
+					
+					
+					
+					row.append(col1, col2,col3,col4,col5);
+					row.appendTo("#reportList");
 				}
+				
+			}
+				
+    			
+    		},
+    		error:function(e){
+    			console.log(e);
+    		}
+    	})
+    })
+    
+    /* 블랙 회원 찾기 */
+    $("#bSearchBtn").on("click",function(){
+    	let user_id=$("#bSearchInput").val();
+    	console.log(user_id);
+    	$.ajax({
+    		url:"/blackList/bSearch",
+    		type:"get",
+    		data:{'user_id':user_id},
+    		success:function(data){
+    			console.log(data);
+    			$("#blackList").empty();
+    			$("#bPagination").empty();
+				if(data.length ==0){ //검색 결과 없음
+					let row=$("<div>").addClass("row");
+					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
+					row.append(col);
+					row.appendTo("#blackList");
+			}else{
+				
+				for(let dto of data){
+					let row=$("<div>").addClass("row");
+					let deleteCheckbox =$("<input>").attr({
+						type:"checkbox",
+						class:"bCheck",
+						onclick:"setBox(this)",
+						value:dto.user_id
+						
+					});
+					let col1=$("<div>").addClass("col-1").append(deleteCheckbox);
+					let col2=$("<div>").addClass("col-2").append(dto.blackList_date);
+					let col3=$("<div>").addClass("col-5").append(dto.blackList_content);
+					
+					let col4= $("<div>").addClass("col-2").append(dto.user_id);
+					let col5= $("<div>").addClass("col-2").append(dto.user_category);
+					
+					
+					
+					row.append(col1, col2,col3,col4,col5);
+					row.appendTo("#blackList");
+				}
+				
+			}
+				
+    			
+    		},
+    		error:function(e){
+    			console.log(e);
+    		}
+    	})
+    })
+
+    /* 멤버 회원 찾기 */
+    $("#mSearchBtn").on("click",function(){
+    	let user_id=$("#mSearchInput").val();
+    	console.log(user_id);
+    	$.ajax({
+    		url:"/member/mSearch",
+    		type:"get",
+    		data:{'user_id':user_id},
+    		success:function(data){
+    			console.log(data);
+    			$("#memberList").empty();
+    			$("#pagination").empty();
+				if(data.length ==0){ //검색 결과 없음
+					let row=$("<div>").addClass("row");
+					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
+					row.append(col);
+					row.appendTo("#memberList");
+			}else{
+				
+				for(let dto of data){
+					let row=$("<div>").addClass("row");
+					let deleteCheckbox =$("<input>").attr({
+						type:"checkbox",
+						class:"check",
+						onclick:"setBox(this)",
+						value:dto.user_id
+						
+					});
+					let col1=$("<div>").addClass("col-1").append(deleteCheckbox);
+					let col2=$("<div>").addClass("col-2").append(dto.user_id);
+					let col3=$("<div>").addClass("col-2").append(dto.user_category);
+					
+					let col4= $("<div>").addClass("col-2").append(dto.user_nickname);
+					let col5= $("<div>").addClass("col-2").append(dto.user_name);
+					let col6=$("<div>").addClass("col-2").append(dto.user_phone);
+					let col7=$("<div>").addClass("col-1").append(dto.blackList_check);
+					
+					
+					row.append(col1, col2,col3,col4,col5,col6,col7);
+					row.appendTo("#memberList");
+				}
+				
+			}
+				
+    			
+    		},
+    		error:function(e){
+    			console.log(e);
+    		}
+    	})
+    })
+
+    /* 멤버 Pagination */
+	$(".memberPage").on("click", function(e) {
+		let curPage=$(e.target).val();
+		$.ajax({
+			url:"/member/toMemberPage?curPage="+curPage,
+			type:"get",
+			
+			success:function(data){
+				$("#memberList").empty();
+				if(data.length ==0){ //검색 결과 없음
+					let row=$("<div>").addClass("row");
+					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
+					row.append(col);
+					row.appendTo("#memberList");
+			}else{
+				
+				for(let dto of data){
+					let row=$("<div>").addClass("row");
+					let deleteCheckbox =$("<input>").attr({
+						type:"checkbox",
+						class:"check",
+						onclick:"setBox(this)",
+						value:dto.user_id
+						
+					});
+					let col1=$("<div>").addClass("col-1").append(deleteCheckbox);
+					let col2=$("<div>").addClass("col-2").append(dto.user_id);
+					let col3=$("<div>").addClass("col-2").append(dto.user_category);
+					
+					let col4= $("<div>").addClass("col-2").append(dto.user_nickname);
+					let col5= $("<div>").addClass("col-2").append(dto.user_name);
+					let col6=$("<div>").addClass("col-2").append(dto.user_phone);
+					let col7=$("<div>").addClass("col-1").append(dto.blackList_check);
+					
+					
+					row.append(col1, col2,col3,col4,col5,col6,col7);
+					row.appendTo("#memberList");
+				}
+				
+			}
+					
+			},error:function(e){
+				console.log(e);
 			}
 		});
-		// 게시글 검색
-		$("#searchIcon").on("click", function() {
-			if ($("#titleSearch").val() == "") { //검색창이 널값이라면
-				alert("물품을 입력해주세요!")
-			} else if ($("#titleSearch").val() != "") {//검색창이 널값이 아니라면
-				document.getElementById("SearchForm").submit();
-			}
-		})
-		$("#searchIcon2").on("click", function() {
-			if ($("#titleSearch2").val() == "") { //검색창이 널값이라면
-				alert("물품을 입력해주세요!")
-			} else if ($("#titleSearch2").val() != "") {//검색창이 널값이 아니라면
-				document.getElementById("SearchForm2").submit();
-			}
-		})
-		//즐겨찾기 버튼
-		$(".bookmark").on("click", function() {
-			alert(" Ctrl+D 키를 누르면 즐겨찾기에 추가하실 수 있습니다.")
-		})
-		//지역카테고리
-		$("#district").change(function() {
-			console.log($(this).val());
-			$(".b_dong").addClass('d-none');
-			$("#dong").addClass('d-none');
-			if ($(this).val() == "강남구") {
-				$("#gangnam").removeClass('d-none');
-			} else if ($(this).val() == "강동구") {
-				$("#gangdong").removeClass('d-none');
-			} else if ($(this).val() == "강서구") {
-				$("#gangseo").removeClass('d-none');
-			} else if ($(this).val() == "강북구") {
-				$("#gangbuk").removeClass('d-none');
-			} else if ($(this).val() == "관악구") {
-				$("#Gwanak").removeClass('d-none');
-			} else if ($(this).val() == "광진구") {
-				$("#Gwangjin").removeClass('d-none');
-			} else if ($(this).val() == "구로구") {
-				$("#Guro").removeClass('d-none');
-			} else if ($(this).val() == "금천구") {
-				$("#Geumcheon").removeClass('d-none');
-			} else if ($(this).val() == "노원구") {
-				$("#Nowon").removeClass('d-none');
-			} else if ($(this).val() == "동대문구") {
-				$("#Dongdaemun").removeClass('d-none');
-			} else if ($(this).val() == "동작구") {
-				$("#Dongjak").removeClass('d-none');
-			} else if ($(this).val() == "마포구") {
-				$("#Mapo").removeClass('d-none');
-			} else if ($(this).val() == "서대문구") {
-				$("#Seodaemun").removeClass('d-none');
-			} else if ($(this).val() == "송파구") {
-				$("#Songpa").removeClass('d-none');
-			} else if ($(this).val() == "영등포구") {
-				$("#Yeongdeungpo").removeClass('d-none');
-			} else if ($(this).val() == "용산구") {
-				$("#Yongsan").removeClass('d-none');
-			} else if ($(this).val() == "은평구") {
-				$("#Eunpyeong").removeClass('d-none');
-			} else if ($(this).val() == "종로구") {
-				$("#Jongno").removeClass('d-none');
-			} else if ($(this).val() == "지역을 선택하세요") {
-				$("#dong").removeClass('d-none');
-			}
-			$("#roadAddrInput").val($(this).val());
-			document.getElementById("districeForm").submit();
-		})
-		//동네카테고리
-		$(".a_dong").change(function() {
-			console.log($(this).val());
-			$("#extraAddrInput").val($(this).val());
-			document.getElementById("districeForm").submit();
-		})
-	</script>
-</body>
 
+	})
+	/* 블랙 Pagination */
+	$(".blackPage").on("click", function(e) {
+		let curPage=$(e.target).val();
+		$.ajax({
+			url:"/member/toBlackPage?curPage="+curPage,
+			type:"get",
+			
+			success:function(data){
+				$("#blackList").empty();
+				if(data.length ==0){ //검색 결과 없음
+					let row=$("<div>").addClass("row");
+					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
+					row.append(col);
+					row.appendTo("#blackList");
+			}else{
+				
+				for(let dto of data){
+					let row=$("<div>").addClass("row");
+					let deleteCheckbox =$("<input>").attr({
+						type:"checkbox",
+						class:"bCheck",
+						onclick:"setBox(this)",
+						value:dto.user_id
+						
+					});
+					let col1=$("<div>").addClass("col-1").append(deleteCheckbox);
+					let col2=$("<div>").addClass("col-2").append(dto.blackList_date);
+					let col3=$("<div>").addClass("col-5").append(dto.blackList_content);
+					
+					let col4= $("<div>").addClass("col-2").append(dto.user_id);
+					let col5= $("<div>").addClass("col-2").append(dto.user_category);
+					
+					
+					
+					row.append(col1, col2,col3,col4,col5);
+					row.appendTo("#blackList");
+				}
+				
+			}
+					
+			},error:function(e){
+				console.log(e);
+			}
+		});
+	})
+/* 리포트 Pagination */
+	$(".reportPage").on("click", function(e) {
+		let curPage=$(e.target).val();
+
+		$.ajax({
+			url:"/member/toReportPage?curPage="+curPage,
+			type:"get",
+			
+			success:function(data){
+				$("#reportList").empty();
+				if(data.length ==0){ //검색 결과 없음
+					let row=$("<div>").addClass("row");
+					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
+					row.append(col);
+					row.appendTo("#reportList");
+			}else{
+				
+				for(let dto of data){
+					let row=$("<div>").addClass("row");
+					let deleteCheckbox =$("<input>").attr({
+						type:"checkbox",
+						class:"rCheck",
+						onclick:"setBox(this)",
+						value:dto.report_seq
+						
+					});
+					let col1=$("<div>").addClass("col-1").append(deleteCheckbox);
+					let col2=$("<div>").addClass("col-5").append(dto.report_content);
+					let col3=$("<div>").addClass("col-2").append(dto.reported_id);
+					
+					let col4= $("<div>").addClass("col-2").append(dto.user_id);
+					let col5= $("<div>").addClass("col-2").append(dto.user_category);
+					
+					
+					
+					row.append(col1, col2,col3,col4,col5);
+					row.appendTo("#reportList");
+				}
+				
+			}
+					
+			},error:function(e){
+				console.log(e);
+			}
+		});
+	})
+
+	/* 멤버 전체 선택 */
+	$("#memberAll").on(
+			"click",
+			function(e) {
+				if ($("#memberAll").is(":checked")) {
+					$(".check").prop("checked", true);
+					$(".check").parent().css("backgroundColor", "#ffafa1");
+					$(".check").parent().parent().css("backgroundColor",
+							"#f4ffe8");
+				} else {
+					$(".check").prop("checked", false);
+					$(".check").parent().css("backgroundColor", "white");
+					$(".check").parent().parent().css("backgroundColor",
+							"#fff");
+				}
+			})
+
+	/* 블랙 전체 선택 */
+	$("#blackAll")
+			.on(
+					"click",
+					function(e) {
+						if ($("#blackAll").is(":checked")) {
+							$(".bCheck").prop("checked", true);
+							$(".bCheck").parent().css("backgroundColor",
+									"#ffafa1");
+							$(".bCheck").parent().parent().css(
+									"backgroundColor", "#f4ffe8");
+						} else {
+							$(".bCheck").prop("checked", false);
+							$(".bCheck").parent().css("backgroundColor",
+									"white");
+							$(".bCheck").parent().parent().css(
+									"backgroundColor", "#fff");
+						}
+					})
+
+	/* 신고 전체 선택 */
+	$("#reportAll")
+			.on(
+					"click",
+					function(e) {
+						if ($("#reportAll").is(":checked")) {
+							$(".rCheck").prop("checked", true);
+							$(".rCheck").parent().css("backgroundColor",
+									"#ffafa1");
+							$(".rCheck").parent().parent().css(
+									"backgroundColor", "#f4ffe8");
+						} else {
+							$(".rCheck").prop("checked", false);
+							$(".rCheck").parent().css("backgroundColor",
+									"white");
+							$(".rCheck").parent().parent().css(
+									"backgroundColor", "#fff");
+						}
+					})
+
+	/* 체크박스 클릭시 이벤트 */
+	function setBox(e) {
+		td = e.parentNode;
+		td.style.backgroundColor = (e.checked) ? "#ffafa1" : "white";
+		tr = e.parentNode.parentNode;
+		tr.style.backgroundColor = (e.checked) ? "#f4ffe8" : "#fff";
+	}
+
+	/* 블랙리스트 모달 */
+	var exampleModal = document.getElementById('exampleModal')
+	exampleModal.addEventListener('show.bs.modal', function(event) {//블랙리스트 버튼을 클릭했을때
+
+		var button = event.relatedTarget
+		var recipient = button.getAttribute('data-bs-whatever')
+		var modalTitle = exampleModal.querySelector('.modal-title')
+		var modalBodyInput = exampleModal
+				.querySelector('.modal-body input')
+
+		modalTitle.textContent = "블랙리스트"
+
+	})
+	/* 회원 블랙 전송버튼 */
+	$("#sendBtn").on("click", function() {
+		let checkArr = $(".check:checked");
+		if (checkArr.length == 0) {
+			alert("체크박스를 선택해주세요")
+			return;
+		}
+		let arr = Array();
+		for (let i = 0; i < checkArr.length; i++) {
+			arr.push(checkArr[i].value);
+		}
+		let blackList_content = $("#blackList_content").val();
+		console.log(blackList_content);
+		if (confirm("해당 회원을 블랙리스트 시키겠습니까?")) {
+			$.ajax({
+				url : "/blackList/black",
+				type : 'post',
+				data : {
+					"arr[]" : arr,
+					"blackList_content" : blackList_content
+				},
+				success : function(data) {
+					console.log(data);
+					alert("해당 데이터가 블랙되었습니다.")
+					location.reload();
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
+		}
+
+	})
+
+	/* 회원 삭제 */
+	$("#deleteBtn").on("click", function() {
+		let checkArr = $(".check:checked");
+
+		let arr = Array();
+
+		for (let i = 0; i < checkArr.length; i++) {
+			arr.push(checkArr[i].value);
+		}
+
+		if (checkArr.length == 0) {
+			alert("체크박스를 선택해주세요")
+			return;
+		} else {
+			if (confirm("해당 회원 블랙을 해제하시겠습니까?")) {
+				$.ajax({
+					url : "/member/delete",
+					type : 'post',
+					data : {
+						"arr[]" : arr
+					},
+					success : function(data) {
+						console.log(data);
+						alert("해당 블랙이 해제되었습니다.")
+						location.reload();
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			}
+
+		}
+
+	})
+	/* 블랙리스트해제 */
+	$("#unBlackBtn").on("click", function() {
+		let checkArr = $(".bCheck:checked");
+
+		let arr = Array();
+
+		for (let i = 0; i < checkArr.length; i++) {
+			arr.push(checkArr[i].value);
+		}
+
+		if (checkArr.length == 0) {
+			alert("체크박스를 선택해주세요")
+			return;
+		} else {
+			if (confirm("해당 회원을 정말 삭제하시겠습니까?")) {
+				$.ajax({
+					url : "/blackList/unBlack",
+					type : 'post',
+					data : {
+						"arr[]" : arr
+					},
+					success : function(data) {
+						console.log(data);
+						alert("해당 데이터가 삭제되었습니다.")
+						location.reload();
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			}
+
+		}
+
+	})
+	/* 신고 내역 삭제 */
+	$("#reportBtn").on("click", function() {
+		let checkArr = $(".rCheck:checked");
+
+		let arr = Array();
+
+		for (let i = 0; i < checkArr.length; i++) {
+			arr.push(checkArr[i].value);
+		}
+
+		if (checkArr.length == 0) {
+			alert("체크박스를 선택해주세요")
+			return;
+		} else {
+			if (confirm("해당 회원을 정말 삭제하시겠습니까?")) {
+				$.ajax({
+					url : "/report/delete",
+					type : 'post',
+					data : {
+						"arr[]" : arr
+					},
+					success : function(data) {
+						console.log(data);
+						alert("해당 신고가 삭제되었습니다.")
+						location.reload();
+					},
+					error : function(e) {
+						console.log(e);
+					}
+				});
+			}
+
+		}
+
+	})
+
+        $('#SearchForm').on('keypress', function (e) { // 인풋창 클릭후 엔터누르면 실행
+            if (e.keyCode == '13') {
+                if ($("#titleSearch").val() !== "") {//검색창이 널값이 아니라면
+                    document.getElementById("SearchForm").submit();
+                }
+            }
+        });
+        // 게시글 검색
+        $("#searchIcon").on("click", function () {
+            if ($("#titleSearch").val() == "") { //검색창이 널값이라면
+                alert("물품을 입력해주세요!")
+            } else if ($("#titleSearch").val() != "") {//검색창이 널값이 아니라면
+                document.getElementById("SearchForm").submit();
+            }
+        })
+        $("#searchIcon2").on("click", function () {
+            if ($("#titleSearch2").val() == "") { //검색창이 널값이라면
+                alert("물품을 입력해주세요!")
+            } else if ($("#titleSearch2").val() != "") {//검색창이 널값이 아니라면
+                document.getElementById("SearchForm2").submit();
+            }
+        })
+
+        //즐겨찾기 버튼
+        $(".bookmark").on("click", function () {
+            alert(" Ctrl+D 키를 누르면 즐겨찾기에 추가하실 수 있습니다.")
+        })
+
+        //지역카테고리
+        $("#district").change(function () {
+            console.log($(this).val());
+
+            $(".b_dong").addClass('d-none');
+            $("#dong").addClass('d-none');
+
+            if ($(this).val() == "강남구") {
+                $("#gangnam").removeClass('d-none');
+            } else if ($(this).val() == "강동구") {
+                $("#gangdong").removeClass('d-none');
+            } else if ($(this).val() == "강서구") {
+                $("#gangseo").removeClass('d-none');
+            } else if ($(this).val() == "강북구") {
+                $("#gangbuk").removeClass('d-none');
+            } else if ($(this).val() == "관악구") {
+                $("#Gwanak").removeClass('d-none');
+            } else if ($(this).val() == "광진구") {
+                $("#Gwangjin").removeClass('d-none');
+            } else if ($(this).val() == "구로구") {
+                $("#Guro").removeClass('d-none');
+            } else if ($(this).val() == "금천구") {
+                $("#Geumcheon").removeClass('d-none');
+            } else if ($(this).val() == "노원구") {
+                $("#Nowon").removeClass('d-none');
+            } else if ($(this).val() == "동대문구") {
+                $("#Dongdaemun").removeClass('d-none');
+            } else if ($(this).val() == "동작구") {
+                $("#Dongjak").removeClass('d-none');
+            } else if ($(this).val() == "마포구") {
+                $("#Mapo").removeClass('d-none');
+            } else if ($(this).val() == "서대문구") {
+                $("#Seodaemun").removeClass('d-none');
+            } else if ($(this).val() == "송파구") {
+                $("#Songpa").removeClass('d-none');
+            } else if ($(this).val() == "영등포구") {
+                $("#Yeongdeungpo").removeClass('d-none');
+            } else if ($(this).val() == "용산구") {
+                $("#Yongsan").removeClass('d-none');
+            } else if ($(this).val() == "은평구") {
+                $("#Eunpyeong").removeClass('d-none');
+            } else if ($(this).val() == "종로구") {
+                $("#Jongno").removeClass('d-none');
+            } else if ($(this).val() == "지역을 선택하세요") {
+                $("#dong").removeClass('d-none');
+            }
+            $("#roadAddrInput").val($(this).val());
+            document.getElementById("districeForm").submit();
+        })
+
+        //동네카테고리
+        $(".a_dong").change(function () {
+            console.log($(this).val());
+            $("#extraAddrInput").val($(this).val());
+            document.getElementById("districeForm").submit();
+        })
+
+    </script>
+
+</body>
 </html>
