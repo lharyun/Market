@@ -189,28 +189,31 @@
                     </div>
                     <div class="col d-flex justify-content-end">
                         <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
-                            </li>
-                            
-                            <!-- 로그인했을경우 띄우기 -->
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="/member/toLogout">로그아웃</a>
-                             </li>
-                            <li class="nav-item dropdown">
-                                
-                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
-                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
-                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
-                                </ul>
-                            </li> -->
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
-                            </li>
-                           
+                        	<c:choose>
+								<c:when test="${empty loginSession}">
+									<li class="nav-item">
+                                		<a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
+                            		</li>
+                            		<li class="nav-item">
+		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
+		                            </li>
+								</c:when>
+								<c:otherwise>
+									<!-- 로그인했을경우 띄우기 -->
+		                            <li class="nav-item">
+		                                <a class="nav-link" href="/member/toLogout">로그아웃</a>
+		                             </li>
+		                            <li class="nav-item dropdown">
+		                                
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <ul class="dropdown-menu">
+		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
+		                                </ul>
+		                            </li>
+								</c:otherwise>
+							</c:choose>
                         </ul>
                     </div>
                 </div>
@@ -663,11 +666,11 @@
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/resources/images/header_pooter/navibar.png" height="35px">
-                         </a>   
-                         <a href="/post/toPost">
-                                <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
-                         </a> 
+                            <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                        </a>
+                        <a href="/post/toPost">
+                            <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                        </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
                                 
@@ -802,7 +805,7 @@
                     </div>
                 
                     <div class="col-5 position-relative p-0" id="searchBox">
-                        <form id="SearchForm2" action="/post/toSearch" method="post">
+                        <form id="SearchForm2" class="m-0" action="/post/toSearch" method="post">
                             <a href="#" class="nav-link p-0 d-inline" id="searchIcon2"><img src="/resources/images/header_pooter/searchIcon.png" class="searchIcon"
                                     height="22px"></a>
                 
@@ -979,6 +982,14 @@ ${list.size()}
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
          </a>
     </div>
+    <%-- 관리자 아이디와 같다면 --%>
+	<c:if test="${loginSession.user_id eq 'abc123'}">
+	    <div class="logo4">
+	        <a class="nav-link" href="/member/toManager?curPage=1">
+	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
+	         </a>
+	    </div>
+    </c:if>
     
     <footer class="py-4 text-light">
         <div class="container" id="footerBox">
@@ -994,7 +1005,7 @@ ${list.size()}
                 <div class="col">
                     <ul class="nav flex-column pt-3">
                         <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
