@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>헤더푸터</title>
+    <title>메인페이지</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
     <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet">
@@ -521,7 +521,10 @@
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/resources/images/header_pooter/navibar.png" height="35px"><img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                            <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                        </a>
+                        <a href="/post/toPost">
+                            <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
@@ -749,8 +752,14 @@
     </div>
      <!-- 고객게시판 -->
     <div class="logo2">
-        <a class="nav-link" href="/client/toClient_post">
+        <a class="nav-link" href="/client/toClient_post?curPage=1">
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
+         </a>
+    </div>
+
+    <div class="logo4">
+        <a class="nav-link" href="/member/toManager?curPage=1">
+            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
          </a>
     </div>
     

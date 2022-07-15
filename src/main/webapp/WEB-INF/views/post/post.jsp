@@ -663,8 +663,11 @@
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/resources/images/header_pooter/navibar.png" height="35px"><img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
-                        </a>
+                                <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                         </a>   
+                         <a href="/post/toPost">
+                                <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                         </a> 
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
                                 
@@ -854,22 +857,6 @@ ${list.size()}
                     </div>
                 </a>
             </article>
-            
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            
             <c:if test="${list.size() == 0}">
             	<div class="d-flex justify-content-center"><b>첨부된 파일이 없습니다.</b></div>
             </c:if>
@@ -893,8 +880,8 @@ ${list.size()}
 		                        <div class="mt-2 middle_title">${list.post_title}</div>
 		                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
 		                        <div class="middle_smText mt-1">${list.post_addr}</div>
-		                        <div class="middle_smText mt-1">관심
-		                        ·채팅${list.post_chatting_cnt}·조회${list.post_inquiry_cnt}</div>
+		                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+		                        ·조회${list.post_inquiry_cnt}</div>
 		                    </div>
 		                </a>
 		            </article>

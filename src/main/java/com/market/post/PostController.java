@@ -51,18 +51,6 @@ public class PostController {
 		List<Map<String, Object>> list = service.selectJoin();
 		model.addAttribute("list", list);
 		
-//		//관심수 가져오기
-//		List<Map<String, Object>> interestList = new ArrayList<Map<String, Object>>();
-//		for (int i = 0; i < list.size(); i++) {
-//			Map<String, Object> interestMap = new HashMap<String, Object>();
-//			int post_seq = Integer.parseInt(String.valueOf(list.get(i).get("post_seq")));
-//			int interest_cnt = basketService.interest_cnt(post_seq);
-//			interestMap.put("post_seq",post_seq);
-//			interestMap.put("interest_cnt",interest_cnt);
-//			interestList.add(interestMap);
-//		}
-//		System.out.println(interestList);
-//		model.addAttribute("interestList", interestList);
 		return "post/post";
 	}
 	@RequestMapping(value = "/toPostWrite")
@@ -92,7 +80,7 @@ public class PostController {
 	@RequestMapping(value = "/toPostDetail")
 	public String toPostDetail(int post_seq, Model model) throws Exception{
 		System.out.println("post_seq : "+post_seq);
-		//조회수
+		//조회수 업
 		service.inquiry_cnt(post_seq);
 		// 해당 번호의 이미지리스트와 게시글 정보 받아옴 
 		Map<String, Object> map = service.selectPost_seq(post_seq);
@@ -100,11 +88,14 @@ public class PostController {
 		System.out.println( map.get("postDTO") );
 		model.addAttribute("map", map);
 		
-		
+		//post,img테이블 select*from
+		List<Map<String, Object>> list = service.selectJoin();
+		model.addAttribute("list", list);
+				
+		//해당게시글 찜목록에 로그인 아이디 있는지 확인
 		if(session.getAttribute("loginSession") != null) {
 			String user_id = ((Map<String, String>) session.getAttribute("loginSession")).get("user_id");
 			BasketDTO basketDto = basketService.select_userBasket(user_id,post_seq);
-			
 			model.addAttribute("basketDto", basketDto);
 		}
 		return "post/postDetail";
@@ -116,12 +107,11 @@ public class PostController {
 	public int interestUp(BasketDTO dto, Model model) throws Exception{
 		System.out.println(dto);
 		int post_seq = dto.getPost_seq(); 
+		// 찜목록 등록
 		int rs = basketService.basketInsert(dto);
 		if(rs > 0) {
-			//판매게시글 관심수 업데이트
 			int post_interest_cnt = basketService.interest_cnt(post_seq); //해당번호의 관심수 조회
-			System.out.println(post_interest_cnt);
-			service.interestUpdate(post_interest_cnt, post_seq);
+			service.interestUpdate(post_interest_cnt, post_seq); // 관심수 업데이트
 			return post_interest_cnt;
 		}else {
 			return -1;

@@ -126,28 +126,35 @@ header {
 }
 .logo2 {
     position: fixed;
-    bottom: 60px;
+    bottom: 40px;
     right:10px;
     z-index: 2;
-    
     animation: box-ani 0.5s linear forwards;
 
 }
 .logo3 {
     position: fixed;
-    bottom: 140px;
+    bottom: 120px;
     right:10px;
     z-index: 2;
     animation: box-ani 0.5s linear forwards;
     /* animation: box-ani2 0.5s linear forwards; */
 }
-.logo3 img, .logo2 img{
+.logo4 {
+    position: fixed;
+    bottom: 200px;
+    right:10px;
+    z-index: 2;
+    animation: box-ani 0.5s linear forwards;
+    /* animation: box-ani2 0.5s linear forwards; */
+}
+.logo4 img, .logo3 img, .logo2 img{
     background-color: #f47d39;
     border-radius: 50%;
     box-shadow: 0px 5px 3px rgba(128, 128, 128, 0.423);
     transition: 1s;
 }
-.logo3 img:hover, .logo2 img:hover{
+.logo4 img:hover, .logo3 img:hover, .logo2 img:hover{
     
     transform: rotate( 45deg );
     
@@ -176,6 +183,7 @@ footer {
     overflow: hidden;
     z-index: 1;
     background-color: #495057;
+   
 }
 
 footer .nav-link {

@@ -119,7 +119,7 @@
             
         }
 
-        .afterImg {
+        .beforeImg {
             display: none;
         }
 
@@ -230,11 +230,11 @@
             width: 677px;
         }
 
-        .beforeImg {
+        .afterImg {
             display: none;
         }
 
-        .afterImg {
+        .beforeImg {
             display: block;
         }
 
@@ -1256,6 +1256,7 @@
         <!-- 해당 벨류값으로 selected 주기 -->
         <div class="row mt-3 ">
             <div class="col">
+            	<%-- 로그인된 아이디와 같다면 --%>
             	<c:if test="${loginSession.user_id eq map.postDTO.user_id}">
 	                <select class="form-select post_category" id="post_category" aria-label="Default select example"
 	                    name="post_category" onchange="location.href=this.value">
@@ -1265,6 +1266,7 @@
 	                    <option value="/post/toPost_category?post_category=거래완료&post_seq=${map.postDTO.post_seq}">거래완료</option>
 	                </select>
                 </c:if>
+                <%-- 로그인된 아이디와 같지 않다면 --%>
                 <c:if test="${loginSession.user_id ne map.postDTO.user_id}">
                 	<select class="form-select post_category" id="post_category" aria-label="Default select example"
 	                    name="post_category" disabled>
@@ -1273,16 +1275,21 @@
                 </c:if>
             </div>
             <div class="col d-flex justify-content-end">
-            	<c:if test="${loginSession.user_id eq map.postDTO.user_id}">
-	                <button type="button" class="hoverIcon">
-	                    <img src="/resources/images/post/edit.png" height="25px">
-	                </button>
-                </c:if>
-                <span class="me-2"></span>
+            	
                 <!-- 신고버튼 모달 -->
                 <button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
                     <img src="/resources/images/post/report.png" height="25px">
                 </button>
+                <span class="me-2"></span>
+                <c:if test="${loginSession.user_id eq map.postDTO.user_id}">
+	                <button type="button" class="hoverIcon">
+	                    <img src="/resources/images/post/edit.png" height="25px">
+	                </button>
+	            <span class="me-2"></span>    
+	                  <button type="button" class="hoverIcon">
+	                    <img src="/resources/images/post/trash.png" height="25px">
+	                </button>
+                </c:if>
                 <!-- Modal -->
                 <div id="modal_delete">
                     <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1395,128 +1402,80 @@
 
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <span class="middle_orangeText"><a href="#">더 구경하기</a></span>
+                    <span class="middle_orangeText"><a href="/post/toPost">더 구경하기</a></span>
                 </div>
             </div>
         </div>
         <!-- 인기중고 best 6개 -->
         <!-- 비반응 -->
         <div class="py-2 middle_postBox beforeImg">
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
+            <c:if test="${list.size() == 0}">
+            	<div class="d-flex justify-content-center"><b>첨부된 파일이 없습니다.</b></div>
+            </c:if>
+            <c:if test="${list.size() > 0}">
+	             <c:forEach items="${list}" var="list" varStatus="status">
+	             	<c:if test="${status.index<6}">
+			              <article class="postBox">
+			                <a href="/post/toPostDetail?post_seq=${list.post_seq}" >
+			                    <div class="imgDiv">
+			                        <img class="hicary" src="/resources/images/post/반짝.png">
+				                    	<c:choose>
+					                    <c:when test="${list.post_sys_name ne null}">
+					                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+					                    </c:when>
+					                     <c:otherwise>
+					                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+					                    </c:otherwise>
+					                    </c:choose>
+			                        
+			                    </div>
+			                    <div class="postInformation">
+			                        <div class="mt-2 middle_title">${list.post_title}</div>
+			                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+			                        <div class="middle_smText mt-1">${list.post_addr}</div>
+			                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+			                        ·조회${list.post_inquiry_cnt}</div>
+			                    </div>
+			                </a>
+			            </article>
+			     	</c:if>       
+				 </c:forEach>
+			 </c:if>
         </div>
         <!-- 반응 4개 -->
         <div class="py-2 middle_postBox afterImg">
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
+            <c:if test="${list.size() == 0}">
+            	<div class="d-flex justify-content-center"><b>첨부된 파일이 없습니다.</b></div>
+            </c:if>
+            <c:if test="${list.size() > 0}">
+	             <c:forEach items="${list}" var="list" varStatus="status">
+	             	<c:if test="${status.index<4}">
+			              <article class="postBox">
+			                <a href="/post/toPostDetail?post_seq=${list.post_seq}" >
+			                    <div class="imgDiv">
+			                        <img class="hicary" src="/resources/images/post/반짝.png">
+				                    	<c:choose>
+					                    <c:when test="${list.post_sys_name ne null}">
+					                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+					                    </c:when>
+					                     <c:otherwise>
+					                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+					                    </c:otherwise>
+					                    </c:choose>
+			                        
+			                    </div>
+			                    <div class="postInformation">
+			                        <div class="mt-2 middle_title">${list.post_title}</div>
+			                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+			                        <div class="middle_smText mt-1">${list.post_addr}</div>
+			                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+			                        ·조회${list.post_inquiry_cnt}</div>
+			                    </div>
+			                </a>
+			            </article>
+			     	</c:if>       
+				 </c:forEach>
+			 </c:if>
         </div>
 
     </div>
@@ -1680,11 +1639,10 @@
     <script>
    
    
-    	// 첫번째 자식 클래스 추가
+    	// 캐러셀 첫번째 자식 클래스 추가
 	    $(function() {
 			$(".carousel-inner").children().first().addClass('active');
 			$(".car_img2").children().first().addClass('active');
-	
 	    });
 
         //콤마
@@ -1702,8 +1660,8 @@
             return str.replace(/[^\d]+/g, '');
         }
 
-        // 빈하트 클릭시 찜추가해주기
-        $(".heartBefore").on("click", function () {
+        // 빈하트 클릭시 찜추가해주기 (카운트up, 페드효과)
+        $(".middle_heartBtn").on("click",".heartBefore", function () {
             let user_id="${loginSession.user_id}";
             let user_category="${loginSession.user_category}";
             let post_seq = "${map.postDTO.post_seq}"
@@ -1716,7 +1674,31 @@
     				post_seq : post_seq}
     		, success: function(data){
     			if(data >= 0){//성공시 하트 효과
-    				console.log("${map.postDTO.post_interest_cnt}")
+    				//하트이미지 재생성
+    				$(".middle_heartBtn").empty();
+                let heartBefore = $("<button>").attr({ 
+                    "type" : "button" ,
+                    "class" : "heartBefore"
+                });
+                let imgBefore = $("<img>").attr({ 
+                    "src" : "/resources/images/post/heartLine.png" ,
+                    "height" : "20px",
+                    "width" : "20px"
+                });
+                let heartAfter = $("<button>").attr({ 
+                    "type" : "button",
+                    "class" : "heartAfter d-none"
+                });
+                let imgAfter = $("<img>").attr({ 
+                    "src" : "/resources/images/post/heart.png" ,
+                    "height" : "20px",
+                    "width" : "20px"
+                });
+                heartAfter.append(imgAfter);
+                heartBefore.append(imgBefore);
+                $(".middle_heartBtn").append(heartAfter,heartBefore);
+                
+              	//페이드효과
     				 $(".alertBox").fadeIn(1000);
     		            setTimeout(function () {
     		                $(".alertBox").fadeOut(1000);
@@ -1726,6 +1708,7 @@
     		                $(".heartAfter").fadeIn(1000);
     		                $(".heartAfter").removeClass('d-none');
     		            }, 1000);
+    		            // 갯수 가져오기
     		            $("#cntBox").empty();
         				$("#cntBox").append("관심"+data
         	            +"·채팅${map.postDTO.post_chatting_cnt}"
@@ -1738,9 +1721,9 @@
     		}
     	}) 
         })
-        // 꽉찬하트 클릭시 찜삭제
-        
-        $(".heartAfter").on("click", function () {
+       
+        // 꽉찬하트 클릭시 찜삭제(카운트Down, 페드효과)
+        $(".middle_heartBtn").on("click",".heartAfter", function () {
             let user_id="${loginSession.user_id}";
             let user_category="${loginSession.user_category}";
             let post_seq = "${map.postDTO.post_seq}"
@@ -1753,13 +1736,38 @@
     				post_seq : post_seq}
     		, success: function(data){
     			if(data >= 0){//성공시 하트 효과
-    				console.log("${map.postDTO.post_interest_cnt}")
+    				// 하트관련 재생성
+    				$(".middle_heartBtn").empty();
+                let heartBefore = $("<button>").attr({ 
+                    "type" : "button" ,
+                    "class" : "heartBefore d-none"
+                });
+                let imgBefore = $("<img>").attr({ 
+                    "src" : "/resources/images/post/heartLine.png" ,
+                    "height" : "20px",
+                    "width" : "20px"
+                });
+                let heartAfter = $("<button>").attr({ 
+                    "type" : "button" ,
+                    "class" : "heartAfter"
+                });
+                let imgAfter = $("<img>").attr({ 
+                    "src" : "/resources/images/post/heart.png" ,
+                    "height" : "20px",
+                    "width" : "20px"
+                });
+                heartAfter.append(imgAfter);
+                heartBefore.append(imgBefore);
+                $(".middle_heartBtn").append(heartAfter,heartBefore);
+                
+                	//페이드효과
     				 $(".heartAfter").fadeOut(1000);
 		                setTimeout(function () {
 		                    $(".heartBefore").fadeIn(1000);
 		                    $(".heartBefore").removeClass('d-none');
 		    
 		                }, 1000);
+		                // 갯수 가져오기
     		            $("#cntBox").empty();
         				$("#cntBox").append("관심"+data
         	            +"·채팅${map.postDTO.post_chatting_cnt}"
@@ -1773,11 +1781,8 @@
     	}) 
         })
         
-        $(".heartAfter").on("click", function () {
-
-            $(".heartAfter").fadeOut(1000);
-            
-        })
+        
+     
     </script>
 
 </body>
