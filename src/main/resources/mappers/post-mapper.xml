@@ -4,6 +4,42 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
- <mapper namespace="postMapper">
- 
- </mapper>
+<mapper namespace="postMapper">
+	<!-- 게시글 저장 -->
+	<insert id="insert" parameterType="com.market.post.PostDTO">
+		insert into tbl_post values
+		(#{post_seq}, #{post_title}, #{post_content}, #{post_category}, 0, 0, 0, #{price_selling}
+		, #{price_check}, #{post_addr}, sysdate, #{post_state}, #{user_id}, #{user_category})
+	</insert>
+
+	<!-- 새로운 post seq 생성 -->
+	<select id="selectSeq" resultType="int">
+		select post_seq.nextval from dual
+	</select>
+	
+	<!-- 이미지 조인 문 전체 조회 -->
+	<select id="selectJoin" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
+	select * from tbl_post a FULL OUTER JOIN tbl_post_img b
+		on a.post_seq= b.post_seq
+	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
+		where NOT post_title is NULL
+	</select>
+	
+	<!-- post_seq 번호로 조회 -->
+	<select id="selectPost_seq" resultType="com.market.post.PostDTO">
+		select*from tbl_post where post_seq = #{post_seq}
+	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="inquiry_cnt" parameterType="int">
+		update tbl_post set 
+			post_inquiry_cnt = post_inquiry_cnt+1 
+			where post_seq = #{post_seq}
+	</update>
+	<!-- 게시글 관심수 수정 증가 -->
+	<update id="interestUpdate" parameterType="map">
+		update tbl_post set 
+			post_interest_cnt = #{post_interest_cnt} 
+			where post_seq = #{post_seq}
+	</update>
+</mapper>
