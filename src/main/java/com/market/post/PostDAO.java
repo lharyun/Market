@@ -17,6 +17,17 @@ public class PostDAO {
 	public void insert(PostDTO dto) throws Exception{ 
 		session.insert("postMapper.insert", dto);
 	}
+	//게시글 삭제
+	public void postDelete(int post_seq) throws Exception{
+		session.delete("postMapper.postDelete", post_seq);
+	}
+	//카테고리 업데이트
+	public void toPost_category(String post_category, int post_seq) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("post_category", post_category);
+		map.put("post_seq", post_seq);
+		session.delete("postMapper.toPost_category", map);
+	}
 	// 새로운 게시글 시퀀스 번호 생성
 	public int selectSeq() throws Exception{ 
 		return session.selectOne("postMapper.selectSeq");

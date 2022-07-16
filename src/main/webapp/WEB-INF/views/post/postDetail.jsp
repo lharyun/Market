@@ -334,7 +334,7 @@
     }
 
     .middle_bottomLine {
-        padding-top: 40px;
+        padding-top: 50px;
         border-bottom: 1px solid rgba(128, 128, 128, 0.233);
     }
 
@@ -405,13 +405,7 @@
         font-weight: 600;
     }
 
-    #exampleModa2 .modal-content {
-        height: 250px;
-        border-radius: 12px;
-        padding: 20px;
-    }
-
-    #exampleModa3 .modal-content {
+    .modal-content {
         height: 250px;
         border-radius: 12px;
         padding: 20px;
@@ -422,7 +416,7 @@
         width: 80px;
     }
 
-    .middle_writeBtn {
+    .middle_Btn {
         background-color: rgb(255, 177, 88);
         border: 2px solid rgb(137, 111, 58);
         border-radius: 6px;
@@ -431,11 +425,11 @@
         box-shadow: -2px 2px 2px rgba(158, 136, 93, 0.712);
     }
 
-    .middle_writeBtn:hover {
+    .middle_Btn:hover {
         color: white;
     }
 
-    .middle_writeBtn:active {
+    .middle_Btn:active {
         margin-right: 3px;
         /* margin-top: 3px; */
         box-shadow: none;
@@ -1245,16 +1239,6 @@
                 <button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
                     <img src="/resources/images/post/report.png" height="25px">
                 </button>
-                <span class="me-2"></span>
-                <c:if test="${loginSession.user_id eq map.postDTO.user_id}">
-	                <button type="button" class="hoverIcon">
-	                    <img src="/resources/images/post/edit.png" height="25px">
-	                </button>
-	            <span class="me-2"></span>    
-	                  <button type="button" class="hoverIcon">
-	                    <img src="/resources/images/post/trash.png" height="25px">
-	                </button>
-                </c:if>
                 <!-- Modal -->
                 <div id="modal_delete">
                     <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1268,13 +1252,47 @@
                                 </div>
 
                                 <div class="col d-flex justify-content-center pt-5" id="modalBtn">
-                                    <button type="button" class="middle_writeBtn" id="post_reportBtn"
+                                    <button type="button" class="middle_Btn" id="post_reportBtn"
                                         data-bs-dismiss="modal">신고하기</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                	<%-- 수정버튼 --%>
+                   <span class="me-2"></span>
+                <c:if test="${loginSession.user_id eq map.postDTO.user_id}">
+	                <button type="button" class="hoverIcon" id="postModifyBtn">
+	                    <img src="/resources/images/post/edit.png" height="25px">
+	                </button>
+	                <%--삭제버튼 --%>
+	            <span class="me-2"></span>    
+	                 <button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa4">
+	                    <img src="/resources/images/post/trash.png" height="25px">
+	                </button>
+	                <div id="modal_delete">
+                    <div class="modal fade" id="exampleModa4" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                            <div class="row align-items-center modal-content ">
+                                <div class="row align-items-center middle_bottomLine">
+                                    <div class="col d-flex justify-content-center fw-bold" id="modalTitle" style="width:auto;">
+                                        정말 삭제하시겠어요..?
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                    <button type="button" class="middle_Btn" 
+                                        data-bs-dismiss="modal">취소하기
+                                    </button>
+                                    <button type="button" class="middle_Btn ms-2" id="postDeleteBtn"
+                                        data-bs-dismiss="modal">삭제하기
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </c:if>
             </div>
         </div>
         <div class="my-3 pt-3 topLine">
@@ -1344,7 +1362,7 @@
 	                                        </div>
 	
 	                                        <div class="col d-flex justify-content-center pt-5" id="modalBtn">
-	                                            <button type="button" class="middle_writeBtn" id="price_restrictionBtn"
+	                                            <button type="button" class="middle_Btn" id="price_restrictionBtn"
 	                                                data-bs-dismiss="modal">제안하기</button>
 	                                        </div>
 	                                    </div>
@@ -1616,6 +1634,11 @@
 			$(".car_img2").children().first().addClass('active');
 	    });
 
+    	//휴지통클릭시 포스트 삭제
+    	$("#postDeleteBtn").on("click", function(){
+    		location.href = "/post/postDelete?post_seq=${map.postDTO.post_seq}"
+    	})
+    	
         //콤마
         function inputNumberFormat(obj) {
             obj.value = comma(uncomma(obj.value));

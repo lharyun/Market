@@ -22,7 +22,16 @@ public class PostService {
 	private Post_imgDAO post_imgDao;
 	
 
-	
+	//판매중 카테고리 업데이트
+		public void toPost_category(String post_category, int post_seq)throws Exception{
+			postDao.toPost_category(post_category,post_seq);
+		}
+		
+		
+	//게시글 삭제
+	public void postDelete(int post_seq)throws Exception{
+		postDao.postDelete(post_seq);
+	}
 	
 	// 관심수 업
 	public void interestUpdate(int post_interest_cnt, int post_seq) throws Exception{ 

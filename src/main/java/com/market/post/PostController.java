@@ -101,6 +101,23 @@ public class PostController {
 		return "post/postDetail";
 	}
 	
+	//카테고리변경
+	@RequestMapping(value = "/toPost_category")
+	public String toPost_category(String post_category, int post_seq) throws Exception{
+		System.out.println(post_category+ post_seq);
+		service.toPost_category(post_category, post_seq);
+		
+		return "redirect:/post/toPostDetail";
+	}
+	
+	// 게시글삭제
+	@RequestMapping(value = "/postDelete")
+	public String postDelete(int post_seq) throws Exception{
+		service.postDelete(post_seq);
+		
+		return "redirect:/post/toPost";
+	}
+	
 	//빈하트 눌렀을때 관심 추가
 	@RequestMapping(value = "/interestUp")
 	@ResponseBody	
