@@ -101,13 +101,13 @@ public class PostController {
 		return "post/postDetail";
 	}
 	
-	//카테고리변경
-	@RequestMapping(value = "/toPost_category")
-	public String toPost_category(String post_category, int post_seq) throws Exception{
-		System.out.println(post_category+ post_seq);
-		service.toPost_category(post_category, post_seq);
+	//state 변경
+	@RequestMapping(value = "/toPost_state")
+	public String toPost_state(PostDTO dto) throws Exception{
+		System.out.println(dto.getPost_state()+ dto.getPost_seq());
+		service.toPost_state(dto);
 		
-		return "redirect:/post/toPostDetail";
+		return "redirect:/post/toPostDetail?post_seq="+dto.getPost_seq();
 	}
 	
 	// 게시글삭제

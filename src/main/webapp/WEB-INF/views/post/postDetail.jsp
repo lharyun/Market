@@ -342,7 +342,7 @@
         border-bottom: 1px solid rgba(128, 128, 128, 0.233);
     }
 
-    .post_category {
+    .post_state {
         width: 105px;
         height: 35px;
         font-size: small;
@@ -1216,19 +1216,20 @@
         <div class="row mt-3 ">
             <div class="col">
             	<%-- 로그인된 아이디와 같다면 --%>
+            	
             	<c:if test="${loginSession.user_id eq map.postDTO.user_id}">
-	                <select class="form-select post_category" id="post_category" aria-label="Default select example"
-	                    name="post_category" onchange="location.href=this.value">
+	                <select class="form-select post_state" id="post_state" aria-label="Default select example"
+	                    name="post_state" onchange="location.href=this.value">
 	                    <option selected disabled hidden>${map.postDTO.post_state}</option>
-	                    <option value="/post/toPost_category?post_category=판매중&post_seq=${map.postDTO.post_seq}">판매중</option>
-	                    <option value="/post/toPost_category?post_category=예약중&post_seq=${map.postDTO.post_seq}">예약중</option>
-	                    <option value="/post/toPost_category?post_category=거래완료&post_seq=${map.postDTO.post_seq}">거래완료</option>
+	                    <option value="/post/toPost_state?post_state=판매중&post_seq=${map.postDTO.post_seq}">판매중</option>
+	                    <option value="/post/toPost_state?post_state=예약중&post_seq=${map.postDTO.post_seq}">예약중</option>
+	                    <option value="/post/toPost_state?post_state=거래완료&post_seq=${map.postDTO.post_seq}">거래완료</option>
 	                </select>
                 </c:if>
                 <%-- 로그인된 아이디와 같지 않다면 --%>
                 <c:if test="${loginSession.user_id ne map.postDTO.user_id}">
-                	<select class="form-select post_category" id="post_category" aria-label="Default select example"
-	                    name="post_category" disabled>
+                	<select class="form-select post_state" id="post_state" aria-label="Default select example"
+	                    name="post_state" disabled>
 	                	<option selected disabled hidden>${map.postDTO.post_state}</option>
 	                </select>
                 </c:if>

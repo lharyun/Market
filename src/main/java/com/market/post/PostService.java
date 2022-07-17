@@ -22,9 +22,9 @@ public class PostService {
 	private Post_imgDAO post_imgDao;
 	
 
-	//판매중 카테고리 업데이트
-		public void toPost_category(String post_category, int post_seq)throws Exception{
-			postDao.toPost_category(post_category,post_seq);
+	//판매중 state업데이트
+		public void toPost_state(PostDTO dto)throws Exception{
+			postDao.toPost_state(dto);
 		}
 		
 		

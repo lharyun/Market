@@ -22,10 +22,10 @@
 		delete from tbl_post where post_seq = #{post_seq}
 	</delete>
 	
-	<!-- 카테고리 업데이트 -->
-	<update id="toPost_category" parameterType="map">
+	<!-- state 업데이트 -->
+	<update id="toPost_state" parameterType="com.market.post.PostDTO">
 		update tbl_post 
-			set post_category=#{post_category} 
+			set post_state=#{post_state} 
 			where post_seq = #{post_seq}
 	</update>
 	<!-- 이미지 조인 문 전체 조회 -->
@@ -34,6 +34,7 @@
 		on a.post_seq= b.post_seq
 	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
 		where NOT post_title is NULL
+		order by a.post_seq
 	</select>
 	
 	<!-- post_seq 번호로 조회 -->
