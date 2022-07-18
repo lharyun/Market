@@ -11,6 +11,14 @@
 		(#{post_seq}, #{post_title}, #{post_content}, #{post_category}, 0, 0, 0, #{price_selling}
 		, #{price_check}, #{post_addr}, sysdate, #{post_state}, #{user_id}, #{user_category})
 	</insert>
+	
+	<!-- 게시글 저장 -->
+	<update id="modify" parameterType="com.market.post.PostDTO">
+		update tbl_post set
+		post_title = #{post_title}, post_content = #{post_content}, post_category = #{post_category}
+		,price_selling = #{price_selling} ,price_check = #{price_check}, post_time = sysdate
+		where post_seq = #{post_seq}
+	</update>
 
 	<!-- 새로운 post seq 생성 -->
 	<select id="selectSeq" resultType="int">

@@ -1,6 +1,5 @@
 package com.market.post;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,6 +76,29 @@ public class PostController {
 		return "redirect:/post/toPost";
 		}
 	
+	//게시글 수정
+	@RequestMapping(value = "/modify")
+	public String modify(PostDTO dto, MultipartFile[] imgfiles, 
+			@RequestParam(value="deleteFileList[]", required=false) String[] deleteFileList) throws Exception{
+		System.out.println("dto : " + dto);
+		String realPath = session.getServletContext().getRealPath("imgfiles");
+		service.modify(dto, realPath, imgfiles, deleteFileList);
+		return "redirect:/post/toPostDetail?post_seq="+dto.getPost_seq();
+	}
+	
+	
+	//게시글 수정페이지 이동
+		@RequestMapping(value = "/toPostModify")
+		public String toPostModify(int post_seq, Model model) throws Exception{
+			
+			// 해당 번호의 이미지리스트와 게시글 정보 받아옴 
+					Map<String, Object> map = service.selectPost_seq(post_seq);
+					System.out.println( map.get("imgDTO"));
+					System.out.println( map.get("postDTO") );
+					model.addAttribute("map", map);
+			
+			return "post/postModify";
+		}
 	//디테일페이지 접속했을때
 	@RequestMapping(value = "/toPostDetail")
 	public String toPostDetail(int post_seq, Model model) throws Exception{
@@ -117,6 +140,8 @@ public class PostController {
 		
 		return "redirect:/post/toPost";
 	}
+	
+
 	
 	//빈하트 눌렀을때 관심 추가
 	@RequestMapping(value = "/interestUp")

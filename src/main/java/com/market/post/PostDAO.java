@@ -17,6 +17,12 @@ public class PostDAO {
 	public void insert(PostDTO dto) throws Exception{ 
 		session.insert("postMapper.insert", dto);
 	}
+	
+	// 게시글 수정
+	public void modify(PostDTO dto) throws Exception{ 
+		session.update("postMapper.modify", dto);
+	}
+
 	//게시글 삭제
 	public void postDelete(int post_seq) throws Exception{
 		session.delete("postMapper.postDelete", post_seq);
