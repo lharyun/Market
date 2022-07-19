@@ -1344,31 +1344,38 @@
 	                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
 	                        <!-- Modal -->
 	                        <div id="modal_delete">
-	                            <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel"
-	                                aria-hidden="true">
-	                                <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
-	                                    <div class="row align-items-center modal-content ">
-	                                        <div class="row align-items-center middle_bottomLine">
-	                                            <div class="col d-flex justify-content-center" id="modalTitle"
-	                                                style="width:auto;">
-	                                                <input type="text" class="form-control-plaintext fw-bolder"
-	                                                    id="price_restriction" maxlength="11" name="price_restriction"
-	                                                    value="" placeholder="제안금액"
-	                                                    oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
-	                                                    onkeyup="inputNumberFormat(this)">
-	                                            </div>
-	                                            <div class="col-1 fw-bolder">
-	                                                원
-	                                            </div>
-	                                        </div>
-	
-	                                        <div class="col d-flex justify-content-center pt-5" id="modalBtn">
-	                                            <button type="button" class="middle_Btn" id="price_restrictionBtn"
-	                                                data-bs-dismiss="modal">제안하기</button>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
+                                <form class="m-0" id="notificationForm" action="/notification/notification_insert" method="post">
+                                    <div class="modal fade" id="exampleModa2" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                                            <div class="row align-items-center modal-content ">
+                                                <div class="row align-items-center middle_bottomLine">
+                                                    <div class="col d-flex justify-content-center" id="modalTitle"
+                                                        style="width:auto;">
+                                                        <input type="text" class="form-control-plaintext fw-bolder"
+                                                            id="price_restriction" maxlength="11" name="price_restriction"
+                                                            placeholder="제안금액"
+                                                            oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
+                                                            onkeyup="inputNumberFormat(this)">
+                                                    </div>
+                                                    <div class="col-1 fw-bolder">
+                                                        원
+                                                    </div>
+                                                    <div class="d-none">
+				                                        <input type="text" name="post_title" value="${map.postDTO.post_title}">
+				                                        <input type="text" name="notification_type" value="가격">
+				                                        <input type="text" name="post_seq"  value="${map.postDTO.post_seq}">
+					                                </div>
+                                                </div>
+        
+                                                <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                                    <button type="button" class="middle_Btn" id="price_restrictionBtn"
+                                                        data-bs-dismiss="modal" disabled>제안하기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
 	                        </div>
 	                    </span>
                     </c:if>
@@ -1469,9 +1476,9 @@
     <!-- footer --> 
        <!-- Modal -->
        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content pt-0" id="notificationModal">
+                <div class="modal-header position-sticky">
                     <div class="col-1">
                         <button type="button" id="closeBtn" data-bs-dismiss="modal" aria-label="Close">
                             <img src="/resources/images/post/left.png" height="25px">
@@ -1480,51 +1487,62 @@
                     <div class="col n_title">
                         알림 창
                     </div>
-                    <div class="col-1">
-                        <button type="button" id="frashBtn">
-                        <img src="/resources/images/header_pooter/trash.png" height="25px">
-                    </button>
-                    </div>
+                    
                 </div>
                 <div class="modal-body container n_content">
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 채팅메세지를 보내셨습니다.</p>
-                            <p class="n_date">1일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
-                
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/가격.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 50,000원 가격제안했습니다</p>
-                            <p class="n_date">2일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
-                
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/후기.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 후기를 남기셨습니다</p>
-                            <p class="n_date">3일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
+                	<c:if test="${loginSession.notification.size() == 0}">
+                		<div class="row p-1 d-flex justify-content-center fw-bold">
+                			새로운 알림이 없습니다.
+                		</div>
+                	</c:if>
+                	
+                	<c:if test="${loginSession.notification.size() > 0}">
+                		<c:forEach items="${loginSession.notification}" var="notifi">
+                			<c:if test="${notifi.notification_type eq '채팅'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+		                
+		                	<c:if test="${notifi.notification_type eq '가격'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 50,000원 가격제안했습니다</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+		                	<c:if test="${notifi.notification_type eq '후기'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+	                    </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -1627,7 +1645,20 @@
 
 
     <script>
-   
+ // 입력하면 버튼활성화 후 클릭 서브밋
+    $("#price_restriction").keyup(function() {
+        if($("#price_restriction").val()===""){
+            $("#price_restrictionBtn").attr("disabled", true);
+        }
+        if($("#price_restriction").val()!==""){
+            $("#price_restrictionBtn").attr("disabled", false)
+            $("#price_restrictionBtn").on("click", function(){
+            })
+        }
+    });
+    $("#price_restrictionBtn").on("click", function(){
+       $("#notificationForm").submit();
+    })
    
     	// 캐러셀 첫번째 자식 클래스 추가
 	    $(function() {

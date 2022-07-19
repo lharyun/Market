@@ -1,3 +1,23 @@
+  $("#notificationModal").on("click","#notifi_deleteBtn", function(e){
+                console.log(e.target.value);
+                let notification_seq = e.target.value;
+                $(this).parent().parent().remove();
+                $.ajax({
+    		url: "/notification/notifi_delete"
+    		, type: "get"
+    		, data: {notification_seq : notification_seq}
+    		, success: function(data){
+    			if(data == "success"){
+    			
+    			}else if(data == "fail"){
+    				alert("삭제 실패했습니다.");
+    			}
+    		}, error: function(e){
+    			console.log(e);
+    		}
+    	    }) 
+            })
+
 $('#SearchForm').on('keypress', function (e) { // 인풋창 클릭후 엔터누르면 실행
     if (e.keyCode == '13') {
         if ($("#titleSearch").val() !== "") {//검색창이 널값이 아니라면

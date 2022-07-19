@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.market.basket.BasketDTO;
 import com.market.basket.BasketService;
+import com.market.notification.NotificationService;
 
 
 @RequestMapping(value = "/post")
@@ -27,6 +28,8 @@ public class PostController {
 	private PostService service;
 	@Autowired
 	private BasketService basketService;
+	@Autowired
+	private NotificationService notifiService;
 	@Autowired
 	private HttpSession session;
 
@@ -41,10 +44,13 @@ public class PostController {
 		String user_id = "asd123@naver.com";
 		String user_category = "일반가입";
 		String post_addr = "서울 마포구 망원동";
-		Map<String, String> map = new HashMap<>();
+		String user_nickname = "가짜닉네임";
+		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("user_category", user_category);
 		map.put("post_addr", post_addr);
+		map.put("user_nickname", user_nickname);
+		map.put("notification", notifiService.nicknameSelect(user_nickname));
 		session.setAttribute("loginSession", map);
 		
 		//post,img테이블 select*from
