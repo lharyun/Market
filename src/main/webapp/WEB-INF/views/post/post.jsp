@@ -167,13 +167,51 @@
         overflow: hidden;
     }
     }
+    
+     /* 페이징 디자인 */
+    .pagination {
+        padding: 30px 0;
+    }
+
+    .pagination ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 10px 18px;
+        color: #222;
+    }
+
+    /* ONE */
+
+    .p1 a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0;
+        text-align: center;
+        transition: all 0.3s linear;
+    }
+    .p1 .pBtn:hover{
+        background-color: #ffad0a2d;
+        border-radius: 50%;
+        transform: translateY( -6px )
+    }
+
+    .p1 a.is-active {
+        background-color: rgb(241, 143, 14);
+        border-radius: 100%;
+        color: #fff;
+    }
    
 </style>
 
 <body>
     <!-- Header -->
     <header>
-
         <div class="container-fluid p-0" id="Non-reaction">
             <nav>
                 <div class="row align-items-center heder_top">
@@ -226,7 +264,7 @@
                 <div>
                 <div class="row p-0 heder_middle" id="Non_reaction">
                     <div class="col-3 pe-0">
-                        <a href="/post/toPost" class="mb-2 mb-lg-0">
+                        <a href="/post/toPost?curPage=1" class="mb-2 mb-lg-0">
                             <img src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                     </div>
@@ -668,7 +706,7 @@
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/resources/images/header_pooter/navibar.png" height="35px">
                         </a>
-                        <a href="/post/toPost">
+                        <a href="/post/toPost?curPage=1">
                             <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
@@ -846,20 +884,7 @@
             </button>
         </div>
         <div class="py-2 middle_postBox">
-            <article class="postBox">
-                <a href="/post/toPostDetail">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
+           
             <c:if test="${list.size() == 0}">
             	<div class="d-flex justify-content-center"><b>첨부된 파일이 없습니다.</b></div>
             </c:if>
@@ -891,16 +916,24 @@
 				 </c:forEach>
 			 </c:if>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-
+		<nav class="pagination p1 justify-content-center">
+			<ul >
+				<c:if test="${naviMap.needPrev eq true }">
+					<a href="/post/toPost?curPage=${naviMap.startNavi-1}"><</a>
+				</c:if>
+				<c:forEach var="pageNum" begin="${naviMap.startNavi}" end="${naviMap.endNavi}" step="1">
+					<c:if test="${naviMap.curPage eq pageNum}">
+						<a class="is-active" href="/post/toPost?curPage=${pageNum}">${pageNum}</a>
+					</c:if>
+					<c:if test="${naviMap.curPage ne pageNum}">
+						<a class="pBtn" href="/post/toPost?curPage=${pageNum}">${pageNum}</a>
+					</c:if>	
+				</c:forEach>
+				<c:if test="${naviMap.needNext eq true }">
+					<a href="/post/toPost?curPage=${naviMap.endNavi+1}">></a>
+				</c:if>
+			</ul>
+		</nav>
   
      
     </div>
@@ -1006,7 +1039,7 @@
             <div class="row pooterLine pb-3">
                 <div class="col a_reaction">
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2 "><a href="/post/toPost" class="nav-link p-0">
+                        <li class="nav-item mb-2 "><a href="/post/toPost?curPage=1" class="nav-link p-0">
                                 <img src="/resources/images/header_pooter/로고white.png" height="46px" alt="로고">
                             </a></li>
 

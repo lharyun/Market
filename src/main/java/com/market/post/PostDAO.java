@@ -13,6 +13,8 @@ public class PostDAO {
 	
 	@Autowired
 	private SqlSession session;
+	
+	
 	// 게시글 저장
 	public void insert(PostDTO dto) throws Exception{ 
 		session.insert("postMapper.insert", dto);
@@ -42,9 +44,16 @@ public class PostDAO {
 	public PostDTO selectPost_seq(int post_seq) throws Exception{ 
 		return session.selectOne("postMapper.selectPost_seq", post_seq);
 	}
+	//페이지 계산
+	public int getPageNavi() throws Exception{
+		return session.selectOne("postMapper.getPageNavi");
+	}
 	// 조인된 테이블 데이터 조회
-	public List<Map<String,Object>> selectJoin() throws Exception{ 
-		return session.selectList("postMapper.selectJoin");
+	public List<Map<String,Object>> selectJoin(int start,int end) throws Exception{ 
+		Map<String,Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return session.selectList("postMapper.selectJoin",map);
 	}
 	// 조회수 업
 	public void inquiry_cnt(int post_seq) throws Exception{ 

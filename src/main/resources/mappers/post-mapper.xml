@@ -5,6 +5,9 @@
 
 
 <mapper namespace="postMapper">
+	
+	
+ 	
 	<!-- 게시글 저장 -->
 	<insert id="insert" parameterType="com.market.post.PostDTO">
 		insert into tbl_post values
@@ -36,13 +39,25 @@
 			set post_state=#{post_state} 
 			where post_seq = #{post_seq}
 	</update>
+	
+	<!-- 페이지 찾기 -->
+ 	<select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_post
+ 	</select>
+ 	
 	<!-- 이미지 조인 문 전체 조회 -->
-	<select id="selectJoin" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
-	select * from tbl_post a FULL OUTER JOIN tbl_post_img b
-		on a.post_seq= b.post_seq
+	<select id="selectJoin" parameterType="int" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
+	select 
+	    Case WHEN LENGTH(post_title) > 8 THEN SubStr(post_title, 0, 8) || '..' ELSE post_title End as post_title
+	    , a.*
+	    , b.*
+	from ( select tbl_post.*, row_number() over(order by post_seq desc)
+	 	as num from tbl_post) a  FULL OUTER JOIN tbl_post_img b  
+	    on a.post_seq= b.post_seq
 	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
-		where NOT post_title is NULL
-		order by a.post_seq
+	    where NOT post_title is NULL
+	and num between #{start} and #{end}
+	    order by a.post_seq desc
 	</select>
 	
 	<!-- post_seq 번호로 조회 -->

@@ -38,23 +38,28 @@ public class PostController {
 	}
 
 	@RequestMapping(value = "/toPost")
-	public String toPost(Model model) throws Exception{
+	public String toPost(int curPage, Model model) throws Exception{
+		System.out.println("curPage" + curPage);
 		System.out.println("메인페이지 접속");
 		//임시 로그인세션
 		String user_id = "asd123@naver.com";
 		String user_category = "일반가입";
 		String post_addr = "서울 마포구 망원동";
 		String user_nickname = "가짜닉네임";
-		Map<String, Object> map = new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("user_category", user_category);
-		map.put("post_addr", post_addr);
-		map.put("user_nickname", user_nickname);
-		map.put("notification", notifiService.nicknameSelect(user_nickname));
-		session.setAttribute("loginSession", map);
+		Map<String, Object> loginSession = new HashMap<>();
+		loginSession.put("user_id", user_id);
+		loginSession.put("user_category", user_category);
+		loginSession.put("post_addr", post_addr);
+		loginSession.put("user_nickname", user_nickname);
+		loginSession.put("notification", notifiService.nicknameSelect(user_nickname));
+		session.setAttribute("loginSession", loginSession);
 		
+		//페이지 나누기
+		HashMap<String,Object> map =service.getPageNavi(curPage);
+		model.addAttribute("naviMap",map);
+		System.out.println("asd"+map);
 		//post,img테이블 select*from
-		List<Map<String, Object>> list = service.selectJoin();
+		List<Map<String, Object>> list = service.selectJoin(curPage*12-11,curPage*12);
 		model.addAttribute("list", list);
 		
 		return "post/post";
@@ -118,7 +123,7 @@ public class PostController {
 		model.addAttribute("map", map);
 		
 		//post,img테이블 select*from
-		List<Map<String, Object>> list = service.selectJoin();
+		List<Map<String, Object>> list = service.selectJoin(1,10);
 		model.addAttribute("list", list);
 				
 		//해당게시글 찜목록에 로그인 아이디 있는지 확인

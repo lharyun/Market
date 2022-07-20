@@ -21,7 +21,8 @@ public class PostService {
 	@Autowired
 	private Post_imgDAO post_imgDao;
 	
-
+	
+	
 	//판매중 state업데이트
 		public void toPost_state(PostDTO dto)throws Exception{
 			postDao.toPost_state(dto);
@@ -42,9 +43,58 @@ public class PostService {
 	public void inquiry_cnt(int post_seq) throws Exception{ 
 		postDao.inquiry_cnt(post_seq);
 	}
+	
+	//총데이터 수를 가져와 페이지 계산
+		public HashMap<String,Object> getPageNavi(int curPage) throws Exception{
+			int totalCnt = postDao.getPageNavi(); //전체 게시글의 개수
+			System.out.println(totalCnt);
+			int recordCntPerPage=12; //한페이지에 몇개의 데이터(게시글)을 띄워줄지
+			int naviCntPerPage=3; //네비바에 몇개 단위로 페이징을 구성할지
+			int pageTotalCnt =0;// 총 몇 페이지가 나올지			
+			if(totalCnt % recordCntPerPage >0) { // 나머지가 생김(10의 배수가 아님x)
+				pageTotalCnt =totalCnt/recordCntPerPage +1; //45개-> 4.5+1
+			}else {
+				pageTotalCnt =totalCnt/ recordCntPerPage;
+			}	
+			/*
+			 * 현재 페이지는 반드시 1 이상 현재 페이지는 총 페이지의 개수를 넘어갈 수 없음
+			 */
+			if(curPage<1) {// 현재 페이지가 0이거나 혹은 음수일때
+				curPage=1; // 무조건 첫페이지로 맞춰주기		
+			}else if(curPage>pageTotalCnt) {// 현재 페이지가 총 페이지 수보다 크다면
+				curPage = pageTotalCnt; // 무조건 마지막 페이지로 맞춰주기
+			}						
+			int startNavi =((curPage-1)/naviCntPerPage)*naviCntPerPage+1;
+			int endNavi =startNavi + naviCntPerPage -1;
+		
+			// endNavi가 전체페이지를 넘어갈 수 없음
+			if(pageTotalCnt < endNavi) { //endNavi가 전체 페이지수보다 크다면
+				endNavi =pageTotalCnt; 	 // endNavi를 마지막 페이지로 수정해주겠다						
+			}		
+			// < > 모양을 넣어줄지 여부에 대한 검사
+			boolean needPrev = true;	// startNavi가 1일때 needPrev가 false
+			boolean needNext = true;	// endNavi가 마지막 페이지(전체 페이지)와 같을때 needNext가 false
+			if(startNavi==1) {
+				needPrev =false;			
+			}
+			if(endNavi ==pageTotalCnt) {
+				needNext =false;
+			}
+			// map -> key, value
+						// 제네릭 <키에 대한 자료형, 값에 대한 자료형>
+			HashMap<String,Object> map =new HashMap<>();
+			map.put("startNavi",startNavi);
+			map.put("endNavi", endNavi);
+			map.put("needPrev", needPrev);
+			map.put("needNext", needNext);	
+			map.put("curPage", curPage);
+			return map;
+					
+		}
+		
 	// 조인된 테이블 데이터 조회
-	public List<Map<String, Object>> selectJoin() throws Exception {
-		return postDao.selectJoin();
+	public List<Map<String, Object>> selectJoin(int start,int end) throws Exception {
+		return postDao.selectJoin(start,end);
 	}
 
 	public Map<String, Object> selectPost_seq(int post_seq) throws Exception{ //  게시글 조회

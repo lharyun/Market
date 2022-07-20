@@ -475,7 +475,6 @@
 
 <body>
     <!-- Header -->
-    <!-- Header -->
     <header>
 
         <div class="container-fluid p-0" id="Non-reaction">
@@ -530,7 +529,7 @@
                 <div>
                 <div class="row p-0 heder_middle" id="Non_reaction">
                     <div class="col-3 pe-0">
-                        <a href="/post/toPost" class="mb-2 mb-lg-0">
+                        <a href="/post/toPost?curPage=1" class="mb-2 mb-lg-0">
                             <img src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                     </div>
@@ -972,7 +971,7 @@
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/resources/images/header_pooter/navibar.png" height="35px">
                         </a>
-                        <a href="/post/toPost">
+                        <a href="/post/toPost?curPage=1">
                             <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
@@ -1158,15 +1157,17 @@
                     	</c:forEach>
                     </c:if>
                 </div>
-
-                <div class="col slideBox">
-                    <button class="slideBtn_prev" type="button" data-bs-target="#imgSlider" data-bs-slide="prev">
-                        <img src="/resources/images/post/left.png" height="30px">
-                    </button>
-                    <button class="slideBtn_next" type="button" data-bs-target="#imgSlider" data-bs-slide="next">
-                        <img src="/resources/images/post/right.png" height="30px">
-                    </button>
-                </div>
+                <%--캐러셀 버튼 --%>
+				<c:if test="${map.imgDTO.size() > 1}">
+	                <div class="col slideBox">
+	                    <button class="slideBtn_prev" type="button" data-bs-target="#imgSlider" data-bs-slide="prev">
+	                        <img src="/resources/images/post/left.png" height="30px">
+	                    </button>
+	                    <button class="slideBtn_next" type="button" data-bs-target="#imgSlider" data-bs-slide="next">
+	                        <img src="/resources/images/post/right.png" height="30px">
+	                    </button>
+	                </div>
+                </c:if>
             </div>
         </div>
         <!-- 캐러셀 반응 -->
@@ -1201,12 +1202,14 @@
                     	</c:forEach>
                     </c:if>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#imgSlider2" data-bs-slide="prev">
-                <img src="/resources/images/post/left.png" height="30px">
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#imgSlider2" data-bs-slide="next">
-                <img src="/resources/images/post/right.png" height="30px">
-            </button>
+            <c:if test="${map.imgDTO.size() > 1}">
+	            <button class="carousel-control-prev" type="button" data-bs-target="#imgSlider2" data-bs-slide="prev">
+	                <img src="/resources/images/post/left.png" height="30px">
+	            </button>
+	            <button class="carousel-control-next" type="button" data-bs-target="#imgSlider2" data-bs-slide="next">
+	                <img src="/resources/images/post/right.png" height="30px">
+	            </button>
+            </c:if>
         </div>
 
         <div class="middle_profile py-3">
@@ -1393,7 +1396,7 @@
 
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <span class="middle_orangeText"><a href="/post/toPost">더 구경하기</a></span>
+                    <span class="middle_orangeText"><a href="/post/toPost?curPage=1">더 구경하기</a></span>
                 </div>
             </div>
         </div>
@@ -1574,7 +1577,7 @@
             <div class="row pooterLine pb-3">
                 <div class="col a_reaction">
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2 "><a href="/post/toPost" class="nav-link p-0">
+                        <li class="nav-item mb-2 "><a href="/post/toPost?curPage=1" class="nav-link p-0">
                                 <img src="/resources/images/header_pooter/로고white.png" height="46px" alt="로고">
                             </a></li>
 
