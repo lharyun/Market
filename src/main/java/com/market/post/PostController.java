@@ -1,5 +1,6 @@
 package com.market.post;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -28,11 +29,8 @@ public class PostController {
 	@RequestMapping(value = "/toPost")
 	public String toPost(Model model) throws Exception{
 		System.out.println("메인페이지 접속");
-		
-		Map<String, Object> map = service.selectAll();
-		System.out.println( map.get("post_img"));
-		System.out.println( map.get("post") );
-		model.addAttribute("map", map);
+		List<Map<String, Object>> list = service.selectJoin();
+		model.addAttribute("list", list);
 		
 		return "post/post";
 	}
@@ -60,7 +58,12 @@ public class PostController {
 		}
 	
 	@RequestMapping(value = "/toPostDetail")
-	public String toPostDetail() {
+	public String toPostDetail(int post_seq, Model model) throws Exception{
+		System.out.println("post_seq : "+post_seq);
+		Map<String, Object> map = service.selectPost_seq(post_seq);
+		System.out.println( map.get("imgDTO"));
+		System.out.println( map.get("postDTO") );
+		model.addAttribute("map", map);
 		return "post/postDetail";
 	}
 	

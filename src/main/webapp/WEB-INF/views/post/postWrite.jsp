@@ -940,28 +940,28 @@
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/girl.png" height="26px"
                                                 width="26px">
-                                            <span> 여성의류</span>
+                                            <span>여성의류</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/Shoes.png" height="26px"
                                                 width="26px">
-                                            <span> 신발,가방</span>
+                                            <span>신발,가방</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/beauty.png" height="26px"
-                                                width="26px"> <span> 뷰티</span>
+                                                width="26px"> <span>뷰티</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/computer.png" height="26px"
-                                                width="26px"> <span> 컴퓨터,주변기기</span>
+                                                width="26px"> <span>컴퓨터,주변기기</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/camera.png" height="26px"
-                                                width="26px"> <span> 카메라</span>
+                                                width="26px"> <span>카메라</span>
                                             </a>
                                         </li>
 
@@ -971,28 +971,28 @@
                                     <ul class="nav flex-column pt-2 ps-3">
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/machine.png" height="26px"
-                                                width="26px"> <span> 디지털,가전</span>
+                                                width="26px"> <span>디지털,가전</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/headset.png" height="26px"
-                                                width="26px"> <span> 음향기기</span>
+                                                width="26px"> <span>음향기기</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/toiletries.png" height="26px"
-                                                width="26px"> <span> 생활용품</span>
+                                                width="26px"> <span>생활용품</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/museum.png" height="26px"
-                                                width="26px"> <span> 예술/희귀/수집품</span>
+                                                width="26px"> <span>예술/희귀/수집품</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/food.png" height="26px"
                                                 width="26px">
-                                            <span> 식품</span>
+                                            <span>식품</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -1003,30 +1003,30 @@
                                     <ul class="nav flex-column pt-2 ps-3">
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/furniture.png" height="26px"
-                                                width="26px"> <span> 가구/인테리어</span>
+                                                width="26px"> <span>가구/인테리어</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/sport.png" height="26px"
                                                 width="26px">
-                                            <span> 스포츠,레저</span>
+                                            <span>스포츠,레저</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/game.png" height="26px"
                                                 width="26px">
-                                            <span> 게임</span>
+                                            <span>게임</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/book.png" height="26px"
                                                 width="26px">
-                                            <span> 도서</span>
+                                            <span>도서</span>
                                             </a>
                                         </li>
                                         <li class="nav-item mb-2">
                                             <img src="/resources/images/header_pooter/travel.png" height="26px"
-                                                width="26px"> <span> 여행,숙박</span>
+                                                width="26px"> <span>여행,숙박</span>
                                             </a>
                                         </li>
                                     </ul>

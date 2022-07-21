@@ -10,9 +10,17 @@
 		insert into tbl_post_img values(post_img_seq.nextval, #{post_ori_name}, #{post_sys_name},#{post_seq})
 	</insert>
 
-	<!-- 모든 이미지 조회 -->
-	<select id="selectAll" resultType="com.market.post_img.Post_imgDTO">
-		select*from tbl_post_img order by post_img_seq, post_seq
+	<!-- 모든 이미지 하니씩 조회 -->
+	<select id="selectOneAll" resultType="com.market.post_img.Post_imgDTO">
+		SELECT
+		    post_img_seq,post_ori_name,post_sys_name,post_seq
+		FROM tbl_post_img
+		    WHERE post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
+	</select>	
+	
+	<!-- post 이미지 조회 -->
+	<select id="selectPost_seq" resultType="com.market.post_img.Post_imgDTO">
+		select*from tbl_post_img where post_seq = #{post_seq}
 	</select>	
 
 

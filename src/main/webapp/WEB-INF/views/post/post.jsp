@@ -818,7 +818,9 @@
  </c:forEach>
     
  --%>
- 	<div class="container my-3" id="contentsBox">
+	
+    <div class="container my-3" id="contentsBox">
+
         <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="0" class="active"
@@ -859,6 +861,7 @@
                     </div>
                 </a>
             </article>
+            
             <article class="postBox">
                 <a href="#">
                     <div class="imgDiv">
@@ -873,34 +876,37 @@
                     </div>
                 </a>
             </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
+            
+            <c:if test="${list.size() == 0}">
+            	<div class="d-flex justify-content-center"><b>첨부된 파일이 없습니다.</b></div>
+            </c:if>
+            <c:if test="${list.size() > 0}">
+	             <c:forEach items="${list}" var="list">
+		              <article class="postBox">
+		                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
+		                    <div class="imgDiv">
+		                        <img class="hicary" src="/resources/images/post/반짝.png">
+			                    	<c:choose>
+				                    <c:when test="${list.post_sys_name ne null}">
+				                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+				                    </c:when>
+				                     <c:otherwise>
+				                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+				                    </c:otherwise>
+				                    </c:choose>
+		                        
+		                    </div>
+		                    <div class="postInformation">
+		                        <div class="mt-2 middle_title">${list.post_title}</div>
+		                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+		                        <div class="middle_smText mt-1">${list.post_addr}</div>
+		                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}
+		                        ·채팅${list.post_chatting_cnt}·조회${list.post_inquiry_cnt}</div>
+		                    </div>
+		                </a>
+		            </article>
+				 </c:forEach>
+			 </c:if>
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
