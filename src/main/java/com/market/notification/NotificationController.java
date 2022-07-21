@@ -25,7 +25,7 @@ public class NotificationController {
 		dto.setFrom_nickname("보내는닉네임");
 		System.out.println(dto);
 		service.insert(dto);
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	@RequestMapping(value="/notifi_delete")
 	@ResponseBody

@@ -678,7 +678,7 @@
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
     <div class="container middle" style="height: 500px;">
-
+		<div class="d-flex justify-content-center"><b>글 정보가 없습니다.</b></div>
      
     </div>
 
@@ -729,7 +729,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 50,000원 가격제안했습니다</p>
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">

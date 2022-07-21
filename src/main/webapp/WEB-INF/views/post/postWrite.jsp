@@ -1087,7 +1087,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 50,000원 가격제안했습니다</p>
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">

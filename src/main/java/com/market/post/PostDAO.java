@@ -45,8 +45,11 @@ public class PostDAO {
 		return session.selectOne("postMapper.selectPost_seq", post_seq);
 	}
 	//페이지 계산
-	public int getPageNavi() throws Exception{
-		return session.selectOne("postMapper.getPageNavi");
+	public int getPageNavi(String post_addr, String search) throws Exception{
+		Map<String,Object> map= new HashMap<>();
+		map.put("post_addr", post_addr);
+		map.put("search", search);
+		return session.selectOne("postMapper.getPageNavi",map);
 	}
 	// 조인된 테이블 데이터 조회
 	public List<Map<String,Object>> selectJoin(int start,int end) throws Exception{ 
@@ -54,6 +57,15 @@ public class PostDAO {
 		map.put("start", start);
 		map.put("end", end);
 		return session.selectList("postMapper.selectJoin",map);
+	}
+	// 데이터검색
+	public List<Map<String,Object>> search(int start,int end, String post_addr,String search) throws Exception{ 
+		Map<String,Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("post_addr", post_addr);
+		map.put("search", search);
+		return session.selectList("postMapper.search",map);
 	}
 	// 조회수 업
 	public void inquiry_cnt(int post_seq) throws Exception{ 

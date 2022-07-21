@@ -37,6 +37,8 @@ public class PostController {
 		System.out.println("PostController 인스턴스 생성");
 	}
 
+	
+	
 	@RequestMapping(value = "/toPost")
 	public String toPost(int curPage, Model model) throws Exception{
 		System.out.println("curPage" + curPage);
@@ -55,7 +57,12 @@ public class PostController {
 		session.setAttribute("loginSession", loginSession);
 		
 		//페이지 나누기
-		HashMap<String,Object> map =service.getPageNavi(curPage);
+		//로그인세션 등록되면 post_addr 로 바꿔주기
+		String post_addr1 = null;
+		String search = null;
+		HashMap<String,Object> map =service.getPageNavi(curPage,post_addr1,search);
+		map.put("post_addr",post_addr1);
+		map.put("search",search);
 		model.addAttribute("naviMap",map);
 		System.out.println("asd"+map);
 		//post,img테이블 select*from
@@ -64,6 +71,28 @@ public class PostController {
 		
 		return "post/post";
 	}
+	
+		//정확한검색 (카테고리, 지역)
+		@RequestMapping(value = "/toSearch")
+		public String toSearch(int curPage, String post_addr, String search, Model model) throws Exception{
+			System.out.println(post_addr);
+			System.out.println("curPage" + curPage);
+			//페이지 나누기
+			HashMap<String,Object> map =service.getPageNavi(curPage,post_addr,search);
+			System.out.println(post_addr);
+			System.out.println(search);
+			map.put("post_addr",post_addr);
+			map.put("search",search);
+			model.addAttribute("naviMap",map);
+			System.out.println("asd"+map);
+			
+			//post,img테이블 select*from
+			List<Map<String, Object>> list = service.search(curPage*12-11,curPage*12,post_addr,search);
+			model.addAttribute("list", list);
+			
+			return "post/post";
+		}
+		
 	@RequestMapping(value = "/toPostWrite")
 	public String toPostWrite() {
 		System.out.println("글쓰기페이지 접속");
@@ -84,7 +113,7 @@ public class PostController {
 		
 		System.out.println(dto.toString());
 		System.out.println("imgfiles : " + imgfiles);
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 		}
 	
 	//게시글 수정
@@ -149,7 +178,7 @@ public class PostController {
 	public String postDelete(int post_seq) throws Exception{
 		service.postDelete(post_seq);
 		
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	
 

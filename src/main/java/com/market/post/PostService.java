@@ -45,8 +45,8 @@ public class PostService {
 	}
 	
 	//총데이터 수를 가져와 페이지 계산
-		public HashMap<String,Object> getPageNavi(int curPage) throws Exception{
-			int totalCnt = postDao.getPageNavi(); //전체 게시글의 개수
+		public HashMap<String,Object> getPageNavi(int curPage,String post_addr, String search) throws Exception{
+			int totalCnt = postDao.getPageNavi(post_addr,search); //전체 게시글의 개수
 			System.out.println(totalCnt);
 			int recordCntPerPage=12; //한페이지에 몇개의 데이터(게시글)을 띄워줄지
 			int naviCntPerPage=3; //네비바에 몇개 단위로 페이징을 구성할지
@@ -96,6 +96,10 @@ public class PostService {
 	public List<Map<String, Object>> selectJoin(int start,int end) throws Exception {
 		return postDao.selectJoin(start,end);
 	}
+	// 데이터 검색
+		public List<Map<String, Object>> search(int start,int end, String category,String search) throws Exception {
+			return postDao.search(start,end, category,search);
+		}
 
 	public Map<String, Object> selectPost_seq(int post_seq) throws Exception{ //  게시글 조회
 		// 다른 타입의 데이터를 반환하기 위해 map를 이용
