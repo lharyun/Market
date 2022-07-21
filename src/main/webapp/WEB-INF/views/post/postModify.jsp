@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>글쓰기페이지</title>
+    <title>글수정페이지</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
     <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet">
@@ -122,6 +122,8 @@
         position: absolute;
         cursor: pointer;
         right: 25px;
+        background-color: #efefef00;
+        border: 0;
     }
 
     #uploadImgBtn {
@@ -819,7 +821,7 @@
     <!-- Contents -->
 
     <div class="container middle_bottomLine p-0 my-3" id="contentsBox">
-        <form id="writeForm" action="/post/toWrite" method="post" enctype="multipart/form-data">
+        <form id="writeForm" action="/post/modify" method="post" enctype="multipart/form-data">
             <div class="row align-items-center py-3 middle_lgText middle_bottomLine">
                
                     <%-- 컨트롤러 작업후 데이터 있을시로 수정해주기 --%>
@@ -828,12 +830,12 @@
                 <div class="col">
                     <a href="javascript:history.back(-1)">
                         <img src="/resources/images/post/left.png" height="20px">
-                    </a>중고거래 글쓰기
+                    </a>중고거래 글 수정
                 </div>
                 <div class="col d-flex justify-content-end">
                     <button type="submit" class="middle_writeBtn" id="writeBtn" data-bs-toggle="modal"
                         data-bs-target="#exampleModa2">
-                        판매 등록
+                        수정 완료
                     </button>
                     <!-- Modal -->
                     <div id="modal_delete">
@@ -860,25 +862,29 @@
                         <div class="d-flex justify-content-center pt-4">
                             <img src="/resources/images/post/camera.png" height="40px">
                         </div>
-                        <div class="d-flex justify-content-center fw-bolder" id="imgCnt">0/3</div>
+                        <div class="d-flex justify-content-center fw-bolder" id="imgCnt">${map.imgDTO.size()}/3</div>
                     </label>
                     <input type="file" class="d-none" id="ex_file" name="imgfiles" accept="image/gif, image/jpeg, image/png" multiple="multiple">
                 </article>
-                <!-- <article class="imgBox">
-                    <div class="imgDiv">
-                        <div class="xBtn">
-                            <img src="/resources/images/post/x.png" height="20px">
-                        </div>
-                        <img class="uploadImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                </article> -->
-            
-                
-                
+                    
+                 <%-- 이미지값이 있다면 --%>	
+                 <c:if test="${map.imgDTO.size() > 0}">
+                	<c:forEach items="${map.imgDTO}" var="imgDTO">    
+		                <article class="imgBox">
+		                    <div class="imgDiv">
+		                         <button type="button" class="xBtn" value="${imgDTO.post_sys_name}">
+		                        	<input type="image" src="/resources/images/post/x.png" height="20px" value="${imgDTO.post_sys_name}">
+		                        </button>
+		                        <img class="uploadImg" src="/imgfiles/${imgDTO.post_sys_name}">
+		                    </div>
+		                </article>
+                	</c:forEach>
+                </c:if>
                 
             </div>
             <div class="py-2 middle_bottomLine">
-                <input type="text" class="form-control-plaintext ps-2" id="post_title" name="post_title" placeholder="제목">
+                <input type="text" class="form-control-plaintext ps-2" 
+                id="post_title" name="post_title" placeholder="제목" value="${map.postDTO.post_title}">
             </div>
             <!-- 카테고리 선택창 -->
             <div class="py-2 middle_bottomLine" style="margin: auto;">
@@ -887,7 +893,7 @@
                         aria-expanded="false">
                         <div class="col">
                             <input type="text" class="form-control-plaintext px-2 fw-bolder" id="post_category"
-                                name="post_category" value="카테고리 선택" readonly>
+                                name="post_category" value="${map.postDTO.post_category}" readonly>
                         </div>
                         <div class="col d-flex justify-content-end">
                             <img src="/resources/images/post/right.png" height="20px">
@@ -1010,7 +1016,7 @@
                         <div class="col-1 ms-2 text_money">₩</div>
                         <div class="col p-0">
                             <input type="text" class="form-control-plaintext" id="price_selling" name="price_selling"
-                                maxlength = "11" placeholder="가격(숫자)"
+                                maxlength = "11" placeholder="가격(숫자)" value="${map.postDTO.price_selling}"
                                 oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');"
                                 onkeyup="inputNumberFormat(this)">
                         </div>
@@ -1018,8 +1024,17 @@
 
                     <div class="col d-flex justify-content-end">
                         <div class="box change">
-                            <input type="checkbox" id="price_check" name="price_check" value="1">
-                            <label class="fw-bolder" for="price_check">가격제안 받기</label>
+                        	<%-- 값이 1과같다면 체크상태 --%>
+                        	<c:choose>
+                        		<c:when test="${map.postDTO.price_check eq 1}">
+		                            <input type="checkbox" id="price_check" name="price_check" value="1" checked>
+		                            <label class="fw-bolder" for="price_check">가격제안 받기</label>
+	                            </c:when>
+	                            <c:otherwise>
+	                            	<input type="checkbox" id="price_check" name="price_check" value="1">
+		                            <label class="fw-bolder" for="price_check">가격제안 받기</label>
+	                            </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -1030,11 +1045,15 @@
                     <div class="col">
                         <textarea class="form-control-plaintext font_style" id="post_content" name="post_content"
                             placeholder=" 망원동에 올릴 게시글 내용을 작성해주세요. 가품 및 판매금지품목은 게시가 제한될 수 있어요."
-                            style="height: 500px;"></textarea>
+                            style="height: 500px" >${map.postDTO.post_content}</textarea>
 
                     </div>
 
                 </div>
+            </div>
+            <div class="d-none"> <!--  숨겨진 데이터 영역  -->
+                <input type="text" value="${map.postDTO.post_seq}" name="post_seq" id="post_seq">
+                <input type="text" id="deleteFileList" name="deleteFileList[]">
             </div>
         </form>
     </div>
@@ -1212,10 +1231,10 @@
     </footer>
 
 
-<script>
+    <script>
+    
         ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
             imageView = function imageView(att_zone, btn) {
-                var imgCount = 0;
                 var attZone = document.getElementById(att_zone);
                 var btnAtt = document.getElementById(btn)
                 var sel_files = [];
@@ -1244,9 +1263,6 @@
 
                         //갯수제한
                         var length = $(".imgBox").length;
-
-                        $("#imgCnt").innerHTML = length + "/3";
-
                         if (length == 4) {//파일 3개이상 올라가면 리턴
                             // 3개이상 올릴수 없습니다!
                             alert("3개이상 올릴수 없습니다!")
@@ -1296,15 +1312,15 @@
                         btnAtt.files = dt.files;
                         var p = ele.parentNode;
                         attZone.removeChild(p)
-                        imgCount--
-                        console.log(imgCount)
-                        $("#imgCnt").text(imgCount + "/3");
+                        imgCnt--
+                        console.log(imgCnt)
+                        $("#imgCnt").text(imgCnt + "/3");
                     }
 
                     article.appendChild(btn)
-                    imgCount++
-                    console.log(imgCount)
-                    $("#imgCnt").text(imgCount + "/3");
+                    imgCnt++
+                    console.log(imgCnt)
+                    $("#imgCnt").text(imgCnt + "/3");
                     return article
                 }
             }
@@ -1344,9 +1360,23 @@
             });
         })
 
+     // 기존이미지 삭제
+        let deleteFileList = new Array();
+    	let imgCnt = ${map.imgDTO.size()};
+    	$(".xBtn").on("click", function(e){ //삭제 정보,이미지카운트 가져오기
+            deleteFileList.push(e.target.value);
+    		$(this).parent().parent().remove();
+    		imgCnt--
+    		console.log(e.target.value);
+    		console.log(imgCnt);
+    		$("#imgCnt").text(imgCnt + "/3"); 
+    	});
 
         //판매 등록 버튼 눌렀을때 반응
         $("#writeForm").on("submit", function () {
+        	 $("#deleteFileList").val(deleteFileList);
+ 			console.log($("#deleteFileList").val()); // 삭제된 이미지값
+        	
             let post_title = $("#post_title").val();
             let post_category = $("#post_category").val();
             let price_selling = $("#price_selling").val();
@@ -1373,11 +1403,11 @@
                 $("#modalTitle").append($("<div>" + "내용을 입력해주세요." + "</div>"));
                 $('#post_content').focus();
                 return false;
-            }else{
+            } else{
             	$("#modalTitle").empty();
-            	$("#modalTitle").append($('<div class="spinner-border" role="status"'>
-            	  +'<span class="visually-hidden">Loading...</span>'
-            	  +' </div>'));
+                $("#modalTitle").append($('<div class="spinner-border" role="status">'
+                +'<span class="visually-hidden">Loading...</span>'
+                +'</div>'));
             }
 
         })

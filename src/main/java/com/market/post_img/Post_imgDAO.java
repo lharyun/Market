@@ -27,4 +27,11 @@ public class Post_imgDAO {
 		public List<Post_imgDTO> selectPost_seq(int post_seq) throws Exception{
 			return session.selectList("post_imgMapper.selectPost_seq", post_seq);
 		}
+		
+	// 이미지 삭제
+		public void delete(String sys_name) throws Exception{
+			System.out.println();
+			session.delete("post_imgMapper.delete", sys_name);
+		}
+		
 }

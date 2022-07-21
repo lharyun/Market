@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>헤더푸터</title>
+    <title>메인페이지</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
     <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet">
@@ -47,28 +47,31 @@
                     </div>
                     <div class="col d-flex justify-content-end">
                         <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
-                            </li>
-                            
-                            <!-- 로그인했을경우 띄우기 -->
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="/member/toLogout">로그아웃</a>
-                             </li>
-                            <li class="nav-item dropdown">
-                                
-                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
-                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
-                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
-                                </ul>
-                            </li> -->
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
-                            </li>
-                           
+                        	<c:choose>
+								<c:when test="${empty loginSession}">
+									<li class="nav-item">
+                                		<a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
+                            		</li>
+                            		<li class="nav-item">
+		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
+		                            </li>
+								</c:when>
+								<c:otherwise>
+									<!-- 로그인했을경우 띄우기 -->
+		                            <li class="nav-item">
+		                                <a class="nav-link" href="/member/toLogout">로그아웃</a>
+		                             </li>
+		                            <li class="nav-item dropdown">
+		                                
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <ul class="dropdown-menu">
+		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
+		                                </ul>
+		                            </li>
+								</c:otherwise>
+							</c:choose>
                         </ul>
                     </div>
                 </div>
@@ -81,7 +84,7 @@
                 <div>
                 <div class="row p-0 heder_middle" id="Non_reaction">
                     <div class="col-3 pe-0">
-                        <a href="/post/toPost" class="mb-2 mb-lg-0">
+                        <a href="/post/toPost?curPage=1" class="mb-2 mb-lg-0">
                             <img src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                     </div>
@@ -521,7 +524,10 @@
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/resources/images/header_pooter/navibar.png" height="35px"><img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                            <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                        </a>
+                        <a href="/post/toPost?curPage=1">
+                            <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
@@ -657,7 +663,7 @@
                     </div>
                 
                     <div class="col-5 position-relative p-0" id="searchBox">
-                        <form id="SearchForm2" action="/post/toSearch" method="post">
+                        <form id="SearchForm2" class="m-0" action="/post/toSearch" method="post">
                             <a href="#" class="nav-link p-0 d-inline" id="searchIcon2"><img src="/resources/images/header_pooter/searchIcon.png" class="searchIcon"
                                     height="22px"></a>
                 
@@ -672,7 +678,7 @@
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
     <div class="container middle" style="height: 500px;">
-
+		<div class="d-flex justify-content-center"><b>글 정보가 없습니다.</b></div>
      
     </div>
 
@@ -680,9 +686,9 @@
     <!-- footer --> 
        <!-- Modal -->
        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content pt-0" id="notificationModal">
+                <div class="modal-header position-sticky">
                     <div class="col-1">
                         <button type="button" id="closeBtn" data-bs-dismiss="modal" aria-label="Close">
                             <img src="/resources/images/post/left.png" height="25px">
@@ -691,51 +697,62 @@
                     <div class="col n_title">
                         알림 창
                     </div>
-                    <div class="col-1">
-                        <button type="button" id="frashBtn">
-                        <img src="/resources/images/header_pooter/trash.png" height="25px">
-                    </button>
-                    </div>
+                    
                 </div>
                 <div class="modal-body container n_content">
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 채팅메세지를 보내셨습니다.</p>
-                            <p class="n_date">1일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
-                
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/가격.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 50,000원 가격제안했습니다</p>
-                            <p class="n_date">2일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
-                
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/후기.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 후기를 남기셨습니다</p>
-                            <p class="n_date">3일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
+                	<c:if test="${loginSession.notification.size() == 0}">
+                		<div class="row p-1 d-flex justify-content-center fw-bold">
+                			새로운 알림이 없습니다.
+                		</div>
+                	</c:if>
+                	
+                	<c:if test="${loginSession.notification.size() > 0}">
+                		<c:forEach items="${loginSession.notification}" var="notifi">
+                			<c:if test="${notifi.notification_type eq '채팅'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+		                
+		                	<c:if test="${notifi.notification_type eq '가격'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+		                	<c:if test="${notifi.notification_type eq '후기'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+	                    </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -749,17 +766,25 @@
     </div>
      <!-- 고객게시판 -->
     <div class="logo2">
-        <a class="nav-link" href="/client/toClient_post">
+        <a class="nav-link" href="/client/toClient_post?curPage=1">
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
          </a>
     </div>
+    <%-- 관리자 아이디와 같다면 --%>
+	<c:if test="${loginSession.user_id eq 'abc123'}">
+	    <div class="logo4">
+	        <a class="nav-link" href="/member/toManager?curPage=1">
+	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
+	         </a>
+	    </div>
+    </c:if>
     
     <footer class="py-4 text-light">
         <div class="container" id="footerBox">
             <div class="row pooterLine pb-3">
                 <div class="col a_reaction">
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2 "><a href="/post/toPost" class="nav-link p-0">
+                        <li class="nav-item mb-2 "><a href="/post/toPost?curPage=1" class="nav-link p-0">
                                 <img src="/resources/images/header_pooter/로고white.png" height="46px" alt="로고">
                             </a></li>
 

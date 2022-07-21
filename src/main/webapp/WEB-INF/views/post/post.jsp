@@ -167,13 +167,56 @@
         overflow: hidden;
     }
     }
+    
+     /* 페이징 디자인 */
+    .pagination {
+        padding: 30px 0;
+    }
+
+    .pagination ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 10px 18px;
+        color: #222;
+    }
+
+    /* ONE */
+
+    .p1 a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0;
+        text-align: center;
+        transition: all 0.3s linear;
+    }
+    .p1 .pBtn:hover{
+        background-color: #ffad0a2d;
+        border-radius: 50%;
+        transform: translateY( -6px )
+    }
+
+    .p1 a.is-active {
+        background-color: rgb(241, 143, 14);
+        border-radius: 100%;
+        color: #fff;
+    }
+    
+    .middleLine {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+        padding-bottom: 10px;
+    }
    
 </style>
 
 <body>
     <!-- Header -->
     <header>
-
         <div class="container-fluid p-0" id="Non-reaction">
             <nav>
                 <div class="row align-items-center heder_top">
@@ -189,28 +232,31 @@
                     </div>
                     <div class="col d-flex justify-content-end">
                         <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
-                            </li>
-                            
-                            <!-- 로그인했을경우 띄우기 -->
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="/member/toLogout">로그아웃</a>
-                             </li>
-                            <li class="nav-item dropdown">
-                                
-                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
-                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
-                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
-                                </ul>
-                            </li> -->
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
-                            </li>
-                           
+                        	<c:choose>
+								<c:when test="${empty loginSession}">
+									<li class="nav-item">
+                                		<a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
+                            		</li>
+                            		<li class="nav-item">
+		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
+		                            </li>
+								</c:when>
+								<c:otherwise>
+									<!-- 로그인했을경우 띄우기 -->
+		                            <li class="nav-item">
+		                                <a class="nav-link" href="/member/toLogout">로그아웃</a>
+		                             </li>
+		                            <li class="nav-item dropdown">
+		                                
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <ul class="dropdown-menu">
+		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
+		                                </ul>
+		                            </li>
+								</c:otherwise>
+							</c:choose>
                         </ul>
                     </div>
                 </div>
@@ -223,17 +269,17 @@
                 <div>
                 <div class="row p-0 heder_middle" id="Non_reaction">
                     <div class="col-3 pe-0">
-                        <a href="/post/toPost" class="mb-2 mb-lg-0">
+                        <a href="/post/toPost?curPage=1" class="mb-2 mb-lg-0">
                             <img src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                     </div>
                     <div class="col position-relative p-0">
 
-                        <form id="SearchForm" action="/post/toSearch" method="post">
+                        <form id="SearchForm" action="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}" method="post">
                             <a href="#" class="nav-link p-0 d-inline" id="searchIcon"><img src="/resources/images/header_pooter/searchIcon.png"
                                     class="searchIcon" height="22px"></a>
 
-                            <input type="text" class="searchInput ps-2" id="titleSearch" name="post_title"
+                            <input type="text" class="searchInput ps-2" id="titleSearch" name="search"
                                 placeholder="물품, 동네이름을 입력해보세요.">
                         </form>
 
@@ -272,22 +318,22 @@
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=남성의류" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=남성의류" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/boy.png" height="26px" width="26px"> 남성의류
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=여성의류" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=여성의류" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/girl.png" height="26px" width="26px"> 여성의류
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=신발,가방" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=신발,가방" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/Shoes.png" height="26px" width="26px"> 신발,가방
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=뷰티" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=뷰티" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/beauty.png" height="26px" width="26px"> 뷰티
                                                 </a>
                                             </li>
@@ -297,22 +343,22 @@
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=컴퓨터,주변기기" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=컴퓨터,주변기기" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/computer.png" height="26px" width="26px"> 컴퓨터, 주변기기
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=카메라" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=카메라" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/camera.png" height="26px" width="26px"> 카메라
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=디지털,가전" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=디지털,가전" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/machine.png" height="26px" width="26px"> 디지털,가전
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=음향기기" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=음향기기" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/headset.png" height="26px" width="26px"> 음향기기
                                                 </a>
                                             </li>
@@ -322,22 +368,22 @@
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=생활용품" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=생활용품" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/toiletries.png" height="26px" width="26px"> 생활용품
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=예술/희귀/수집품" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=예술/희귀/수집품" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/museum.png" height="26px" width="26px"> 예술/희귀/수집품
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=식품" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=식품" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/food.png" height="26px" width="26px"> 식품
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=가구/인테리어" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=가구/인테리어" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/furniture.png" height="26px" width="26px"> 가구/인테리어
                                                 </a>
                                             </li>
@@ -347,22 +393,22 @@
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=스포츠,레저" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=스포츠,레저" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/sport.png" height="26px" width="26px"> 스포츠,레저
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=게임" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=게임" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/game.png" height="26px" width="26px"> 게임
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=도서" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=도서" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/book.png" height="26px" width="26px"> 도서
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=여행,숙박" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=여행,숙박" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/travel.png" height="26px" width="26px"> 여행,숙박
                                                 </a>
                                             </li>
@@ -380,7 +426,12 @@
                             <!--  동 같은경우 disabled 줘서 구 선택하면 그거에 맞게 뜨게-->
                             <select class="form-select district" id="district" aria-label="Default select example"
                                 name="roadAddr">
-                                <option selected>지역을 선택하세요</option>
+                                <c:if test="${not empty naviMap.post_addr}">
+                                	<option selected>${naviMap.post_addr}</option>
+                                </c:if>
+                                <c:if test="${empty naviMap.post_addr}">
+                                	<option selected>지역을 선택하세요</option>
+                                </c:if>
                                 <option value="강남구">강남구</option>
                                 <option value="강동구">강동구</option>
                                 <option value="강서구">강서구</option>
@@ -649,11 +700,11 @@
                                 <option value="창신">창신동</option>
                             </select>
                         </div>
-
                         <!-- 값 보내줄 input -->
-                        <form id="districeForm" class="d-none" action="/toDistrict" method="post">
-                            <input type="text" id="roadAddrInput" name="roadAddr">
-                            <input type="text" id="extraAddrInput" name="extraAddr">
+                        <form id="districeForm" class="d-none" action="/post/toSearch?curPage=1&search=${naviMap.search}" method="post">
+                            <input type="text" id="roadAddrInput" name="post_addr">
+                            <input type="text" id="extraAddrInput" name="post_addr1">
+                            <input type="text" id="testSearch" value="${naviMap.post_addr}">
                         </form>
 
                     </div>
@@ -663,7 +714,10 @@
                 <div class="row align-items-center heder_bottom" id="reaction">
                     <div class="col p-0 dropdown">
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="/resources/images/header_pooter/navibar.png" height="35px"><img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
+                            <img src="/resources/images/header_pooter/navibar.png" height="35px">
+                        </a>
+                        <a href="/post/toPost?curPage=1">
+                            <img class="a_reaction" src="/resources/images/header_pooter/로고.png" height="40px" alt="로고이미지">
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
@@ -691,42 +745,42 @@
                                             
 
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=남성의류" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=남성의류" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/boy.png" height="26px" width="26px"> 남성의류
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=여성의류" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=여성의류" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/girl.png" height="26px" width="26px"> 여성의류
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=신발,가방" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=신발,가방" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/Shoes.png" height="26px" width="26px"> 신발,가방
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=뷰티" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=뷰티" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/beauty.png" height="26px" width="26px"> 뷰티
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=컴퓨터,주변기기" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=컴퓨터,주변기기" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/computer.png" height="26px" width="26px"> 컴퓨터, 주변기기
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=카메라" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=카메라" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/camera.png" height="26px" width="26px"> 카메라
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=디지털,가전" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=디지털,가전" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/machine.png" height="26px" width="26px"> 디지털,가전
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=음향기기" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=음향기기" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/headset.png" height="26px" width="26px"> 음향기기
                                                 </a>
                                             </li>
@@ -752,42 +806,42 @@
                                             </li>
 
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=생활용품" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=생활용품" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/toiletries.png" height="26px" width="26px"> 생활용품
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=예술/희귀/수집품" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=예술/희귀/수집품" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/museum.png" height="26px" width="26px"> 예술/희귀/수집품
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=식품" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=식품" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/food.png" height="26px" width="26px"> 식품
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=가구/인테리어" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=가구/인테리어" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/furniture.png" height="26px" width="26px"> 가구/인테리어
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=스포츠,레저" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=스포츠,레저" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/sport.png" height="26px" width="26px"> 스포츠,레저
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=게임" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=게임" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/game.png" height="26px" width="26px"> 게임
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=도서" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=도서" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/book.png" height="26px" width="26px"> 도서
                                                 </a>
                                             </li>
                                             <li class="nav-item mb-2">
-                                                <a href="/post/select?curPage=1$category=여행,숙박" class="nav-link p-0">
+                                                <a href="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}&search=여행,숙박" class="nav-link p-0">
                                                     <img src="/resources/images/header_pooter/travel.png" height="26px" width="26px"> 여행,숙박
                                                 </a>
                                             </li>
@@ -799,26 +853,19 @@
                     </div>
                 
                     <div class="col-5 position-relative p-0" id="searchBox">
-                        <form id="SearchForm2" action="/post/toSearch" method="post">
+                        <form id="SearchForm2" class="m-0" action="/post/toSearch?curPage=1&post_addr=${naviMap.post_addr}" method="post">
                             <a href="#" class="nav-link p-0 d-inline" id="searchIcon2"><img src="/resources/images/header_pooter/searchIcon.png" class="searchIcon"
                                     height="22px"></a>
                 
-                            <input type="text" class="searchInput ps-2" id="titleSearch2" name="post_title" placeholder="물품, 동네이름을 입력해보세요.">
+                            <input type="text" class="searchInput ps-2" id="titleSearch2" name="search" placeholder="물품, 동네이름을 입력해보세요.">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
     <!-- Contents -->
- <%-- 이미지 확인
- <c:forEach items="${map.post_img}" var="post_img">
- <div><img src="/imgfiles/${post_img.post_sys_name}"></div>
- </c:forEach>
-    
- --%>
-	
+
     <div class="container my-3" id="contentsBox">
 
         <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
@@ -847,40 +894,23 @@
             </button>
         </div>
         <div class="py-2 middle_postBox">
-            <article class="postBox">
-                <a href="/post/toPostDetail">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            
-            <article class="postBox">
-                <a href="#">
-                    <div class="imgDiv">
-                        <img class="hicary" src="/resources/images/post/반짝.png">
-                        <img class="postImg" src="/resources/images/post/NoImg.webp">
-                    </div>
-                    <div class="postInformation">
-                        <div class="mt-2 middle_title">양파 12kg</div>
-                        <div class="middle_lgText mt-1">170,000원</div>
-                        <div class="middle_smText mt-1">서울 마포구 망원동</div>
-                        <div class="middle_smText mt-1">관심1·채팅1·조회242</div>
-                    </div>
-                </a>
-            </article>
-            
+           
             <c:if test="${list.size() == 0}">
-            	<div class="d-flex justify-content-center"><b>첨부된 파일이 없습니다.</b></div>
+            	<div class="d-flex justify-content-center">
+            		<b><span style="color: orange">${naviMap.search} </span>글 정보가 없습니다.</b>
+            	</div>
             </c:if>
             <c:if test="${list.size() > 0}">
+            	<c:if test="${empty naviMap.search}">
+	            	<div class="ms-4 fs-5 middleLine">
+	            		<b><span style="color: orange">오늘</span>의 상품</b>
+	            	</div>
+            	</c:if>
+            	<c:if test="${not empty naviMap.search}">
+	            	<div class="ms-4 fs-5 middleLine">
+	            		<b><span style="color: orange">${naviMap.search} </span>검색 결과</b>
+	            	</div>
+            	</c:if>
 	             <c:forEach items="${list}" var="list">
 		              <article class="postBox">
 		                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
@@ -900,35 +930,51 @@
 		                        <div class="mt-2 middle_title">${list.post_title}</div>
 		                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
 		                        <div class="middle_smText mt-1">${list.post_addr}</div>
-		                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}
-		                        ·채팅${list.post_chatting_cnt}·조회${list.post_inquiry_cnt}</div>
+		                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+		                        ·조회${list.post_inquiry_cnt}</div>
 		                    </div>
 		                </a>
 		            </article>
 				 </c:forEach>
 			 </c:if>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-
+      
+		<nav class="pagination p1 justify-content-center">
+			<ul >
+				<c:if test="${naviMap.needPrev eq true }">
+					<a href="/post/toSearch?curPage=${naviMap.startNavi-1}&post_addr=${naviMap.post_addr}&search=${naviMap.search}">
+						<
+					</a>
+				</c:if>
+				<c:forEach var="pageNum" begin="${naviMap.startNavi}" end="${naviMap.endNavi}" step="1">
+					<c:if test="${naviMap.curPage eq pageNum}">
+						<a class="is-active" href="/post/toSearch?curPage=${pageNum}&post_addr=${naviMap.post_addr}&search=${naviMap.search}">
+							${pageNum}
+						</a>
+					</c:if>
+					<c:if test="${naviMap.curPage ne pageNum}">
+						<a class="pBtn" href="/post/toSearch?curPage=${pageNum}&post_addr=${naviMap.post_addr}&search=${naviMap.search}">
+							${pageNum}
+						</a>
+					</c:if>	
+				</c:forEach>
+				<c:if test="${naviMap.needNext eq true }">
+					<a href="/post/toSearch?curPage=${naviMap.endNavi+1}&post_addr=${naviMap.post_addr}&search=${naviMap.search}">
+						>
+					</a>
+				</c:if>
+			</ul>
+		</nav>
   
      
     </div>
 
-
     <!-- footer --> 
        <!-- Modal -->
        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content pt-0" id="notificationModal">
+                <div class="modal-header position-sticky">
                     <div class="col-1">
                         <button type="button" id="closeBtn" data-bs-dismiss="modal" aria-label="Close">
                             <img src="/resources/images/post/left.png" height="25px">
@@ -937,51 +983,62 @@
                     <div class="col n_title">
                         알림 창
                     </div>
-                    <div class="col-1">
-                        <button type="button" id="frashBtn">
-                        <img src="/resources/images/header_pooter/trash.png" height="25px">
-                    </button>
-                    </div>
+                    
                 </div>
                 <div class="modal-body container n_content">
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 채팅메세지를 보내셨습니다.</p>
-                            <p class="n_date">1일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
-                
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/가격.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 50,000원 가격제안했습니다</p>
-                            <p class="n_date">2일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
-                
-                    <div class="row p-1 ">
-                        <div class="col-2 text-center n_logo">
-                            <img src="/resources/images/header_pooter/후기.png" height="40px">
-                        </div>
-                        <div class="col p-0">
-                            <p>~~님께서 "~~"글에 후기를 남기셨습니다</p>
-                            <p class="n_date">3일전</p>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn-close"></button>
-                        </div>
-                    </div>
+                	<c:if test="${loginSession.notification.size() == 0}">
+                		<div class="row p-1 d-flex justify-content-center fw-bold">
+                			새로운 알림이 없습니다.
+                		</div>
+                	</c:if>
+                	
+                	<c:if test="${loginSession.notification.size() > 0}">
+                		<c:forEach items="${loginSession.notification}" var="notifi">
+                			<c:if test="${notifi.notification_type eq '채팅'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+		                
+		                	<c:if test="${notifi.notification_type eq '가격'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+		                	<c:if test="${notifi.notification_type eq '후기'}">
+			                    <div class="row p-1 ">
+			                        <div class="col-2 text-center n_logo">
+			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
+			                        </div>
+			                        <div class="col p-0">
+			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p class="n_date">${notifi.notification_time}</p>
+			                        </div>
+			                        <div class="col-1">
+			                            <button type="button" class="btn-close" id="notifi_deleteBtn" value="${notifi.notification_seq}"></button>
+			                        </div>
+			                    </div>
+		                    </c:if>
+	                    </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -999,13 +1056,21 @@
             <img src="/resources/images/header_pooter/고객게시판.png" height="56px" width="56px">
          </a>
     </div>
+    <%-- 관리자 아이디와 같다면 --%>
+	<c:if test="${loginSession.user_id eq 'abc123'}">
+	    <div class="logo4">
+	        <a class="nav-link" href="/member/toManager?curPage=1">
+	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
+	         </a>
+	    </div>
+    </c:if>
     
     <footer class="py-4 text-light">
         <div class="container" id="footerBox">
             <div class="row pooterLine pb-3">
                 <div class="col a_reaction">
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2 "><a href="/post/toPost" class="nav-link p-0">
+                        <li class="nav-item mb-2 "><a href="/post/toPost?curPage=1" class="nav-link p-0">
                                 <img src="/resources/images/header_pooter/로고white.png" height="46px" alt="로고">
                             </a></li>
 
@@ -1014,7 +1079,7 @@
                 <div class="col">
                     <ul class="nav flex-column pt-3">
                         <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
