@@ -115,8 +115,10 @@ $(function() {// 로딩될때
 
 //동네카테고리
 $(".a_dong").change(function () {
-    console.log(test1);
-    $("#extraAddrInput").val($(this).val());
+	let test = $("#testSearch").val();
+    console.log(test);
+    console.log($(this).val());
+    $("#extraAddrInput").val(test +" "+ $(this).val()+"동");
     document.getElementById("districeForm").submit();
 })
 

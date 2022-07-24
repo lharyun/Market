@@ -47,9 +47,7 @@
 			where post_title like '%' || #{search} || '%'
 			or post_category like '%' || #{search} || '%'
 			or post_addr like '%' || #{search} || '%'
-			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
-				and post_addr like '%' || #{post_addr} || '%'
-			</if>
+			
 		</if>
 		<if test="search == null or search == ''"> <!-- 검색 -->
 			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
@@ -85,7 +83,7 @@
 			where post_title like '%' || #{search} || '%'
 			or post_category like '%' || #{search} || '%'
 			or post_addr like '%' || #{search} || '%'
-				and post_addr like '%' || #{post_addr} || '%'
+		
 		</if>
 		<if test="search == null or search == ''"> <!-- 검색 -->
 			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
@@ -101,8 +99,10 @@
 			or post_category like '%' || #{search} || '%'
 			or post_addr like '%' || #{search} || '%'
 		</if>
-		<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
-			and post_addr like '%' || #{post_addr} || '%'
+		<if test="search == null or search == ''"> <!-- 검색 -->
+			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
+				and post_addr like '%' || #{post_addr} || '%'
+			</if>
 		</if>
 	and num between #{start} and #{end}
 	    order by a.post_seq desc
