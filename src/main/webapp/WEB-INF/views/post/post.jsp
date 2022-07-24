@@ -426,10 +426,11 @@
                             <!--  동 같은경우 disabled 줘서 구 선택하면 그거에 맞게 뜨게-->
                             <select class="form-select district" id="district" aria-label="Default select example"
                                 name="roadAddr">
-                                <c:if test="${not empty naviMap.post_addr}">
+                                <c:if test="${not empty naviMap.post_addr and naviMap.post_addr ne '지역을 선택하세요'}">
+                                	<option value="지역을 선택하세요">지역을 선택하세요</option>
                                 	<option selected>${naviMap.post_addr}</option>
                                 </c:if>
-                                <c:if test="${empty naviMap.post_addr}">
+                                <c:if test="${empty naviMap.post_addr or naviMap.post_addr eq '지역을 선택하세요'}">
                                 	<option selected>지역을 선택하세요</option>
                                 </c:if>
                                 <option value="강남구">강남구</option>
@@ -589,6 +590,17 @@
                                 <option value="상계">상계동</option>
                             </select>
                         </div>
+                          <!-- 동대문구 -->
+                        <div class="col-5 p-1 d-none b_dong" id="Dongdaemun">
+                            <select class="form-select a_dong" aria-label="Default select example" name="extraAddr">
+                                <option selected>동네를 선택하세요</option>
+                                <option value="용신">용신동</option>
+                                <option value="제기">제기동</option>
+                                <option value="전농">전농동</option>
+                                <option value="장안">장안동</option>
+                                <option value="회기">회기동</option>
+                            </select>
+                        </div>
                         <!-- 동작 -->
                         <div class="col-5 p-1 d-none b_dong" id="Dongjak">
                             <select class="form-select a_dong" aria-label="Default select example" name="extraAddr">
@@ -702,7 +714,7 @@
                         </div>
                         <!-- 값 보내줄 input -->
                         <form id="districeForm" class="d-none" action="/post/toSearch?curPage=1&search=${naviMap.search}" method="post">
-                            <input type="text" id="roadAddrInput" name="post_addr">
+                            <input type="text" id="roadAddrInput" name="post_addr" value="${naviMap.post_addr}">
                             <input type="text" id="extraAddrInput" name="post_addr1">
                             <input type="text" id="testSearch" value="${naviMap.post_addr}">
                         </form>
@@ -906,9 +918,13 @@
 	            		<b><span style="color: orange">오늘</span>의 상품</b>
 	            	</div>
             	</c:if>
-            	<c:if test="${not empty naviMap.search}">
+            	<c:if test="${not empty naviMap.search or not empty naviMap.post_addr}">
 	            	<div class="ms-4 fs-5 middleLine">
-	            		<b><span style="color: orange">${naviMap.search} </span>검색 결과</b>
+	            		<b>
+	            		<span style="color: orange">${naviMap.post_addr}</span>
+	            		<span style="color: orange">${naviMap.search}</span> 
+	            		검색 결과
+	            		</b>
 	            	</div>
             	</c:if>
 	             <c:forEach items="${list}" var="list">

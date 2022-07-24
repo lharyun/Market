@@ -48,10 +48,15 @@ $(".bookmark").on("click", function () {
 
 //지역카테고리
 $("#district").change(function () {
+	
     console.log($(this).val());
-
-    
-    $("#roadAddrInput").val($(this).val());
+    if($(this).val() == "지역을 선택하세요"){
+	$(this).val("");
+	$("#roadAddrInput").val($(this).val());
+}else{
+	$("#roadAddrInput").val($(this).val());
+}
+    console.log($(this).val());
     document.getElementById("districeForm").submit();
 })
 
