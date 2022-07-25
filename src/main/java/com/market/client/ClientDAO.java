@@ -1,10 +1,8 @@
 package com.market.client;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,15 @@ public class ClientDAO {
 		return session.selectList("clientMapper.search",category);
 	}
 	
+	public List<ClientDTO> selectAllP(int start,int end) throws Exception{
+		Map<String,Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return session.selectList("clientMapper.selectAllP",map);
+	}
 	
-	
+	public int getPageNavi() throws Exception{
+		return session.selectOne("clientMapper.getPageNavi");
+	}
 	
 }

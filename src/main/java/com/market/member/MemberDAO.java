@@ -1,7 +1,11 @@
 package com.market.member;
 
+
 import java.util.HashMap;
 import java.util.Map;
+
+import java.util.List;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +13,20 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDAO {
-
 	@Autowired
 	private SqlSession session;
-	
+ 
+//하륜
+	public List<MemberDTO> selectAll() throws Exception{
+		return session.selectList("memberMapper.selectAll");
+	}
+
+	public void delete(String id) throws Exception{
+		session.delete("memberMapper.delete",id);
+	}
+
+
+	// 용현
 	// 로그인 유효성 검사
 	public MemberDTO login(String user_id) throws Exception {
 		return session.selectOne("memberMapper.login", user_id);
@@ -87,3 +101,4 @@ public class MemberDAO {
 		return session.update("memberMapper.modifyInfo", map);
 	}
 }
+

@@ -7,6 +7,11 @@
  <mapper namespace="clientMapper">
  	
  	
+ 	<!-- pageNavi -->
+ 	<select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_client
+ 	</select>
+ 	
  	<!-- 게시판 저장 -->
  	 <insert id="insert" parameterType="com.market.client.ClientDTO">
  		<selectKey order="BEFORE" keyProperty="client_seq" resultType="int">
@@ -18,6 +23,12 @@
  	<!-- 게시판 목록 -->
  	<select id="selectAll" resultType="com.market.client.ClientDTO">
  		select * from tbl_client order by client_seq desc
+ 	</select>
+ 	
+ 	<!-- 페이징 적용 게시글 -->
+  <select id="selectAllP" parameterType="int" resultType="com.market.client.ClientDTO">
+ 		select * from ( select tbl_client.*, row_number() over(order by client_seq desc)
+ 		 as num from tbl_client)where num between #{start} and #{end}
  	</select>
  	
  <!-- 원하는 게시판 목록 -->

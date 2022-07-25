@@ -1,8 +1,11 @@
 package com.market.member;
 
+
+
 import java.io.File;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.mail.Message;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 	/*
 	dao를 통해 데이터를 추가,수정,삭제,조회해야하는 경우 메서드 생성
@@ -42,7 +46,17 @@ import org.springframework.web.multipart.MultipartFile;
 	private SqlSession session;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
+  
+  //하륜
+  	public List<MemberDTO> selectAll() throws Exception{
+		return dao.selectAll();
+	}
+
+	public void delete(String id) throws Exception{ 	//manager에서 체크박스 선택 삭제
+		dao.delete(id);
+	}
 	
+  //용현 
 	// 로그인
 	public MemberDTO login(String user_id) throws Exception{
 		return dao.login(user_id);
@@ -156,4 +170,5 @@ import org.springframework.web.multipart.MultipartFile;
 	public int modifyInfo(String user_id, String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception{
 		return dao.modifyInfo(user_id, user_nickname, user_pw, user_phone, postcode, roadAddr, detailAddr, extraAddr);
 	}
+
 }

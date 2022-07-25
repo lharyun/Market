@@ -4,8 +4,18 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
- <mapper namespace="memberMapper">
 
+ <mapper namespace="memberMapper">
+  <!-- 하륜 -->
+ 	<select id="selectAll" resultType="com.market.member.MemberDTO">
+ 		select * from tbl_member
+ 	</select>
+ 	
+ 	<delete id="delete" parameterType="String">
+ 		delete from tbl_member where user_id=#{id}
+ 	</delete>
+
+  <!-- 용현 -->
 	<!-- 로그인 -->
 	<select id="login" resultType="com.market.member.MemberDTO">
 		select * from tbl_member where user_id = #{user_id}
@@ -71,5 +81,6 @@
 			postcode = #{postcode}, roadAddr = #{roadAddr}, detailAddr = #{detailAddr}, extraAddr = #{extraAddr}
 			where user_id = #{user_id}
 	</update>
+
 
  </mapper>
