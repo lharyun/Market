@@ -397,7 +397,7 @@
                         	<c:choose>
 								<c:when test="${empty loginSession}">
 									<li class="nav-item">
-                                		<a class="nav-link" href="/member/toLogin">로그인/회원가입</a>
+                                		<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>로그인/회원가입</a>
                             		</li>
                             		<li class="nav-item">
 		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>

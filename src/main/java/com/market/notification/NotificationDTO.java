@@ -2,7 +2,7 @@ package com.market.notification;
 
 import java.util.Date;
 
-import com.market.utills.Time;
+import com.market.utils.Time;
 
 public class NotificationDTO {
 private int notification_seq;

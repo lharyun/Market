@@ -1,4 +1,4 @@
-package com.market.utills;
+package com.market.utils;
 
 import java.util.Date;
 

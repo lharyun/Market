@@ -1,3 +1,12 @@
+ // 로그인/회원가입 a 태그 id값 : linkLogin
+       $("#linkLogin").onclick = function(){
+          
+          var popupX = (window.screen.width / 2) - (800 / 2);
+            var popupY= (window.screen.height / 2) - (600 / 2);
+            
+            window.open('/member/toLogin', '로그인', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+       }
+       
   $("#notificationModal").on("click","#notifi_deleteBtn", function(e){//알림창 삭제
                 console.log(e.target.value);
                 let notification_seq = e.target.value;

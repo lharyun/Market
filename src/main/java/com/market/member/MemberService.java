@@ -1,15 +1,10 @@
 package com.market.member;
 
-<<<<<<< HEAD
-import java.util.HashMap;
-=======
-
-
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
->>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.mail.Message;
@@ -45,42 +40,28 @@ import org.springframework.web.multipart.MultipartFile;
 	@Service
 	public class MemberService {
 	@Autowired
-<<<<<<< HEAD
 	private MemberDAO memberDAO;
-
-	public List<MemberDTO> selectAll(int start,int end) throws Exception{
-		return memberDAO.selectAll(start,end);
-=======
-	private MemberDAO dao;
 	@Autowired
 	private SqlSession session;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
   
-  //하륜
-  	public List<MemberDTO> selectAll() throws Exception{
-		return dao.selectAll();
->>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
-	}
 
-	public void delete(String id) throws Exception{ 	//manager에서 체크박스 선택 삭제
-		dao.delete(id);
-	}
 	
   //용현 
 	// 로그인
 	public MemberDTO login(String user_id) throws Exception{
-		return dao.login(user_id);
+		return memberDAO.login(user_id);
 	}
 	
 	// 아이디 중복확인
 	public boolean checkLogin(String user_id) throws Exception{
-		return dao.checkLogin(user_id);
+		return memberDAO.checkLogin(user_id);
 	}
 	
 	// 아이디 찾기
 	public String findId(String user_name, String user_phone) throws Exception{
-		return dao.findId(user_name, user_phone);
+		return memberDAO.findId(user_name, user_phone);
 	}
 	
 	// 이메일 전송
@@ -129,34 +110,34 @@ import org.springframework.web.multipart.MultipartFile;
 		String changed_pw = pwdEncoder.encode(user_pw);
 		
 		// 비밀번호 변경
-		dao.update_pw(user_id, changed_pw);
+		memberDAO.update_pw(user_id, changed_pw);
 
 		return user_pw;
 	}
 	
 	// 회원가입
 	public int signup(MemberDTO dto) throws Exception{
-		return dao.insert(dto);
+		return memberDAO.insert(dto);
 	}
 	
 	// 회원탈퇴
 	public int delete(String user_id) throws Exception{
-		return dao.delete(user_id);
+		return memberDAO.delete(user_id);
 	}
 	
 	// 회원탈퇴 아이디 & 비밀번호 확인
 	public MemberDTO checkPw(String user_id, String user_pw) throws Exception{
-		return dao.checkPw(user_id, user_pw);
+		return memberDAO.checkPw(user_id, user_pw);
 	}
 	
 	// 닉네임 중복확인
 	public boolean checkNickname(String user_nickname) throws Exception{
-		return dao.checkNickname(user_nickname);
+		return memberDAO.checkNickname(user_nickname);
 	}
 	
 	// 휴대폰번호 중복확인
 	public boolean checkPhone(String user_phone) throws Exception{
-		return dao.checkPhone(user_phone);
+		return memberDAO.checkPhone(user_phone);
 	}
 	
 	// 마이페이지로 옮길 것
@@ -174,14 +155,21 @@ import org.springframework.web.multipart.MultipartFile;
 	
 	// 프로필 사진 수정
 	public int modifyProfile(MemberDTO dto) throws Exception{
-		return dao.modifyProfile(dto);
+		return memberDAO.modifyProfile(dto);
 	}
 	
 	// 내 정보 수정
 	public int modifyInfo(String user_id, String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception{
-		return dao.modifyInfo(user_id, user_nickname, user_pw, user_phone, postcode, roadAddr, detailAddr, extraAddr);
+		return memberDAO.modifyInfo(user_id, user_nickname, user_pw, user_phone, postcode, roadAddr, detailAddr, extraAddr);
 	}
 	
+  //하륜
+	public List<MemberDTO> selectAll(int start,int end) throws Exception{
+		return memberDAO.selectAll(start,end);
+	}
+		public void mn_delete(String id) throws Exception{ 	//manager에서 체크박스 선택 삭제
+			memberDAO.mn_delete(id);
+	}	
 	public List<MemberDTO> mSearch(String user_id) throws Exception{
 		return memberDAO.mSearch(user_id);		
 	}

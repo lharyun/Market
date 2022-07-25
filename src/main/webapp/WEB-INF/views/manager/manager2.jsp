@@ -2079,7 +2079,7 @@ footer .nav-link:hover {
 		} else {
 			if (confirm("해당 회원 블랙을 해제하시겠습니까?")) {
 				$.ajax({
-					url : "/member/delete",
+					url : "/member/mn_delete",
 					type : 'post',
 					data : {
 						"arr[]" : arr
