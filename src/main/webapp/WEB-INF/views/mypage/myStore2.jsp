@@ -192,19 +192,12 @@
           text-align: right;
           float: right;
       }
-      /* 버튼 */
-      .buttonBox{
+      /* 수정 버튼 */
+      .modifyBox{
           width: 70%;
-          height: 100px;
+          height: 70px;
           display: inline-block;
           margin-top: 15px;
-      }
-      #modifyBtn{
-      	margin-top: 10px;
-      }
-      #deleteBtn{
-      	width: 150px;
-      	margin-top: 10px;
       }
       /* 카테고리 */
       .categoryBox{
@@ -340,10 +333,10 @@
 	          text-align: right;
 	          float: right;
 	      }
-	      /* 버튼 */
-	      .buttonBox{
+	      /* 수정 버튼 */
+	      .modifyBox{
 	          width: 70%;
-	          height: 100px;
+	          height: 70px;
 	          display: inline-block;
 	          margin-top: 15px;
 	      }
@@ -1183,7 +1176,7 @@
 	                <img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
 	            </div>
 	            <div class="profileNickname">
-	                <strong>${loginSession.user_nickname}</strong>
+	                <strong>닉네임 값</strong>
 	            </div>
 	            <div class="profileInfo">
 	                <div class="productInfo">
@@ -1201,11 +1194,8 @@
 	                    <span><strong>☆☆☆☆☆&nbsp;0</strong></span>
 	                </div>
 	            </div>
-	            <div class="buttonBox">
+	            <div class="modifyBox">
 	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
-	                <c:if test="${not empty loginSession}">
-	                	<button type="button" class="btn btn-danger" id="deleteBtn">회원 탈퇴</button>
-	                </c:if>
 	            </div>
 	        </div>
 	        <div class="categoryBox">
@@ -1280,17 +1270,6 @@
 	    </div>
     </div>
     <script>
-    	document.getElementById("modifyBtn").onclick = function(){
-    		location.href = "/mypage/toMypageModify2";
-    	}
-    	
-	    $("#deleteBtn").on("click", function() { // 회원탈퇴 요청
-			if (confirm("정말 탈퇴하시겠습니까?") == true) { // 탈퇴 확인
-				location.href = "/member/todelete";
-			} else { // 탈퇴 취소
-				return false;
-			}
-		});
     
     </script>
 
