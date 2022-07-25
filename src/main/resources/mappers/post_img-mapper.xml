@@ -22,6 +22,11 @@
 	<select id="selectPost_seq" resultType="com.market.post_img.Post_imgDTO">
 		select*from tbl_post_img where post_seq = #{post_seq}
 	</select>	
+	
+	<!-- 이미지 삭제 -->
+	<delete id="delete"  parameterType="string">
+		delete from tbl_post_img where post_sys_name = #{post_sys_name}
+	</delete>
 
 
 

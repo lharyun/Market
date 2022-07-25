@@ -40,7 +40,7 @@ function render () {
 
 pop();
 $("particule").css('display','none');
-$(".heartBefore").on("click",function(){
+ $(".middle_heartBtn").on("click",".heartBefore", function () {
     $('particule').attr('display','block')
    
     pop();

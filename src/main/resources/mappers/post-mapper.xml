@@ -5,12 +5,23 @@
 
 
 <mapper namespace="postMapper">
+	
+	
+ 	
 	<!-- 게시글 저장 -->
 	<insert id="insert" parameterType="com.market.post.PostDTO">
 		insert into tbl_post values
 		(#{post_seq}, #{post_title}, #{post_content}, #{post_category}, 0, 0, 0, #{price_selling}
 		, #{price_check}, #{post_addr}, sysdate, #{post_state}, #{user_id}, #{user_category})
 	</insert>
+	
+	<!-- 게시글 저장 -->
+	<update id="modify" parameterType="com.market.post.PostDTO">
+		update tbl_post set
+		post_title = #{post_title}, post_content = #{post_content}, post_category = #{post_category}
+		,price_selling = #{price_selling} ,price_check = #{price_check}, post_time = sysdate
+		where post_seq = #{post_seq}
+	</update>
 
 	<!-- 새로운 post seq 생성 -->
 	<select id="selectSeq" resultType="int">
@@ -28,13 +39,73 @@
 			set post_state=#{post_state} 
 			where post_seq = #{post_seq}
 	</update>
+	
+	<!-- 페이지 찾기 -->
+ 	<select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_post
+ 		<if test="search != null and search != ''"> <!-- 검색 -->
+			where post_title like '%' || #{search} || '%'
+			or post_category like '%' || #{search} || '%'
+			or post_addr like '%' || #{search} || '%'
+			
+		</if>
+		<if test="search == null or search == ''"> <!-- 검색 -->
+			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
+				where post_addr like '%' || #{post_addr} || '%'
+			</if>
+		</if>
+ 	</select>
+ 	
 	<!-- 이미지 조인 문 전체 조회 -->
-	<select id="selectJoin" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
-	select * from tbl_post a FULL OUTER JOIN tbl_post_img b
-		on a.post_seq= b.post_seq
+	<select id="selectJoin" parameterType="int" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
+	select 
+	    Case WHEN LENGTH(post_title) > 8 THEN SubStr(post_title, 0, 8) || '..' ELSE post_title End as post_title
+	    , a.*
+	    , b.*
+	from ( select tbl_post.*, row_number() over(order by post_seq desc)
+	 	as num from tbl_post) a  FULL OUTER JOIN tbl_post_img b  
+	    on a.post_seq= b.post_seq
 	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
-		where NOT post_title is NULL
-		order by a.post_seq
+	    where NOT post_title is NULL
+	and num between #{start} and #{end}
+	    order by a.post_seq desc
+	</select>
+	
+		<!-- 카테고리or 지역 선택 -->
+	<select id="search" parameterType="map" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
+	select 
+	    Case WHEN LENGTH(post_title) > 8 THEN SubStr(post_title, 0, 8) || '..' ELSE post_title End as post_title
+	    , a.*
+	    , b.*
+	from ( select tbl_post.*, row_number() over(order by post_seq desc)
+	 	as num from tbl_post
+		<if test="search != null and search != ''"> <!-- 검색 -->
+			where post_title like '%' || #{search} || '%'
+			or post_category like '%' || #{search} || '%'
+			or post_addr like '%' || #{search} || '%'
+		
+		</if>
+		<if test="search == null or search == ''"> <!-- 검색 -->
+			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
+				where post_addr like '%' || #{post_addr} || '%'
+			</if>
+		</if>
+	 	) a  FULL OUTER JOIN tbl_post_img b  
+	    on a.post_seq= b.post_seq
+	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
+	    where NOT post_title is NULL
+		<if test="search != null and search != ''"> <!-- 검색 -->
+			and post_title like '%' || #{search} || '%'
+			or post_category like '%' || #{search} || '%'
+			or post_addr like '%' || #{search} || '%'
+		</if>
+		<if test="search == null or search == ''"> <!-- 검색 -->
+			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->
+				and post_addr like '%' || #{post_addr} || '%'
+			</if>
+		</if>
+	and num between #{start} and #{end}
+	    order by a.post_seq desc
 	</select>
 	
 	<!-- post_seq 번호로 조회 -->
