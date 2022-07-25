@@ -4,11 +4,26 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
+<<<<<<< HEAD
+ <mapper namespace="memberMapper" >
+ 	<select id="selectAll" parameterType="int" resultType="com.market.member.MemberDTO">
+ 		select * from ( select tbl_member.*, row_number() over(order by user_seq desc)
+ 		 as num from tbl_member)where num between #{start} and #{end}	
+ 	</select>
+ 	
+ 	<select id="search" parameterType="string" resultType="com.market.member.MemberDTO">
+ 	select * from tbl_member where user_id like '%' || #{user_id} || '%'
+ 	</select>
+ 
+ <select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_member
+=======
 
  <mapper namespace="memberMapper">
   <!-- 하륜 -->
  	<select id="selectAll" resultType="com.market.member.MemberDTO">
  		select * from tbl_member
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
  	</select>
  	
  	<delete id="delete" parameterType="String">

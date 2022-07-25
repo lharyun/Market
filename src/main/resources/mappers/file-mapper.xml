@@ -2,6 +2,15 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
+   
+   <mapper namespace="fileMapper">
+   <select id="selectSys_name" resultType="string">
+		select sys_name from files
+	</select>
+   
+   </mapper>
+=======
 
 
 <mapper namespace="fileMapper">
@@ -26,3 +35,4 @@
 			where seq_board = #{seq_board}
 	</select>
 </mapper>
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d

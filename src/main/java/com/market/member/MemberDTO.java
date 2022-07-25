@@ -24,11 +24,16 @@ public class MemberDTO {
 	}
 	public MemberDTO(String user_id, String user_category, String user_k, String user_pw, String user_birth,
 			String user_nickname, String user_profile, String user_name, String user_phone, String postcode,
+<<<<<<< HEAD
+			String oradAddr, String detailAddr, String extraAddr, int grade, int rating, String blackList_check,
+			int user_seq) {
+=======
 			String roadAddr, String detailAddr, String extraAddr, int grade, int rating, String blackList_check,
 			int user_seq) {
 
 
 
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
 		super();
 		this.user_id = user_id;
 		this.user_category = user_category;
@@ -146,6 +151,25 @@ public class MemberDTO {
 	public void setBlackList_check(String blackList_check) {
 		this.blackList_check = blackList_check;
 	}
+<<<<<<< HEAD
+
+	public int getUser_seq() {
+		return user_seq;
+	}
+
+	public void setUser_seq(int user_seq) {
+		this.user_seq = user_seq;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [user_id=" + user_id + ", user_category=" + user_category + ", user_k=" + user_k
+				+ ", user_pw=" + user_pw + ", user_birth=" + user_birth + ", user_nickname=" + user_nickname
+				+ ", user_profile=" + user_profile + ", user_name=" + user_name + ", user_phone=" + user_phone
+				+ ", postcode=" + postcode + ", oradAddr=" + oradAddr + ", detailAddr=" + detailAddr + ", extraAddr="
+				+ extraAddr + ", grade=" + grade + ", rating=" + rating + ", blackList_check=" + blackList_check
+				+ ", user_seq=" + user_seq + "]";
+=======
 	public int getUser_seq() {
 		return user_seq;
 	}
@@ -157,7 +181,14 @@ public class MemberDTO {
 		return  user_id + " : " + user_category + " : " + user_k + " : " + user_pw + " : " + user_birth + " : " + user_nickname + " : " + user_profile
 				 + " : " + user_name + " : " + user_phone + " : " + postcode + " : " + roadAddr + " : " + detailAddr + " : " + extraAddr + " : " + grade
 				 + " : " + rating + " : " + blackList_check + " : " + user_seq;
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
 	}
 	
 }
 
+<<<<<<< HEAD
+	
+
+}
+=======
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d

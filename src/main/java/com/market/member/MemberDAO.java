@@ -1,30 +1,56 @@
 package com.market.member;
 
+<<<<<<< HEAD
+import java.util.HashMap;
+=======
 
 import java.util.HashMap;
 import java.util.Map;
 
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
 import java.util.List;
+import java.util.Map;
 
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.market.blackList.BlackListDTO;
+
 @Repository
 public class MemberDAO {
 	@Autowired
 	private SqlSession session;
+<<<<<<< HEAD
+
+	public List<MemberDTO> selectAll(int start,int end) throws Exception{
+		Map<String,Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return session.selectList("memberMapper.selectAll",map);
+=======
  
 //하륜
 	public List<MemberDTO> selectAll() throws Exception{
 		return session.selectList("memberMapper.selectAll");
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
 	}
-
+	
+	public List<MemberDTO> mSearch(String user_id) throws Exception{
+		return session.selectList("memberMapper.search",user_id);		
+	}
+	
 	public void delete(String id) throws Exception{
 		session.delete("memberMapper.delete",id);
 	}
 
+<<<<<<< HEAD
+	public int getPageNavi() throws Exception{
+		return session.selectOne("memberMapper.getPageNavi");
+	}
+}
+=======
 
 	// 용현
 	// 로그인 유효성 검사
@@ -102,3 +128,4 @@ public class MemberDAO {
 	}
 }
 
+>>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d

@@ -6,10 +6,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.market.file.FileDAO;
+
 @Service
 public class ClientService {
 	@Autowired
 	private ClientDAO clientDAO;
+	
+	public void delete(int client_seq) throws Exception{
+		clientDAO.delete(client_seq);
+	}
+	
+	public void modify(ClientDTO dto) throws Exception{
+		clientDAO.modify(dto);
+	}
+	
+	public ClientDTO selectBySeq(int client_seq) throws Exception{
+		return clientDAO.selectBySeq(client_seq);
+	}
 	
 	public void insert(ClientDTO dto) throws Exception{
 		clientDAO.insert(dto);

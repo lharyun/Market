@@ -6,6 +6,21 @@
 
  <mapper namespace="clientMapper">
  	
+ 	<!-- 게시판 삭제 -->
+ 	<delete id="delete" parameterType="int">
+ 		delete from tbl_client where client_seq = #{client_seq}
+ 	</delete>
+ 	
+ 	<!-- 게시판 수정 업데이트-->
+ 	<update id="update" parameterType="com.market.client.ClientDTO">
+ 		update tbl_client set client_title=#{client_title},client_content=#{client_content},client_category=#{client_category}
+ 			where client_seq=#{client_seq}
+ 	</update>
+ 	
+ 	<!-- 게시판 수정 데이터 -->
+ 	<select id="selectBySeq" parameterType="int" resultType="com.market.client.ClientDTO">
+ 		select * from tbl_client where client_seq=#{client_seq}
+ 	</select>
  	
  	<!-- pageNavi -->
  	<select id="getPageNavi" resultType="int">

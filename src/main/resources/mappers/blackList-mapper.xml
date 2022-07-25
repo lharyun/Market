@@ -16,9 +16,13 @@
  	</insert>
  	
  	<select id="search" parameterType="string" resultType="com.market.blackList.BlackListDTO">
- 		select * from tbl_blackList where id like '%{user_id}%'
+ 	select * from tbl_blackList where user_id like '%' || #{user_id} || '%'
  	</select>
  	
+ 	<select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_blackList
+ 	</select>
+ 
  	<update id="black" parameterType="string">
  		update tbl_member set  blacklist_check = 'true' where user_id=#{user_id}
  	</update>
@@ -26,8 +30,13 @@
  	<update id="unblack" parameterType="string">
  		update tbl_member set  blacklist_check = 'false' where user_id=#{user_id}
  	</update>
+ 	<delete id="delete" parameterType="string">
+ 		delete from tbl_blackList where user_id = #{user_id}
+ 	</delete>
  	
- 	<select id="selectAll" resultType="com.market.blackList.BlackListDTO">
- 		select * from tbl_blacklist order by blacklist_seq desc
+ 	<select id="selectAll" parameterType="int" resultType="com.market.blackList.BlackListDTO">
+ 	select * from ( select tbl_blacklist.*, row_number() over(order by blacklist_seq desc)
+ 		 as num from tbl_blacklist)where num between #{start} and #{end}
+ 		
  	</select>
  </mapper>

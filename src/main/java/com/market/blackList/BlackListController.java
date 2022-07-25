@@ -25,21 +25,33 @@ public class BlackListController {
 		System.out.println("BlackList 인스턴스 생성");
 	}
 	
-	@RequestMapping(value="/black")
+	@RequestMapping(value="/black")//블랙설정시
 	@ResponseBody
 	public String black(@RequestParam(value="arr[]") String[] arr,String blackList_content) throws Exception{ 	//manager에서 체크박스 선택 삭제
-		
-		System.out.println("blackList content : " + blackList_content);
-		System.out.println(arr);
-		
+	
 	 for(String user_id : arr) { 
-		 service.insert(new BlackListDTO(0,null,blackList_content,user_id,"abc")); 
-		 service.black(user_id);
-		 }
-		
-		
+		 service.insert(new BlackListDTO(0,null,blackList_content,user_id,"abc"));//블랙리스트 추가 
+		 service.black(user_id);//멤버 블랙 true설정
+		 }	
 		return "success";
 	}
 	
+	@RequestMapping(value="/unBlack")//블랙해제시
+	@ResponseBody
+	public String unBlack(@RequestParam(value="arr[]") String[] arr) throws Exception{ 	//manager에서 체크박스 선택 삭제
+	 for(String user_id : arr) {
+		 service.delete(user_id);	//블랙리스트에서 삭제
+		 service.unBlack(user_id); //멤버 블랙 false설정
+		 }	
+		return "success";
+	}
+	
+	// 회원리스트 중에서 찾기
+		@RequestMapping(value="/bSearch")
+		@ResponseBody
+		public List<BlackListDTO> bSearch(String user_id) throws Exception{
+			List<BlackListDTO> list =service.bSearch(user_id);	
+			return list;
+		}
 	
 }
