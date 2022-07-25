@@ -968,12 +968,6 @@ footer .nav-link:hover {
 		</div>
 	</header>
 	<div class="container" id="container">
-		<button type="button" id="managerBtn">Manager</button>
-		<script>
-			$("#managerBtn").on("click", function() {
-				location.href = "/member/toManager?curPage=1";
-			})
-		</script>
 		<div class="board">
 			<div id="bHeader">
 				<div class="row">
@@ -983,10 +977,12 @@ footer .nav-link:hover {
 					</div>
 					<div class="col-2">
 						<!-- 만약 관리자 계정이면 버튼 활성화 -->
-						<button type="button" class="btn btn-write fw-bold" id="writeBtn">
-							<img src="/resources/images/client/w33.png" class="write">
-							글쓰기
-						</button>
+						<%-- <c:if test="${loginSession.id == 'abc123'}"> --%>
+							<button type="button" class="btn btn-write fw-bold" id="writeBtn">
+								<img src="/resources/images/client/w33.png" class="write">
+								글쓰기
+							</button>
+						<%-- </c:if> --%>
 					</div>
 					<hr style="border: 2px solid #f47d39" />
 
@@ -1086,9 +1082,8 @@ footer .nav-link:hover {
 													<div class="row">
 														<div class="col text-center">
 															<button type="button" class="btn btn-primary modifyBtn"
-															
 																value="${dto.client_seq }">수정</button>
-															<button type="button" class="btn btn-danger deleteBtn" 
+															<button type="button" class="btn btn-danger deleteBtn"
 																value="${dto.client_seq }">삭제</button>
 														</div>
 													</div>
@@ -1588,19 +1583,18 @@ footer .nav-link:hover {
 
 	<script>
 		/* 게시글 수정 */
-		$(".modifyBtn").on("click",function(e){
-			location.href="/client/toModify?client_seq="+$(e.target).val();
+		$(".modifyBtn").on("click", function(e) {
+			location.href = "/client/toModify?client_seq=" + $(e.target).val();
 		})
-		
+
 		/* 게시글 삭제 */
-		$(".deleteBtn").on("click",function(e){
-			if(!confirm("해당게시글을 정말 삭제하겠습니까?")){
+		$(".deleteBtn").on("click", function(e) {
+			if (!confirm("해당게시글을 정말 삭제하겠습니까?")) {
 				return;
 			}
-			location.href="/client/delete?client_seq="+$(e.target).val();
+			location.href = "/client/delete?client_seq=" + $(e.target).val();
 		})
-	
-	
+
 		$("#writeBtn").on("click", function() {
 			location.href = "/client/toWrite";
 		})
