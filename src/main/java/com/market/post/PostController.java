@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.market.basket.BasketDTO;
 import com.market.basket.BasketService;
+import com.market.notification.NotificationService;
 
 
 @RequestMapping(value = "/post")
@@ -27,31 +29,70 @@ public class PostController {
 	@Autowired
 	private BasketService basketService;
 	@Autowired
+	private NotificationService notifiService;
+	@Autowired
 	private HttpSession session;
 
 	public PostController() {
 		System.out.println("PostController 인스턴스 생성");
 	}
 
+	
+	
 	@RequestMapping(value = "/toPost")
-	public String toPost(Model model) throws Exception{
+	public String toPost(int curPage, Model model) throws Exception{
+		System.out.println("curPage" + curPage);
 		System.out.println("메인페이지 접속");
 		//임시 로그인세션
 		String user_id = "asd123@naver.com";
 		String user_category = "일반가입";
 		String post_addr = "서울 마포구 망원동";
-		Map<String, String> map = new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("user_category", user_category);
-		map.put("post_addr", post_addr);
-		session.setAttribute("loginSession", map);
+		String user_nickname = "가짜닉네임";
+		Map<String, Object> loginSession = new HashMap<>();
+		loginSession.put("user_id", user_id);
+		loginSession.put("user_category", user_category);
+		loginSession.put("post_addr", post_addr);
+		loginSession.put("user_nickname", user_nickname);
+		loginSession.put("notification", notifiService.nicknameSelect(user_nickname));
+		session.setAttribute("loginSession", loginSession);
 		
+		//페이지 나누기
+		//로그인세션 등록되면 post_addr 로 바꿔주기
+		String post_addr1 = null;
+		String search = null;
+		HashMap<String,Object> map =service.getPageNavi(curPage,post_addr1,search);
+		map.put("post_addr",post_addr1);
+		map.put("search",search);
+		model.addAttribute("naviMap",map);
+		System.out.println("asd"+map);
 		//post,img테이블 select*from
-		List<Map<String, Object>> list = service.selectJoin();
+		List<Map<String, Object>> list = service.selectJoin(curPage*12-11,curPage*12);
 		model.addAttribute("list", list);
 		
 		return "post/post";
 	}
+	
+		//정확한검색 (카테고리, 지역)
+		@RequestMapping(value = "/toSearch")
+		public String toSearch(int curPage, String post_addr, String search, Model model) throws Exception{
+			System.out.println(post_addr);
+			System.out.println("curPage" + curPage);
+			//페이지 나누기
+			HashMap<String,Object> map =service.getPageNavi(curPage,post_addr,search);
+			System.out.println("post_addr : " +post_addr);
+			System.out.println("search : " +search);
+			map.put("post_addr",post_addr);
+			map.put("search",search);
+			model.addAttribute("naviMap",map);
+			System.out.println("asd"+map);
+			
+			//post,img테이블 select*from
+			List<Map<String, Object>> list = service.search(curPage*12-11,curPage*12,post_addr,search);
+			model.addAttribute("list", list);
+			
+			return "post/post";
+		}
+		
 	@RequestMapping(value = "/toPostWrite")
 	public String toPostWrite() {
 		System.out.println("글쓰기페이지 접속");
@@ -72,9 +113,32 @@ public class PostController {
 		
 		System.out.println(dto.toString());
 		System.out.println("imgfiles : " + imgfiles);
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 		}
 	
+	//게시글 수정
+	@RequestMapping(value = "/modify")
+	public String modify(PostDTO dto, MultipartFile[] imgfiles, 
+			@RequestParam(value="deleteFileList[]", required=false) String[] deleteFileList) throws Exception{
+		System.out.println("dto : " + dto);
+		String realPath = session.getServletContext().getRealPath("imgfiles");
+		service.modify(dto, realPath, imgfiles, deleteFileList);
+		return "redirect:/post/toPostDetail?post_seq="+dto.getPost_seq();
+	}
+	
+	
+	//게시글 수정페이지 이동
+		@RequestMapping(value = "/toPostModify")
+		public String toPostModify(int post_seq, Model model) throws Exception{
+			
+			// 해당 번호의 이미지리스트와 게시글 정보 받아옴 
+					Map<String, Object> map = service.selectPost_seq(post_seq);
+					System.out.println( map.get("imgDTO"));
+					System.out.println( map.get("postDTO") );
+					model.addAttribute("map", map);
+			
+			return "post/postModify";
+		}
 	//디테일페이지 접속했을때
 	@RequestMapping(value = "/toPostDetail")
 	public String toPostDetail(int post_seq, Model model) throws Exception{
@@ -88,7 +152,7 @@ public class PostController {
 		model.addAttribute("map", map);
 		
 		//post,img테이블 select*from
-		List<Map<String, Object>> list = service.selectJoin();
+		List<Map<String, Object>> list = service.selectJoin(1,10);
 		model.addAttribute("list", list);
 				
 		//해당게시글 찜목록에 로그인 아이디 있는지 확인
@@ -99,6 +163,25 @@ public class PostController {
 		}
 		return "post/postDetail";
 	}
+	
+	//state 변경
+	@RequestMapping(value = "/toPost_state")
+	public String toPost_state(PostDTO dto) throws Exception{
+		System.out.println(dto.getPost_state()+ dto.getPost_seq());
+		service.toPost_state(dto);
+		
+		return "redirect:/post/toPostDetail?post_seq="+dto.getPost_seq();
+	}
+	
+	// 게시글삭제
+	@RequestMapping(value = "/postDelete")
+	public String postDelete(int post_seq) throws Exception{
+		service.postDelete(post_seq);
+		
+		return "redirect:/post/toPost?curPage=1";
+	}
+	
+
 	
 	//빈하트 눌렀을때 관심 추가
 	@RequestMapping(value = "/interestUp")

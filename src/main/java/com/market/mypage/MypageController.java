@@ -20,6 +20,11 @@ public class MypageController {
 		return "mypage/mypageModify";
 	}
 	
+	@RequestMapping(value = "/toMypageModify2")
+	public String toMypageModify2() {
+		return "mypage/mypageModify2";
+	}
+	
 	@RequestMapping(value = "/toBasket")
 	public String toBasket() {
 		return "mypage/basket";

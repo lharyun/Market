@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="notificationMapper">
+ 	<insert id="insert" parameterType="com.market.notification.NotificationDTO">
+ 		insert into tbl_notification values
+	 		(notification_seq.nextval, #{user_nickname},#{from_nickname},#{post_title},
+	 		#{price_restriction},#{notification_type},sysdate,#{post_seq})
+ 	</insert>
+ 	<select id="nicknameSelect" resultType="com.market.notification.NotificationDTO">
+ 		select notification_seq, user_nickname, from_nickname, SUBSTR(post_title,0,6)"post_title", 
+ 		price_restriction, notification_type, notification_time, post_seq 
+			from tbl_notification
+			where user_nickname = #{user_nickname}
+		order by notification_time desc
+ 	</select>
+ 	<delete id="notifi_delete" parameterType="int">
+ 		delete from tbl_notification where notification_seq = #{notification_seq}
+ 	</delete>
+ 	
+ </mapper>

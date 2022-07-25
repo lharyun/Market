@@ -120,7 +120,7 @@ header {
     font-size: small;
     color: gray;
 }
-.n_content>.row:hover{
+.n_content .row:hover{
 
     background-color: #e9a6805e;
 }
@@ -176,6 +176,19 @@ header {
     font-weight: 600;
     font-size: large;
 }
+#notificationModal{
+    height: 500px;
+	overflow: auto;
+    
+}
+#notificationModal>.modal-header{
+	top:0;
+	background-color: white; 
+	z-index:3;
+}
+#notificationModal::-webkit-scrollbar {
+    display: none;
+  }
 
 /* 푸터 */
 

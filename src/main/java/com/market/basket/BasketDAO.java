@@ -19,7 +19,7 @@ public class BasketDAO {
 		return session.insert("basketMapper.basketInsert", dto);
 	}
 	
-	//판매페이지 관심목록 추가
+	//관심수 카운트
 	public int interest_cnt(int post_seq) throws Exception{ 
 		return session.selectOne("basketMapper.interest_cnt", post_seq);
 	}
