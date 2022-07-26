@@ -1,9 +1,5 @@
 package com.market.file;
 
-<<<<<<< HEAD
-public class FileController {
-
-=======
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -45,5 +41,5 @@ public class FileController {
 			dos.flush();			
 		}		
 	}
->>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
+
 }

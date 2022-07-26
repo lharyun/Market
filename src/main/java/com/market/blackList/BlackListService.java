@@ -16,11 +16,17 @@ public class BlackListService {
 	private BlackListDAO blackListDAO;
 	
 	public void insert(BlackListDTO dto) throws Exception{ //블랙리스트 추가
-		blackListDAO.insert(dto);
+		
+		if(blackListDAO.checkBlack(dto.getUser_id())==1) {
+			blackListDAO.updateBlack(dto);
+		}else {
+			blackListDAO.insert(dto);
+		}
 	}
 	
 	public void black(String user_id) throws Exception{	//멤버 블랙체크 설정
-		blackListDAO.black(user_id);
+		//만약에 블랙리스트에 이미 있다면? 업데이트로 바꿔서 실행	
+		blackListDAO.black(user_id);	
 	}
 	
 	public void unBlack(String user_id) throws Exception{	//멤버 블랙체크 해제

@@ -8,39 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FileService {
-<<<<<<< HEAD
+
 
 	@Autowired
 	private FileDAO dao;
-	
-	public void deleteFiles(String path) throws Exception{
-		
-		List<String> files_db =dao.selectSys_name();
-		File[] files_root= new File(path).listFiles();
-		if(files_db.size() != 0 && files_root.length!=0) {
-			for(File f: files_root) {
-				if(!files_db.contains(f.getName())) {
-					System.out.println(f.getName()+ "삭제할 파일");
-					f.delete();
-				}
-				
-			}
-		}
-		System.out.println("file_root.length: "+ files_root.length);
-		for(File f : files_root) {
-			System.out.println(f.getName());
-		}
-=======
-	@Autowired
-	private FileDAO dao;
-	
-	/* files 테이블에 있는 데이터는 실제 게시글이 살아있고, 첨부가 되어 있는 파일들
-	   files테이블에는 데이터가 없지만 서버의 경로에는 여전히 살아있는 파일들
-	   (게시글이 삭제됐지만 여전히 삭제되지 않는 실제 파일들)
-	   -> files 테이블에 있는 sys_name 모두 필요함
-	   -> 서버 경로에 있는 파일(sys_name)의 리스트
-	*/
-	
+
 	public void deleteFiles(String path) throws Exception{
 		// dao 를 통해 files 테이블의 sys_name 목록 가져오기
 		List<String> files_db = dao.selectSys_name();
@@ -59,6 +31,6 @@ public class FileService {
 				}
 			}
 		}		
->>>>>>> 21cd9f0ce7813477f1adc088100edc3d20a15f6d
+
 	}
 }

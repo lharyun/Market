@@ -23,6 +23,8 @@
 <title>싸다구 장터 : 내 정보 수정</title>
 <link rel="shortcut icon" type="image/x-icon"
 	href="/resources/images/header_pooter/pepoel.png">
+	
+<link href="/resources/css/header_footer.css" rel="stylesheet">
 </head>
 <style>
 
@@ -68,100 +70,6 @@ header {
 	z-index: 1;
 }
 
-/* 헤더 상단 */
-.heder_top {
-	height: 40px;
-	margin: auto;
-	font-size: 13px;
-}
-
-.heder_top a {
-	color: gray;
-}
-
-.heder_top a:hover {
-	color: orange;
-}
-
-.heder_top .dropdown:hover .dropdown-menu {
-	display: block;
-	margin-top: 0;
-}
-
-/* 헤더 중간 */
-.heder_middleBox {
-	margin: auto;
-	border-bottom: 1px solid rgba(128, 128, 128, 0.233);
-	border-top: 1px solid rgba(128, 128, 128, 0.233);
-}
-
-.heder_middle {
-	height: 40px;
-	margin: auto;
-}
-
-.heder_middle a {
-	color: black;
-	display: inline-block;
-	font-weight: bold;
-}
-
-.menu_right>li::after {
-	color: #72787e;
-	content: "|";
-	align-items: center;
-}
-
-.menu_right>li:last-child::after {
-	content: "";
-}
-
-.menu_right a:hover {
-	color: orange;
-}
-
-.searchInput {
-	width: 100%;
-	height: 38px;
-	border-radius: 8px;
-	border: 1px solid #f47d39;
-	outline: 1px solid #f47d39;
-}
-
-.searchIcon {
-	position: absolute;
-	left: 91%;
-	top: 7px;
-}
-
-/* 헤더 하단 */
-.heder_bottom {
-	height: 70px;
-	margin: auto;
-	word-break: break-all
-}
-
-.heder_bottom a {
-	text-decoration: none;
-	color: black;
-}
-
-.category_line>div {
-	border-right: 1px solid #72787e4f;
-}
-
-.category_line>div:last-child {
-	border: 0;
-}
-
-.category_line .nav-link {
-	color: #36393b;
-}
-
-.category_line .nav-link:hover {
-	font-weight: 600;
-	background-color: #ffad0a2d;
-}
 
 /* ===contetnt 영역==== */
 .mypageContainer {
@@ -456,89 +364,7 @@ header {
 	}
 }
 
-/* ==================== */
-.logo2 {
-	position: fixed;
-	bottom: 60px;
-	right: 10px;
-	z-index: 2;
-}
-/* 푸터 */
-.middle {
-	height: 100%;
-}
 
-footer {
-	background-color: #495057;
-}
-
-footer .nav-link {
-	color: rgb(170, 170, 170);
-	text-decoration: none;
-}
-
-footer .nav-link:hover {
-	color: white;
-}
-
-.pooterLine {
-	border-bottom: 1px solid rgba(128, 128, 128, 0.479);
-}
-
-.pooterText {
-	color: gray;
-	font-size: 14px;
-}
-
-@media ( max-width : 992px) {
-	#Non_reaction {
-		display: none;
-	}
-	#checkBox {
-		width: 450px;
-	}
-	.category_line li {
-		height: 35px;
-	}
-	#searchBox {
-		width: 300px;
-		height: 40px;
-	}
-	.font_a {
-		color: red;
-		font-weight: 700;
-	}
-}
-
-@media ( max-width : 540px) {
-	.a_reaction {
-		display: none;
-	}
-}
-
-@media ( min-width : 992px) {
-	#reaction {
-		display: none;
-	}
-	#footerBox {
-		width: 992px;
-	}
-	.heder_top {
-		width: 992px;
-	}
-	.heder_middle {
-		width: 992px;
-	}
-	#checkBox {
-		width: 922px;
-	}
-	.heder_middleBox {
-		padding-top: 35px;
-	}
-	.heder_bottom {
-		width: 992px;
-	}
-}
 </style>
 
 <body>
@@ -1237,8 +1063,7 @@ footer .nav-link:hover {
 	</header>
 
 	<!-- Contents -->
-	<!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-	<div class="container middle" style="height: 1100px">
+	<div class="container middle" >
 		<div class="mypageContainer">
 			<div class="profileBox">
 				<div class="profile_border">
@@ -1661,7 +1486,9 @@ footer .nav-link:hover {
     /* 신고 회원 찾기 */
       $("#rSearchBtn").on("click",function(){
     	let user_id=$("#rSearchInput").val();
-    	console.log(user_id);
+    	if(user_id == ""){
+    		location.reload();
+    	}
     	$.ajax({
     		url:"/report/rSearch",
     		type:"get",
@@ -1712,7 +1539,9 @@ footer .nav-link:hover {
     /* 블랙 회원 찾기 */
     $("#bSearchBtn").on("click",function(){
     	let user_id=$("#bSearchInput").val();
-    	console.log(user_id);
+    	if(user_id == ""){
+    		location.reload();
+    	}
     	$.ajax({
     		url:"/blackList/bSearch",
     		type:"get",
@@ -1763,7 +1592,9 @@ footer .nav-link:hover {
     /* 멤버 회원 찾기 */
     $("#mSearchBtn").on("click",function(){
     	let user_id=$("#mSearchInput").val();
-    	console.log(user_id);
+    	if(user_id == ""){
+    		location.reload();
+    	}
     	$.ajax({
     		url:"/member/mSearch",
     		type:"get",
@@ -2077,16 +1908,16 @@ footer .nav-link:hover {
 			alert("체크박스를 선택해주세요")
 			return;
 		} else {
-			if (confirm("해당 회원 블랙을 해제하시겠습니까?")) {
+			if (confirm("해당 회원을 삭제하시겠습니까?")) {
 				$.ajax({
-					url : "/member/delete",
+					url : "/member/mn_delete",
 					type : 'post',
 					data : {
 						"arr[]" : arr
 					},
 					success : function(data) {
 						console.log(data);
-						alert("해당 블랙이 해제되었습니다.")
+						alert("해당 회원이 삭제되었습니다.")
 						location.reload();
 					},
 					error : function(e) {
@@ -2169,92 +2000,9 @@ footer .nav-link:hover {
 
 	})
 
-        $('#SearchForm').on('keypress', function (e) { // 인풋창 클릭후 엔터누르면 실행
-            if (e.keyCode == '13') {
-                if ($("#titleSearch").val() !== "") {//검색창이 널값이 아니라면
-                    document.getElementById("SearchForm").submit();
-                }
-            }
-        });
-        // 게시글 검색
-        $("#searchIcon").on("click", function () {
-            if ($("#titleSearch").val() == "") { //검색창이 널값이라면
-                alert("물품을 입력해주세요!")
-            } else if ($("#titleSearch").val() != "") {//검색창이 널값이 아니라면
-                document.getElementById("SearchForm").submit();
-            }
-        })
-        $("#searchIcon2").on("click", function () {
-            if ($("#titleSearch2").val() == "") { //검색창이 널값이라면
-                alert("물품을 입력해주세요!")
-            } else if ($("#titleSearch2").val() != "") {//검색창이 널값이 아니라면
-                document.getElementById("SearchForm2").submit();
-            }
-        })
-
-        //즐겨찾기 버튼
-        $(".bookmark").on("click", function () {
-            alert(" Ctrl+D 키를 누르면 즐겨찾기에 추가하실 수 있습니다.")
-        })
-
-        //지역카테고리
-        $("#district").change(function () {
-            console.log($(this).val());
-
-            $(".b_dong").addClass('d-none');
-            $("#dong").addClass('d-none');
-
-            if ($(this).val() == "강남구") {
-                $("#gangnam").removeClass('d-none');
-            } else if ($(this).val() == "강동구") {
-                $("#gangdong").removeClass('d-none');
-            } else if ($(this).val() == "강서구") {
-                $("#gangseo").removeClass('d-none');
-            } else if ($(this).val() == "강북구") {
-                $("#gangbuk").removeClass('d-none');
-            } else if ($(this).val() == "관악구") {
-                $("#Gwanak").removeClass('d-none');
-            } else if ($(this).val() == "광진구") {
-                $("#Gwangjin").removeClass('d-none');
-            } else if ($(this).val() == "구로구") {
-                $("#Guro").removeClass('d-none');
-            } else if ($(this).val() == "금천구") {
-                $("#Geumcheon").removeClass('d-none');
-            } else if ($(this).val() == "노원구") {
-                $("#Nowon").removeClass('d-none');
-            } else if ($(this).val() == "동대문구") {
-                $("#Dongdaemun").removeClass('d-none');
-            } else if ($(this).val() == "동작구") {
-                $("#Dongjak").removeClass('d-none');
-            } else if ($(this).val() == "마포구") {
-                $("#Mapo").removeClass('d-none');
-            } else if ($(this).val() == "서대문구") {
-                $("#Seodaemun").removeClass('d-none');
-            } else if ($(this).val() == "송파구") {
-                $("#Songpa").removeClass('d-none');
-            } else if ($(this).val() == "영등포구") {
-                $("#Yeongdeungpo").removeClass('d-none');
-            } else if ($(this).val() == "용산구") {
-                $("#Yongsan").removeClass('d-none');
-            } else if ($(this).val() == "은평구") {
-                $("#Eunpyeong").removeClass('d-none');
-            } else if ($(this).val() == "종로구") {
-                $("#Jongno").removeClass('d-none');
-            } else if ($(this).val() == "지역을 선택하세요") {
-                $("#dong").removeClass('d-none');
-            }
-            $("#roadAddrInput").val($(this).val());
-            document.getElementById("districeForm").submit();
-        })
-
-        //동네카테고리
-        $(".a_dong").change(function () {
-            console.log($(this).val());
-            $("#extraAddrInput").val($(this).val());
-            document.getElementById("districeForm").submit();
-        })
-
+    
     </script>
 
 </body>
+<script src="/resources/js/header_footer.js"></script>
 </html>
