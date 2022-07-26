@@ -2,23 +2,17 @@ package com.market.member;
 
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
 import java.util.Map;
-
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.market.blackList.BlackListDTO;
-
 @Repository
 public class MemberDAO {
 	@Autowired
 	private SqlSession session;
- 
-
 
 	// 용현
 	// 로그인 유효성 검사
@@ -75,24 +69,17 @@ public class MemberDAO {
 		return session.selectOne("memberMapper.checkPhone", user_phone);
 	}
 	
-	// 마이페이지로 옮길것
-	// 프로필 수정
-	public int modifyProfile(MemberDTO dto) throws Exception{
-		return session.update("memberMapper.modifyProfile", dto);
+	// 카카오
+	// 카카오 회원가입
+	public void kakaoInsert(HashMap<String, Object> userInfo) {
+		session.insert("memberMapper.kakaoInsert",userInfo);
 	}
-	
-	// 정보 수정
-	public int modifyInfo(String user_id, String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception {
-		Map<String, String> map = new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("user_nickname", user_nickname);
-		map.put("user_pw", user_pw);
-		map.put("user_phone", user_phone);
-		map.put("postcode", postcode);
-		map.put("roadAddr", roadAddr);
-		map.put("detailAddr", detailAddr);
-		map.put("extraAddr", extraAddr);
-		return session.update("memberMapper.modifyInfo", map);
+
+	// 카카오 아이디 중복확인
+	public MemberDTO findkakao(HashMap<String, Object> userInfo) {
+		System.out.println("RN:"+userInfo.get("user_nickname"));
+		System.out.println("RE:"+userInfo.get("user_id"));
+		return session.selectOne("memberMapper.findKakao", userInfo);
 	}
 	
 	//하륜
@@ -114,5 +101,6 @@ public class MemberDAO {
 		public int getPageNavi() throws Exception{
 			return session.selectOne("memberMapper.getPageNavi");
 		}
+
 }
 

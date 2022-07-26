@@ -1008,7 +1008,17 @@
 	            <div class="buttonBox">
 	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
 	                <c:if test="${not empty loginSession}">
-	                	<button type="button" class="btn btn-danger" id="deleteBtn">회원 탈퇴</button>
+	                	<button type="button" class="btn btn-danger" id="deleteBtn" href='javascript:void(0)' onclick='preventClick(event)'>회원 탈퇴</button>
+	                	<script>
+		                	// 회원탈퇴 id값 : deleteBtn
+		            	    document.getElementById("deleteBtn").onclick = function(){
+		            	    	
+		            	    	var popupX = (window.screen.width / 2) - (800 / 2);
+		            	      	var popupY= (window.screen.height / 2) - (600 / 2);
+		            	      	
+		            	      	window.open('/member/todelete', '회원탈퇴', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+		            	    }
+	                	</script>
 	                </c:if>
 	            </div>
 	        </div>
@@ -1087,14 +1097,6 @@
     	document.getElementById("modifyBtn").onclick = function(){
     		location.href = "/mypage/toMypageModify2";
     	}
-    	
-	    $("#deleteBtn").on("click", function() { // 회원탈퇴 요청
-			if (confirm("정말 탈퇴하시겠습니까?") == true) { // 탈퇴 확인
-				location.href = "/member/todelete";
-			} else { // 탈퇴 취소
-				return false;
-			}
-		});
     
     </script>
 
