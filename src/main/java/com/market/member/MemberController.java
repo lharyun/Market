@@ -44,10 +44,6 @@ public class MemberController {
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
-	
-
- 
-  
   //용현
 	/* 로그인 관련 */
 	@RequestMapping(value = "/toLogin") //로그인 페이지 요청

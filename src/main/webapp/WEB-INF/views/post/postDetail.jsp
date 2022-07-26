@@ -378,6 +378,7 @@
 
 <body>
     <!-- Header -->
+   <!-- Header -->
     <header>
         <div class="container-fluid p-0" id="Non-reaction">
             <nav>
@@ -410,7 +411,7 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname} 상점</a>
 		                                <ul class="dropdown-menu">
 		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
@@ -1327,8 +1328,8 @@
 				                                        <input type="text" name="post_title" value="${map.postDTO.post_title}">
 				                                        <input type="text" name="notification_type" value="가격">
 				                                        <input type="text" name="post_seq"  value="${map.postDTO.post_seq}">
-				                                        <input type="text" name="from_nickname"  value="${memberDto.user_nickname}">
-				                                        <input type="text" name="user_nickname"  value="${loginSession.user_nickname}">
+				                                        <input type="text" name="from_nickname"  value="${loginSession.user_nickname}">
+				                                        <input type="text" name="user_nickname"  value="${memberDto.user_nickname}">
 					                                </div>
                                                 </div>
         
@@ -1345,8 +1346,15 @@
                     </c:if>
                 </div>
                 
+               
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="middleBtn">채팅하기</button>
+                 	<c:if test="${not empty loginSession and loginSession.user_id ne memberDto.user_id}">
+	               		<button type="button" class="middleBtn" id="toChatBtn">채팅하기</button>
+	                </c:if>
+	                <c:if test="${empty loginSession or loginSession.user_id eq memberDto.user_id}">
+	                	<button type="button" class="middleBtn" disabled=”disabled”>채팅하기</button>
+	                </c:if>
+                    
                 </div>
             </div>
         </div>
@@ -1631,6 +1639,11 @@
 			$(".carousel-inner").children().first().addClass('active');
 			$(".car_img2").children().first().addClass('active');
 	    });
+    	//채팅버튼 클릭시 페이지 이동
+    	
+    	$("#toChatBtn").on("click", function(){
+    		location.href = "/chatting/toChatting"
+    	})
     	//수정버튼 클릭시 페이지 이동
     	$("#postModifyBtn").on("click", function(){
     		location.href = "/post/toPostModify?post_seq=${map.postDTO.post_seq}"

@@ -203,7 +203,7 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname} 상점</a>
 		                                <ul class="dropdown-menu">
 		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
@@ -1393,9 +1393,9 @@
                 return false;
             }else{
             	$("#modalTitle").empty();
-            	$("#modalTitle").append($('<div class="spinner-border" role="status"'>
-            	  +'<span class="visually-hidden">Loading...</span>'
-            	  +' </div>'));
+                $("#modalTitle").append($('<div class="spinner-border" role="status">'
+                +'<span class="visually-hidden">Loading...</span>'
+                +'</div>'));
             }
 
         })

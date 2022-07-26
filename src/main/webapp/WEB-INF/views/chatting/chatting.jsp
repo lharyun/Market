@@ -270,7 +270,7 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname} 상점</a>
 		                                <ul class="dropdown-menu">
 		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
@@ -907,9 +907,9 @@
             <div class="chatting_memberBox">
                 <div class="myProfile">
                     <div class="d-flex align-items-center">
-                        <img src="/resources/images/chatting/NoImg.webp">
+                        <img src="/resources/images/chatting/슈퍼파워.jpeg">
                         <span class="ms-2 fw-bolder">
-                            나의닉네임
+                            중고파워
                         </span>
                     </div>
                 </div>
@@ -917,12 +917,48 @@
                 <div class="chatting_member">
                     <div class="yourProfile">
                         <div class="d-flex align-items-center">
-                            <img src="/resources/images/chatting/NoImg.webp">
+                            <img src="/resources/images/chatting/박하사탕.jpeg">
                             <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임1</span> 
+                                <span class="fw-bolder">박하사탕</span> 
                                 <span class="font_gray">망원동·2시간전</span>
                                 <div >
-                                    마지막 채팅내용입니다
+                                    박하사탕 좋아하세요?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yourProfile">
+                        <div class="d-flex align-items-center">
+                            <img src="/resources/images/chatting/슈퍼파워.jpeg">
+                            <div class="ms-2 member_textBox">
+                                <span class="fw-bolder">슈퍼파워</span> 
+                                <span class="font_gray">망원동·2시간전</span>
+                                <div >
+                                    헬스갔다가 구매할게요
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yourProfile">
+                        <div class="d-flex align-items-center">
+                            <img src="/resources/images/chatting/우주.jpg">
+                            <div class="ms-2 member_textBox">
+                                <span class="fw-bolder">우주를살께</span> 
+                                <span class="font_gray">망원동·2시간전</span>
+                                <div >
+                                    네고 조금만 부탁드려요 ㅜㅜ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yourProfile">
+                        <div class="d-flex align-items-center">
+                            <img src="/resources/images/chatting/상상력.jpg">
+                            <div class="ms-2 member_textBox">
+                                <span class="fw-bolder">생각대로</span> 
+                                <span class="font_gray">망원동·2시간전</span>
+                                <div >
+                                    안살래요
                                 </div>
                             </div>
                         </div>
@@ -931,10 +967,34 @@
                         <div class="d-flex align-items-center">
                             <img src="/resources/images/chatting/NoImg.webp">
                             <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임1</span> 
+                                <span class="fw-bolder">싸게싸게</span> 
                                 <span class="font_gray">망원동·2시간전</span>
                                 <div >
-                                    마지막 채팅내용입니다
+                                    얼마까지 깍아주실수 있으세요?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yourProfile">
+                        <div class="d-flex align-items-center">
+                            <img src="/resources/images/chatting/만수르.jpg">
+                            <div class="ms-2 member_textBox">
+                                <span class="fw-bolder">중고만수르</span> 
+                                <span class="font_gray">망원동·2시간전</span>
+                                <div >
+                                    그냥 새거살게요
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yourProfile">
+                        <div class="d-flex align-items-center">
+                            <img src="/resources/images/chatting/간지남.jpg">
+                            <div class="ms-2 member_textBox">
+                                <span class="fw-bolder">중고간지남</span> 
+                                <span class="font_gray">망원동·2시간전</span>
+                                <div >
+                                    쿨거래 ㄱㄱ
                                 </div>
                             </div>
                         </div>
@@ -943,10 +1003,10 @@
                         <div class="d-flex align-items-center">
                             <img src="/resources/images/chatting/NoImg.webp">
                             <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임1</span> 
+                                <span class="fw-bolder">중고간지녀</span> 
                                 <span class="font_gray">망원동·2시간전</span>
                                 <div >
-                                    마지막 채팅내용입니다
+                                    다살게요
                                 </div>
                             </div>
                         </div>
@@ -955,10 +1015,10 @@
                         <div class="d-flex align-items-center">
                             <img src="/resources/images/chatting/NoImg.webp">
                             <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임1</span> 
+                                <span class="fw-bolder">귀티자르</span> 
                                 <span class="font_gray">망원동·2시간전</span>
                                 <div >
-                                    마지막 채팅내용입니다
+                                    조금 입긴했어요...
                                 </div>
                             </div>
                         </div>
@@ -967,70 +1027,10 @@
                         <div class="d-flex align-items-center">
                             <img src="/resources/images/chatting/NoImg.webp">
                             <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임1</span> 
+                                <span class="fw-bolder">(-*3*)-</span> 
                                 <span class="font_gray">망원동·2시간전</span>
                                 <div >
-                                    마지막 채팅내용입니다
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="yourProfile">
-                        <div class="d-flex align-items-center">
-                            <img src="/resources/images/chatting/NoImg.webp">
-                            <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임2</span> 
-                                <span class="font_gray">망원동·2시간전</span>
-                                <div >
-                                    마지막 채팅내용입니다
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="yourProfile">
-                        <div class="d-flex align-items-center">
-                            <img src="/resources/images/chatting/NoImg.webp">
-                            <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임3</span> 
-                                <span class="font_gray">망원동·2시간전</span>
-                                <div >
-                                    마지막 채팅내용입니다
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="yourProfile">
-                        <div class="d-flex align-items-center">
-                            <img src="/resources/images/chatting/NoImg.webp">
-                            <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임4</span> 
-                                <span class="font_gray">망원동·2시간전</span>
-                                <div >
-                                    마지막 채팅내용입니다
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="yourProfile">
-                        <div class="d-flex align-items-center">
-                            <img src="/resources/images/chatting/NoImg.webp">
-                            <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임5</span> 
-                                <span class="font_gray">망원동·2시간전</span>
-                                <div >
-                                    마지막 채팅내용입니다
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="yourProfile">
-                        <div class="d-flex align-items-center">
-                            <img src="/resources/images/chatting/NoImg.webp">
-                            <div class="ms-2 member_textBox">
-                                <span class="fw-bolder">상대닉네임6</span> 
-                                <span class="font_gray">망원동·2시간전</span>
-                                <div >
-                                    마지막 채팅내용입니다
+                                    뿌우
                                 </div>
                             </div>
                         </div>
@@ -1041,10 +1041,10 @@
                 <div class="yourPost">
                     <!-- 클릭시게시글로 이동 -->
                     <div class="d-flex align-items-center" id="yourPost">
-                        <img src="/resources/images/chatting/NoImg.webp">
+                        <img src="/resources/images/chatting/타블렛.jpeg">
                         <div class="ms-2">
-                            <span class="fw-bolder">판매중</span> 
-                            <span class="font_gray">게시글 제목입니다</span>
+                            <span class="fw-bolder">우주를살께</span> 
+                            <span class="font_gray">한번도안쓴 타블렛팝니다</span>
                             <div class="fw-bolder">
                                 <span>5,000원</span>
                             </div>
