@@ -5,7 +5,7 @@
 
 
  <mapper namespace="memberMapper">
-
+	
 	<!-- 로그인 -->
 	<select id="login" resultType="com.market.member.MemberDTO">
 		select * from tbl_member where user_id = #{user_id}
@@ -55,21 +55,5 @@
 	<select id="checkPw" parameterType="map" resultType="com.market.member.MemberDTO">
 		select * from tbl_member where user_id = #{user_id} and user_pw = #{user_pw}
 	</select>
-	
-	<!-- 마이페이지로 옮길것 -->
-	<!-- 프로필 정보 수정 -->
-	<update id="modifyProfile" parameterType="com.market.member.MemberDTO">
-		update tbl_member set 
-			user_profile = #{user_profile}
-			where user_id = #{user_id}
-	</update>
-	
-	<!-- 정보수정 -->
-	<update id="modifyInfo" parameterType="map">
-		update tbl_member set 
-			user_nickname = #{user_nickname}, user_pw = #{user_pw}, user_pw = #{user_pw}, user_phone = #{user_phone}, user_pw = #{user_pw},
-			postcode = #{postcode}, roadAddr = #{roadAddr}, detailAddr = #{detailAddr}, extraAddr = #{extraAddr}
-			where user_id = #{user_id}
-	</update>
 
  </mapper>

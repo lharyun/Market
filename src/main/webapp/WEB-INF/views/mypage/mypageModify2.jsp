@@ -17,6 +17,7 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>싸다구 장터 : 내 정보 수정</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <style>
     header {
@@ -1026,60 +1027,67 @@
 			</div>
 	        <div class="" id="profileBox">
 	            <div class="profile_border">
-	                <img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+                	<c:choose>
+						<c:when test="${empty loginSession.user_profile}">
+							<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+						</c:when>
+						<c:otherwise>
+							<img src="/profile/${loginSession.user_profile}" id="profile_image">
+						</c:otherwise>
+					</c:choose>
 	            </div>
 	        </div>
 			<form id="modifyForm">
 	            <div class="col-12">
 	                <label for="profileImg" class="form-label">&nbsp;프로필 사진</label><br>
-	                &nbsp;<input type="file" name="photo" id="profileInput">
+	                &nbsp;<input type="file" name="photo" id="profileInput" disabled>
 	            </div>
 	            <div class="nicknameBox">
 	                <div class="nicknameBox2">
-	                    <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="" placeholder="닉네임">
+	                    <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="${loginSession.user_nickname}" readonly>
 	                </div>
 	                <div class="nicknameBox2text">
 	                	<span id="inputResult4"></span>
 	                </div>
 	            </div>
 	            <div class="pwBox">
-					<input type="password" class="form-control" id="user_pw" name="user_pw" value="" placeholder="비밀번호">
+					<input type="password" class="form-control" id="user_pw" name="user_pw" value="${loginSession.user_pw}" readonly>
 				</div>
 	            <div class="pwBoxtext">
 	            	<span id="inputResult2"></span>
 	            </div>
 	            
 	            <div class="pwBox2">
-					<input type="password" class="form-control" id="user_pwCheck" value="" placeholder="비밀번호 확인">
+					<input type="password" class="form-control" id="user_pwCheck" value="${loginSession.user_pw}" readonly>
 				</div>
 	            <div class="pwBox2text">
 	            	<span id="inputResult3"></span>
 	            </div>
 				<div class="phoneBox">
-					<input type="text" class="form-control" id="user_phone" name="user_phone" value="" placeholder="휴대폰번호">
+					<input type="text" class="form-control" id="user_phone" name="user_phone" value="${loginSession.user_phone}" readonly>
 					<div class="phoneBoxtext">
 						<span id="inputResult7"></span>
 					</div>
 				</div>
 	            <div class="row p-2">
 	                <div class="col">
-	                    <input type="text" class="form-control" id="postcode" name="postcode" placeholder="우편번호">
+	                    <input type="text" class="form-control" id="postcode" name="postcode" value="${loginSession.postcode}" readonly>
 	                </div>
 	                <div class="col" id="noBox">
-	                    <button type="button" class="btn btn-warning w-100" id="btnPostCode">우편번호 찾기</button>
+	                    <button type="button" class="btn btn-warning w-100" id="btnPostCode" disabled>우편번호 찾기</button>
 	                </div>
 	            </div>
 	            <div class="row p-2">
 	                <div class="col">
-	                    <input type="text" class="form-control" id="roadAddr" name="roadAddr" placeholder="도로명주소">
+	                    <input type="text" class="form-control" id="roadAddr" name="roadAddr" value="${loginSession.roadAddr}" readonly>
 	                </div>
 	            </div>
 	            <div class="row p-2">
 	                <div class="col mb-2">
-	                    <input type="text" class="form-control" id="detailAddr" name="detailAddr" placeholder="상세주소">
+	                    <input type="text" class="form-control" id="detailAddr" name="detailAddr" value="${loginSession.detailAddr}" readonly>
 	                </div>
 	                <div class="col mb-2">
-	                    <input type="text" class="form-control" id="extraAddr" name="extraAddr" placeholder="읍/면/동">
+	                    <input type="text" class="form-control" id="extraAddr" name="extraAddr" value="${loginSession.extraAddr}" readonly>
 	                </div>
 	            </div>
 	            <div class="row justify-content-center btn-before">
@@ -1087,7 +1095,7 @@
 	                    <button type="button" class="btn btn-secondary" id="backBtn">뒤로가기</button>
 	                </div>
 	                <div class="col-4 d-flex justify-content-start">
-	                    <button type="button" class="btn btn-warning" id="modifyBtn" data-bs-toggle="modal" data-bs-target="#completeModal">수정</button>
+	                    <button type="button" class="btn btn-warning" id="modifyBtn">수정</button>
 	                </div>
 	            </div>
 	            <div class="row justify-content-center btn-after d-none">
@@ -1125,19 +1133,25 @@
 	</div>
 
     <script>
+	    // 수정화면에서 취소 버튼을 눌렀을때
+	    $("#cancelBtn").on("click", function() {
+	        location.href = "/mypage/toMypageModify2";
+	    });
+    
+	    // 수정버튼을 눌렀을때
+	    $("#modifyBtn").on("click", function() {
+	        $("#profileInput").attr("disabled", false); // 프로필 사진 업로드 disabled 제거
+	        $("#btnPostCode").attr("disabled", false); // 우편번호찾기 버튼에 걸린 disabled 제거
+	        $("input").not("#user_id").attr("readonly", false); // 닉네임를 제외한 input readonly 제거
+	        $("#user_nickname").attr("readonly", false); // 닉네임 readonly 제거
+	        $(".btn-before").css("display", "none"); // 기존의 버튼들 감춰주기
+	        $(".btn-after").removeClass("d-none"); // 취소, 완료버튼 보여주기
+	    });
+    
 		// 뒤로 가기 버튼
 		document.getElementById("backBtn").onclick = function(){
 			location.href = "/mypage/toMyStore";
 		}
-    
-    	// 로그인/회원가입 a 태그 id값 : linkLogin
-	    document.getElementById("linkLogin").onclick = function(){
-	    	
-	    	var popupX = (window.screen.width / 2) - (800 / 2);
-	      	var popupY= (window.screen.height / 2) - (600 / 2);
-	      	
-	      	window.open('/member/toLogin', '로그인', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
-	    }
 		
 	 	// user_pw
 		$("#user_pw").on("keyup", function(e) {
@@ -1271,6 +1285,15 @@
 			}).open();
 		})
 		
+		// 팝업창
+    	// 로그인/회원가입 a 태그 id값 : linkLogin
+	    document.getElementById("linkLogin").onclick = function(){
+	    	
+	    	var popupX = (window.screen.width / 2) - (800 / 2);
+	      	var popupY= (window.screen.height / 2) - (600 / 2);
+	      	
+	      	window.open('/member/toLogin', '로그인', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+	    }
     </script>
 
 
