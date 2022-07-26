@@ -21,7 +21,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/")
 	public String toPost() {
-		return "/post/post";
+		return "home";
 	}
 	@RequestMapping(value = "/toError")
 	public String toError() {

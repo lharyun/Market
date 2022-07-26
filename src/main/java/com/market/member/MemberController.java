@@ -1,6 +1,7 @@
 package com.market.member;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
+import com.market.blackList.BlackListDTO;
+import com.market.blackList.BlackListService;
+import com.market.report.ReportDTO;
+import com.market.report.ReportService;
 
 @RequestMapping(value = "/member") // member 관련 모든 요청
 @Controller
@@ -27,12 +32,19 @@ public class MemberController {
 	private MemberService mailService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
-	
+	private BlackListService blackService;
+	@Autowired
+	private ReportService reportService;
+
 	
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
 	
+
+ 
+  
+  //용현
 	/* 로그인 관련 */
 	@RequestMapping(value = "/toLogin") //로그인 페이지 요청
 	public String toLogin() {
@@ -87,7 +99,7 @@ public class MemberController {
 	@RequestMapping(value = "/toLogout") //로그아웃 요청
 	public String logout() {
 		session.removeAttribute("loginSession");
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	
 	/* 회원정보 찾기 관련 */
@@ -168,7 +180,7 @@ public class MemberController {
 		service.delete(((MemberDTO)session.getAttribute("loginSession")).getUser_id());
 		//session 에서 loginSession 지워주는 작업
 		session.removeAttribute("loginSession");
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	
 	@ResponseBody
@@ -184,6 +196,110 @@ public class MemberController {
 			return "success";
 		}
 		return "fail";
+	}
+	
+	//카카오톡 로그인
+	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
+		System.out.println("#########" + code);
+		String access_Token = service.getAccessToken(code);
+		MemberDTO userInfo = service.getUserInfo(access_Token);
+		System.out.println("###access_Token#### : " + access_Token);
+		System.out.println("###user_name#### : " + userInfo.getUser_name());
+		System.out.println("###user_id#### : " + userInfo.getUser_id());
+	    
+		// 아래 코드가 추가되는 내용
+		session.invalidate();
+		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+		session.setAttribute("kakaoN", userInfo.getUser_name());
+		session.setAttribute("kakaoE", userInfo.getUser_id());
+		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
+		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
+	    
+	    // 리턴값은 용도에 맞게 변경하세요~
+		return "";
+	}
+	
+	 //하륜
+	
+		// 회원리스트 중에서 찾기
+			@RequestMapping(value="/mSearch")
+			@ResponseBody
+			public List<MemberDTO> mSearch(String user_id) throws Exception{
+				System.out.println(user_id);
+				List<MemberDTO> list =service.mSearch(user_id);	
+				return list;
+			}
+			
+			//블랙리스트 pagination
+			@RequestMapping(value="/toBlackPage")
+			@ResponseBody
+			public List<BlackListDTO> toBlackPage(int curPage) throws Exception{
+				System.out.println(curPage);
+				List<BlackListDTO> blackList=blackService.selectAll(curPage*10-9,curPage*10);	
+				return blackList;
+			}
+			//멤버리스트 pagination
+			@RequestMapping(value="/toMemberPage")
+			@ResponseBody
+			public List<MemberDTO> toMemberPage(int curPage) throws Exception{
+				List<MemberDTO> list =service.selectAll(curPage*10-9,curPage*10);	
+				return list;
+			}
+			
+			//신고리스트 pagination
+			@RequestMapping(value="/toReportPage")
+			@ResponseBody
+			public List<ReportDTO> toReportPage(int curPage) throws Exception{
+				List<ReportDTO> reportList=reportService.selectAll(curPage*10-9,curPage*10);
+				return reportList;
+			}
+			
+		
+			//관리자 페이지 이동
+			@RequestMapping(value="/toManager")
+			public String MemberList(int curPage,Model model) throws Exception {	//manager에서 회원 정보 가져올때
+			
+			List<BlackListDTO> blackList=blackService.selectAll(curPage*10-9,curPage*10);
+			List<MemberDTO> list =service.selectAll(curPage*10-9,curPage*10);
+			List<ReportDTO> reportList=reportService.selectAll(curPage*10-9,curPage*10);
+			
+			HashMap<String,Object> map =service.getPageNavi(curPage);
+			HashMap<String,Object> blackMap =blackService.getPageNavi(curPage);
+			HashMap<String,Object> reportMap =reportService.getPageNavi(curPage);
+			
+			model.addAttribute("naviMap",map);
+			model.addAttribute("blackNaviMap",blackMap);
+			model.addAttribute("reportNaviMap",reportMap);
+			
+			model.addAttribute("reportList",reportList);//신고리스트
+			model.addAttribute("blackList", blackList);//블랙리스트
+			model.addAttribute("list",list);//멤버 리스트
+			
+			
+			return "manager/manager2";
+		}
+		
+		//manager에서 회원 체크박스 선택 삭제	
+		@RequestMapping(value="/mn_delete")
+		@ResponseBody
+		public String delete(@RequestParam(value="arr[]") String[] arr) throws Exception{ 	
+			System.out.println("mn_delete");
+			System.out.println(arr);
+			for(String id : arr) {
+				service.mn_delete(id);	
+			}
+			
+			return "success";
+		}
+	  
+	
+	/* 오류 관련 */
+	@ExceptionHandler
+	public String toError(Exception e) {
+		System.out.println("예외 발생");
+		e.printStackTrace();
+		return "redirect:/toError";
 	}
 	
 }

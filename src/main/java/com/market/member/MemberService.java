@@ -2,15 +2,14 @@ package com.market.member;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.mail.Message;
@@ -24,7 +23,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -49,26 +47,28 @@ import com.google.gson.JsonParser;
 	@Service
 	public class MemberService {
 	@Autowired
-	private MemberDAO dao;
+	private MemberDAO memberDAO;
 	@Autowired
 	private SqlSession session;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
+  
+
 	
-	
+  //용현
 	// 로그인
 	public MemberDTO login(String user_id) throws Exception{
-		return dao.login(user_id);
+		return memberDAO.login(user_id);
 	}
 	
 	// 아이디 중복확인
 	public boolean checkLogin(String user_id) throws Exception{
-		return dao.checkLogin(user_id);
+		return memberDAO.checkLogin(user_id);
 	}
 	
 	// 아이디 찾기
 	public String findId(String user_name, String user_phone) throws Exception{
-		return dao.findId(user_name, user_phone);
+		return memberDAO.findId(user_name, user_phone);
 	}
 	
 	// 이메일 전송
@@ -117,34 +117,222 @@ import com.google.gson.JsonParser;
 		String changed_pw = pwdEncoder.encode(user_pw);
 		
 		// 비밀번호 변경
-		dao.update_pw(user_id, changed_pw);
+		memberDAO.update_pw(user_id, changed_pw);
 
 		return user_pw;
 	}
 	
 	// 회원가입
 	public int signup(MemberDTO dto) throws Exception{
-		return dao.insert(dto);
+		return memberDAO.insert(dto);
 	}
 	
 	// 회원탈퇴
 	public int delete(String user_id) throws Exception{
-		return dao.delete(user_id);
+		return memberDAO.delete(user_id);
 	}
 	
 	// 회원탈퇴 아이디 & 비밀번호 확인
 	public MemberDTO checkPw(String user_id, String user_pw) throws Exception{
-		return dao.checkPw(user_id, user_pw);
+		return memberDAO.checkPw(user_id, user_pw);
 	}
 	
 	// 닉네임 중복확인
 	public boolean checkNickname(String user_nickname) throws Exception{
-		return dao.checkNickname(user_nickname);
+		return memberDAO.checkNickname(user_nickname);
 	}
 	
 	// 휴대폰번호 중복확인
 	public boolean checkPhone(String user_phone) throws Exception{
-		return dao.checkPhone(user_phone);
+		return memberDAO.checkPhone(user_phone);
+	}
+	
+  // 카카오
+	// 카카오톡 토큰 받기
+	public String getAccessToken (String authorize_code) {
+		String access_Token = "";
+		String refresh_Token = "";
+		String reqURL = "https://kauth.kakao.com/oauth/token";
+
+		try {
+			URL url = new URL(reqURL);
+            
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+            
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+            
+			sb.append("&client_id=78df7cab2093de0eb394ceeec542eb6e"); //본인이 발급받은 key
+			sb.append("&redirect_uri=http://localhost:8099/member/kakaoLogin"); // 본인이 설정한 주소
+            
+			sb.append("&code=" + authorize_code);
+			bw.write(sb.toString());
+			bw.flush();
+            
+			// 결과 코드가 200이라면 성공
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+			System.out.println("결과 코드 200이라면 성공!");
+            
+			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+            
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println("response body : " + result);
+            
+			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+            
+			access_Token = element.getAsJsonObject().get("access_token").getAsString();
+			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+            
+			System.out.println("access_token : " + access_Token);
+			System.out.println("refresh_token : " + refresh_Token);
+            
+			br.close();
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return access_Token;
+	}
+	
+	// 카카오톡 토큰 넣기 + 카카오 회원가입 + 카카오 아이디 중복확인
+	public MemberDTO getUserInfo(String access_Token) {
+		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+		String reqURL = "https://kapi.kakao.com/v2/user/me";
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+			System.out.println("response body : " + result);
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+			
+			String user_id = properties.getAsJsonObject().get("user_id").getAsString();
+			String user_category = properties.getAsJsonObject().get("카카오톡 회원").getAsString();
+			String user_k = properties.getAsJsonObject().get("user_k").getAsString();
+			String user_birth = properties.getAsJsonObject().get("user_birth").getAsString();
+			String user_nickname = properties.getAsJsonObject().get("user_nickname").getAsString();
+			String user_name = kakao_account.getAsJsonObject().get("user_name").getAsString();
+			String user_phone = properties.getAsJsonObject().get("user_phone").getAsString();
+			String postcode = properties.getAsJsonObject().get("postcode").getAsString();
+			String roadAddr = properties.getAsJsonObject().get("roadAddr").getAsString();
+			String detailAddr = properties.getAsJsonObject().get("detailAddr").getAsString();
+			String extraAddr = properties.getAsJsonObject().get("extraAddr").getAsString();
+			int grade = properties.getAsJsonObject().get("0").getAsInt();
+			int rating = properties.getAsJsonObject().get("0").getAsInt();
+			String blackList_check = properties.getAsJsonObject().get("false").getAsString();
+			int user_seq = properties.getAsJsonObject().get("0").getAsInt();
+			
+			
+			userInfo.put("user_id", user_id);
+			userInfo.put("user_category", user_category);
+			userInfo.put("user_k", user_k);
+			userInfo.put("user_birth", user_birth);
+			userInfo.put("user_nickname", user_nickname);
+			userInfo.put("user_name", user_name);
+			userInfo.put("user_phone", user_phone);
+			userInfo.put("postcode", postcode);
+			userInfo.put("roadAddr", roadAddr);
+			userInfo.put("detailAddr", detailAddr);
+			userInfo.put("extraAddr", extraAddr);
+			userInfo.put("0", grade);
+			userInfo.put("0", rating);
+			userInfo.put("false", blackList_check);
+			userInfo.put("0", user_seq);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// catch 아래 코드 추가.
+		MemberDTO result = memberDAO.findkakao(userInfo);
+		// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
+		System.out.println("S:" + result);
+		if(result==null) {
+		// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
+			memberDAO.kakaoInsert(userInfo);
+			// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
+			return memberDAO.findkakao(userInfo);
+			// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
+			//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
+		} else {
+			return result;
+			// 정보가 이미 있기 때문에 result를 리턴함.
+		}
+        
+	}
+	
+	
+  //하륜
+	public List<MemberDTO> selectAll(int start,int end) throws Exception{
+		return memberDAO.selectAll(start,end);
+	}
+		public void mn_delete(String id) throws Exception{ 	//manager에서 체크박스 선택 삭제
+			memberDAO.mn_delete(id);
+	}	
+	public List<MemberDTO> mSearch(String user_id) throws Exception{
+		return memberDAO.mSearch(user_id);		
+	}
+	public HashMap<String,Object> getPageNavi(int curPage) throws Exception{
+		int totalCnt = memberDAO.getPageNavi(); //전체 게시글의 개수
+		int recordCntPerPage=10; //한페이지에 몇개의 데이터(게시글)을 띄워줄지
+		int naviCntPerPage=5; //네비바에 몇개 단위로 페이징을 구성할지
+		int pageTotalCnt =0;// 총 몇 페이지가 나올지			
+		if(totalCnt % recordCntPerPage >0) {
+			pageTotalCnt =totalCnt/recordCntPerPage +1;
+		}else {
+			pageTotalCnt =totalCnt/ recordCntPerPage;
+		}				
+		if(curPage<1) {
+			curPage=1;		
+		}else if(curPage>pageTotalCnt) {
+
+		}						
+		int startNavi =((curPage-1)/naviCntPerPage)*naviCntPerPage+1;
+		int endNavi =startNavi + naviCntPerPage -1;
+	
+		if(pageTotalCnt < endNavi) {
+			endNavi =pageTotalCnt; 							
+		}		
+		boolean needPrev = true;	
+		boolean needNext = true;
+		if(startNavi==1) {
+			needPrev =false;			
+		}
+		if(endNavi ==pageTotalCnt) {
+			needNext =false;
+		}
+		HashMap<String,Object> map =new HashMap<>();
+		map.put("startNavi",startNavi);
+		map.put("endNavi", endNavi);
+		map.put("needPrev", needPrev);
+		map.put("needNext", needNext);		
+		return map;
+				
 	}
 	
 }

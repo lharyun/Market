@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.market.file.FileDAO;
 
 @RequestMapping(value = "/client")
 @Controller
@@ -28,17 +29,38 @@ public class ClientController {
 	@Autowired
 	private ClientService service;
 	@Autowired
+	private FileDAO fileDAO;
+	@Autowired
 	private HttpSession session;
-	
 	
 	public ClientController() {
 		System.out.println("ClientController 인스턴스 생성");
 	}
 	
-	@RequestMapping(value = "/toClient_post")	//QnA게시판 이동
-	public String toClient_post(Model model) throws Exception {
+	@RequestMapping(value="/delete")
+	public String delete(int client_seq) throws Exception{
+		service.delete(client_seq);
+		return "redirect:/client/toClient_post?curPage=1";
+	}
 	
-		List<ClientDTO> list =service.selectAll();//전체항목
+	@RequestMapping(value="/toModify")
+	public String toModify(int client_seq,Model model) throws Exception {	//게시글 수정 이동
+		ClientDTO dto=service.selectBySeq(client_seq);
+		model.addAttribute("dto",dto);
+		return "client/client_modify";
+	}
+	
+	@RequestMapping(value="/modify")
+	public String modify(ClientDTO dto) throws Exception{
+		service.modify(dto);
+		return "redirect:/client/toClient_post?curPage=1";
+	}
+	
+	@RequestMapping(value = "/toClient_post")	//QnA게시판 이동
+	public String toClient_post(int curPage,Model model) throws Exception {
+		//List<ClientDTO> list =service.selectAll();//전체항목
+		HashMap<String,Object> map =service.getPageNavi(curPage);
+		List<ClientDTO> list =service.selectAllP(curPage*10-9,curPage*10);
 		List<ClientDTO> buySell =service.search("buySell");
 		List<ClientDTO> account =service.search("account");
 		List<ClientDTO> items =service.search("items");
@@ -46,6 +68,7 @@ public class ClientController {
 		List<ClientDTO> sanction =service.search("sanction");
 		List<ClientDTO> addition =service.search("addition");
 			
+		model.addAttribute("naviMap",map);
 		model.addAttribute("list",list);
 		model.addAttribute("buySell",buySell);
 		model.addAttribute("account",account);
@@ -63,33 +86,29 @@ public class ClientController {
 		return "client/client_postWrite";
 	}
 	
-	@RequestMapping(value="/toManager")	//write페이지 요청
+	@RequestMapping(value="/toManager")	
 	public String toManager() {
 		System.out.println("toManager");
 		return "/manager/manager";
 	}
-	
-	
+	@RequestMapping(value="/toManager2")	
+	public String toManager2() {
+		System.out.println("toManager2");
+		return "/manager/manager2";
+	}
+		
 	@RequestMapping(value="/write")	//게시글 작성 요청
 	public String write(ClientDTO dto) throws Exception { 
 		System.out.println("ClientDTO : "+ dto.toString());
 		service.insert(dto);		
-		return "redirect:/client/toClient_post";
+		return "redirect:/client/toClient_post?curPage=1";
 	}
-	
-	
-	
-	
-	
+
 	//서머노트 이미지 콜백 함수
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
 		JsonObject jsonObject = new JsonObject();
-		
-        /*
-		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-		 */
 		
 		// 내부경로로 저장
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
@@ -116,5 +135,3 @@ public class ClientController {
 		return a;
 	}
 }
-	
-

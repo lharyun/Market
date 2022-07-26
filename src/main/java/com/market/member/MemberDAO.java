@@ -1,6 +1,8 @@
 package com.market.member;
 
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,11 +11,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDAO {
-
 	@Autowired
 	private SqlSession session;
-	
-	
+
+	// 용현
 	// 로그인 유효성 검사
 	public MemberDTO login(String user_id) throws Exception {
 		return session.selectOne("memberMapper.login", user_id);
@@ -67,5 +68,39 @@ public class MemberDAO {
 	public boolean checkPhone(String user_phone) throws Exception {
 		return session.selectOne("memberMapper.checkPhone", user_phone);
 	}
+	
+	// 카카오
+	// 카카오 회원가입
+	public void kakaoInsert(HashMap<String, Object> userInfo) {
+		session.insert("memberMapper.kakaoInsert",userInfo);
+	}
+
+	// 카카오 아이디 중복확인
+	public MemberDTO findkakao(HashMap<String, Object> userInfo) {
+		System.out.println("RN:"+userInfo.get("user_nickname"));
+		System.out.println("RE:"+userInfo.get("user_id"));
+		return session.selectOne("memberMapper.findKakao", userInfo);
+	}
+	
+	//하륜
+	public List<MemberDTO> selectAll(int start,int end) throws Exception{
+		Map<String,Object> map= new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return session.selectList("memberMapper.selectAll",map);
+		}
+		
+		public List<MemberDTO> mSearch(String user_id) throws Exception{
+			return session.selectList("memberMapper.search",user_id);		
+		}
+		
+		public void mn_delete(String id) throws Exception{
+			session.delete("memberMapper.mn_delete",id);
+		}
+
+		public int getPageNavi() throws Exception{
+			return session.selectOne("memberMapper.getPageNavi");
+		}
 
 }
+

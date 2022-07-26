@@ -25,6 +25,7 @@ public class MemberDTO {
 			String user_nickname, String user_profile, String user_name, String user_phone, String postcode,
 			String roadAddr, String detailAddr, String extraAddr, int grade, int rating, String blackList_check,
 			int user_seq) {
+
 		super();
 		this.user_id = user_id;
 		this.user_category = user_category;
@@ -48,6 +49,7 @@ public class MemberDTO {
 	public String getUser_id() {
 		return user_id;
 	}
+
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
@@ -141,6 +143,7 @@ public class MemberDTO {
 	public void setBlackList_check(String blackList_check) {
 		this.blackList_check = blackList_check;
 	}
+
 	public int getUser_seq() {
 		return user_seq;
 	}
@@ -155,3 +158,4 @@ public class MemberDTO {
 	}
 	
 }
+
