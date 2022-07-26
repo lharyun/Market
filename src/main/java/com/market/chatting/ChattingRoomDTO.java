@@ -1,6 +1,6 @@
 package com.market.chatting;
 
-public class ChattingDTO {
+public class ChattingRoomDTO {
 	private int room_seq;
 	private int post_seq;
 	private String your_nickname;
@@ -8,8 +8,8 @@ public class ChattingDTO {
 	private String user_category;
 	private String message;
 	
-	public ChattingDTO() {}
-	public ChattingDTO(int room_seq, int post_seq, String your_nickname, String user_id, String user_category,
+	public ChattingRoomDTO() {}
+	public ChattingRoomDTO(int room_seq, int post_seq, String your_nickname, String user_id, String user_category,
 			String message) {
 		super();
 		this.room_seq = room_seq;
