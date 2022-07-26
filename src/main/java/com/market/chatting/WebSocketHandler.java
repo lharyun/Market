@@ -52,6 +52,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
         }
     }
  
+    /*
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
  
@@ -121,7 +122,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
             }
         }
     }
-    
+    */
     @Override
     public void afterPropertiesSet() throws Exception {}
 }

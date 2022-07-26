@@ -23,7 +23,7 @@ import com.google.gson.JsonIOException;
 public class ChattingController {
 	@Autowired
     ChattingService cService;
-    
+	/*
     @Autowired
     ProductService pService;
     
@@ -116,4 +116,5 @@ public class ChattingController {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         gson.toJson(chatSessionList,response.getWriter());
     }
+    */
 }
