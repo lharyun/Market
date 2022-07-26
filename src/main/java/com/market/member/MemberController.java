@@ -12,15 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.market.blackList.BlackListDTO;
 import com.market.blackList.BlackListService;
 import com.market.report.ReportDTO;
 import com.market.report.ReportService;
-
 
 @RequestMapping(value = "/member") // member 관련 모든 요청
 @Controller
@@ -153,8 +152,6 @@ public class MemberController {
 		return changePw;
 	}
 
-		
-	
 	/* 회원가입 관련 */
 	@RequestMapping(value = "/tosignUp2") // 회원가입2 페이지 요청
 	public String tosignUp2() {
@@ -194,6 +191,7 @@ public class MemberController {
 		MemberDTO dto = service.checkPw(user_id, user_pw);
 		
 		boolean pwdMatch = pwdEncoder.matches(user_pw, dto.getUser_pw());
+		System.out.println(pwdMatch);
 		
 		if(dto != null && pwdMatch == true) {
 			return "success";
@@ -201,66 +199,26 @@ public class MemberController {
 		return "fail";
 	}
 	
-	// 마이페이지로 옮길 것
-	@ResponseBody
-	@RequestMapping(value = "/modifyProfile")// 프로필 사진 수정 요청
-	public String modifyProfile(String user_profile, MultipartFile file) throws Exception{
-		System.out.println("user_profile : " + user_profile);
-		System.out.println("file : " + file);
-		
-		// 1. 서버의 profile 폴더에 새로운 프로필 사진을 업로드
-		// 만약 사용자가 프로필사진을 변경하지 않았다면(업로드 X)
-		// 새로운 프로필 사진을 업로드 X 
-		if(!file.isEmpty()) { // 넘어온 파일이 있다면
-			String realPath = session.getServletContext().getRealPath("profile");
-			// 파일을 업로드하는 service 의 메서드를 호출하고 반환값으로 실제 저장된 파일명을 반환
-			String user_profile1 = service.uploadProfile(file, realPath);
-			// loginSession 안에 들어있는 dto의 user_profile 멤버필드 값을 새롭게 업로드된 파일명으로 변경
-			((MemberDTO)session.getAttribute("loginSession")).setUser_profile(user_profile);
-		}// 만약 사용자가 프로필 사진 수정을 안했다면(파일 업로드 X) == 원래의 값을 유지
-		// loginSession에 DTO -> user_profile -> 사용자가 원래 가지고 있는 프로필사진의 이름값 
-		
-		
-		// member테이블의 현재 프로필 수정중인 멤버의 데이터를 수정(프로필사진)
-		// update tbl_member set user_profile=? where user_id=?;
-		int rs = service.modifyProfile((MemberDTO)session.getAttribute("loginSession"));
-		
-		if(rs > 0) {
-			return "success";
-		}else {
-			return "fail";
-		}
-	}	
-	
-	@ResponseBody
-	@RequestMapping(value = "/modifyInfo") // 정보 수정 요청	
-	public String modifyInfo(String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception{
-		System.out.println("수정할 내 정보 : " + user_nickname + user_pw + user_phone + postcode + roadAddr + detailAddr + extraAddr);
-		
-		int rs = service.modifyInfo(((MemberDTO)session.getAttribute("loginSession")).getUser_id(), user_nickname, user_pw, user_phone, postcode, roadAddr, detailAddr, extraAddr);
-		if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setUser_nickname(user_nickname);
-			return "success";
-		} else if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setUser_pw(user_pw);
-			return "success";
-		} else if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setUser_phone(user_phone);
-			return "success";
-		} else if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setPostcode(postcode);
-			return "success";
-		} else if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setRoadAddr(roadAddr);
-			return "success";
-		} else if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setDetailAddr(detailAddr);
-			return "success";
-		} else if (rs > 0) {
-			((MemberDTO)session.getAttribute("loginSession")).setExtraAddr(extraAddr);
-			return "success";
-		} 
-		else return "fail";
+	//카카오톡 로그인
+	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
+		System.out.println("#########" + code);
+		String access_Token = service.getAccessToken(code);
+		MemberDTO userInfo = service.getUserInfo(access_Token);
+		System.out.println("###access_Token#### : " + access_Token);
+		System.out.println("###user_name#### : " + userInfo.getUser_name());
+		System.out.println("###user_id#### : " + userInfo.getUser_id());
+	    
+		// 아래 코드가 추가되는 내용
+		session.invalidate();
+		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+		session.setAttribute("kakaoN", userInfo.getUser_name());
+		session.setAttribute("kakaoE", userInfo.getUser_id());
+		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
+		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
+	    
+	    // 리턴값은 용도에 맞게 변경하세요~
+		return "";
 	}
 	
 	 //하륜

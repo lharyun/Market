@@ -95,6 +95,12 @@
 				, success: function(data){
 					console.log(data);
 					if(data == "success"){
+						if (confirm("정말 탈퇴하시겠습니까?") == true) { // 탈퇴 확인
+							location.href = "/member/todelete";
+						} else { // 탈퇴 취소
+							return false;
+							window.close();
+						}
 						alert("회원 탈퇴가 완료되었습니다.")
 						location.href = "/member/delete";
 					}else if(data == "fail"){
@@ -106,9 +112,8 @@
 			})
 		})
 		
-		
 		document.getElementById("cancelBtn").onclick = function(){ // 취소 버튼
-			location.href = "/mypage/toMyStore"; // 마이페이지로 링크
+			window.close();
 		}
 
 	</script>

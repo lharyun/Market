@@ -91,7 +91,7 @@
                     <div class="resultBox">
                         <div class="resultBox2">
                             <img src="/resources/images/member/ok_profile.png" id="ok_profile">
-                            <p class="result"><strong>회원님의 아이디는${user_id} 입니다.</strong></p>
+                            <p class="result"><strong>회원님의 아이디는 ${user_id} 입니다.</strong></p>
                         </div>
                     </div>
                 </div>
