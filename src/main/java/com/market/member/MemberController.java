@@ -33,6 +33,7 @@ public class MemberController {
 	private MemberService mailService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
+	@Autowired
 	private BlackListService blackService;
 	@Autowired
 	private ReportService reportService;
