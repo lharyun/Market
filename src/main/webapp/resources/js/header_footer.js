@@ -1,5 +1,5 @@
  // 로그인/회원가입 a 태그 id값 : linkLogin
-       $("#linkLogin").onclick = function(){
+       function preventClick(){ 
           
           var popupX = (window.screen.width / 2) - (800 / 2);
             var popupY= (window.screen.height / 2) - (600 / 2);

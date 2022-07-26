@@ -44,6 +44,7 @@ public class PostController {
 		System.out.println("curPage" + curPage);
 		System.out.println("메인페이지 접속");
 		//임시 로그인세션
+		
 		String user_id = "asd123@naver.com";
 		String user_category = "일반가입";
 		String post_addr = "서울 마포구 망원동";
@@ -55,6 +56,7 @@ public class PostController {
 		loginSession.put("user_nickname", user_nickname);
 		loginSession.put("notification", notifiService.nicknameSelect(user_nickname));
 		session.setAttribute("loginSession", loginSession);
+		
 		
 		//페이지 나누기
 		//로그인세션 등록되면 post_addr 로 바꿔주기

@@ -1207,6 +1207,7 @@
                                      <button type="button" class="middle_Btn ms-2" id="postDeleteBtn"
                                         data-bs-dismiss="modal">삭제하기
                                     </button>
+                                    <span class="me-2"></span>
                                     <button type="button" class="middle_Btn" 
                                         data-bs-dismiss="modal">취소하기
                                     </button>

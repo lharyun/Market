@@ -100,7 +100,7 @@ public class MemberController {
 	@RequestMapping(value = "/toLogout") //로그아웃 요청
 	public String logout() {
 		session.removeAttribute("loginSession");
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	
 	/* 회원정보 찾기 관련 */
@@ -183,7 +183,7 @@ public class MemberController {
 		service.delete(((MemberDTO)session.getAttribute("loginSession")).getUser_id());
 		//session 에서 loginSession 지워주는 작업
 		session.removeAttribute("loginSession");
-		return "redirect:/post/toPost";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	
 	@ResponseBody
