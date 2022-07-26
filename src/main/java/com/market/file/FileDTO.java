@@ -1,7 +1,10 @@
 package com.market.file;
 
 public class FileDTO {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	private int file_seq;
 	private int client_seq;
 	private String ori_name;
@@ -55,6 +58,9 @@ public class FileDTO {
 				+ sys_name + "]";
 	}
 	
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 }

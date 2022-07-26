@@ -2,23 +2,26 @@ package com.market.member;
 
 
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.Map;
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 import java.util.List;
 import java.util.Map;
-
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.market.blackList.BlackListDTO;
-
 @Repository
 public class MemberDAO {
 	@Autowired
 	private SqlSession session;
+<<<<<<< HEAD
  
 
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 
 	// 용현
 	// 로그인 유효성 검사
@@ -75,12 +78,20 @@ public class MemberDAO {
 		return session.selectOne("memberMapper.checkPhone", user_phone);
 	}
 	
-	// 마이페이지로 옮길것
-	// 프로필 수정
-	public int modifyProfile(MemberDTO dto) throws Exception{
-		return session.update("memberMapper.modifyProfile", dto);
+	// 카카오
+	// 카카오 회원가입
+	public void kakaoInsert(HashMap<String, Object> userInfo) {
+		session.insert("memberMapper.kakaoInsert",userInfo);
+	}
+
+	// 카카오 아이디 중복확인
+	public MemberDTO findkakao(HashMap<String, Object> userInfo) {
+		System.out.println("RN:"+userInfo.get("user_nickname"));
+		System.out.println("RE:"+userInfo.get("user_id"));
+		return session.selectOne("memberMapper.findKakao", userInfo);
 	}
 	
+<<<<<<< HEAD
 	// 정보 수정
 	public int modifyInfo(String user_id, String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception {
 		Map<String, String> map = new HashMap<>();
@@ -95,6 +106,8 @@ public class MemberDAO {
 		return session.update("memberMapper.modifyInfo", map);
 	}
 	
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	//하륜
 	public List<MemberDTO> selectAll(int start,int end) throws Exception{
 		Map<String,Object> map= new HashMap<>();
@@ -114,5 +127,9 @@ public class MemberDAO {
 		public int getPageNavi() throws Exception{
 			return session.selectOne("memberMapper.getPageNavi");
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 }
 

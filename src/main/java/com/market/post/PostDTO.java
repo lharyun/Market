@@ -2,7 +2,7 @@ package com.market.post;
 
 import java.util.Date;
 
-import com.market.utills.Time;
+import com.market.utils.Time;
 
 public class PostDTO {
  private int post_seq;

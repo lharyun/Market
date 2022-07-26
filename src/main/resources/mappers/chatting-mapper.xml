@@ -5,5 +5,11 @@
 
 
  <mapper namespace="chattingMapper">
- 
+	<!-- <insert id="insert" parameterType="com.market.chatting.ChattingDTO">
+		insert into tbl_chatting
+		values(#{nickname}, #{message})
+	</insert>
+	<select id="select" resultType="com.market.chatting.ChattingDTO">
+		select * from tbl_chatting
+	</select> -->
  </mapper>
