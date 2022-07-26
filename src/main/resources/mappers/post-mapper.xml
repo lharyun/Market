@@ -57,12 +57,20 @@
  	</select>
  	
 	<!-- 이미지 조인 문 전체 조회 -->
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	<!-- <select id="selectJoin" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
 	select * from tbl_post a FULL OUTER JOIN tbl_post_img b
 		on a.post_seq= b.post_seq
 	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
 		where NOT post_title is NULL
 	</select> -->
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	<select id="selectJoin" parameterType="int" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
 	select 
 	    Case WHEN LENGTH(post_title) > 8 THEN SubStr(post_title, 0, 8) || '..' ELSE post_title End as post_title
@@ -113,6 +121,10 @@
 	and num between #{start} and #{end}
 	    order by a.post_seq desc
 	</select>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	
 	<!-- post_seq 번호로 조회 -->
 	<select id="selectPost_seq" resultType="com.market.post.PostDTO">

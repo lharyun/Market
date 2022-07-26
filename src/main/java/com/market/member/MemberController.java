@@ -12,9 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+=======
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 
 import com.market.blackList.BlackListDTO;
 import com.market.blackList.BlackListService;
@@ -32,6 +38,7 @@ public class MemberController {
 	private MemberService mailService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
+	@Autowired
 	private BlackListService blackService;
 	@Autowired
 	private ReportService reportService;
@@ -40,10 +47,14 @@ public class MemberController {
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
+<<<<<<< HEAD
+ 
+=======
 	
 
  
   
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
   //용현
 	/* 로그인 관련 */
 	@RequestMapping(value = "/toLogin") //로그인 페이지 요청

@@ -10,7 +10,12 @@ import org.springframework.stereotype.Repository;
 public class FileDAO {
 	@Autowired
 	private SqlSession session;
+<<<<<<< HEAD
+
+
+=======
 	
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	// 파일 데이터 저장
 	public void insert(FileDTO dto) throws Exception{
 		session.insert("fileMapper.insert", dto);
@@ -31,4 +36,8 @@ public class FileDAO {
 		return session.selectList("fileMapper.selectBySeq", seq_board);
 	}
 	
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 }

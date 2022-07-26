@@ -41,4 +41,8 @@ public class FileController {
 			dos.flush();			
 		}		
 	}
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 }

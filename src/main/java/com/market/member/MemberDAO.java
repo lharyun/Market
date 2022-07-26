@@ -2,6 +2,10 @@ package com.market.member;
 
 
 import java.util.HashMap;
+<<<<<<< HEAD
+import java.util.Map;
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +17,11 @@ import org.springframework.stereotype.Repository;
 public class MemberDAO {
 	@Autowired
 	private SqlSession session;
+<<<<<<< HEAD
+ 
+
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 
 	// 용현
 	// 로그인 유효성 검사
@@ -82,6 +91,23 @@ public class MemberDAO {
 		return session.selectOne("memberMapper.findKakao", userInfo);
 	}
 	
+<<<<<<< HEAD
+	// 정보 수정
+	public int modifyInfo(String user_id, String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("user_nickname", user_nickname);
+		map.put("user_pw", user_pw);
+		map.put("user_phone", user_phone);
+		map.put("postcode", postcode);
+		map.put("roadAddr", roadAddr);
+		map.put("detailAddr", detailAddr);
+		map.put("extraAddr", extraAddr);
+		return session.update("memberMapper.modifyInfo", map);
+	}
+	
+=======
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 	//하륜
 	public List<MemberDTO> selectAll(int start,int end) throws Exception{
 		Map<String,Object> map= new HashMap<>();
@@ -101,6 +127,9 @@ public class MemberDAO {
 		public int getPageNavi() throws Exception{
 			return session.selectOne("memberMapper.getPageNavi");
 		}
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6e39111b28a56d31cefa4636d50b37721313aefc
 }
 
