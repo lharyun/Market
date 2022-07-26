@@ -918,14 +918,14 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${loginSession.notification.size() == 0}">
+                	<c:if test="${notification.size() == 0}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
                 	
-                	<c:if test="${loginSession.notification.size() > 0}">
-                		<c:forEach items="${loginSession.notification}" var="notifi">
+                	<c:if test="${notification.size() > 0}">
+                		<c:forEach items="${notification}" var="notifi">
                 			<c:if test="${notifi.notification_type eq '채팅'}">
 			                    <div class="row p-1 ">
 			                        <div class="col-2 text-center n_logo">

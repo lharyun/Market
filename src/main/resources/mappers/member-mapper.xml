@@ -87,5 +87,13 @@
  	<select id="search" parameterType="string" resultType="com.market.member.MemberDTO">
  	select * from tbl_member where user_id like '%' || #{user_id} || '%'
  	</select>
+ 	
+ 	<!-- 준철 -->
+ 	<select id="makeAddr" resultType="String">
+ 		select CONCAT(SUBSTR(readAddr,4,INSTR(readAddr,'구')-INSTR(readAddr,' ')+1)
+		    ,SUBSTR(extraAddr,3, INSTR(SUBSTR(extraAddr,3,3),'동'))) as post_addr
+		from tbl_member
+		    where user_id= #{user_id}
+ 	</select>
 
  </mapper>

@@ -102,5 +102,9 @@ public class MemberDAO {
 			return session.selectOne("memberMapper.getPageNavi");
 		}
 
+		//준철
+		public String makeAddr(String user_id)throws Exception{
+			return session.selectOne("memberMapper.makeAddr",user_id);	
+		}
 }
 

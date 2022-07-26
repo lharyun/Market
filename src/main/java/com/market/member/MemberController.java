@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.blackList.BlackListDTO;
 import com.market.blackList.BlackListService;
+import com.market.notification.NotificationDTO;
+import com.market.notification.NotificationService;
 import com.market.report.ReportDTO;
 import com.market.report.ReportService;
 
@@ -36,7 +38,8 @@ public class MemberController {
 	private BlackListService blackService;
 	@Autowired
 	private ReportService reportService;
-
+	@Autowired
+	private NotificationService notifiService;
 	
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
@@ -65,6 +68,14 @@ public class MemberController {
 		if(dto != null && pwdMatch == true) {
 			session.setAttribute("loginSession", dto);
 			System.out.println(((MemberDTO)session.getAttribute("loginSession")).toString());
+			
+			/*알람관련 추가*/
+			String user_nickname = ((MemberDTO)session.getAttribute("loginSession")).getUser_nickname();
+			System.out.println(user_nickname);
+			List<NotificationDTO> notification = notifiService.nicknameSelect(user_nickname);
+			System.out.println(notification);
+			session.setAttribute("notification", notification);
+			/**/
 			return "success";
 		}
 		return "fail";
@@ -100,6 +111,7 @@ public class MemberController {
 	@RequestMapping(value = "/toLogout") //로그아웃 요청
 	public String logout() {
 		session.removeAttribute("loginSession");
+		session.removeAttribute("notification");
 		return "redirect:/post/toPost?curPage=1";
 	}
 	

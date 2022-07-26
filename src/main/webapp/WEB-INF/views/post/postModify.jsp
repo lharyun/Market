@@ -1093,14 +1093,14 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${loginSession.notification.size() == 0}">
+                	<c:if test="${notification.size() == 0}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
                 	
-                	<c:if test="${loginSession.notification.size() > 0}">
-                		<c:forEach items="${loginSession.notification}" var="notifi">
+                	<c:if test="${notification.size() > 0}">
+                		<c:forEach items="${notification}" var="notifi">
                 			<c:if test="${notifi.notification_type eq '채팅'}">
 			                    <div class="row p-1 ">
 			                        <div class="col-2 text-center n_logo">
@@ -1164,7 +1164,7 @@
          </a>
     </div>
     <%-- 관리자 아이디와 같다면 --%>
-	<c:if test="${loginSession.user_id eq 'abc123'}">
+	<c:if test="${loginSession.user_id eq 'asd123@naver.com'}">
 	    <div class="logo4">
 	        <a class="nav-link" href="/member/toManager?curPage=1">
 	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">

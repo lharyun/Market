@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.market.basket.BasketDTO;
 import com.market.basket.BasketService;
+import com.market.member.MemberDTO;
+import com.market.member.MemberService;
 import com.market.notification.NotificationService;
 
 
@@ -31,6 +33,8 @@ public class PostController {
 	@Autowired
 	private NotificationService notifiService;
 	@Autowired
+	private MemberService memberService;
+	@Autowired
 	private HttpSession session;
 
 	public PostController() {
@@ -43,20 +47,6 @@ public class PostController {
 	public String toPost(int curPage, Model model) throws Exception{
 		System.out.println("curPage" + curPage);
 		System.out.println("메인페이지 접속");
-		//임시 로그인세션
-		
-		String user_id = "asd123@naver.com";
-		String user_category = "일반가입";
-		String post_addr = "서울 마포구 망원동";
-		String user_nickname = "가짜닉네임";
-		Map<String, Object> loginSession = new HashMap<>();
-		loginSession.put("user_id", user_id);
-		loginSession.put("user_category", user_category);
-		loginSession.put("post_addr", post_addr);
-		loginSession.put("user_nickname", user_nickname);
-		loginSession.put("notification", notifiService.nicknameSelect(user_nickname));
-		session.setAttribute("loginSession", loginSession);
-		
 		
 		//페이지 나누기
 		//로그인세션 등록되면 post_addr 로 바꿔주기
@@ -104,10 +94,11 @@ public class PostController {
 	@RequestMapping(value = "/toWrite")//판매등록
 	public String toPostWrite(PostDTO dto, MultipartFile[] imgfiles) throws Exception{
 		
-//		나중에 로그인 세션으로 바꾸기
-		dto.setPost_addr("서울 마포구 망원동");
-		dto.setUser_id("asd123@naver.com");
-		dto.setUser_category("일반가입");
+		
+		String user_id = dto.getUser_id();
+		System.out.println(user_id);
+		dto.setPost_addr(memberService.makeAddr(user_id));
+		System.out.println(dto);
 		
 		String realPath = session.getServletContext().getRealPath("imgfiles");
 		service.insert(dto, realPath, imgfiles);
@@ -156,10 +147,17 @@ public class PostController {
 		//post,img테이블 select*from
 		List<Map<String, Object>> list = service.selectJoin(1,10);
 		model.addAttribute("list", list);
-				
+		
+		//해당 게시글 아이디 정보불러오기
+		String p_user_id = ((PostDTO)map.get("postDTO")).getUser_id();
+		System.out.println(p_user_id);
+		MemberDTO memberDto = memberService.login(p_user_id);
+		model.addAttribute("memberDto", memberDto);
+		
 		//해당게시글 찜목록에 로그인 아이디 있는지 확인
 		if(session.getAttribute("loginSession") != null) {
-			String user_id = ((Map<String, String>) session.getAttribute("loginSession")).get("user_id");
+			
+			String user_id = ((MemberDTO) session.getAttribute("loginSession")).getUser_id();
 			BasketDTO basketDto = basketService.select_userBasket(user_id,post_seq);
 			model.addAttribute("basketDto", basketDto);
 		}

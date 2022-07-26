@@ -787,7 +787,7 @@
          </a>
     </div>
     <%-- 관리자 아이디와 같다면 --%>
-	<c:if test="${loginSession.user_id eq 'abc123'}">
+	<c:if test="${loginSession.user_id eq 'asd123@naver.com'}">
 	    <div class="logo4">
 	        <a class="nav-link" href="/member/toManager?curPage=1">
 	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">

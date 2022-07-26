@@ -335,4 +335,8 @@ import com.google.gson.JsonParser;
 				
 	}
 	
+	//준철 주소 합치기
+	public String makeAddr(String user_id)throws Exception{
+		return memberDAO.makeAddr(user_id);	
+	}
 }

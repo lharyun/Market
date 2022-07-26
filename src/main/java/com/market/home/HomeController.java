@@ -21,7 +21,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/")
 	public String toPost() {
-		return "home";
+		return "redirect:/post/toPost?curPage=1";
 	}
 	@RequestMapping(value = "/toError")
 	public String toError() {
