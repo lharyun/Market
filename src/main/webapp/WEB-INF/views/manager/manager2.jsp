@@ -1369,7 +1369,7 @@ header {
 						<div class="modal-body">
 							<form>
 								<div class="mb-3">
-									<label for="message-text" class="col-form-label">Reseon:</label>
+									<label for="message-text" class="col-form-label">Reason:</label>
 									<textarea class="form-control" id="blackList_content"
 										placeholder="이유를 적어주세요!"></textarea>
 								</div>
@@ -1392,7 +1392,7 @@ header {
 
 	<!-- footer -->
 	<div class="logo2">
-		<a class="nav-link" href="/client/toClient_post"> <img
+		<a class="nav-link" href="/client/toClient_post?curPage=1"> <img
 			src="/resources/images/header_pooter/고객게시판.png">
 		</a>
 	</div>
@@ -1401,7 +1401,7 @@ header {
 			<div class="row pooterLine pb-3">
 				<div class="col">
 					<ul class="nav flex-column">
-						<li class="nav-item mb-2 a_reaction"><a href="/post/toPost"
+						<li class="nav-item mb-2 a_reaction"><a href="/post/toPost?curPage=1"
 							class="nav-link p-0"> <img
 								src="/resources/images/header_pooter/로고white.png" height="46px"
 								alt="로고">
@@ -1413,7 +1413,7 @@ header {
 					<ul class="nav flex-column pt-3">
 						<li class="nav-item mb-2"><a href="/footer/toTrust"
 							class="nav-link p-0">믿을수 있는 중고거래</a></li>
-						<li class="nav-item mb-2"><a href="/client/toClient_post"
+						<li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1"
 							class="nav-link p-0">자주 묻는 질문</a></li>
 					</ul>
 				</div>
