@@ -1010,7 +1010,12 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${notification.size() == 0}">
+                	<c:if test="${notification.size() == 0 or empty notification}">
+                		<div class="row p-1 d-flex justify-content-center fw-bold">
+                			새로운 알림이 없습니다.
+                		</div>
+                	</c:if>
+                	<c:if test="${empty notification}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
