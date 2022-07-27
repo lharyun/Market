@@ -32,6 +32,7 @@ public class MemberController {
 	private MemberService mailService;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
+	@Autowired
 	private BlackListService blackService;
 	@Autowired
 	private ReportService reportService;
@@ -40,8 +41,6 @@ public class MemberController {
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
-	
-
  
   
   //용현
@@ -67,6 +66,98 @@ public class MemberController {
 			return "success";
 		}
 		return "fail";
+	}
+	
+	// 카카오 로그인 요청
+	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
+    public String home(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session) throws Exception{
+        System.out.println("##" + code);
+        String access_Token = service.getAccessToken(code);
+        HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
+        
+//        session.setAttribute("user_id", userInfo.get("email"));
+//        session.setAttribute("user_nickname", userInfo.get("nickname"));
+        
+        model.addAttribute("user_k", access_Token);
+        model.addAttribute("user_id", userInfo.get("email"));        
+        model.addAttribute("user_nickname", userInfo.get("nickname"));
+        
+        System.out.println("##access_Token## : " + access_Token);
+        System.out.println("##userInfo## : " + userInfo.get("email"));
+        System.out.println("##nickname## : " + userInfo.get("nickname"));
+        
+//        session.setAttribute("user_id", userInfo.get("email"));
+//        session.setAttribute("user_nickname", userInfo.get("nickname"));
+        
+//        if(access_Token != null) {
+//        	return "redirect:/";
+//        } else {
+//        	return "member/kakaosignup";
+//        }
+        
+        return "member/kakaosignup";
+	}
+	
+	// 카카오 로그인 세션 유지
+	@RequestMapping(value="/kakaologindone")
+	public String login(@RequestParam("code") String code, HttpSession session) {
+		System.out.println("code: " + code);
+		
+		String access_token = service.getAccessToken(code);
+		System.out.println("access_token" + access_token);
+		
+		HashMap<String,Object> userInfo = service.getUserInfo(access_token);
+		
+		session.setAttribute("userId", userInfo.get("email"));
+		
+		System.out.println(userInfo);
+		
+		return "redirect:/";
+	}
+	
+	// 카카오 로그아웃
+	@RequestMapping(value="/kakaologout")
+	public String kakaologout(HttpSession session) {
+		service.kakaologout((String)session.getAttribute("access_token"));
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	/* 회원가입 관련 */
+	@RequestMapping(value = "/tosignUp") // 일반 회원가입 페이지 요청
+	public String tosignUp() {
+		return "member/signup";
+	}
+	
+	@RequestMapping(value = "/tokakaosignUp") // 카카오 회원가입 페이지 요청
+	public String tokakaosignUp() {
+		return "member/kakaosignup";
+	}
+	
+	@RequestMapping(value = "signUp") // 일반 회원가입 요청
+	public String signUp(MemberDTO dto) throws Exception{
+
+		String inputPass = dto.getUser_pw();
+		String pwd = pwdEncoder.encode(inputPass);
+		dto.setUser_pw(pwd);
+		System.out.println("pwd : " + pwd);
+		
+		service.signup(dto);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "kakaosignUp") // 카카오 회원가입 요청
+	public String kakaosignUp(MemberDTO dto) throws Exception{
+		
+		String inputPass = dto.getUser_pw();
+		String pwd = pwdEncoder.encode(inputPass);
+		dto.setUser_pw(pwd);
+		System.out.println("pwd : " + pwd);
+		
+		service.kakaosignup(dto);
+		
+		return "redirect:/";
 	}
 	
 	@ResponseBody
@@ -150,25 +241,6 @@ public class MemberController {
 		
 		return changePw;
 	}
-
-	/* 회원가입 관련 */
-	@RequestMapping(value = "/tosignUp2") // 회원가입2 페이지 요청
-	public String tosignUp2() {
-		return "member/signup2";
-	}
-	
-	@RequestMapping(value = "signUp") // 회원가입 요청
-	public String signUp(MemberDTO dto) throws Exception{
-
-		String inputPass = dto.getUser_pw();
-		String pwd = pwdEncoder.encode(inputPass);
-		dto.setUser_pw(pwd);
-		System.out.println("pwd : " + pwd);
-		
-		service.signup(dto);
-		
-		return "redirect:/";
-	}
 	
 	@RequestMapping(value = "/todelete") // 회원탈퇴 페이지 요청
 	public String todelete() {
@@ -196,28 +268,6 @@ public class MemberController {
 			return "success";
 		}
 		return "fail";
-	}
-	
-	//카카오톡 로그인
-	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
-		System.out.println("#########" + code);
-		String access_Token = service.getAccessToken(code);
-		MemberDTO userInfo = service.getUserInfo(access_Token);
-		System.out.println("###access_Token#### : " + access_Token);
-		System.out.println("###user_name#### : " + userInfo.getUser_name());
-		System.out.println("###user_id#### : " + userInfo.getUser_id());
-	    
-		// 아래 코드가 추가되는 내용
-		session.invalidate();
-		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
-		session.setAttribute("kakaoN", userInfo.getUser_name());
-		session.setAttribute("kakaoE", userInfo.getUser_id());
-		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
-		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-	    
-	    // 리턴값은 용도에 맞게 변경하세요~
-		return "";
 	}
 	
 	 //하륜

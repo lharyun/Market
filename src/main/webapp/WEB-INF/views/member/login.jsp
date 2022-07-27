@@ -126,7 +126,7 @@
                     <h5>처음이신가요?</h5>
                 </div>
                 <div class="signABox">
-                    <a href="tosignUp2">&nbsp;회원가입</a>
+                    <a href="tosignUp">&nbsp;회원가입</a>
                 </div>
             </div>
 		</form>

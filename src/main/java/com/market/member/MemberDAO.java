@@ -46,6 +46,11 @@ public class MemberDAO {
 		return session.insert("memberMapper.insert", dto);
 	}
 	
+	// 카카오 회원가입
+	public int kakaoinsert(MemberDTO dto) throws Exception{
+		return session.insert("memberMapper.kakaoinsert", dto);
+	}
+	
 	// 회원탈퇴
 	public int delete(String user_id) throws Exception{
 		return session.delete("memberMapper.delete", user_id);
@@ -70,17 +75,7 @@ public class MemberDAO {
 	}
 	
 	// 카카오
-	// 카카오 회원가입
-	public void kakaoInsert(HashMap<String, Object> userInfo) {
-		session.insert("memberMapper.kakaoInsert",userInfo);
-	}
 
-	// 카카오 아이디 중복확인
-	public MemberDTO findkakao(HashMap<String, Object> userInfo) {
-		System.out.println("RN:"+userInfo.get("user_nickname"));
-		System.out.println("RE:"+userInfo.get("user_id"));
-		return session.selectOne("memberMapper.findKakao", userInfo);
-	}
 	
 	//하륜
 	public List<MemberDTO> selectAll(int start,int end) throws Exception{

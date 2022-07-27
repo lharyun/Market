@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>싸다구 장터 : 회원가입2</title>
+    <title>싸다구 장터 : 카카오 회원가입</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
      <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet" type="text/css">
@@ -45,8 +45,9 @@
 	        width: 100%;
 	        float: left;
 	    }
-	    #user_pw{
+	    /* #user_pw{
 	        border: 0;
+	        display: none;
 	    }
 	    .pwBox{
 	        border: 0;
@@ -54,9 +55,11 @@
 	        margin-top: 10px;
 	        width: 100%;
 	        float: left;
+	        display: none;
 	    }
 	    #user_pwCheck{
 	        border: 0;
+	        display: none;
 	    }
 	    .pwBox2{
 	        border: 0;
@@ -64,7 +67,8 @@
 	        margin-top: 10px;
 	        width: 100%;
 	        float: left;
-	    }
+	        display: none;
+	    } */
 	    #user_nickname{
 	        border: 0;
 	    }
@@ -84,6 +88,30 @@
 	        margin-top: 10px;
 	        width: 100%;
 	        float: left;
+	    }
+	    #user_k{
+	        border: 0;
+	        display: none;
+	    }
+	    .kBox{
+	        border: 0;
+	        border-bottom: 1px solid lightgray;
+	        margin-top: 10px;
+	        width: 100%;
+	        float: left;
+	        display: none;
+	    }
+	    #user_pw{
+	        border: 0;
+	        display: none;
+	    }
+	    .pwBox{
+	        border: 0;
+	        border-bottom: 1px solid lightgray;
+	        margin-top: 10px;
+	        width: 100%;
+	        float: left;
+	        display: none;
 	    }
 	    #user_birth{
 	        border: 0;
@@ -144,10 +172,6 @@
 	        margin-top: 7px;
 	        float: right;
 	    }
-	    #kakaoSignup{
-	        width: 130px;
-	        cursor: pointer;
-	    }
 	    .modal-content{
 	    	width: 500px;
 	    	height: 250px;
@@ -157,9 +181,9 @@
 	        height: 100%;
 	        text-align: center;
 	    }
-	    #welcome{
-	    	width: 150px;
-	    	height: 150px;
+	    #backBtn{
+	    	width: 123.33px;
+	    	height: 38px;
 	    }
 	</style>
 <body>
@@ -167,38 +191,36 @@
     <div class="container">
 		<div class="row m-3"> 
 			<div class="titleBox">
-				<h3>회원가입</h3>
+				<h3>카카오 회원가입</h3>
 			</div>
 		</div>
             <div class="idBox">
                 <div class="idBox2">
-                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디">
+                    <input type="text" class="form-control" id="user_id" name="user_id" value="${user_id}" readonly>
                 </div>
                 <div class="idBox2text">
                 	<span id="inputResult"></span>
                 </div>
             </div>
             
-            <div class="pwBox">
-				<input type="password" class="form-control" id="user_pw" name="user_pw" value="" placeholder="비밀번호">
-			</div>
-            <div class="pwBoxtext">
-            	<span id="inputResult2"></span>
-            </div>
-            
-            <div class="pwBox2">
-				<input type="password" class="form-control" id="user_pwCheck" value="" placeholder="비밀번호 확인">
-			</div>
-            <div class="pwBox2text">
-            	<span id="inputResult3"></span>
-            </div>
-            
             <div class="nicknameBox">
                 <div class="nicknameBox2">
-                    <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="" placeholder="닉네임">
+                    <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="${user_nickname}" readonly>
                 </div>
                 <div class="nicknameBox2text">
                 	<span id="inputResult4"></span>
+                </div>
+            </div>
+            
+            <div class="kBox">
+                <div class="kBox2">
+                    <input type="text" class="form-control" id="user_k" name="user_k" value="${user_k}">
+                </div>
+            </div>
+            
+            <div class="pwBox">
+                <div class="pwBox2">
+                    <input type="password" class="form-control" id="user_pw" name="user_pw" value="kakaoPw">
                 </div>
             </div>
             
@@ -254,12 +276,17 @@
             </div>
             <div class="row p-3 justify-content-center">
                 <div class="col-12 d-flex justify-content-center">
-                    <img id="kakaoSignup" src="/resources/images/member/kakao login.png" onclick="">
+                    <button type="button" class="btn btn-secondary" id="backBtn">뒤로가기</button>
                 </div>
             </div>
 		</div>
 	</form>
 	<script>
+		// 뒤로 가기 버튼
+		document.getElementById("backBtn").onclick = function(){
+			location.href = "/member/toLogin";
+		}
+	
 		// user_id
 		$("#user_id").on("keyup", function(e) {
 			let regexId = /^[a-zA-Z][\w]+@[a-zA-Z]+\.(com|net|co\.kr|or\.kr)$/;
@@ -286,38 +313,6 @@
 							console.log(e);
 						}
 					})
-				}
-			}
-		})
-		
-		// user_pw
-		$("#user_pw").on("keyup", function(e) {
-			let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
-			// 8 : Backspace / 13 : Enter
-			console.log(e.key);
-			if(e.key !== 'Backspace' && e.key !== 'Enter'){
-				if(!regexPw.test($("#user_pw").val())) {
-					$("#inputResult2").html("&nbsp;&nbsp;비밀번호는 6~12자 이내로 입력해주세요<br>&nbsp;&nbsp;(영어 대소문자, 숫자, 특수문자 포함 가능)").css({color:'#f44336', 'float':'left'})
-					$("#user_pw").focus();
-					return;
-				}else{
-					$("#inputResult2").html("&nbsp;&nbsp;사용 가능한 비밀번호입니다").css({color:'#04AA6D', 'float':'left'})
-				}
-			}
-		})
-		
-		// user_pwCheck
-		$("#user_pwCheck").on("keyup", function(e) {
-			let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
-			// 8 : Backspace / 13 : Enter
-			console.log(e.key);
-			if(e.key !== 'Backspace' && e.key !== 'Enter'){
-				if($("#user_pw").val() !== $("#user_pwCheck").val()) {
-					$("#inputResult3").html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다").css({color:'#f44336', 'float':'left'})
-					$("#user_pwCheck").focus();
-					return;
-				}else{
-					$("#inputResult3").html("&nbsp;&nbsp;비밀번호가 일치합니다").css({color:'#04AA6D', 'float':'left'})
 				}
 			}
 		})
@@ -467,7 +462,6 @@
 	
 			let user_id = $("#user_id").val();
 			let user_pw = $("#user_pw").val();
-			let user_pwCheck = $("#user_pwCheck").val();
 			let user_nickname = $("#user_nickname").val();
 			let user_name = $("#user_name").val();
 			let user_birth = $("#user_birth").val();
@@ -478,11 +472,8 @@
 			if ($("#user_id").val() === "") {
 				$('#user_id').focus();
 				return false;
-			} else if (!regexPw.test($("#user_pw").val())) {
+			} else if ($("#user_pw").val() === "") {
 				$('#user_pw').focus();
-				return false;
-			} else if ($("#user_pw").val() !== $( "#user_pwCheck").val()) {
-				$('#user_pwCheck').focus();
 				return false;
 			} else if ($("#user_nickname").val() === "") {
 				$('#user_nickname').focus();
@@ -502,9 +493,9 @@
 			}
 
 			$.ajax({
-				url : "/member/signUp"
+				url : "/member/kakaosignUp"
 				,type : "post"
-				,data : {user_id : $("#user_id").val(), user_pw : $("#user_pw").val(), user_pwCheck : $("#user_pwCheck").val(),
+				,data : {user_id : $("#user_id").val(), user_k : $("#user_k").val(), user_pw : "kakaoPw",
 					 user_nickname : $("#user_nickname").val(), user_name : $("#user_name").val(), user_birth : $("#user_birth").val(),
 					 user_phone : $("#user_phone").val(), postcode : $("#postcode").val(), roadAddr : $("#roadAddr").val(),
 					 detailAddr : $("#detailAddr").val(), extraAddr : $("#extraAddr").val()}
