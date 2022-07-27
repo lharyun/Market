@@ -20,6 +20,14 @@ public class BlackListDAO {
 		session.insert("blackListMapper.insert",dto);
 	}
 	
+	public int checkBlack(String user_id) throws Exception{//블랙리스트에 이미 있는 사람인지 check
+		return session.selectOne("blackListMapper.checkBlack",user_id);		
+	}
+	
+	public void updateBlack(BlackListDTO dto) throws Exception{//블랙리스트에 있는사람이면 insert대신 update
+		session.update("blackListMapper.updateBlack",dto);
+	}
+	
 	public void black(String user_id) throws Exception{//member테이블의 black_check-> true
 		session.update("blackListMapper.black",user_id);
 	}

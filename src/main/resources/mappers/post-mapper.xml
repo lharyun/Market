@@ -63,6 +63,7 @@
 	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
 		where NOT post_title is NULL
 	</select> -->
+	
 	<select id="selectJoin" parameterType="int" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
 	select 
 	    Case WHEN LENGTH(post_title) > 8 THEN SubStr(post_title, 0, 8) || '..' ELSE post_title End as post_title

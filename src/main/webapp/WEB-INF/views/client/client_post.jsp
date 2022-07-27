@@ -983,6 +983,9 @@ footer .nav-link:hover {
 								글쓰기
 							</button>
 						<%-- </c:if> --%>
+						 <a class="nav-link" href="/member/toManager?curPage=1">
+	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
+	         </a>
 					</div>
 					<hr style="border: 2px solid #f47d39" />
 

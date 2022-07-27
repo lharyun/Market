@@ -1,6 +1,7 @@
 package com.market.file;
 
 public class FileDTO {
+
 	private int file_seq;
 	private int client_seq;
 	private String ori_name;
