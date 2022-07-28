@@ -248,7 +248,7 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false"><b>${loginSession.user_nickname}</b> 상점</a>
 		                                <ul class="dropdown-menu">
 		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
@@ -1010,21 +1010,26 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${loginSession.notification.size() == 0}">
+                	<c:if test="${notification.size() == 0 or empty notification}">
+                		<div class="row p-1 d-flex justify-content-center fw-bold">
+                			새로운 알림이 없습니다.
+                		</div>
+                	</c:if>
+                	<c:if test="${empty notification}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
                 	
-                	<c:if test="${loginSession.notification.size() > 0}">
-                		<c:forEach items="${loginSession.notification}" var="notifi">
+                	<c:if test="${notification.size() > 0}">
+                		<c:forEach items="${notification}" var="notifi">
                 			<c:if test="${notifi.notification_type eq '채팅'}">
 			                    <div class="row p-1 ">
 			                        <div class="col-2 text-center n_logo">
 			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1039,7 +1044,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1053,7 +1058,7 @@
 			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1081,13 +1086,13 @@
          </a>
     </div>
     <%-- 관리자 아이디와 같다면 --%>
-	<%-- <c:if test="${loginSession.user_id eq 'abc123'}"> --%>
+	<c:if test="${loginSession.user_id eq 'asd123@naver.com'}">
 	    <div class="logo4">
 	        <a class="nav-link" href="/member/toManager?curPage=1">
 	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
 	         </a>
 	    </div>
-    <%-- </c:if> --%>
+    </c:if>
     
     <footer class="py-4 text-light">
         <div class="container" id="footerBox">

@@ -1,7 +1,6 @@
 package com.market.file;
 
 public class FileDTO {
-
 	private int file_seq;
 	private int client_seq;
 	private String ori_name;
@@ -54,6 +53,4 @@ public class FileDTO {
 		return "FileDTO [file_seq=" + file_seq + ", client_seq=" + client_seq + ", ori_name=" + ori_name + ", sys_name="
 				+ sys_name + "]";
 	}
-	
-
 }

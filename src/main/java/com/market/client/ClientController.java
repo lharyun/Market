@@ -44,7 +44,7 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value="/toModify")
-	public String toModify(int client_seq,Model model) throws Exception {	//게시글 수정 이동.
+	public String toModify(int client_seq,Model model) throws Exception {	//게시글 수정 이동
 		ClientDTO dto=service.selectBySeq(client_seq);
 		model.addAttribute("dto",dto);
 		return "client/client_modify";

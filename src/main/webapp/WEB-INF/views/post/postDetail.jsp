@@ -378,6 +378,7 @@
 
 <body>
     <!-- Header -->
+   <!-- Header -->
     <header>
         <div class="container-fluid p-0" id="Non-reaction">
             <nav>
@@ -410,7 +411,7 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname} 상점</a>
 		                                <ul class="dropdown-menu">
 		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
@@ -1138,7 +1139,6 @@
         <div class="row mt-3 ">
             <div class="col">
             	<%-- 로그인된 아이디와 같다면 --%>
-            	
             	<c:if test="${loginSession.user_id eq map.postDTO.user_id}">
 	                <select class="form-select post_state" id="post_state" aria-label="Default select example"
 	                    name="post_state" onchange="location.href=this.value">
@@ -1159,9 +1159,17 @@
             <div class="col d-flex justify-content-end">
             	
                 <!-- 신고버튼 모달 -->
-                <button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
-                    <img src="/resources/images/post/report.png" height="25px">
-                </button>
+                <c:if test="${not empty loginSession}">
+	            	<button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
+                    	<img src="/resources/images/post/report.png" height="25px">
+                	</button>
+	            </c:if>
+	            <c:if test="${empty loginSession}">
+	            	<button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa_login">
+                    	<img src="/resources/images/post/report.png" height="25px">
+                	</button>
+	            </c:if>
+                
                 <!-- Modal -->
                 <div id="modal_delete">
                     <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1177,6 +1185,26 @@
                                 <div class="col d-flex justify-content-center pt-5" id="modalBtn">
                                     <button type="button" class="middle_Btn" id="post_reportBtn"
                                         data-bs-dismiss="modal">신고하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 로그인 요청Modal -->
+                <div id="modal_delete">
+                    <div class="modal fade" id="exampleModa_login" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                            <div class="row align-items-center modal-content ">
+                                <div class="row align-items-center middle_bottomLine">
+                                     <div class="col d-flex justify-content-center fw-bold pb-2" id="modalTitle" style="width:auto;">
+                                        로그인이 필요한 기능입니다!
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                    <button type="button" class="middle_Btn" 
+                                        data-bs-dismiss="modal">확인</button>
                                 </div>
                             </div>
                         </div>
@@ -1244,9 +1272,17 @@
                         <!-- 찜이 등록되어있다면 after 아니면 before 해주기 -->
                         
                         <c:if test="${empty basketDto}">
-	                        <button type="button" class="heartBefore">
-	                            <img src="/resources/images/post/heartLine.png" height="20px" width="20px">
-	                        </button>
+                        	<c:if test="${not empty loginSession}">
+	            				<button type="button" class="heartBefore">
+	                            	<img src="/resources/images/post/heartLine.png" height="20px" width="20px">
+	                        	</button>
+	            			</c:if>
+				            <c:if test="${empty loginSession}">
+				            	<button type="button" >
+	                            	<img src="/resources/images/post/heartLine.png" height="20px" width="20px">
+	                        	</button>
+				            </c:if>
+	                        
                         </c:if>
                         <c:if test="${!empty basketDto}">
 	                        <button type="button" class="heartAfter">
@@ -1256,7 +1292,6 @@
                     </span>
                     <span class="px-2 fw-bolder"> ${map.postDTO.price_selling}원</span>
                     
-                    
                     <c:if test="${map.postDTO.price_check ne 1}">
                     	<span class="middle_smText">
                     		가격제안불가
@@ -1264,7 +1299,12 @@
                     </c:if>
                     <c:if test="${map.postDTO.price_check eq 1}">
 	                    <span class="middle_orangeText">
-	                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
+	                    	<c:if test="${loginSession.user_id ne memberDto.user_id}">
+	                        	<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
+	                        </c:if>
+	                        <c:if test="${empty loginSession}">
+	                        	<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa_login">가격제안하기</a>
+	                        </c:if>
 	                        <!-- Modal -->
 	                        <div id="modal_delete">
                                 <form class="m-0" id="notificationForm" action="/notification/notification_insert" method="post">
@@ -1288,6 +1328,8 @@
 				                                        <input type="text" name="post_title" value="${map.postDTO.post_title}">
 				                                        <input type="text" name="notification_type" value="가격">
 				                                        <input type="text" name="post_seq"  value="${map.postDTO.post_seq}">
+				                                        <input type="text" name="from_nickname"  value="${loginSession.user_nickname}">
+				                                        <input type="text" name="user_nickname"  value="${memberDto.user_nickname}">
 					                                </div>
                                                 </div>
         
@@ -1303,8 +1345,16 @@
 	                    </span>
                     </c:if>
                 </div>
+                
+               
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="middleBtn">채팅하기</button>
+                 	<c:if test="${not empty loginSession and loginSession.user_id ne memberDto.user_id}">
+	               		<button type="button" class="middleBtn" id="toChatBtn">채팅하기</button>
+	                </c:if>
+	                <c:if test="${empty loginSession or loginSession.user_id eq memberDto.user_id}">
+	                	<button type="button" class="middleBtn" disabled=”disabled”>채팅하기</button>
+	                </c:if>
+                    
                 </div>
             </div>
         </div>
@@ -1413,14 +1463,14 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${loginSession.notification.size() == 0}">
+                	<c:if test="${notification.size() == 0}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
                 	
-                	<c:if test="${loginSession.notification.size() > 0}">
-                		<c:forEach items="${loginSession.notification}" var="notifi">
+                	<c:if test="${notification.size() > 0}">
+                		<c:forEach items="${notification}" var="notifi">
                 			<c:if test="${notifi.notification_type eq '채팅'}">
 			                    <div class="row p-1 ">
 			                        <div class="col-2 text-center n_logo">
@@ -1471,6 +1521,7 @@
         </div>
     </div>
 
+
     <!-- 로고 클릭하면 모달 -->
     <div class="logo3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
         <a class="nav-link" href="#">
@@ -1484,7 +1535,7 @@
          </a>
     </div>
     <%-- 관리자 아이디와 같다면 --%>
-	<c:if test="${loginSession.user_id eq 'abc123'}">
+	<c:if test="${loginSession.user_id eq 'asd123@naver.com'}">
 	    <div class="logo4">
 	        <a class="nav-link" href="/member/toManager?curPage=1">
 	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
@@ -1588,6 +1639,11 @@
 			$(".carousel-inner").children().first().addClass('active');
 			$(".car_img2").children().first().addClass('active');
 	    });
+    	//채팅버튼 클릭시 페이지 이동
+    	
+    	$("#toChatBtn").on("click", function(){
+    		location.href = "/chatting/toChatting"
+    	})
     	//수정버튼 클릭시 페이지 이동
     	$("#postModifyBtn").on("click", function(){
     		location.href = "/post/toPostModify?post_seq=${map.postDTO.post_seq}"

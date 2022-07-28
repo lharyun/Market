@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
-
 
 import javax.inject.Inject;
 import javax.mail.Message;
@@ -214,19 +212,16 @@ import com.google.gson.JsonParser;
 		}
 		return access_Token;
 	}
-	
-
-	// 프로필 사진 수정
 	/*
-	 * public int modifyProfile(MemberDTO dto) throws Exception{ return
-	 * memberDAO.modifyProfile(dto); }
-	 */
-	
+	// 프로필 사진 수정
+	public int modifyProfile(MemberDTO dto) throws Exception{
+		return memberDAO.modifyProfile(dto);
+	}
+	*/
 	// 내 정보 수정
 	public int modifyInfo(String user_id, String user_nickname, String user_pw, String user_phone, String postcode, String roadAddr, String detailAddr, String extraAddr) throws Exception{
 		return memberDAO.modifyInfo(user_id, user_nickname, user_pw, user_phone, postcode, roadAddr, detailAddr, extraAddr);
 	}
-
 	// 카카오톡 토큰 넣기 + 카카오 회원가입 + 카카오 아이디 중복확인
 	public MemberDTO getUserInfo(String access_Token) {
 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
@@ -305,7 +300,6 @@ import com.google.gson.JsonParser;
         
 	}
 	
-
 	
   //하륜
 	public List<MemberDTO> selectAll(int start,int end) throws Exception{
@@ -355,4 +349,8 @@ import com.google.gson.JsonParser;
 				
 	}
 	
+	//준철 주소 합치기
+	public String makeAddr(String user_id)throws Exception{
+		return memberDAO.makeAddr(user_id);	
+	}
 }

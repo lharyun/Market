@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.market.basket.BasketDTO;
 import com.market.post_img.Post_imgDAO;
 import com.market.post_img.Post_imgDTO;
 
@@ -82,7 +81,7 @@ public class PostService {
 			}
 			// map -> key, value
 						// 제네릭 <키에 대한 자료형, 값에 대한 자료형>
-			HashMap<String,Object> map =new HashMap<>();
+			HashMap<String,Object> map =new HashMap<String,Object>();
 			map.put("startNavi",startNavi);
 			map.put("endNavi", endNavi);
 			map.put("needPrev", needPrev);
@@ -103,7 +102,7 @@ public class PostService {
 
 	public Map<String, Object> selectPost_seq(int post_seq) throws Exception{ //  게시글 조회
 		// 다른 타입의 데이터를 반환하기 위해 map를 이용
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("imgDTO", post_imgDao.selectPost_seq(post_seq)); // 이미지 데이터 가져오기
 		map.put("postDTO", postDao.selectPost_seq(post_seq)); // 판매 게시글 데이터 가져오기
 		return map;
