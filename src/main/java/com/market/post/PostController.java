@@ -70,7 +70,7 @@ public class PostController {
 			System.out.println(post_addr);
 			System.out.println("curPage" + curPage);
 			//페이지 나누기
-			HashMap<String,Object> map =service.getPageNavi(curPage,post_addr,search);
+			HashMap<String,Object> map =service.getPageNavi_s(curPage,post_addr,search);
 			System.out.println("post_addr : " +post_addr);
 			System.out.println("search : " +search);
 			map.put("post_addr",post_addr);

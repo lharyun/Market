@@ -41,7 +41,13 @@
 	</update>
 	
 	<!-- 페이지 찾기 -->
+	<!-- 판매중만 -->
  	<select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_post
+ 			where post_state='판매중'
+ 	</select>
+ 	<!-- 전체검색 -->
+ 	<select id="getPageNavi_s" resultType="int">
  		select count(*) as totalCnt from tbl_post
  		<if test="search != null and search != ''"> <!-- 검색 -->
 			where post_title like '%' || #{search} || '%'
@@ -63,10 +69,13 @@
 	    , a.*
 	    , b.*
 	from ( select tbl_post.*, row_number() over(order by post_seq desc)
-	 	as num from tbl_post) a  FULL OUTER JOIN tbl_post_img b  
+	 	as num from tbl_post
+	 	where post_state='판매중' 
+	 	) a  FULL OUTER JOIN tbl_post_img b  
 	    on a.post_seq= b.post_seq
 	and post_img_seq IN ( SELECT MIN(post_img_seq) FROM tbl_post_img GROUP BY post_seq)
 	    where NOT post_title is NULL
+	and post_state='판매중'  
 	and num between #{start} and #{end}
 	    order by a.post_seq desc
 	</select>

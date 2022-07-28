@@ -31,9 +31,6 @@ public class PostDAO {
 	}
 	//state 업데이트
 	public void toPost_state(PostDTO dto) throws Exception{
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("post_state", post_state);
-//		map.put("post_seq", post_seq);
 		session.delete("postMapper.toPost_state", dto);
 	}
 	// 새로운 게시글 시퀀스 번호 생성
@@ -46,6 +43,13 @@ public class PostDAO {
 	}
 	//페이지 계산
 	public int getPageNavi(String post_addr, String search) throws Exception{
+		Map<String,Object> map= new HashMap<>();
+		map.put("post_addr", post_addr);
+		map.put("search", search);
+		return session.selectOne("postMapper.getPageNavi",map);
+	}
+	//페이지 계산
+	public int getPageNavi_s(String post_addr, String search) throws Exception{
 		Map<String,Object> map= new HashMap<>();
 		map.put("post_addr", post_addr);
 		map.put("search", search);
