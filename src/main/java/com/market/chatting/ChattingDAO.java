@@ -1,16 +1,21 @@
 package com.market.chatting;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ChattingDAO{    
-    
+	@Autowired
+	private SqlSession session;
     @Autowired
     SqlSessionTemplate sqlSession;
+    
  
     public ChattingRoomDTO selectChatRoom(String roomId) {
         return sqlSession.selectOne("chattingMapper.selectChattingRoom", roomId);
@@ -44,4 +49,14 @@ public class ChattingDAO{
         return sqlSession.update("chattingMapper.updateCount", message);
     };
  
+    //준철
+    public void chat_insert(ChattingRoomDTO room) {
+        sqlSession.insert("chattingMapper.chat_insert", room);
+    }
+    public boolean overlapping(String userName, int post_seq) throws Exception {
+    	Map<String, Object> map = new HashMap<>();
+		map.put("userName", userName);
+		map.put("post_seq", post_seq);
+    	return sqlSession.selectOne("chattingMapper.overlapping", map);
+	}
 }

@@ -353,4 +353,7 @@ import com.google.gson.JsonParser;
 	public String makeAddr(String user_id)throws Exception{
 		return memberDAO.makeAddr(user_id);	
 	}
+	public String e_makeAddr(String user_nickname)throws Exception{
+		return memberDAO.e_makeAddr(user_nickname);	
+	}
 }

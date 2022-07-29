@@ -25,6 +25,14 @@
 </head>
 <style>
     /* ===contetnt 영역==== */
+    textarea {
+        resize: none;
+        min-height: 5rem;
+    }
+
+    textarea:focus {
+        outline: none;
+    }
     input:focus {
         outline: none;
     }
@@ -1295,7 +1303,10 @@
         <div class="my-3 pt-3 topLine">
             <div class="middle_lgText">${map.postDTO.post_title}</div>
             <div class="middle_smText mt-1">${map.postDTO.post_category}·${map.postDTO.post_time}</div>
-            <div class="py-3">${map.postDTO.post_content}</div>
+            <div class="py-3">
+            <textarea class="form-control-plaintext font_style" id="post_content" disabled 
+                            >${map.postDTO.post_content}</textarea>
+            </div>
             <div class="middle_smText" id="cntBox">
             관심${map.postDTO.post_interest_cnt}
             ·채팅${map.postDTO.post_chatting_cnt}
@@ -1399,7 +1410,11 @@
 	                <c:if test="${empty loginSession or loginSession.user_id eq memberDto.user_id}">
 	                	<button type="button" class="middleBtn" disabled=”disabled”>채팅하기</button>
 	                </c:if>
-                    
+                    <form id="chatForm" class="d-none" action="/chatting/chat_insert" method="post">
+                            <input type="text" name="userName" value="${memberDto.user_nickname}">
+                            <input type="text" name="masterName" value="${loginSession.user_nickname}">
+                            <input type="text" name="post_seq" value="${map.postDTO.post_seq}">
+                    </form>
                 </div>
             </div>
         </div>
@@ -1693,7 +1708,7 @@
     	//채팅버튼 클릭시 페이지 이동
     	
     	$("#toChatBtn").on("click", function(){
-    		location.href = "/chatting/toChatting"
+    		 $("#chatForm").submit();
     	})
     	//수정버튼 클릭시 페이지 이동
     	$("#postModifyBtn").on("click", function(){
@@ -1838,7 +1853,15 @@
     	}) 
         })
         
-        
+   
+        $(document).ready(function() {
+        	 var txtArea = $("#post_content");
+        	    if (txtArea) {
+        	        txtArea.each(function(){
+        	            $(this).height(this.scrollHeight);
+        	        });
+        	    }
+        });
      
     </script>
 

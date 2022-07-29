@@ -1,34 +1,25 @@
 package com.market.chatting;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-
+import com.market.member.MemberService;
 
 @RequestMapping(value = "/chatting")
 @Controller
 public class ChattingController {
 	@Autowired
     ChattingService cService;
+	@Autowired
+	private MemberService memberService;
 	/*
     @Autowired
     ProductService pService;
     
     @Autowired
     private ChattingSession cSession;
+    
     */
 	public ChattingController() {
 		System.out.println("ChattingController 인스턴스 생성");
@@ -37,6 +28,19 @@ public class ChattingController {
 	@RequestMapping(value = "/toChatting")
 	public String toChatting() {
 		return "chatting/chatting";
+	}
+	//준철
+	@RequestMapping(value = "/chat_insert")
+	public String chat_insert(ChattingRoomDTO dto) throws Exception{
+		String userName = dto.getUserName();//닉네임으로 조회
+		System.out.println(userName);
+		dto.setExtraAddr(memberService.e_makeAddr(userName));
+		System.out.println(dto);
+		System.out.println(dto.getPost_seq());
+		if(!cService.overlapping(userName, dto.getPost_seq())) {//중복값이 없다면
+			cService.chat_insert(dto);// 채팅방 만들기
+		};
+		return "redirect:/chatting/toChatting";
 	}
 	/*
 	// 해당 채팅방의 채팅 메세지 불러오기

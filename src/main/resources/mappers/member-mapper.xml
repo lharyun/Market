@@ -95,5 +95,10 @@
 		from tbl_member
 		    where user_id= #{user_id}
  	</select>
-
+	<select id="e_makeAddr" resultType="String">
+ 		select 
+		    SUBSTR(extraAddr,INSTR(extraAddr,'(')+1,INSTR(extraAddr,')')-INSTR(extraAddr,'(')-1)from 
+		tbl_member
+			where user_nickname=#{user_nickname}
+ 	</select>
  </mapper>

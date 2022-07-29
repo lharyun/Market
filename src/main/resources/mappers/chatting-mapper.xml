@@ -5,11 +5,17 @@
 
 
  <mapper namespace="chattingMapper">
-	<!-- <insert id="insert" parameterType="com.market.chatting.ChattingDTO">
-		insert into tbl_chatting
-		values(#{nickname}, #{message})
+	<insert id="chat_insert" parameterType="com.market.chatting.ChattingRoomDTO">
+		insert into ChattingRoom values(
+		roomId_seq.nextval,#{userName},#{masterName},
+		0, #{post_seq},sysdate,#{extraAddr}, '메세지가 없습니다')
 	</insert>
-	<select id="select" resultType="com.market.chatting.ChattingDTO">
+	<select id="overlapping"  resultType="boolean">
+		select count(*) from ChattingRoom 
+			where userName = #{userName}
+			and post_seq = #{post_seq}
+	</select>
+	<!-- <select id="select" resultType="com.market.chatting.ChattingDTO">
 		select * from tbl_chatting
 	</select> -->
  </mapper>

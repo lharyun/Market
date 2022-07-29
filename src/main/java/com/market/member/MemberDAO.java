@@ -119,5 +119,8 @@ public class MemberDAO {
 		public String makeAddr(String user_id)throws Exception{
 			return session.selectOne("memberMapper.makeAddr",user_id);	
 		}
+		public String e_makeAddr(String user_nickname)throws Exception{
+			return session.selectOne("memberMapper.e_makeAddr",user_nickname);	
+		}
 }
 
