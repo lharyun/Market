@@ -907,14 +907,49 @@
             <div class="chatting_memberBox">
                 <div class="myProfile">
                     <div class="d-flex align-items-center">
-                        <img src="/resources/images/chatting/슈퍼파워.jpeg">
+                    	<c:if test="${empty memdto.user_profile}">
+                        	<img src="/resources/images/chatting/NoImg.webp">
+                        </c:if>
+                        <c:if test="${not empty memdto.user_profile}">
+							<%-- 프로필 완성후 경로값 설정 --%>
+                        	<img src="/resources/images/chatting/슈퍼파워.jpeg">
+                        </c:if>
                         <span class="ms-2 fw-bolder">
-                            중고파워
+                            ${memdto.user_nickname}
                         </span>
                     </div>
                 </div>
                 <!-- 채팅목록 -->
                 <div class="chatting_member">
+                <c:if test="${list.size() == 0}">
+                	<div class="yourProfile">
+                        <div class="d-flex align-items-center">
+                			채팅 상대가 없습니다.
+                		</div>
+                	</div>
+                </c:if>
+                <c:if test="${list.size() > 0}">
+                	<c:forEach items="${list}" var="list">
+	                	<div class="yourProfile">
+	                        <div class="d-flex align-items-center">
+	                            <c:if test="${empty memdto.user_profile}">
+                        			<img src="/resources/images/chatting/NoImg.webp">
+		                        </c:if>
+		                        <c:if test="${not empty memdto.user_profile}">
+									<%-- 프로필 완성후 경로값 설정 --%>
+		                        	<img src="/resources/images/chatting/슈퍼파워.jpeg">
+		                        </c:if>
+	                            <div class="ms-2 member_textBox">
+	                                <span class="fw-bolder">${list.username}</span> 
+	                                <span class="font_gray">${list.extraaddr}·${list.last_date}</span>
+	                                <div >
+	                                    ${list.last_chat}
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</div>
+	                </c:forEach>
+                </c:if>
                     <div class="yourProfile">
                         <div class="d-flex align-items-center">
                             <img src="/resources/images/chatting/박하사탕.jpeg">

@@ -356,4 +356,7 @@ import com.google.gson.JsonParser;
 	public String e_makeAddr(String user_nickname)throws Exception{
 		return memberDAO.e_makeAddr(user_nickname);	
 	}
+	public MemberDTO selectByNickname(String user_nickname)throws Exception{
+		return memberDAO.selectByNickname(user_nickname);	
+	}
 }

@@ -8,12 +8,20 @@
 	<insert id="chat_insert" parameterType="com.market.chatting.ChattingRoomDTO">
 		insert into ChattingRoom values(
 		roomId_seq.nextval,#{userName},#{masterName},
-		0, #{post_seq},sysdate,#{extraAddr}, '메세지가 없습니다')
+		0, #{post_seq},sysdate,#{extraAddr}, '거래를 시작하세요!')
 	</insert>
+	<!-- insert전 중복확인 -->
 	<select id="overlapping"  resultType="boolean">
 		select count(*) from ChattingRoom 
 			where userName = #{userName}
 			and post_seq = #{post_seq}
+	</select>
+	<!-- 프로파일,채팅룸 불러오기  -->
+	<select id="chat_mamberJoin" parameterType="String" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
+		select a.*, b.user_profile 
+			from ChattingRoom a inner join tbl_member b
+		on a.masterName = b.user_nickname
+			where masterName = #{masterName}
 	</select>
 	<!-- <select id="select" resultType="com.market.chatting.ChattingDTO">
 		select * from tbl_chatting

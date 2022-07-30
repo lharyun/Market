@@ -1,5 +1,8 @@
 package com.market.chatting;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
@@ -21,5 +24,9 @@ public class ChattingService {
 	//중복체크
 	public boolean overlapping(String userName, int post_seq) throws Exception{
 		return dao.overlapping(userName,post_seq);
+	}
+	// 프로파일,채팅룸 불러오기
+	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 
+		return dao.chat_mamberJoin(masterName);
 	}
 }

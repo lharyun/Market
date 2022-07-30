@@ -119,8 +119,11 @@ public class MemberDAO {
 		public String makeAddr(String user_id)throws Exception{
 			return session.selectOne("memberMapper.makeAddr",user_id);	
 		}
-		public String e_makeAddr(String user_nickname)throws Exception{
+		public String e_makeAddr(String user_nickname)throws Exception{ //닉네임 조회로 글자르기
 			return session.selectOne("memberMapper.e_makeAddr",user_nickname);	
+		}
+		public MemberDTO selectByNickname(String user_nickname)throws Exception{ //채팅쪽 조회
+			return session.selectOne("memberMapper.selectByNickname",user_nickname);	
 		}
 }
 

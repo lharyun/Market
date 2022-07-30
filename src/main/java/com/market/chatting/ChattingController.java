@@ -1,9 +1,16 @@
 package com.market.chatting;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.market.member.MemberDTO;
 import com.market.member.MemberService;
 
 @RequestMapping(value = "/chatting")
@@ -13,6 +20,8 @@ public class ChattingController {
     ChattingService cService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private HttpSession session;
 	/*
     @Autowired
     ProductService pService;
@@ -26,7 +35,14 @@ public class ChattingController {
 	}
 	
 	@RequestMapping(value = "/toChatting")
-	public String toChatting() {
+	public String toChatting(Model model) throws Exception{
+		String masterName= ((MemberDTO) session.getAttribute("loginSession")).getUser_nickname();
+		MemberDTO memdto = memberService.selectByNickname(masterName);
+		model.addAttribute("memdto", memdto);
+		System.out.println(memdto);
+		List<Map<String, Object>> list=cService.chat_mamberJoin(masterName);
+		model.addAttribute("list", list);
+		System.out.println(list);
 		return "chatting/chatting";
 	}
 	//준철

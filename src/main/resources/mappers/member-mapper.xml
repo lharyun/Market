@@ -101,4 +101,7 @@
 		tbl_member
 			where user_nickname=#{user_nickname}
  	</select>
+ 	<select id="selectByNickname" parameterType="string" resultType="com.market.member.MemberDTO">
+ 		select * from tbl_member where user_nickname=#{user_nickname}
+ 	</select>
  </mapper>

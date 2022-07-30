@@ -59,4 +59,8 @@ public class ChattingDAO{
 		map.put("post_seq", post_seq);
     	return sqlSession.selectOne("chattingMapper.overlapping", map);
 	}
+ // 프로파일,채팅룸 불러오기
+ 	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 
+ 		return sqlSession.selectList("chattingMapper.chat_mamberJoin",masterName);
+ 	}
 }
