@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.member.MemberDTO;
 import com.market.member.MemberService;
@@ -33,7 +34,7 @@ public class ChattingController {
 	public ChattingController() {
 		System.out.println("ChattingController 인스턴스 생성");
 	}
-	
+	//준철
 	@RequestMapping(value = "/toChatting")
 	public String toChatting(Model model) throws Exception{
 		String masterName= ((MemberDTO) session.getAttribute("loginSession")).getUser_nickname();
@@ -45,7 +46,7 @@ public class ChattingController {
 		System.out.println(list);
 		return "chatting/chatting";
 	}
-	//준철
+	
 	@RequestMapping(value = "/chat_insert")
 	public String chat_insert(ChattingRoomDTO dto) throws Exception{
 		String userName = dto.getUserName();//닉네임으로 조회
@@ -57,6 +58,18 @@ public class ChattingController {
 			cService.chat_insert(dto);// 채팅방 만들기
 		};
 		return "redirect:/chatting/toChatting";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/chat_m_select")
+	public String chat_m_select(int roomId, int post_seq) throws Exception{
+		System.out.println(roomId+":" + post_seq);
+		List<ChattingMessageDTO> dto = cService.chat_m_select(roomId);
+		System.out.println(dto);
+		if(dto != null) {
+			
+			return"success";
+		}
+		return "fail";
 	}
 	/*
 	// 해당 채팅방의 채팅 메세지 불러오기

@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.market.member.MemberDTO;
+
 @Repository
 public class ChattingDAO{    
 	@Autowired
@@ -48,7 +50,7 @@ public class ChattingDAO{
     public int updateCount(ChattingMessageDTO message) {
         return sqlSession.update("chattingMapper.updateCount", message);
     };
- 
+    //룸쪽
     //준철
     public void chat_insert(ChattingRoomDTO room) {
         sqlSession.insert("chattingMapper.chat_insert", room);
@@ -63,4 +65,10 @@ public class ChattingDAO{
  	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 
  		return sqlSession.selectList("chattingMapper.chat_mamberJoin",masterName);
  	}
+ 	
+ 	//메세지쪽
+ 	public List<ChattingMessageDTO> chat_m_select(int roomId) throws Exception{
+		System.out.println(roomId);
+ 		return session.selectList("memberMapper.chat_m_select",roomId);
+		}
 }

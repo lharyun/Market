@@ -6,8 +6,8 @@ import com.market.utils.Time;
 
 public class ChattingRoomDTO {
 	private int room_id; //seq번호
-	private String userName; //상대방 닉네임
-	private String masterName; //본인 닉네임
+	private String userName; //구매자 닉네임
+	private String masterName; //판매자 닉네임
 	private int unReadCount; //안읽은 메세지수
 	private int post_seq;//판매게시판시퀀스
 	private String last_date; //마지막 업로드시간

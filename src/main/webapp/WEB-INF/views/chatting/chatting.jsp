@@ -945,12 +945,14 @@
 	                                <div >
 	                                    ${list.last_chat}
 	                                </div>
+	                                 <input type="text" class="d-none" id="roomId" value="${list.roomId}">
+	                                 <input type="text" class="d-none" id="post_seq" value="${list.post_seq}">
 	                            </div>
 	                        </div>
                     	</div>
 	                </c:forEach>
                 </c:if>
-                    <div class="yourProfile">
+                    <%--<div class="yourProfile">
                         <div class="d-flex align-items-center">
                             <img src="/resources/images/chatting/박하사탕.jpeg">
                             <div class="ms-2 member_textBox">
@@ -1069,7 +1071,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --%>
                 </div>
             </div>
             <div class="chatting_content">
@@ -1318,6 +1320,24 @@
     $(".yourProfile").on("click", function(e){
         $(".yourProfile").css('background-color','')
         $(this).css('background-color','rgb(237, 238, 239)');
+        let roomId = $(this).find("#roomId").val();
+        let post_seq = $(this).find("#post_seq").val();
+        console.log(post_seq,roomId);
+        $.ajax({
+    		url: "/chatting/chat_m_select"
+    		, type: "get"
+    		, data: {roomId : roomId, 
+    				post_seq : post_seq}
+    		, success: function(data){
+    			if(data == "success"){//성공시
+    				alert("있습니다!");
+    			}else if(data == "fail"){
+    				alert("없습니다!");
+    			}
+    		}, error: function(e){
+    			console.log(e);
+    		}
+    	})  
     })
 
     //전송버튼 클릭시

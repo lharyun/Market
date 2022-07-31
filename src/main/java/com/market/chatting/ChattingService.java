@@ -18,6 +18,7 @@ public class ChattingService {
 //		return dao.select();
 //	}
 	//준철
+	//룸쪽
 	public void chat_insert(ChattingRoomDTO dto) throws Exception{
 		dao.chat_insert(dto);
 	}
@@ -29,4 +30,8 @@ public class ChattingService {
 	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 
 		return dao.chat_mamberJoin(masterName);
 	}
+	//메세지쪽
+	public List<ChattingMessageDTO> chat_m_select(int roomId) throws Exception{
+		return dao.chat_m_select(roomId);
+		}
 }
