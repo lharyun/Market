@@ -65,10 +65,21 @@ public class ChattingDAO{
  	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 
  		return sqlSession.selectList("chattingMapper.chat_mamberJoin",masterName);
  	}
+ 	//insert시 같이업데이트
+ 	public void roomUpdate(ChattingMessageDTO dto) {
+        sqlSession.update("chattingMapper.roomUpdate", dto);
+    }
  	
  	//메세지쪽
  	public List<ChattingMessageDTO> chat_m_select(int roomId) throws Exception{
 		System.out.println(roomId);
- 		return session.selectList("memberMapper.chat_m_select",roomId);
-		}
+ 		return session.selectList("chattingMapper.chat_m_select",roomId);
+	}
+ 	public void chat_m_insert(ChattingMessageDTO dto) {
+        sqlSession.insert("chattingMapper.chat_m_insert", dto);
+    }
+ 	//채팅방나가기
+ 	public void chat_m_exit(int roomId) {
+        sqlSession.delete("chattingMapper.chat_m_exit", roomId);
+    }
 }

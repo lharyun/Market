@@ -154,7 +154,7 @@ public class PostService {
 		map.put("postDTO", postDao.selectPost_seq(post_seq)); // 판매 게시글 데이터 가져오기
 		return map;
 	}
-	
+
 	// 이미지와 게시글 저장
 	public void insert(PostDTO dto, String realPath, MultipartFile[] imgfiles) throws Exception {
 		// 다음번호 가져오기
@@ -214,7 +214,10 @@ public class PostService {
 			}
 		}
 		
-		
+	}
+	//post_seq 번호로 게시글,멤버 닉네임조회
+	public Map<String, Object> selectPost_member(int post_seq) throws Exception{
+		return postDao.selectPost_member(post_seq);
 	}
 
 }

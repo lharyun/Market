@@ -945,8 +945,9 @@
 	                                <div >
 	                                    ${list.last_chat}
 	                                </div>
-	                                 <input type="text" class="d-none" id="roomId" value="${list.roomId}">
-	                                 <input type="text" class="d-none" id="post_seq" value="${list.post_seq}">
+	                                 <input type="text" class="d-none" id="roomId" name="roomId" value="${list.roomId}">
+	                                 <input type="text" class="d-none" id="post_seq" name="post_seq"value="${list.post_seq}">
+	                                 <input type="text" class="d-none" id="rooId_input" name="roomId">
 	                            </div>
 	                        </div>
                     	</div>
@@ -1074,7 +1075,10 @@
                     </div> --%>
                 </div>
             </div>
-            <div class="chatting_content">
+            <div class="chatting_content d-flex justify-content-center align-items-center"  id="chatting_before">
+            	 <img src="/resources/images/chatting/1.png">
+            </div>
+            <div class="chatting_content d-none" id="chatting_after">
                 <div class="yourPost">
                     <!-- 클릭시게시글로 이동 -->
                     <div class="d-flex align-items-center" id="yourPost">
@@ -1085,28 +1089,32 @@
                             <div class="fw-bolder">
                                 <span>5,000원</span>
                             </div>
+                            
                         </div>
                     </div>
+                     <!-- 모달 -->
                     <div class="col p-0 dropdown text-end">
                         <a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/resources/images/chatting/navibar.png" height="35px">
                         </a>
                         <ul class="dropdown-menu no_index" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="#">신고하기</a></li>
-                            <li><a class="dropdown-item" href="#">채팅방 나가기</a></li>
+                            <li><a class="dropdown-item" id="chatExit" href="#">채팅방 나가기</a></li>
                           </ul>
                     </div>
                 </div>
                 <div class="messageBox">
+                	 <!-- 텍스트창 -->
                     <div class="contentDiv">
-
                     </div>
                     <!-- <div class="imoticonBox"></div> -->
+                    <!-- 인풋창 -->
                     <div class="textDiv">
                         <div>
                             <textarea class="form-control-plaintext font_style" id="chatting_content" name="chatting_content"
                                 placeholder="메세지를 입력하세요."></textarea>
                         </div>
+                        
                         <div class="row p-2 dropup">
                             <!-- 이모티콘 -->
                             <div class="col" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -1132,7 +1140,6 @@
                             </div>
                         </div>
                     </div>
-                    
                    
                       
                 </div>
@@ -1316,12 +1323,20 @@
 
     
     <script>
-    //채팅멤버 클릭
+    //채팅방 나가기 클릭시
+  	$("#chatExit").on("click", function(){
+  		let roomId = $("#rooId_input").val();
+  		console.log(roomId);
+  		location.href = "/chatting/chat_m_exit?roomId="+roomId;
+  	})
+    //채팅멤버 클릭 -> 리스트 출력
     $(".yourProfile").on("click", function(e){
         $(".yourProfile").css('background-color','')
         $(this).css('background-color','rgb(237, 238, 239)');
         let roomId = $(this).find("#roomId").val();
         let post_seq = $(this).find("#post_seq").val();
+        let loginId= '${loginSession.user_id}';
+        $("#rooId_input").val(roomId);
         console.log(post_seq,roomId);
         $.ajax({
     		url: "/chatting/chat_m_select"
@@ -1329,93 +1344,142 @@
     		, data: {roomId : roomId, 
     				post_seq : post_seq}
     		, success: function(data){
-    			if(data == "success"){//성공시
-    				alert("있습니다!");
-    			}else if(data == "fail"){
-    				alert("없습니다!");
+    			console.log(data);
+    			$("#chatting_before").remove();
+    			$("#chatting_after").removeClass('d-none');
+    			$("#yourPost").empty();
+    			$("#yourPost").append(
+    					"<img src='/resources/images/chatting/타블렛.jpeg'>"
+    					+'<div class="ms-2">'
+    					+	'<span class="fw-bolder">'+ data.postMap.post_state +'</span>'
+    					+	'<span class="font_gray ms-1">'+ data.postMap.post_title +'</span>'
+    					+		'<div class="fw-bolder">'
+    					+			'<span>'+data.postMap.price_selling+'원</span>'
+    					+		'</div>'
+    					+'</div>');
+    			$(".contentDiv").empty();
+    			for(var i=0; i<data.messagelist.length; i++){
+    				if(data.messagelist[i].messageId==loginId){
+    					var chat = 
+    						"<div class='dynamicChat_r'>"
+    						+"<span class='me-2 font_gray_b'>"
+    	    				+	data.messagelist[i].upload_date
+    	    				+"</span>"
+    	    				+	data.messagelist[i].message 
+    	    				+"</div>";
+	    				 $(".contentDiv").append(chat);
+    				}else{
+    					var chat = "<div class='dynamicChat_l'>" 
+    	    				+ data.messagelist[i].message 
+    	    				+ "<span class='ms-2 font_gray_b'>"+data.messagelist[i].upload_date+"</span></div>";
+    	    				 $(".contentDiv").append(chat);
+    				}
     			}
     		}, error: function(e){
     			console.log(e);
     		}
     	})  
     })
-
+	//이모티콘 클릭시
+      $(".emoticon_gabal").on("click", function () {
+    	  	let loginId= '${loginSession.user_id}';    
+          	let roomId = $('#rooId_input').val();
+          	let messageId= '${memdto.user_id}';
+          	let name =  '${memdto.user_nickname}';
+    	  	let message = "<span><img style='width:180px;height:180;' src=" + $(this).prop("src") + ">" + "</span>";
+            let newChat = "<div class='dynamicChat_r'><span class='font_gray_b'>" + "오후3:14" + "</span>" 
+                + message +"</div>";
+            console.log(newChat);
+            $(".contentDiv").append($(newChat).hide());
+            $(".dynamicChat_r").fadeIn("slow")
+                // 스크롤 아래
+                let scrollH = $(".contentDiv").prop("scrollHeight");
+                $(".contentDiv").scrollTop(scrollH);
+                
+                
+                $.ajax({
+            		url: "/chatting/chat_m_insert"
+            		, type: "post"
+            		, data: {roomId:roomId, messageId : messageId, name:name,
+            				message : message}
+            		, success: function(data){
+            			console.log(data);
+            			if(data =="success"){
+            				alert("성공!");
+            			}else{
+            				alert("실패!");
+            			}
+            		}, error: function(e){
+            			console.log(e);
+            		}
+            	})
+        })
+    
     //전송버튼 클릭시
     $("#writeBtn").on("click", function(){
+    	let user_id= '${memdto.user_id}';
+    	let loginId= '${loginSession.user_id}';
+    	console.log(user_id,loginId);
         if($(".length_num").html()>100){
             alert("글자수 초과로 입력할수 없습니다")
             return;
         }
-        if(($("#chatting_content").val() !== "")){
-            let wright = $("#chatting_content").val();
-            let newChat = "<div class='dynamicChat_l'><span class='chat_text'>" + wright + "</span>" + 
-            "<span class='ms-2 font_gray_b'>오후3:14</span></div>";
-        $(".contentDiv").append($(newChat).hide());
-
-        $(".dynamicChat_l").fadeIn("slow");
-            
-            let scrollH = $(".contentDiv").prop("scrollHeight");
-            $(".contentDiv").scrollTop(scrollH);
-            $("#chatting_content").val("");
-            $("#chatting_content").focus();
-        }
+        makeDynamicEl();
     })
     // 키보드입력시
-    $("#chatting_content").on("keydown", function (e) {
+    $("#chatting_content").on("keyup", function (e) {
         // 엔터 클릭시 
         if (e.keyCode == 13 && ($("#chatting_content").val() !== "")) {
-            if($(".length_num").html()>100){
-            alert("글자수 초과로 입력할수 없습니다")
-            return;
+            makeDynamicEl();
         }
-        let wright = $("#chatting_content").val();
-        let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + "오후3:14" + 
-            "</span><span class='chat_text'>" + wright + "</span></div>";
-        console.log(newChat);
-        $(".contentDiv").append($(newChat).hide());
-
-        $(".dynamicChat_r").fadeIn("slow");
-
+        if($(".length_num").html()>100){
+            alert("글자수 초과로 입력할수 없습니다")
+        }
+        let length_cnt = $("#chatting_content").val().length+1;
+        let length_num = length_cnt*3;
+        $(".length_num").html(length_num);
+       
+    })
+    
+      function makeDynamicEl(){
+    	let loginId= '${loginSession.user_id}';    
+        let roomId = $('#rooId_input').val();
+        let messageId= '${memdto.user_id}';
+        let name =  '${memdto.user_nickname}';
+        let message = '<span class="chat_text">' +$("#chatting_content").val() +'</span>';
+       
+        $.ajax({
+    		url: "/chatting/chat_m_insert"
+    		, type: "post"
+    		, data: {roomId:roomId, messageId : messageId, name:name,
+    				message : message}
+    		, success: function(data){
+    			console.log(data);
+    			if(data =="success"){
+    				alert("성공!");
+    			}else{
+    				alert("실패!");
+    			}
+    		}, error: function(e){
+    			console.log(e);
+    		}
+    	})  
+    	if(loginId==messageId){
+    		let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + "오후3:14" + 
+            "</span>" + message + "</div>";
+        	$(".contentDiv").append($(newChat).hide());
+        	$(".dynamicChat_r").fadeIn("slow");
+    	}else{
+    		let newChat = "<div class='dynamicChat_l'><span class='me-2 font_gray_b'>" + "오후3:14" + 
+            "</span>" + message + "</div>";
+	        $(".contentDiv").append($(newChat).hide());
+	        $(".dynamicChat_l").fadeIn("slow");
+    	}
             let scrollH = $(".contentDiv").prop("scrollHeight");
             $(".contentDiv").scrollTop(scrollH);
             $("#chatting_content").focus();
             $("#chatting_content").val("");
         }
-        let length_cnt = $("#chatting_content").val().length+1;
-        
-        let length_num = length_cnt*3;
-        $(".length_num").html(length_num);
-      
-       
-    })
-    //이모티콘 클릭시
-    $(".emoticon_gabal").on("click", function () {
-        
-        let newChat = "<div class='dynamicChat1'><span class='font_gray_b'>" + "오후3:14" + "</span><span>" 
-            + "<img src=" + $(this).prop("src") + ">" + "</span></div>";
-        console.log(newChat);
-
-        $(".contentDiv").append($(newChat).hide());
-
-        $(".dynamicChat1").last().find("img").css({
-            width: "180px" 
-            , height: "180px"})
-
-        $(".dynamicChat1").fadeIn("slow").css({
-            "text-align" : "right"
-            , "margin": "10px"
-        })
-        $(".dynamicChat1 > span").css({
-                "display": "inline-block"
-                , "padding": "10px"
-                , "border-radius": "4px"
-            })
-
-            // 스크롤 아래
-            let scrollH = $(".contentDiv").prop("scrollHeight");
-            $(".contentDiv").scrollTop(scrollH);
-            
-    })
     </script>
 
 </body>

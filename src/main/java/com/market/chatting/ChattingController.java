@@ -1,5 +1,6 @@
 package com.market.chatting;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.member.MemberDTO;
 import com.market.member.MemberService;
+import com.market.post.PostService;
 
 @RequestMapping(value = "/chatting")
 @Controller
@@ -21,6 +23,8 @@ public class ChattingController {
     ChattingService cService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private PostService postService;
 	@Autowired
 	private HttpSession session;
 	/*
@@ -59,15 +63,40 @@ public class ChattingController {
 		};
 		return "redirect:/chatting/toChatting";
 	}
+	//채팅방 나가기
+	@RequestMapping(value = "/chat_m_exit")
+	public String toChatting(ChattingMessageDTO dto) throws Exception{
+		System.out.println(dto);
+		
+		String message = "거래를 시작하세요!";
+		dto.setMessage(message);
+		cService.roomUpdate(dto);
+		cService.chat_m_exit(dto.getRoomId());
+		return "redirect:/chatting/toChatting";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/chat_m_select")
-	public String chat_m_select(int roomId, int post_seq) throws Exception{
+	public Map<String, Object> chat_m_select(int roomId, int post_seq,Model model) throws Exception{
+		Map<String, Object> map = new HashMap<>();
 		System.out.println(roomId+":" + post_seq);
-		List<ChattingMessageDTO> dto = cService.chat_m_select(roomId);
+		List<ChattingMessageDTO> messagelist = cService.chat_m_select(roomId);
+		System.out.println(messagelist);
+		Map<String,Object> postMap = postService.selectPost_member(post_seq);
+		map.put("postMap", postMap);
+		System.out.println(postMap);
+		map.put("messagelist", messagelist);
+		
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/chat_m_insert")
+	public String chat_m_insert(ChattingMessageDTO dto) throws Exception{
 		System.out.println(dto);
 		if(dto != null) {
-			
-			return"success";
+			cService.chat_m_insert(dto);
+			cService.roomUpdate(dto);
+			return "success";
 		}
 		return "fail";
 	}

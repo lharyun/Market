@@ -134,4 +134,13 @@
 			post_interest_cnt = #{post_interest_cnt} 
 			where post_seq = #{post_seq}
 	</update>
+	
+	<!-- post_seq 번호로 게시글,멤버 닉네임조회 -->
+	<select id="selectPost_member" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
+		select a.*, b.user_profile, b.user_nickname
+			from tbl_post a join tbl_member b
+		on a.user_id=b.user_id
+			where post_seq= #{post_seq}
+	</select>
+
 </mapper>

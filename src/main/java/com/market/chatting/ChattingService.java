@@ -30,8 +30,20 @@ public class ChattingService {
 	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 
 		return dao.chat_mamberJoin(masterName);
 	}
+	//insert시 같이업데이트
+ 	public void roomUpdate(ChattingMessageDTO dto) {
+ 		dao.roomUpdate(dto);
+    }
 	//메세지쪽
 	public List<ChattingMessageDTO> chat_m_select(int roomId) throws Exception{
 		return dao.chat_m_select(roomId);
-		}
+	}
+	public void chat_m_insert(ChattingMessageDTO dto) {
+        dao.chat_m_insert(dto);
+    }
+	//채팅방나가기
+	public void chat_m_exit(int roomId) {
+	    dao.chat_m_exit(roomId);
+	}
+	 	
 }

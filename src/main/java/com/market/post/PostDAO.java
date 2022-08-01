@@ -83,5 +83,9 @@ public class PostDAO {
 		session.update("postMapper.interestUpdate", map);
 	}
 
+	// 관심수 업데이트
+	public Map<String, Object> selectPost_member(int post_seq) throws Exception{ 
+		return session.selectOne("postMapper.selectPost_member", post_seq);
+	}
 	
 }
