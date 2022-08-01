@@ -23,7 +23,7 @@
 </head>
 <style>
     
-   
+ 
     .carousel-inner{
         border-radius: 12px;
     }
@@ -83,6 +83,22 @@
         right: -200%;
         width: 450px;
         height: 350px;
+    }
+    .hicary2{
+    	position:absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        text-align : center;
+  		line-height : 146px;
+        color: rgb(244, 244, 244);
+      	background-color:rgba(128, 128, 128, 0.538);
+      	transition: all 0.09s linear;
+    }
+    .hicary2:hover{
+    	opacity: 0;
     }
     .imgDiv:hover {
         transform: scale(1.1);
@@ -877,9 +893,9 @@
         </div>
     </header>
     <!-- Contents -->
-
+	<!-- 캐러셀-->
     <div class="container my-3" id="contentsBox">
-
+		
         <div id="imgSlider2" class="carousel slide my-3" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#imgSlider2" data-bs-slide-to="0" class="active"
@@ -889,13 +905,13 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item">
-                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                    <img src="/resources/images/post/캐러셀1.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item active">
-                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                    <img src="/resources/images/post/캐러셀2.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="/resources/images/post/NoImg.webp" class="d-block w-100" alt="...">
+                    <img src="/resources/images/post/캐러셀3.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#imgSlider2" data-bs-slide="prev">
@@ -936,29 +952,85 @@
             	</c:if>
             	
 	             <c:forEach items="${list}" var="list">
-		              <article class="postBox">
-		                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
-		                    <div class="imgDiv">
-		                        <img class="hicary" src="/resources/images/post/반짝.png">
-			                    	<c:choose>
-				                    <c:when test="${list.post_sys_name ne null}">
-				                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
-				                    </c:when>
-				                     <c:otherwise>
-				                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
-				                    </c:otherwise>
-				                    </c:choose>
-		                        
-		                    </div>
-		                    <div class="postInformation">
-		                        <div class="mt-2 middle_title">${list.post_title}</div>
-		                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
-		                        <div class="middle_smText mt-1">${list.post_addr}</div>
-		                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
-		                        ·조회${list.post_inquiry_cnt}</div>
-		                    </div>
-		                </a>
-		            </article>
+	             	<c:if test="${list.post_state eq '판매중'}">
+			            <article class="postBox">
+			                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
+			                    <div class="imgDiv">
+			                        <img class="hicary" src="/resources/images/post/반짝.png">
+				                    	<c:choose>
+					                    <c:when test="${list.post_sys_name ne null}">
+					                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+					                    </c:when>
+					                     <c:otherwise>
+					                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+					                    </c:otherwise>
+					                    </c:choose>
+			                        
+			                    </div>
+			                    <div class="postInformation">
+			                        <div class="mt-2 middle_title">${list.post_title}</div>
+			                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+			                        <div class="middle_smText mt-1">${list.post_addr}</div>
+			                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+			                        ·조회${list.post_inquiry_cnt}</div>
+			                    </div>
+			                </a>
+			            </article>
+		            </c:if>
+		            <c:if test="${list.post_state eq '예약중'}">
+			            <article class="postBox">
+			                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
+			                    <div class="imgDiv">
+			                        <div class="hicary2">
+			                        <img src="/resources/images/post/star.png" height="20px">예약중<img src="/resources/images/post/star.png" height="20px">
+			                        </div>
+				                    	<c:choose>
+					                    <c:when test="${list.post_sys_name ne null}">
+					                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+					                    </c:when>
+					                     <c:otherwise>
+					                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+					                    </c:otherwise>
+					                    </c:choose>
+			                        
+			                    </div>
+			                    <div class="postInformation">
+			                        <div class="mt-2 middle_title">${list.post_title}</div>
+			                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+			                        <div class="middle_smText mt-1">${list.post_addr}</div>
+			                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+			                        ·조회${list.post_inquiry_cnt}</div>
+			                    </div>
+			                </a>
+			            </article>
+		            </c:if>
+		            <c:if test="${list.post_state eq '거래완료'}">
+			            <article class="postBox">
+			                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
+			                    <div class="imgDiv">
+			                        <div class="hicary2" >
+			                        <img src="/resources/images/post/star.png" height="20px">거래완료<img src="/resources/images/post/star.png" height="20px">
+			                        </div>
+				                    	<c:choose>
+					                    <c:when test="${list.post_sys_name ne null}">
+					                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+					                    </c:when>
+					                     <c:otherwise>
+					                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+					                    </c:otherwise>
+					                    </c:choose>
+			                        
+			                    </div>
+			                    <div class="postInformation">
+			                        <div class="mt-2 middle_title">${list.post_title}</div>
+			                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+			                        <div class="middle_smText mt-1">${list.post_addr}</div>
+			                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+			                        ·조회${list.post_inquiry_cnt}</div>
+			                    </div>
+			                </a>
+			            </article>
+		            </c:if>
 				 </c:forEach>
 			 </c:if>
         </div>
@@ -1015,11 +1087,7 @@
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
-                	<c:if test="${empty notification}">
-                		<div class="row p-1 d-flex justify-content-center fw-bold">
-                			새로운 알림이 없습니다.
-                		</div>
-                	</c:if>
+                	
                 	
                 	<c:if test="${notification.size() > 0}">
                 		<c:forEach items="${notification}" var="notifi">
@@ -1107,28 +1175,28 @@
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0" target="_blank">믿을수 있는 중고거래</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1"" class="nav-link p-0" >자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0">싸다구페이</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">동네가게</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0" target="_blank">싸다구페이</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.mangoplate.com/top_lists/2960_seoul2022" class="nav-link p-0" target="_blank">동네가게</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0">회사소개</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">채용</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0" target="_blank">팀 소개</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.jobkorea.co.kr/Search/?stext=%EC%9B%B9%EA%B0%9C%EB%B0%9C" class="nav-link p-0" target="_blank">채용</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0">이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0">개인정보처리방침</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0">위치기반서비스 이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0">이용자보호 비전과 계획</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0" target="_blank">이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0" target="_blank">개인정보처리방침</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0" target="_blank">위치기반서비스 이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0" target="_blank">이용자보호 비전과 계획</a></li>
                     </ul>
                 </div>
             </div>

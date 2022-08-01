@@ -70,7 +70,7 @@ public class PostController {
 			System.out.println(post_addr);
 			System.out.println("curPage" + curPage);
 			//페이지 나누기
-			HashMap<String,Object> map =service.getPageNavi(curPage,post_addr,search);
+			HashMap<String,Object> map =service.getPageNavi_s(curPage,post_addr,search);
 			System.out.println("post_addr : " +post_addr);
 			System.out.println("search : " +search);
 			map.put("post_addr",post_addr);
@@ -93,12 +93,10 @@ public class PostController {
 	
 	@RequestMapping(value = "/toWrite")//판매등록
 	public String toPostWrite(PostDTO dto, MultipartFile[] imgfiles) throws Exception{
-		
-		
+		//주소 처리
 		String user_id = dto.getUser_id();
 		System.out.println(user_id);
 		dto.setPost_addr(memberService.makeAddr(user_id));
-		System.out.println(dto);
 		
 		String realPath = session.getServletContext().getRealPath("imgfiles");
 		service.insert(dto, realPath, imgfiles);
@@ -113,6 +111,7 @@ public class PostController {
 	@RequestMapping(value = "/modify")
 	public String modify(PostDTO dto, MultipartFile[] imgfiles, 
 			@RequestParam(value="deleteFileList[]", required=false) String[] deleteFileList) throws Exception{
+		
 		System.out.println("dto : " + dto);
 		String realPath = session.getServletContext().getRealPath("imgfiles");
 		service.modify(dto, realPath, imgfiles, deleteFileList);

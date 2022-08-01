@@ -25,6 +25,14 @@
 </head>
 <style>
     /* ===contetnt 영역==== */
+    textarea {
+        resize: none;
+        min-height: 5rem;
+    }
+
+    textarea:focus {
+        outline: none;
+    }
     input:focus {
         outline: none;
     }
@@ -56,6 +64,25 @@
         border-radius: 12px;
     }
     /* 여기까지 캐러셀 */
+    .yourPost{
+    display: flex;
+    align-items:center;
+    border-bottom: 1px solid rgb(222, 224, 225);
+    height: 80px;
+    padding: 10px;
+    
+   }
+   #yourPost{
+    cursor: pointer;
+   }
+   
+   #yourPost img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgb(222, 224, 225);
+    cursor: pointer;
+   }
     .alertBox {
         position: absolute;
         top: -45px;
@@ -146,6 +173,7 @@
             width: 450px;
             height: 350px;
         }
+        
         .imgDiv:hover {
             transform: scale(1.1);
             border-radius: 16px;
@@ -1131,10 +1159,27 @@
 	            </button>
             </c:if>
         </div>
-
-        <div class="middle_profile py-3">
-            프로필
-        </div>
+				<%-- 프로필 --%>
+        		<div class="py-3 middle_profile yourPost">
+                    <!-- 클릭시게시글로 이동 -->
+                    <div class="d-flex align-items-center" id="yourPost">
+                        <img src="/resources/images/chatting/타블렛.jpeg">
+                        <div class="ms-2">
+                            <span class="fw-bolder">${memberDto.user_nickname}</span> 
+                            <div class="">
+                                <span>${map.postDTO.post_addr}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col p-0 d-flex align-items-center flex-row-reverse">
+                        <a href="#" class="naviIcon fw-bolder">
+                            <img src="/resources/images/post/star.png" height="20px">
+                            <span class="align-middle" style="color:black;">${memberDto.grade}</span>
+                            <span class="align-middle" style="color:gray;">리뷰22 ></span>
+                        </a>
+                    </div>
+                    
+                </div>
         <!-- 해당 벨류값으로 selected 주기 -->
         <div class="row mt-3 ">
             <div class="col">
@@ -1159,7 +1204,7 @@
             <div class="col d-flex justify-content-end">
             	
                 <!-- 신고버튼 모달 -->
-                <c:if test="${not empty loginSession}">
+                <c:if test="${not empty loginSession and loginSession.user_id ne map.postDTO.user_id}">
 	            	<button type="button" class="hoverIcon" data-bs-toggle="modal" data-bs-target="#exampleModa3">
                     	<img src="/resources/images/post/report.png" height="25px">
                 	</button>
@@ -1169,17 +1214,25 @@
                     	<img src="/resources/images/post/report.png" height="25px">
                 	</button>
 	            </c:if>
-                
                 <!-- Modal -->
                 <div id="modal_delete">
                     <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
                             <div class="row align-items-center modal-content ">
                                 <div class="row align-items-center middle_bottomLine">
-                                    <div class="col d-flex justify-content-center" id="modalTitle" style="width:auto;">
-                                        <input type="text" class="form-control-plaintext fw-bolder" id="report_content"
-                                            name="report_content" value="" placeholder="내용을 입력하세요">
-                                    </div>
+                                	<form class="m-0" id="reportForm" action="/report/insert" method="post">
+	                                    <div class="col d-flex justify-content-center" id="modalTitle" style="width:auto;">
+	                                        <input type="text" class="form-control-plaintext fw-bolder" id="report_content"
+	                                            name="report_content" placeholder="내용을 입력하세요">
+	                                    </div>
+	                                     <div class="d-none">
+					                         <input type="text" name="user_id"  value="${loginSession.user_id}"> <%-- 신고보내는 사람 --%>
+					                         <input type="text" name="user_category"  value="${loginSession.user_category}"> <%-- 그사람 로그인 카테고리 --%>
+					                         <input type="text" name="reported_id" value="${map.postDTO.user_id}"> <%-- 신고받는 사람 --%>
+					                         <input type="text" name="category"  value="게시글"> <%-- 게시글 카테고리 --%>
+					                         <input type="text" name="category_seq"  value="${map.postDTO.post_seq}"> <%-- 게시글 번호 --%>
+					                     </div>
+                                    </form>
                                 </div>
 
                                 <div class="col d-flex justify-content-center pt-5" id="modalBtn">
@@ -1190,7 +1243,7 @@
                         </div>
                     </div>
                 </div>
-                
+				
                 <!-- 로그인 요청Modal -->
                 <div id="modal_delete">
                     <div class="modal fade" id="exampleModa_login" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1250,7 +1303,10 @@
         <div class="my-3 pt-3 topLine">
             <div class="middle_lgText">${map.postDTO.post_title}</div>
             <div class="middle_smText mt-1">${map.postDTO.post_category}·${map.postDTO.post_time}</div>
-            <div class="py-3">${map.postDTO.post_content}</div>
+            <div class="py-3">
+            <textarea class="form-control-plaintext font_style" id="post_content" disabled 
+                            >${map.postDTO.post_content}</textarea>
+            </div>
             <div class="middle_smText" id="cntBox">
             관심${map.postDTO.post_interest_cnt}
             ·채팅${map.postDTO.post_chatting_cnt}
@@ -1299,7 +1355,7 @@
                     </c:if>
                     <c:if test="${map.postDTO.price_check eq 1}">
 	                    <span class="middle_orangeText">
-	                    	<c:if test="${loginSession.user_id ne memberDto.user_id}">
+	                    	<c:if test="${not empty loginSession and loginSession.user_id ne memberDto.user_id}">
 	                        	<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModa2">가격제안하기</a>
 	                        </c:if>
 	                        <c:if test="${empty loginSession}">
@@ -1354,7 +1410,11 @@
 	                <c:if test="${empty loginSession or loginSession.user_id eq memberDto.user_id}">
 	                	<button type="button" class="middleBtn" disabled=”disabled”>채팅하기</button>
 	                </c:if>
-                    
+                    <form id="chatForm" class="d-none" action="/chatting/chat_insert" method="post">
+                            <input type="text" name="userName" value="${memberDto.user_nickname}">
+                            <input type="text" name="masterName" value="${loginSession.user_nickname}">
+                            <input type="text" name="post_seq" value="${map.postDTO.post_seq}">
+                    </form>
                 </div>
             </div>
         </div>
@@ -1463,11 +1523,12 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${notification.size() == 0}">
+                	<c:if test="${notification.size() == 0 or empty notification}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
+                	
                 	
                 	<c:if test="${notification.size() > 0}">
                 		<c:forEach items="${notification}" var="notifi">
@@ -1477,7 +1538,7 @@
 			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1492,7 +1553,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1506,7 +1567,7 @@
 			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1520,7 +1581,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- 로고 클릭하면 모달 -->
     <div class="logo3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
@@ -1556,28 +1616,28 @@
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0" target="_blank">믿을수 있는 중고거래</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1"" class="nav-link p-0" >자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0">싸다구페이</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">동네가게</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0" target="_blank">싸다구페이</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.mangoplate.com/top_lists/2960_seoul2022" class="nav-link p-0" target="_blank">동네가게</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0">회사소개</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">채용</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0" target="_blank">팀 소개</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.jobkorea.co.kr/Search/?stext=%EC%9B%B9%EA%B0%9C%EB%B0%9C" class="nav-link p-0" target="_blank">채용</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0">이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0">개인정보처리방침</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0">위치기반서비스 이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0">이용자보호 비전과 계획</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0" target="_blank">이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0" target="_blank">개인정보처리방침</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0" target="_blank">위치기반서비스 이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0" target="_blank">이용자보호 비전과 계획</a></li>
                     </ul>
                 </div>
             </div>
@@ -1619,7 +1679,12 @@
 
 
     <script>
- // 입력하면 버튼활성화 후 클릭 서브밋
+    //신고
+    $("#post_reportBtn").on("click",function(){
+    	 $("#reportForm").submit();
+    	
+    })
+ 	// 입력하면 버튼활성화 후 클릭 서브밋
     $("#price_restriction").keyup(function() {
         if($("#price_restriction").val()===""){
             $("#price_restrictionBtn").attr("disabled", true);
@@ -1630,8 +1695,9 @@
             })
         }
     });
+    // 가격제안
     $("#price_restrictionBtn").on("click", function(){
-       $("#notificationForm").submit();
+    	$("#notificationForm").submit();
     })
    
     	// 캐러셀 첫번째 자식 클래스 추가
@@ -1642,7 +1708,7 @@
     	//채팅버튼 클릭시 페이지 이동
     	
     	$("#toChatBtn").on("click", function(){
-    		location.href = "/chatting/toChatting"
+    		 $("#chatForm").submit();
     	})
     	//수정버튼 클릭시 페이지 이동
     	$("#postModifyBtn").on("click", function(){
@@ -1787,7 +1853,15 @@
     	}) 
         })
         
-        
+   
+        $(document).ready(function() {
+        	 var txtArea = $("#post_content");
+        	    if (txtArea) {
+        	        txtArea.each(function(){
+        	            $(this).height(this.scrollHeight);
+        	        });
+        	    }
+        });
      
     </script>
 

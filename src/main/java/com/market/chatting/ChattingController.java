@@ -1,42 +1,104 @@
 package com.market.chatting;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-
+import com.market.member.MemberDTO;
+import com.market.member.MemberService;
+import com.market.post.PostService;
 
 @RequestMapping(value = "/chatting")
 @Controller
 public class ChattingController {
 	@Autowired
     ChattingService cService;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private PostService postService;
+	@Autowired
+	private HttpSession session;
 	/*
     @Autowired
     ProductService pService;
     
     @Autowired
     private ChattingSession cSession;
+    
     */
 	public ChattingController() {
 		System.out.println("ChattingController 인스턴스 생성");
 	}
-	
+	//준철
 	@RequestMapping(value = "/toChatting")
-	public String toChatting() {
+	public String toChatting(Model model) throws Exception{
+		String masterName= ((MemberDTO) session.getAttribute("loginSession")).getUser_nickname();
+		MemberDTO memdto = memberService.selectByNickname(masterName);
+		model.addAttribute("memdto", memdto);
+		System.out.println(memdto);
+		List<Map<String, Object>> list=cService.chat_mamberJoin(masterName);
+		model.addAttribute("list", list);
+		System.out.println(list);
 		return "chatting/chatting";
+	}
+	
+	@RequestMapping(value = "/chat_insert")
+	public String chat_insert(ChattingRoomDTO dto) throws Exception{
+		String userName = dto.getUserName();//닉네임으로 조회
+		System.out.println(userName);
+		dto.setExtraAddr(memberService.e_makeAddr(userName));
+		System.out.println(dto);
+		System.out.println(dto.getPost_seq());
+		if(!cService.overlapping(userName, dto.getPost_seq())) {//중복값이 없다면
+			cService.chat_insert(dto);// 채팅방 만들기
+		};
+		return "redirect:/chatting/toChatting";
+	}
+	//채팅방 나가기
+	@RequestMapping(value = "/chat_m_exit")
+	public String toChatting(ChattingMessageDTO dto) throws Exception{
+		System.out.println(dto);
+		
+		String message = "거래를 시작하세요!";
+		dto.setMessage(message);
+		cService.roomUpdate(dto);
+		cService.chat_m_exit(dto.getRoomId());
+		return "redirect:/chatting/toChatting";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/chat_m_select")
+	public Map<String, Object> chat_m_select(int roomId, int post_seq,Model model) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(roomId+":" + post_seq);
+		List<ChattingMessageDTO> messagelist = cService.chat_m_select(roomId);
+		System.out.println(messagelist);
+		Map<String,Object> postMap = postService.selectPost_member(post_seq);
+		map.put("postMap", postMap);
+		System.out.println(postMap);
+		map.put("messagelist", messagelist);
+		
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/chat_m_insert")
+	public String chat_m_insert(ChattingMessageDTO dto) throws Exception{
+		System.out.println(dto);
+		if(dto != null) {
+			cService.chat_m_insert(dto);
+			cService.roomUpdate(dto);
+			return "success";
+		}
+		return "fail";
 	}
 	/*
 	// 해당 채팅방의 채팅 메세지 불러오기

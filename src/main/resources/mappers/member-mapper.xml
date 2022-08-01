@@ -82,5 +82,36 @@
 	</select>
 	
 	<!-- 카카오 -->
+	<!-- 카카오 회원가입 -->
+	<insert id="kakaoInsert" parameterType="java.util.HashMap">
+		insert into tbl_member(user_id, user_category, user_k,user_pw, user_birth, user_nickname, user_profile, user_name,
+		user_phone, postcode, roadAddr, detailAddr, extraAddr, grade, rating, blackList_check, user_seq) values
+		(#{user_id}, '카카오톡회원', null, #{user_k}, #{user_birth}, #{user_nickname}, null, #{user_name},
+			 #{user_phone}, #{postcode}, #{roadAddr}, #{detailAddr}, #{extraAddr}, 0, 0, 'false', 0)
+	</insert>
+	
+	<!-- 카카오 아이디 중복확인 -->
+	<select id="findKakao" parameterType="java.util.HashMap" resultType="String">
+		select * from tbl_member where user_nickname=#{user_nickname} and user_id=#{user_id}
+	</select>
+
+
+ 	
+ 	<!-- 준철 -->
+ 	<select id="makeAddr" resultType="String">
+ 		select CONCAT(SUBSTR(readAddr,4,INSTR(readAddr,'구')-INSTR(readAddr,' ')+1)
+		    ,SUBSTR(extraAddr,3, INSTR(SUBSTR(extraAddr,3,3),'동'))) as post_addr
+		from tbl_member
+		    where user_id= #{user_id}
+ 	</select>
+	<select id="e_makeAddr" resultType="String">
+ 		select 
+		    SUBSTR(extraAddr,INSTR(extraAddr,'(')+1,INSTR(extraAddr,')')-INSTR(extraAddr,'(')-1)from 
+		tbl_member
+			where user_nickname=#{user_nickname}
+ 	</select>
+ 	<select id="selectByNickname" parameterType="string" resultType="com.market.member.MemberDTO">
+ 		select * from tbl_member where user_nickname=#{user_nickname}
+ 	</select>
 
  </mapper>

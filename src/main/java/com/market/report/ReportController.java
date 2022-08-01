@@ -31,15 +31,15 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="/insert")
-	@ResponseBody
-	public void insert(ReportDTO dto) throws Exception{ 
+	public String insert(ReportDTO dto) throws Exception{ 
 		//로그인섹션으로 리포트한사람(user_id,user_category)
 		//신고내역
 		//신고받은사람 아이디(게시물을 통한 또는 직접신고를통한)
 		//어떤게시물(게시물을 통한거면 게시물카테고리 댓글을통한거면 댓글카테고리 개인을통한거면(direct) 
 		//시퀀스(게시물번호 또는 댓글번호 개인이면 0)
-		
+		System.out.println(dto);
 		service.insert(dto);
+		return "redirect:/post/toPost?curPage=1";
 	}
 	
 	// 신고리스트 중에서 찾기
