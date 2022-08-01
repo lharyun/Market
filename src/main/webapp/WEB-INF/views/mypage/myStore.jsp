@@ -92,6 +92,10 @@
       #modifyBtn{
       	margin-top: 10px;
       }
+      #changepwBtn{
+      	width: 150px;
+      	margin-top: 10px;
+      }
       #deleteBtn{
       	width: 150px;
       	margin-top: 10px;
@@ -168,6 +172,32 @@
       .mypostpaging{
           text-align: center;
       }
+      /*평점 관련*/
+      	#starform fieldset{
+		    display: inline-block;
+		    direction: rtl;
+		    border:0;
+		}
+		#starform fieldset legend{
+		    text-align: right;
+		}
+		#starform input[type=radio]{
+		    display: none;
+		}
+		#starform label{
+		    font-size: 1em;
+		    color: transparent;
+		    text-shadow: 0 0 0 #f0f0f0;
+		}
+		#starform label:hover{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		#starform label:hover ~ label{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		#starform input[type=radio]:checked ~ label{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
       
       /* 반응형 웹페이지 800px 이하일때 반응 */
       @media (max-width: 992px) {
@@ -984,7 +1014,7 @@
 	    <div class="mypageContainer">
 	        <div class="profileBox">
 	            <div class="profile_border">
-	                <img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+	                <img src="/user_profile/${loginSession.user_profile}" id="profile_image">
 	            </div>
 	            <div class="profileNickname">
 	                <strong>${loginSession.user_nickname}</strong>
@@ -1002,12 +1032,38 @@
 	                    <span><strong>거래후기</strong></span>
 	                </div>
 	                <div class="productCount2">
-	                    <span><strong>☆☆☆☆☆&nbsp;0</strong></span>
+	                    <form class="mb-3" name="starform" id="starform" method="post">
+							<fieldset>
+								<input type="radio" name="reviewStar" value="5" id="rate1"><label
+									for="rate1">★</label>
+								<input type="radio" name="reviewStar" value="4" id="rate2"><label
+									for="rate2">★</label>
+								<input type="radio" name="reviewStar" value="3" id="rate3"><label
+									for="rate3">★</label>
+								<input type="radio" name="reviewStar" value="2" id="rate4"><label
+									for="rate4">★</label>
+								<input type="radio" name="reviewStar" value="1" id="rate5"><label
+									for="rate5">★</label>
+							</fieldset>
+						</form>
 	                </div>
 	            </div>
 	            <div class="buttonBox">
+	            	<c:if test="${not empty loginSession}">
 	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
-	                <c:if test="${not empty loginSession}">
+	                <c:if test="${empty loginSession.user_k}">
+	                <button type="button" class="btn btn-secondary" id="changepwBtn" href='javascript:void(0)' onclick='preventClick(event)'>비밀번호 변경</button>
+	                	<script>
+		                	// 비밀번호 변경 id값 : changepwBtn
+		            	    document.getElementById("changepwBtn").onclick = function(){
+		            	    	
+		            	    	var popupX = (window.screen.width / 2) - (800 / 2);
+		            	      	var popupY= (window.screen.height / 2) - (600 / 2);
+		            	      	
+		            	      	window.open('/mypage/tochangepw', '비밀번호 변경', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+		            	    }
+	                	</script>
+	                </c:if>
 	                	<button type="button" class="btn btn-danger" id="deleteBtn" href='javascript:void(0)' onclick='preventClick(event)'>회원 탈퇴</button>
 	                	<script>
 		                	// 회원탈퇴 id값 : deleteBtn
@@ -1095,7 +1151,7 @@
     </div>
     <script>
     	document.getElementById("modifyBtn").onclick = function(){
-    		location.href = "/mypage/toMypageModify2";
+    		location.href = "/mypage/toMypageModify";
     	}
     
     </script>
@@ -1118,14 +1174,14 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${loginSession.notification.size() == 0}">
+                	<c:if test="${notification.size() == 0}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
                 	
-                	<c:if test="${loginSession.notification.size() > 0}">
-                		<c:forEach items="${loginSession.notification}" var="notifi">
+                	<c:if test="${notification.size() > 0}">
+                		<c:forEach items="${notification}" var="notifi">
                 			<c:if test="${notifi.notification_type eq '채팅'}">
 			                    <div class="row p-1 ">
 			                        <div class="col-2 text-center n_logo">

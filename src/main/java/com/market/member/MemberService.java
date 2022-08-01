@@ -27,6 +27,8 @@ import org.springframework.stereotype.Service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.market.blackList.BlackListDAO;
+import com.market.blackList.BlackListDTO;
 
 	/*
 	dao를 통해 데이터를 추가,수정,삭제,조회해야하는 경우 메서드 생성
@@ -49,6 +51,8 @@ import com.google.gson.JsonParser;
 	@Autowired
 	private MemberDAO memberDAO;
 	@Autowired
+	private BlackListDAO blackListDAO;
+	@Autowired
 	private SqlSession session;
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
@@ -60,6 +64,37 @@ import com.google.gson.JsonParser;
 	public MemberDTO login(String user_id) throws Exception{
 		return memberDAO.login(user_id);
 	}
+	
+	// 블랙리스트 해당 인원 확인
+	public int Checkbk(String user_id) throws Exception{
+		return blackListDAO.checkBlack(user_id);
+	}
+	
+//	// 카카오톡 로그아웃
+//	public void kakaoLogout(String user_k) {
+//	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
+//	    try {
+//	        URL url = new URL(reqURL);
+//	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//	        conn.setRequestMethod("POST");
+//	        conn.setRequestProperty("Authorization", "Bearer " + user_k);
+//	        
+//	        int responseCode = conn.getResponseCode();
+//	        System.out.println("responseCode : " + responseCode);
+//	        
+//	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//	        
+//	        String result = "";
+//	        String line = "";
+//	        
+//	        while ((line = br.readLine()) != null) {
+//	            result += line;
+//	        }
+//	        System.out.println(result);
+//	    } catch (IOException e) {
+//	        e.printStackTrace();
+//	    }
+//	}
 	
 	// 아이디 중복확인
 	public boolean checkLogin(String user_id) throws Exception{
@@ -81,14 +116,14 @@ import com.google.gson.JsonParser;
         props.put("mail.smtp.ssl.trust", "smtp.naver.com");
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("leeyong0919", "dydrkfl1234!");
+                return new PasswordAuthentication("leeyoung0919", "dydrkfl1234!");
             }
         });
         session.setDebug(true);
         System.out.println("user_id " + user_id);
         try {
             Message mimeMessage = new MimeMessage(session);
-            mimeMessage.setFrom(new InternetAddress("leeyong0919@naver.com", "싸다구 장터"));		// 별명 설정
+            mimeMessage.setFrom(new InternetAddress("leeyoung0919@naver.com", "싸다구 장터"));		// 별명 설정
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(user_id));
             mimeMessage.setSubject("["+"싸다구 장터"+"]"+ "임시 비밀번호 안내");
             
@@ -133,13 +168,13 @@ import com.google.gson.JsonParser;
 	}
 	
 	// 회원탈퇴
-	public int delete(String user_id) throws Exception{
-		return memberDAO.delete(user_id);
+	public int memberdelete(String user_id) throws Exception{
+		return memberDAO.memberdelete(user_id);
 	}
 	
-	// 회원탈퇴 아이디 & 비밀번호 확인
-	public MemberDTO checkPw(String user_id, String user_pw) throws Exception{
-		return memberDAO.checkPw(user_id, user_pw);
+	// 회원탈퇴시 비밀번호 확인
+	public MemberDTO checkPw(String user_id) throws Exception{
+		return memberDAO.checkPw(user_id);
 	}
 	
 	// 닉네임 중복확인
@@ -328,6 +363,11 @@ import com.google.gson.JsonParser;
 		map.put("needNext", needNext);		
 		return map;
 				
+	}
+	
+	//준철 주소 합치기
+	public String makeAddr(String user_id)throws Exception{
+		return memberDAO.makeAddr(user_id);	
 	}
 	
 }

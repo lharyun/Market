@@ -2,6 +2,7 @@ package com.market.member;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.blackList.BlackListDTO;
 import com.market.blackList.BlackListService;
+import com.market.notification.NotificationService;
 import com.market.report.ReportDTO;
 import com.market.report.ReportService;
 
@@ -36,7 +38,8 @@ public class MemberController {
 	private BlackListService blackService;
 	@Autowired
 	private ReportService reportService;
-
+	@Autowired
+	private NotificationService notifiService;
 	
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
@@ -57,71 +60,96 @@ public class MemberController {
 	
 		System.out.println("user_pw : " + user_pw);
 		MemberDTO dto = service.login(user_id);
-		boolean pwdMatch = pwdEncoder.matches(user_pw, dto.getUser_pw());
+		System.out.println(dto);
 		
-		System.out.println("pwdMatch : " + pwdMatch);
-		if(dto != null && pwdMatch == true) {
-			session.setAttribute("loginSession", dto);
-			System.out.println(((MemberDTO)session.getAttribute("loginSession")).toString());
-			return "success";
+		if(dto == null) { // dto가 null이라면 fail값 반환
+			return "fail_1";
+		} else { // dto가 null이 아니라면 정상적으로 코드 실행이 되야함
+			
+			boolean pwdMatch = pwdEncoder.matches(user_pw, dto.getUser_pw()); // 비밀번호 비교
+			
+			System.out.println("pwdMatch : " + pwdMatch);
+			
+			int bkdto = service.Checkbk(user_id); // 블랙리스트 해당하면 숫자 1
+			
+			System.out.println(bkdto);
+			
+			if(dto != null && pwdMatch == true && bkdto == 0) { // db에 id와 pw가 있고, 암호화 pw 비교가 맞고, 블랙리스트에 속하지 않은 경우(로그인 성공)
+				session.setAttribute("loginSession", dto);
+				System.out.println(((MemberDTO)session.getAttribute("loginSession")).toString());
+				return "success";
+			} else if(dto != null && pwdMatch == true && bkdto == 1) { // db에 id와 pw가 있고, 암호화 pw 비교가 맞고, 블랙리스트가 속한 경우
+				return "fail_2";
+			}
+			return "fail_3";
 		}
-		return "fail";
 	}
 	
 	// 카카오 로그인 요청
 	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
-    public String home(@RequestParam(value = "code", required = false) String code, Model model, HttpSession session) throws Exception{
+    public String home(@RequestParam(value = "code", required = false) String code, Model model) throws Exception{
         System.out.println("##" + code);
         String access_Token = service.getAccessToken(code);
         HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
         
-//        session.setAttribute("user_id", userInfo.get("email"));
-//        session.setAttribute("user_nickname", userInfo.get("nickname"));
+        String user_id = (String)userInfo.get("email");
+        String user_nickname = (String)userInfo.get("nickname");
+        String user_k = access_Token;
         
+        boolean checkUser = service.checkLogin(user_id);
+        MemberDTO dto = service.login(user_id);
+         
         model.addAttribute("user_k", access_Token);
-        model.addAttribute("user_id", userInfo.get("email"));        
-        model.addAttribute("user_nickname", userInfo.get("nickname"));
+        model.addAttribute("user_id", user_id);
+        model.addAttribute("user_nickname", user_nickname);
+        
+        System.out.println("user_k: " + user_k);
         
         System.out.println("##access_Token## : " + access_Token);
         System.out.println("##userInfo## : " + userInfo.get("email"));
         System.out.println("##nickname## : " + userInfo.get("nickname"));
         
-//        session.setAttribute("user_id", userInfo.get("email"));
-//        session.setAttribute("user_nickname", userInfo.get("nickname"));
+		if(checkUser == true) { // 
+			System.out.println("로그인 페이지로 이동 후, 세션 값 넣어주고 창 닫히기");
+			session.setAttribute("loginSession", dto);
+			System.out.println(((MemberDTO)session.getAttribute("loginSession")).toString());
+			model.addAttribute("checkUser", true);
+		} else {
+			System.out.println("회원가입 페이지로 이동(kakaosignup.jsp)");
+			model.addAttribute("checkUser", false);
+		}
         
-//        if(access_Token != null) {
-//        	return "redirect:/";
-//        } else {
-//        	return "member/kakaosignup";
-//        }
-        
-        return "member/kakaosignup";
+        return "member/login";
 	}
 	
 	// 카카오 로그인 세션 유지
-	@RequestMapping(value="/kakaologindone")
-	public String login(@RequestParam("code") String code, HttpSession session) {
-		System.out.println("code: " + code);
-		
-		String access_token = service.getAccessToken(code);
-		System.out.println("access_token" + access_token);
-		
-		HashMap<String,Object> userInfo = service.getUserInfo(access_token);
-		
-		session.setAttribute("userId", userInfo.get("email"));
-		
-		System.out.println(userInfo);
-		
-		return "redirect:/";
-	}
+//	@RequestMapping(value="/kakaologindone")
+//	public String login(@RequestParam("code") String code, HttpSession session) {
+//		System.out.println("code: " + code);
+//		
+//		String access_token = service.getAccessToken(code);
+//		System.out.println("access_token" + access_token);
+//		
+//		HashMap<String,Object> userInfo = service.getUserInfo(access_token);
+//		
+//		session.setAttribute("userId", userInfo.get("email"));
+//		
+//		System.out.println(userInfo);
+//		
+//		return "redirect:/";
+//	}
 	
 	// 카카오 로그아웃
-	@RequestMapping(value="/kakaologout")
-	public String kakaologout(HttpSession session) {
-		service.kakaologout((String)session.getAttribute("access_token"));
-		session.invalidate();
-		return "redirect:/";
-	}
+//	@RequestMapping(value="/kakaologout")
+//	public String unlink(HttpSession session) {
+//		String access_token = (String)session.getAttribute("access_token");
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("Authorization", "Bearer "+ access_token);
+//		
+//		String result = conn.HttpPostConnection("https://kapi.kakao.com/v1/user/logout", map).toString();
+//		System.out.println(result);
+//		return "redirect:/post/toPost?curPage=1";
+//	}
 	
 	/* 회원가입 관련 */
 	@RequestMapping(value = "/tosignUp") // 일반 회원가입 페이지 요청
@@ -130,7 +158,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/tokakaosignUp") // 카카오 회원가입 페이지 요청
-	public String tokakaosignUp() {
+	public String tokakaosignUp(String user_id, String user_nickname, String user_k, Model model) {
+		System.out.println(user_id);
+		System.out.println(user_nickname);
+		System.out.println(user_k);
+		model.addAttribute("user_nickname", user_nickname);
+		model.addAttribute("user_id", user_id);
+		model.addAttribute("user_k", user_k);
 		return "member/kakaosignup";
 	}
 	
@@ -147,7 +181,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "kakaosignUp") // 카카오 회원가입 요청
+	@RequestMapping(value = "kakaosignUp") // 카카오 회원가입 요청(추가 정보 입력)
 	public String kakaosignUp(MemberDTO dto) throws Exception{
 		
 		String inputPass = dto.getUser_pw();
@@ -156,6 +190,9 @@ public class MemberController {
 		System.out.println("pwd : " + pwd);
 		
 		service.kakaosignup(dto);
+		
+		session.setAttribute("loginSession", dto);
+		System.out.println("loginSession: " + ((MemberDTO)session.getAttribute("loginSession")).toString());
 		
 		return "redirect:/";
 	}
@@ -247,24 +284,19 @@ public class MemberController {
 		return "member/delete";
 	}
 	
-	@RequestMapping(value = "delete") // 회원탈퇴 요청
-	public String delete() throws Exception{
-		service.delete(((MemberDTO)session.getAttribute("loginSession")).getUser_id());
-		//session 에서 loginSession 지워주는 작업
-		session.removeAttribute("loginSession");
-		return "redirect:/post/toPost?curPage=1";
-	}
-	
 	@ResponseBody
-	@RequestMapping(value = "/checkPw") // 회원탈퇴 아이디 & 비밀번호 확인
+	@RequestMapping(value = "/checkPw") // 회원탈퇴시 비밀번호 확인 + 회원 탈퇴 
 	public String checkPw(String user_id, String user_pw) throws Exception{
 		System.out.println(user_id + " : " + user_pw);
-		MemberDTO dto = service.checkPw(user_id, user_pw);
-		
+	
+		System.out.println("user_pw : " + user_pw);
+		MemberDTO dto = service.checkPw(user_id);
 		boolean pwdMatch = pwdEncoder.matches(user_pw, dto.getUser_pw());
-		System.out.println(pwdMatch);
 		
+		System.out.println("pwdMatch : " + pwdMatch);
 		if(dto != null && pwdMatch == true) {
+			service.memberdelete(user_id);
+			session.invalidate();
 			return "success";
 		}
 		return "fail";

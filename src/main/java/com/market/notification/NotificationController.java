@@ -21,8 +21,6 @@ public class NotificationController {
 	@RequestMapping(value = "/notification_insert")
 	public String insert(NotificationDTO dto) throws Exception{
 		//나중에 로그인 세션으로 바꾸기
-		dto.setUser_nickname("가짜닉네임");
-		dto.setFrom_nickname("보내는닉네임");
 		System.out.println(dto);
 		service.insert(dto);
 		return "redirect:/post/toPost?curPage=1";

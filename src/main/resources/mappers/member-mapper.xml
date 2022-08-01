@@ -52,7 +52,7 @@
 		select user_id from tbl_member where user_name = #{user_name} and user_phone = #{user_phone}
 	</select>
 	
-	<!-- 비밀번호 찾기 + 비밀번호 변경-->
+	<!-- 비밀번호 찾기 + 비밀번호 변경 -->
 	<update id="update_pw" parameterType="map">
 		update tbl_member set user_pw = #{user_pw} where user_id = #{user_id}
 	</update>
@@ -72,16 +72,15 @@
 	</insert>
 	
 	<!-- 회원탈퇴 -->
-	<delete id="delete" parameterType="com.market.member.MemberDTO">
-		delete from tbl_member where user_id = #{user_id} and user_pw = #{user_pw}
+	<delete id="memberdelete">
+		delete from tbl_member where user_id = #{user_id}
 	</delete>
 	
-	<!-- 회원탈퇴 비밀번호 확인 -->
-	<select id="checkPw" parameterType="map" resultType="com.market.member.MemberDTO">
-		select * from tbl_member where user_id = #{user_id} and user_pw = #{user_pw}
+	<!-- 회원탈퇴시 비밀번호 확인 -->
+	<select id="checkPw" resultType="com.market.member.MemberDTO">
+		select * from tbl_member where user_id = #{user_id}
 	</select>
 	
 	<!-- 카카오 -->
-
 
  </mapper>
