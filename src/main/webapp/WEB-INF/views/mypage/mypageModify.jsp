@@ -17,13 +17,12 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>싸다구 장터 : 내 정보 수정</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet">
 </head>
 <style>
-   
-
-
+  
 
     /* ===contetnt 영역==== */
         /* 내 정보 수정 */
@@ -37,37 +36,47 @@
             margin-top: 80px;
             margin-bottom: 40px;
         }
-        #pw{
+        #user_id{
+        	display: none;
+        }
+        #testBox2{
+        	display: none;
+        }
+        #user_pw{
             border: 0;
         }
         .pwBox{
             border: 0;
             border-bottom: 1px solid lightgray;
             margin-top: 10px;
+            width: 100%;
+	        float: left;
         }
-        #pw_check{
-            border: 0;
-        }
+	    #user_pwCheck{
+	        border: 0;
+	    }
         .pwBox2{
             border: 0;
             border-bottom: 1px solid lightgray;
             margin-top: 10px;
+            width: 100%;
+	        float: left;
         }
-        #nickname{
+        #user_nickname{
             border: 0;
         }
         .nicknameBox2{
             border: 0;
             border-bottom: 1px solid lightgray;
             margin-top: 10px;
-            width: 65%;
+            width: 100%;
             float: left;
         }
         #profileBox{
-	          width: 446px;
-	          height: 200px;
-	          float: left;
-	          text-align: center;
+	        width: 446px;
+	        height: 200px;
+	        float: left;
+	        text-align: center;
 	      }
         .profile_border {
 			width: 180px;
@@ -81,13 +90,15 @@
 			width: 100%;
 			height: 100%;
 		}
-        #phone{
+        #user_phone{
             border: 0;
         }
         .phoneBox{
             border: 0;
             border-bottom: 1px solid lightgray;
             margin-top: 10px;
+            width: 100%;
+	        float: left;
         }
         #postcode{
          border: 0;
@@ -121,6 +132,39 @@
             margin-top: 7px;
             float: right;
         }
+        #changeProfile{
+        	float: right;
+        }
+        #saveProfile{
+        	float: right;
+        }
+        .success{
+        	color: #04AA6D; /* Green */
+        	float: left;
+        }
+        .danger{
+        	color: #f44336; /* Red */
+        	float: left;
+        }
+        .modal-content{
+        	width: 500px;
+        	height: 250px;
+        }
+        .modal-body{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        .form-label{
+        	margin-top: 80px;
+        }
+        #OKBtn{
+        	margin-top: 20px;
+        }
+        #NOBtn{
+        	margin-top: 20px;
+        }
+        
 
     /* ==================== */
 	
@@ -791,67 +835,96 @@
 
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-    <div class="container middle" style="height: 1100px">
+    <div class="container middle" style="height: 1400px">
 		<div class="mypageContainer">
 			<div class="row m-3"> 
 				<div class="titleBox">
 					<h3>내 정보 수정</h3>
 				</div>
 			</div>
+			<!-- 프로필 사진 변경 폼 -->
+			<form id="profileForm">
 	        <div class="" id="profileBox">
 	            <div class="profile_border">
-	                <img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+					<c:choose>
+						<c:when test="${empty loginSession.user_profile}">
+							<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+						</c:when>
+						<c:otherwise>
+							<img src="/user_profile/${loginSession.user_profile}" id="profile_image">
+						</c:otherwise>
+					</c:choose>
 	            </div>
 	        </div>
-			<form id="modifyForm">
 	            <div class="col-12">
-	                <label for="profileImg" class="form-label">프로필 사진</label><br>
-	                <input type="file" name="photo" id = "profileInput" disabled >
+	                <label for="profileImg" class="form-label">&nbsp;프로필 사진</label><br>
+	                &nbsp;<input type="file" name="file" id="inputImg" disabled>
+	                <input type="text" class="d-none" value="${loginSession.user_id}" id="user_id">
+	                <button type="button" class="btn btn-primary w-20" id="changeProfile" disabled>프로필 변경</button>
+	                <button type="button" class="btn btn-primary w-20 d-none" id="saveProfile">프로필 저장</button>
 	            </div>
+	            </form>
+	            <!-- 내 정보 변경 폼 -->
+	            <form id="modifyForm">
+	            <div class="testBox2">
+					<input type="text" class="form-control" id="user_id" name="user_id" value="${loginSession.user_id}" readonly>
+				</div>
 	            <div class="nicknameBox">
 	                <div class="nicknameBox2">
-	                    <input type="text" class="form-control" id="nickname" name="nickname" value="" placeholder="닉네임">
+	                	<label>&nbsp;닉네임</label><br>
+	                    <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="${loginSession.user_nickname}" readonly>
 	                </div>
-	                <button type="button" class="btn btn-primary w-40" id="checkNickname">닉네임 중복 확인</button>
 	                <div class="nicknameBox2text">
-	                    <label>&nbsp;&nbsp;사이트에서 사용할 닉네임을 입력해주세요.</label>
+	                	<span id="inputResult4"></span>
 	                </div>
 	            </div>
-	            <div class="pwBox">
-					<input type="password" class="form-control" id="pw" name="pw" value="" placeholder="비밀번호">
-				</div>
-	            <div class="pwBoxtext">
-	                <label>&nbsp;&nbsp;비밀번호는 6~12자 이내로 입력해주세요.</label>
-	                <label>&nbsp;&nbsp;(영어 대소문자, 숫자, 특수문자 포함)</label>
-	            </div>
-	            <div class="pwBox2">
-					<input type="password" class="form-control" id="pw_check" value="" placeholder="비밀번호 확인">
-				</div>
-	            <div class="pwBox2text">
-	                <label>&nbsp;&nbsp;위와 동일한 비밀번호를 입력해주세요.</label>
-	            </div>
+	            <!--
+	            <c:choose>
+	            	<c:when test="${empty loginSession.user_k}">
+			            <div class="pwBox">
+			            	<label>&nbsp;비밀번호</label><br>
+							<input type="password" class="form-control" id="user_pw" name="user_pw" value="" readonly>
+						</div>
+			            <div class="pwBoxtext">
+			            	<span id="inputResult2"></span>
+			            </div>
+			            <div class="pwBox2">
+			            	<label>&nbsp;비밀번호 확인</label><br>
+							<input type="password" class="form-control" id="user_pwCheck" value="" readonly>
+						</div>
+			            <div class="pwBox2text">
+			            	<span id="inputResult3"></span>
+			            </div>
+	            	</c:when>
+	            	<c:otherwise>
+	            	</c:otherwise>
+	            </c:choose> -->
 				<div class="phoneBox">
-					<input type="text" class="form-control" id="phone" name="phone" value="" placeholder="휴대폰번호">
+					<label>&nbsp;휴대폰 번호</label><br>
+					<input type="text" class="form-control" id="user_phone" name="user_phone" value="${loginSession.user_phone}" readonly>
+					<div class="phoneBoxtext">
+						<span id="inputResult7"></span>
+					</div>
 				</div>
 	            <div class="row p-2">
 	                <div class="col">
-	                    <input type="text" class="form-control" id="postcode" name="postcode" placeholder="우편번호">
+	                    <input type="text" class="form-control" id="postcode" name="postcode" value="${loginSession.postcode}" readonly>
 	                </div>
 	                <div class="col" id="noBox">
-	                    <button type="button" class="btn btn-primary w-100" id="btnPostCode">우편번호 찾기</button>
+	                    <button type="button" class="btn btn-warning w-100" id="btnPostCode" disabled>우편번호 찾기</button>
 	                </div>
 	            </div>
 	            <div class="row p-2">
 	                <div class="col">
-	                    <input type="text" class="form-control" id="roadAddr" name="roadAddr" placeholder="도로명주소">
+	                    <input type="text" class="form-control" id="roadAddr" name="roadAddr" value="${loginSession.roadAddr}" readonly>
 	                </div>
 	            </div>
 	            <div class="row p-2">
 	                <div class="col mb-2">
-	                    <input type="text" class="form-control" id="detailAddr" name="detailAddr" placeholder="상세주소">
+	                    <input type="text" class="form-control" id="detailAddr" name="detailAddr" value="${loginSession.detailAddr}" readonly>
 	                </div>
 	                <div class="col mb-2">
-	                    <input type="text" class="form-control" id="extraAddr" name="extraAddr" placeholder="읍/면/동">
+	                    <input type="text" class="form-control" id="extraAddr" name="extraAddr" value="${loginSession.extraAddr}" readonly>
 	                </div>
 	            </div>
 	            <div class="row justify-content-center btn-before">
@@ -859,7 +932,7 @@
 	                    <button type="button" class="btn btn-secondary" id="backBtn">뒤로가기</button>
 	                </div>
 	                <div class="col-4 d-flex justify-content-start">
-	                    <button type="button" class="btn btn-primary" id="modifyBtn" data-bs-toggle="modal" data-bs-target="#completeModal">수정</button>
+	                    <button type="button" class="btn btn-warning" id="modifyBtn">수정</button>
 	                </div>
 	            </div>
 	            <div class="row justify-content-center btn-after d-none">
@@ -867,13 +940,15 @@
 	                    <button type="button" class="btn btn-secondary" id="cancelBtn">취소</button>
 	                </div>
 	                <div class="col-4 d-flex justify-content-start">
-	                    <button type="button" class="btn btn-primary" id="completeBtn" data-bs-toggle="modal" data-bs-target="#completeModal">수정완료</button>
+	                    <button type="button" class="btn btn-warning" id="completeBtn" data-bs-toggle="modal" data-bs-target="#completeModal">수정완료</button>
 	                </div>
+	                <input type="password" class="d-none" value="${user_pw}" id="user_pw">
+	                <input type="password" class="d-none" value="${user_profile}" id="user_profile">
 	            </div>
 			</form>
 		</div>
     </div>
-    <!-- 수정 완료 Modal -->
+    <!-- 수정 완료 Modal
 	<div class="modal" id="completeModal" tabindex="-1">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -883,21 +958,246 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
-	<!-- 변경사항 없음 Modal -->
-	<div class="modal" id="signupModal" tabindex="-1">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	      <div class="modal-body">
-			<label for="id" class="form-label"><strong>변경사항이 없습니다.</strong></label><br>
-			<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="OKBtn">확인</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	</div> -->
+
     <script>
+	    // 수정화면에서 취소 버튼을 눌렀을때
+	    $("#cancelBtn").on("click", function() {
+	        location.href = "/mypage/toMypageModify";
+	    });
+	    
+		// 사용자가 profile_image 파일태그를 이용해 프로필 사진을 선택했을 때 profile_default 이미지 태그에 선택된 사진을 띄워주는 작업
+		document.getElementById("inputImg").onchange = function(){
+			let reader = new FileReader(); // 사용자가 파일태그를 이용해 파일을 선택했을 때 사용자의 로컬에 있는 파일의 정보를 브라우저에서 사용 가능하게끔 해주는 클래스(객체)
+			reader.readAsDataURL(this.files[0]) // -> 인자값으로 file 객체
+			
+			// onload 함수가 트리거됨 -> onload 이벤트가 발생했을때 콜백펑션안에서 위에있는 이미지 태그의 src 에 이미지를 띄워줄 수 있는 경로값으로 대체  
+			reader.onload = function(e){
+				// e.target.result -> 브라우저에서 바로 해석(로드)이 가능하게끔 변환된 이미지의 경로값 
+				console.log("e.target ", e.target.result);
+				// 위에 있는 이미지 태그의 src 속성값을 변환된 이미지 경로값으로 셋팅 해주기(사용자가 선택한 이미지 띄우기)
+				document.getElementById("profile_image").src = e.target.result;
+			}
+		}
+		// 프로필 저장 버튼을 클릭했을 때
+		$("#saveProfile").on("click", function(){
+			$("#saveProfile").addClass("d-none");// 프로필 저장 버튼을 프로필 변경버튼으로 바꾸기
+			$("#changeProfile").removeClass("d-none");
+			$("#file").addClass("d-none"); // 파일 태그 숨기기
+			
+			let data = new FormData(document.getElementById("profileForm"));
+			$.ajax({
+				url : "/mypage/modifyProfile"
+				, type : "post"
+				, enctype : "multipart/form-data"
+				, contentType : false
+				, processData : false
+				, data : data
+				, success: function(data){
+					console.log(data);
+					if(data == "success"){
+						alert("프로필 사진 변경에 성공했습니다.");
+					}else if(data == "fail"){
+						alert("프로필 사진 변경에 실패했습니다. 다시 시도해 주세요.");
+					}
+				}, error : function(e){
+					console.log(e);
+				}
+			})
+			
+		})
+			
+		// 프로필 변경 버튼을 클릭했을 때
+		$("#changeProfile").on("click", function() {
+			$("#file").removeClass("d-none"); // 파일 태그 보이기
+ 			$("#changeProfile").addClass("d-none"); // 프로필변경 버튼 숨기기
+			$("#saveProfile").removeClass("d-none"); // 프로필저장 버튼 보이기
+		})
     
+	    // 수정버튼을 눌렀을때
+	    $("#modifyBtn").on("click", function() {
+	        $("#inputImg").attr("disabled", false); // 프로필 사진 업로드 disabled 제거
+	        $("#changeProfile").attr("disabled", false); // 프로필 변경 disabled 제거
+	        $("#btnPostCode").attr("disabled", false); // 우편번호찾기 버튼에 걸린 disabled 제거
+	        $("input").not("#user_id").attr("readonly", false); // 닉네임를 제외한 input readonly 제거
+	        $("#user_nickname").attr("readonly", false); // 닉네임 readonly 제거
+	        $(".btn-before").css("display", "none"); // 기존의 버튼들 감춰주기
+	        $(".btn-after").removeClass("d-none"); // 취소, 완료버튼 보여주기
+	    });
     
+		// 뒤로 가기 버튼
+		document.getElementById("backBtn").onclick = function(){
+			location.href = "/mypage/toMyStore";
+		}
+		
+	 	// user_pw
+		$("#user_pw").on("keyup", function(e) {
+			let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
+			// 8 : Backspace / 13 : Enter
+			console.log(e.key);
+			if(e.key !== 'Backspace' && e.key !== 'Enter'){
+				if(!regexPw.test($("#user_pw").val())) {
+					$("#inputResult2").html("&nbsp;&nbsp;비밀번호는 6~12자 이내로 입력해주세요<br>&nbsp;&nbsp;(영어 대소문자, 숫자, 특수문자 포함 가능)").css({color:'#f44336', 'float':'left'})
+					$("#user_pw").focus();
+					return;
+				}else{
+					$("#inputResult2").html("&nbsp;&nbsp;사용 가능한 비밀번호입니다").css({color:'#04AA6D', 'float':'left'})
+				}
+			}
+		})
+		
+		// user_pwCheck
+		$("#user_pwCheck").on("keyup", function(e) {
+			let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
+			// 8 : Backspace / 13 : Enter
+			console.log(e.key);
+			if(e.key !== 'Backspace' && e.key !== 'Enter'){
+				if($("#user_pw").val() !== $("#user_pwCheck").val()) {
+					$("#inputResult3").html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다").css({color:'#f44336', 'float':'left'})
+					$("#user_pwCheck").focus();
+					return;
+				}else{
+					$("#inputResult3").html("&nbsp;&nbsp;비밀번호가 일치합니다").css({color:'#04AA6D', 'float':'left'})
+				}
+			}
+		})
+		
+		// user_nickname
+		$("#user_nickname").on("keyup", function(e) {
+			let regexNickname = /^[a-zA-Z0-9ㄱ-힣]{4,8}$/;
+			// 8 : Backspace / 13 : Enter
+			console.log(e.key);
+			if(e.key !== 'Backspace' && e.key !== 'Enter'){ 
+				if(!regexNickname.test($("#user_nickname").val())) {
+					$("#inputResult4").html("&nbsp;&nbsp;특수문자 제외 4~8자내로 입력해주세요(공백제외)").css({color:'#f44336', 'float':'left'})
+					$("#user_nickname").focus();
+					return;
+				}else{
+		   				
+					$.ajax({
+						url : "/member/checkNickname"
+						,type : "get"
+						,data : {user_nickname : $("#user_nickname").val()}
+						, success: function(data){
+							if(data == "available"){
+								$("#inputResult4").html("&nbsp;&nbsp;사용 가능한 닉네임입니다").css({color:'#04AA6D', 'float':'left'})
+							}else if(data == "unavailable"){
+								$("#inputResult4").html("&nbsp;&nbsp;중복된 닉네임입니다").css({color:'#f44336', 'float':'left'})
+							}
+						}, error : function(e){
+							console.log(e);
+						}
+					})
+				}
+			}
+		})
+		
+		// user_phone
+		$("#user_phone").on("keyup", function(e) {
+			let regexPhone = /^[0-9]{11}$/;
+			// 8 : Backspace / 13 : Enter
+			console.log(e.key);
+			if(e.key !== 'Backspace' && e.key !== 'Enter'){
+				if(!regexPhone.test($("#user_phone").val())) {
+					$("#inputResult7").html("&nbsp;&nbsp;예)010-1234-5678 -> 01012345678로 입력해주세요").css({color:'#f44336', 'float':'left'})
+					$("#user_phone").focus();
+					return;
+				}else{
+		   				
+					$.ajax({
+						url : "/member/checkPhone"
+						,type : "get"
+						,data : {user_phone : $("#user_phone").val()}
+						, success: function(data){
+							if(data == "available"){
+								$("#inputResult7").html("&nbsp;&nbsp;예)010-1234-5678 -> 01012345678로 입력해주세요").css({color:'#04AA6D', 'float':'left'})
+							}else if(data == "unavailable"){
+								$("#inputResult7").html("&nbsp;&nbsp;중복된 휴대폰번호입니다").css({color:'#f44336', 'float':'left'})
+							}
+						}, error : function(e){
+							console.log(e);
+						}
+					})
+				}
+			}
+		})
+		
+		// 다음 우편번호 api
+		$("#btnPostCode").on("click", function() {
+			new daum.Postcode({
+				oncomplete : function(data) {
+					var roadAddr = data.roadAddress; // 도로명 주소 변수
+					var extraRoadAddr = ''; // 참고 항목 변수
+	
+					if (data.bname !== ''
+							&& /[동|로|가]$/g
+									.test(data.bname)) {
+						extraRoadAddr += data.bname;
+					}
+					// 건물명이 있고, 공동주택일 경우 추가한다
+					if (data.buildingName !== ''
+							&& data.apartment === 'Y') {
+						extraRoadAddr += (extraRoadAddr !== '' ? ', '
+								+ data.buildingName
+								: data.buildingName);
+					}
+					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+					if (extraRoadAddr !== '') {
+						extraRoadAddr = ' ('
+								+ extraRoadAddr + ')';
+					}
+	
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					$("#postcode").val(data.zonecode);
+					$("#roadAddr").val(roadAddr);
+	
+					// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+					if (roadAddr !== '') {
+						$("#extraAddr").val(
+								extraRoadAddr);
+					} else {
+						$("#extraAddr").val("");
+					}
+				}
+			}).open();
+		})
+		
+		// 수정 완료 버튼 클릭시
+		document.getElementById("completeBtn").onclick = function(){ // 회원 정보 수정 제출 유효성 검사
+			
+		    let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
+		    let regexNickname = /^[a-zA-Z0-9ㄱ-힣]{4,8}$/;
+			let regexBirth = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+			let regexPhone = /^[0-9]{11}$/;
+	
+			let user_pw = $("#user_pw").val();
+			let user_pwCheck = $("#user_pwCheck").val();
+			let user_nickname = $("#user_nickname").val();
+			let user_birth = $("#user_birth").val();
+			let user_phone = $("#user_phone").val();
+			let postcode = $("#postcode").val();
+			let roadAddr = $("#roadAddr").val();
+			let detailAddr = $("#detailAddr").val();
+			let extraAddr = $("#extraAddr").val();
+			
+			$.ajax({
+				url : "/mypage/modifyInfo"
+				,type : "post"
+				,data :
+					 {user_id : $("#user_id").val(), user_nickname : $("#user_nickname").val(), user_pw : $("#user_pw").val(),
+					 user_phone : $("#user_phone").val(), postcode : $("#postcode").val(), roadAddr : $("#roadAddr").val(),
+					 detailAddr : $("#detailAddr").val(), extraAddr : $("#extraAddr").val()}
+				, success: function(data){
+					console.log(data);
+					alert("정보 수정이 완료되었습니다.");
+					location.reload() // 페이지 새로 고침(수정된 사항 뿌려주기 위함)
+				}, error : function(e){
+					alert("입력값을 제대로 입력해주세요.")
+					console.log(e);
+				}
+			})
+			
+		}
     </script>
 
 

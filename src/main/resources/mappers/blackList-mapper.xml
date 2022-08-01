@@ -16,7 +16,7 @@
  	</insert>
  	
  	<select id="checkBlack" parameterType="string" resultType="int">
- 	select count(*) from tbl_blackList where user_id=#{user_id}
+ 		select count(*) from tbl_blackList where user_id=#{user_id}
  	</select>
  	
  	<update id="updateBlack" parameterType="com.market.blackList.BlackListDTO">
