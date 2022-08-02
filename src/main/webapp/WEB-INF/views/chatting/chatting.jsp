@@ -912,7 +912,7 @@
                         </c:if>
                         <c:if test="${not empty memdto.user_profile}">
 							<%-- 프로필 완성후 경로값 설정 --%>
-                        	<img src="/resources/images/chatting/슈퍼파워.jpeg">
+                        	<img src="/user_profile/${memdto.user_profile}">
                         </c:if>
                         <span class="ms-2 fw-bolder">
                             ${memdto.user_nickname}
@@ -932,12 +932,22 @@
                 	<c:forEach items="${list}" var="list">
 	                	<div class="yourProfile">
 	                        <div class="d-flex align-items-center">
-	                            <c:if test="${empty memdto.user_profile}">
-                        			<img src="/resources/images/chatting/NoImg.webp">
+	                            
+		                        <c:if test="${loginSession.user_nickname ne list.username}">
+		                        	<c:if test="${empty list.user_profile_a}">
+                        				<img src="/resources/images/chatting/NoImg.webp">
+		                        	</c:if>
+		                        	<c:if test="${not empty list.user_profile_a}">
+                        				<img src="/user_profile/${list.user_profile_a}">
+		                        	</c:if>
 		                        </c:if>
-		                        <c:if test="${not empty memdto.user_profile}">
-									<%-- 프로필 완성후 경로값 설정 --%>
-		                        	<img src="/resources/images/chatting/슈퍼파워.jpeg">
+		                        <c:if test="${loginSession.user_nickname eq list.username}">
+		                        	<c:if test="${empty list.user_profile_b}">
+                        				<img src="/resources/images/chatting/NoImg.webp">
+		                        	</c:if>
+		                        	<c:if test="${not empty list.user_profile_b}">
+                        				<img src="/user_profile/${list.user_profile_b}">
+		                        	</c:if>
 		                        </c:if>
 	                            <div class="ms-2 member_textBox">
 	                                <span class="fw-bolder">${list.username}</span> 
@@ -948,6 +958,7 @@
 	                                 <input type="text" class="d-none" id="roomId" name="roomId" value="${list.roomId}">
 	                                 <input type="text" class="d-none" id="post_seq" name="post_seq"value="${list.post_seq}">
 	                                 <input type="text" class="d-none" id="rooId_input" name="roomId">
+	                                 <input type="text" class="d-none" id="post_seq_input" name="post_seq">
 	                            </div>
 	                        </div>
                     	</div>
@@ -1323,6 +1334,12 @@
 
     
     <script>
+    //게시글 클릭시 디테일페이지 이동
+    $("#yourPost").on("click",function(e){
+    	let post_seq = $("#post_seq_input").val();
+    	console.log(post_seq);
+    	location.href = "/post/toPostDetail?post_seq="+post_seq;
+    })
     //채팅방 나가기 클릭시
   	$("#chatExit").on("click", function(){
   		let roomId = $("#rooId_input").val();
@@ -1337,6 +1354,7 @@
         let post_seq = $(this).find("#post_seq").val();
         let loginId= '${loginSession.user_id}';
         $("#rooId_input").val(roomId);
+        $("#post_seq_input").val(post_seq);
         console.log(post_seq,roomId);
         $.ajax({
     		url: "/chatting/chat_m_select"
@@ -1349,7 +1367,7 @@
     			$("#chatting_after").removeClass('d-none');
     			$("#yourPost").empty();
     			$("#yourPost").append(
-    					"<img src='/resources/images/chatting/타블렛.jpeg'>"
+    					"<img src='/user_profile/"+data.postMap.user_profile+"'>"
     					+'<div class="ms-2">'
     					+	'<span class="fw-bolder">'+ data.postMap.post_state +'</span>'
     					+	'<span class="font_gray ms-1">'+ data.postMap.post_title +'</span>'
@@ -1405,7 +1423,6 @@
             		, success: function(data){
             			console.log(data);
             			if(data =="success"){
-            				alert("성공!");
             			}else{
             				alert("실패!");
             			}
@@ -1456,7 +1473,6 @@
     		, success: function(data){
     			console.log(data);
     			if(data =="success"){
-    				alert("성공!");
     			}else{
     				alert("실패!");
     			}

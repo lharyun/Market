@@ -81,7 +81,6 @@ public class ChattingController {
 		Map<String, Object> map = new HashMap<>();
 		System.out.println(roomId+":" + post_seq);
 		List<ChattingMessageDTO> messagelist = cService.chat_m_select(roomId);
-		System.out.println(messagelist);
 		Map<String,Object> postMap = postService.selectPost_member(post_seq);
 		map.put("postMap", postMap);
 		System.out.println(postMap);

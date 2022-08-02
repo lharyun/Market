@@ -32,20 +32,22 @@
 		update ChattingRoom set 
 		last_chat=#{message},last_date=sysdate where roomId=#{roomId}
 	</update>
+	<!-- 채팅방나가기 -->
+	<delete id="chat_m_exit" parameterType="int">
+		delete from ChattingRoom where roomId = #{roomId}
+	</delete>
 	
 	<!-- 메세지 쪽 -->
 	<select id="chat_m_select" parameterType="int" resultType="com.market.chatting.ChattingMessageDTO">
 		select* from ChattingMessage 
 			where roomId=#{roomId}
+			order by upload_date
 	</select>
 	<insert id="chat_m_insert" parameterType="com.market.chatting.ChattingMessageDTO">
 		insert into ChattingMessage values(
 		#{roomId},#{messageId},#{message},#{name},
 		1, 2,sysdate)
 	</insert>
-	<!-- 채팅방나가기 -->
-	<delete id="chat_m_exit" parameterType="int">
-		delete from ChattingMessage where roomId = #{roomId}
-	</delete>
+	
 	
  </mapper>
