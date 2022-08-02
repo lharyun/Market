@@ -17,145 +17,297 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <title>싸다구 장터 : 내 정보 수정</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet">
 </head>
 <style>
   
 
+
     /* ===contetnt 영역==== */
-        /* 내 정보 수정 */
-        .mypageContainer{
-            width: 460px;
-            height: 1100px;
-            margin: auto;
-        }
-        .titleBox{
-            text-align: center;
-            margin-top: 80px;
-            margin-bottom: 40px;
-        }
-        #user_pw{
-            border: 0;
-        }
-        .pwBox{
-            border: 0;
-            border-bottom: 1px solid lightgray;
-            margin-top: 10px;
-            width: 100%;
-	        float: left;
-        }
-	    #user_pwCheck{
-	        border: 0;
-	    }
-        .pwBox2{
-            border: 0;
-            border-bottom: 1px solid lightgray;
-            margin-top: 10px;
-            width: 100%;
-	        float: left;
-        }
-        #user_nickname{
-            border: 0;
-        }
-        .nicknameBox2{
-            border: 0;
-            border-bottom: 1px solid lightgray;
-            margin-top: 10px;
-            width: 100%;
-            float: left;
-        }
-        #profileBox{
-	        width: 446px;
-	        height: 200px;
-	        float: left;
-	        text-align: center;
+.mypageContainer{
+          width: 1250px;
+          height: 850px;
+		  }
+		      /* 프로필 */
+	      .profileBox{
+	          width: 25%;
+	          height: 450px;
+	          float: left;
+	          text-align: center;
 	      }
-        .profile_border {
+		.profile_border {
 			width: 180px;
 			height: 180px;
 			border-radius: 50%;
 			overflow: hidden;
 		    display: inline-block;
-		    margin-top: 10px;
+		    margin-top: 40px;
 		}
-        #profile_image {
+		      /* 프로필 사진 */
+	  #profile_image {
 			width: 100%;
 			height: 100%;
 		}
-        #user_phone{
-            border: 0;
-        }
-        .phoneBox{
-            border: 0;
-            border-bottom: 1px solid lightgray;
-            margin-top: 10px;
-            width: 100%;
-	        float: left;
-        }
-        #postcode{
-         border: 0;
-         width: 98%;
-        }
-        #roadAddr{
-         border: 0;   
-        }
-        #detailAddr{
-         border: 0;
-         width: 98%;
-        }
-        #extraAddr{
-         border: 0;
-        }
-        .mypageContainer .row .col{
-            border: 0;
-            border-bottom: 1px solid lightgray;
-            margin-top: 10px;
-            padding: 0; 
-        }
-        #noBox{
-            border: 0;
-            width: 95%;
-        }
-        #checkId{
-            margin-top: 7px;
-            float: right;
-        }
-        #checkNickname{
-            margin-top: 7px;
-            float: right;
-        }
-        .success{
-        	color: #04AA6D; /* Green */
-        	float: left;
-        }
-        .danger{
-        	color: #f44336; /* Red */
-        	float: left;
-        }
-        .modal-content{
-        	width: 500px;
-        	height: 250px;
-        }
-        .modal-body{
-            width: 100%;
-            height: 100%;
-            text-align: center;
-        }
-        .form-label{
-        	margin-top: 80px;
-        }
-        #OKBtn{
-        	margin-top: 20px;
-        }
-        #NOBtn{
-        	margin-top: 20px;
-        }
-        
+      /* 닉네임 */
+      .profileNickname{
+          text-align: center;
+          margin-top: 10px;
+      }
+      /* 내 정보(등록 상품, 거래후기) */
+      .profileInfo{
+          width: 60%;
+          margin-top: 15px;
+          display: inline-block;
+      }
+	  .productInfo{
+          width: 38%;
+          text-align: left;
+          float: left;
+      }
+      .productCount{
+          width: 55%;
+          text-align: right;
+          float: right;
+      }
+      .profileInfo2{
+          width: 60%;
+          display: inline-block;
+      }
+      .productInfo2{
+          width: 38%;
+          text-align: left;
+          float: left;
+      }
+      .productCount2{
+          width: 55%;
+          text-align: right;
+          float: right;
+      }
+      /* 수정 버튼 */
+      .modifyBox{
+          width: 70%;
+          height: 70px;
+          display: inline-block;
+          margin-top: 15px;
+      }
+      /* 카테고리 */
+      .categoryBox{
+          float: left;
+          margin-top: 20px;
+      }
+      .categoryBox a{
+          text-decoration: none;
+          color: black;
+          font-size: large;
+          margin-left: 5px;
+      }
+      .categoryBox a:hover{
+          text-decoration: underline;
+      }
+      /* 컨텐츠 영역 */
+      .content{
+          width: 75%;
+          height: 90%;
+          float: right;
+          margin-top: 10px;
+      }
+      /* 전체 글 개수 */
+      .totalCount{
+          margin: 5px;
+      }
+      /* 카테고리 나타내는 글 */
+      .categoryText{
+          margin-top: 10px;
+      }
+      /* 카테고리 해당 물품 */
+      .mypost{
+          width: 100%;
+          height: 90%;
+      }
+      /* 물품 나타내는 박스 */
+      .postpriceBox{
+          width: 22%;
+          height: 31%;
+          margin: 10px;
+          float: left;
+          margin-top: 40px;
+      }
+      .postpriceBox :hover{
+          cursor: pointer;
+      }
+      #postimage{
+          width: 100%;
+          height: 100%;
+      }
+      .posttitle{
+          text-align: left;
+      }
+      /* 물품 박스 줄1 */
+      .mypost1st{
+      width:100%;
+          float: left;
+      }
+      /* 물품 박스 줄2 */
+      .mypost2nd{
+      width:100%;
+          float: left;
+      }
+      /* 물품 박스 푸터 */
+      .mypostfooter{
+      width:100%;
+          float: left;
+          margin-top: 50px;
+      }
+      /* 물품 박스 페이징 처리할 곳 */
+      .mypostpaging{
+          text-align: center;
+      }
+      
+      /* 반응형 웹페이지 800px 이하일때 반응 */
+      @media (max-width: 992px) {
+			.mypageContainer{
+	          width: 100%;
+	          height: 850px;
+			  }
+			      /* 프로필 */
+		      .profileBox{
+		          width: 100%;
+		          height: 450px;
+		          float: left;
+		          text-align: center;
+		      }
+			.profile_border {
+				width: 180px;
+				height: 180px;
+				border-radius: 50%;
+				overflow: hidden;
+			    display: inline-block;
+			    margin-top: 40px;
+			}
+			      /* 프로필 사진 */
+		  #profile_image {
+				width: 100%;
+				height: 100%;
+			}
+	      /* 닉네임 */
+	      .profileNickname{
+	          text-align: center;
+	          margin-top: 10px;
+	      }
+	      /* 내 정보(등록 상품, 거래후기) */
+	      .profileInfo{
+	          width: 60%;
+	          margin-top: 15px;
+	          display: inline-block;
+	      }
+		  .productInfo{
+	          width: 38%;
+	          text-align: left;
+	          float: left;
+	      }
+	      .productCount{
+	          width: 55%;
+	          text-align: right;
+	          float: right;
+	      }
+	      .profileInfo2{
+	          width: 60%;
+	          display: inline-block;
+	      }
+	      .productInfo2{
+	          width: 38%;
+	          text-align: left;
+	          float: left;
+	      }
+	      .productCount2{
+	          width: 55%;
+	          text-align: right;
+	          float: right;
+	      }
+	      /* 수정 버튼 */
+	      .modifyBox{
+	          width: 70%;
+	          height: 70px;
+	          display: inline-block;
+	          margin-top: 15px;
+	      }
+	      /* 카테고리 */
+	      .categoryBox{
+	          float: left;
+	          margin-top: 10px;
+	      }
+	      .categoryBox a{
+	          text-decoration: none;
+	          color: black;
+	          font-size: large;
+	          margin-left: 5px;
+	      }
+	      .categoryBox a:hover{
+	          text-decoration: underline;
+	      }
+	      /* 컨텐츠 영역 */
+	      .content{
+	          width: 100%;
+	          height: 75%;
+	          float: right;
+	          margin-top: 10px;
+	      }
+	      /* 전체 글 개수 */
+	      .totalCount{
+	          margin: 5px;
+	      }
+	      /* 카테고리 나타내는 글 */
+	      .categoryText{
+	          margin-top: 10px;
+	      }
+	      /* 카테고리 해당 물품 */
+	      .mypost{
+	          width: 100%;
+	          height: 80%;
+	      }
+	      /* 물품 나타내는 박스 */
+	      .postpriceBox{
+	          width: 45%;
+	          height: 31%;
+	          margin: 10px;
+	          float: left;
+	          margin-top: 40px;
+	      }
+	      .postpriceBox :hover{
+	          cursor: pointer;
+	      }
+	      #postimage{
+	          width: 100%;
+	          height: 100%;
+	      }
+	      .posttitle{
+	          text-align: left;
+	      }
+	      /* 물품 박스 줄1 */
+	      .mypost1st{
+	      width:100%;
+	          float: left;
+	      }
+	      /* 물품 박스 줄2 */
+	      .mypost2nd{
+	      width:100%;
+	          float: left;
+	      }
+	      /* 물품 박스 푸터 */
+	      .mypostfooter{
+	      width:100%;
+	          float: left;
+	          margin-top: 50px;
+	      }
+	      /* 물품 박스 페이징 처리할 곳 */
+	      .mypostpaging{
+	          text-align: center;
+	      }
+	  }
 
     /* ==================== */
-	
+	 
 </style>
 
 <body>
@@ -824,281 +976,107 @@
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
     <div class="container middle" style="height: 1100px">
-		<div class="mypageContainer">
-			<div class="row m-3"> 
-				<div class="titleBox">
-					<h3>내 정보 수정</h3>
-				</div>
-			</div>
-	        <div class="" id="profileBox">
+	    <div class="mypageContainer">
+	        <div class="profileBox">
 	            <div class="profile_border">
-                	<c:choose>
-						<c:when test="${empty loginSession.user_profile}">
-							<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
-						</c:when>
-						<c:otherwise>
-							<img src="/profile/${loginSession.user_profile}" id="profile_image">
-						</c:otherwise>
-					</c:choose>
+	                <img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+	            </div>
+	            <div class="profileNickname">
+	                <strong>닉네임 값</strong>
+	            </div>
+	            <div class="profileInfo">
+	                <div class="productInfo">
+	                    <span><strong>상품</strong></span>
+	                </div>
+	                <div class="productCount">
+	                    <span><strong>0</strong></span>
+	                </div>
+	            </div>
+	            <div class="profileInfo2">
+	                <div class="productInfo2">
+	                    <span><strong>거래후기</strong></span>
+	                </div>
+	                <div class="productCount2">
+	                    <span><strong>☆☆☆☆☆&nbsp;0</strong></span>
+	                </div>
+	            </div>
+	            <div class="modifyBox">
+	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
 	            </div>
 	        </div>
-			<form id="modifyForm">
-	            <div class="col-12">
-	                <label for="profileImg" class="form-label">&nbsp;프로필 사진</label><br>
-	                &nbsp;<input type="file" name="photo" id="profileInput" disabled>
+	        <div class="categoryBox">
+	            <a href="/"><strong>판매글</strong></a>
+	            <a href="/"><strong>찜 목록</strong></a>
+	            <a href="/"><strong>거래 후기</strong></a>
+	        </div>
+	        <div class="content">
+	            <div class="categoryText">
+	                <h3><strong>판매글</strong></h3>
 	            </div>
-	            <div class="nicknameBox">
-	                <div class="nicknameBox2">
-	                    <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="${loginSession.user_nickname}" readonly>
+	            <div class="totalCount">
+	                <span><strong>전체 8</strong></span>
+	            </div>
+	            <div class="mypost">
+	                <div class="mypost1st">
+	                    <div class="postpriceBox">
+	                        <div class="postimage">
+	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
+	                        </div>
+	                        <div class="posttitle">
+	                            <span><strong>판매물품 제목</strong></span>
+	                        </div>
+	                        <div class="postprice">
+	                            <span><strong>2,500원</strong></span>
+	                        </div>
+	                    </div>
+	                    <div class="postpriceBox">
+	                        <div class="postimage">
+	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
+	                        </div>
+	                        <div class="posttitle">
+	                            <span><strong>판매물품 제목</strong></span>
+	                        </div>
+	                        <div class="postprice">
+	                            <span><strong>2,500원</strong></span>
+	                        </div>
+	                    </div>
+	                    <div class="postpriceBox">
+	                        <div class="postimage">
+	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
+	                        </div>
+	                        <div class="posttitle">
+	                            <span><strong>판매물품 제목</strong></span>
+	                        </div>
+	                        <div class="postprice">
+	                            <span><strong>2,500원</strong></span>
+	                        </div>
+	                    </div>
+	                    <div class="postpriceBox">
+	                        <div class="postimage">
+	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
+	                        </div>
+	                        <div class="posttitle">
+	                            <span><strong>판매물품 제목</strong></span>
+	                        </div>
+	                        <div class="postprice">
+	                            <span><strong>2,500원</strong></span>
+	                        </div>
+	                    </div>
 	                </div>
-	                <div class="nicknameBox2text">
-	                	<span id="inputResult4"></span>
+	                <div class="mypost2nd">
+	                    
+	                </div>
+	                <div class="mypostfooter">
+	                    <div class="mypostpaging">
+	                        <span>페이징 처리</span>
+	                    </div>
 	                </div>
 	            </div>
-	            <div class="pwBox">
-					<input type="password" class="form-control" id="user_pw" name="user_pw" value="${loginSession.user_pw}" readonly>
-				</div>
-	            <div class="pwBoxtext">
-	            	<span id="inputResult2"></span>
-	            </div>
-	            
-	            <div class="pwBox2">
-					<input type="password" class="form-control" id="user_pwCheck" value="${loginSession.user_pw}" readonly>
-				</div>
-	            <div class="pwBox2text">
-	            	<span id="inputResult3"></span>
-	            </div>
-				<div class="phoneBox">
-					<input type="text" class="form-control" id="user_phone" name="user_phone" value="${loginSession.user_phone}" readonly>
-					<div class="phoneBoxtext">
-						<span id="inputResult7"></span>
-					</div>
-				</div>
-	            <div class="row p-2">
-	                <div class="col">
-	                    <input type="text" class="form-control" id="postcode" name="postcode" value="${loginSession.postcode}" readonly>
-	                </div>
-	                <div class="col" id="noBox">
-	                    <button type="button" class="btn btn-warning w-100" id="btnPostCode" disabled>우편번호 찾기</button>
-	                </div>
-	            </div>
-	            <div class="row p-2">
-	                <div class="col">
-	                    <input type="text" class="form-control" id="roadAddr" name="roadAddr" value="${loginSession.roadAddr}" readonly>
-	                </div>
-	            </div>
-	            <div class="row p-2">
-	                <div class="col mb-2">
-	                    <input type="text" class="form-control" id="detailAddr" name="detailAddr" value="${loginSession.detailAddr}" readonly>
-	                </div>
-	                <div class="col mb-2">
-	                    <input type="text" class="form-control" id="extraAddr" name="extraAddr" value="${loginSession.extraAddr}" readonly>
-	                </div>
-	            </div>
-	            <div class="row justify-content-center btn-before">
-	                <div class="col-4 d-flex justify-content-end">
-	                    <button type="button" class="btn btn-secondary" id="backBtn">뒤로가기</button>
-	                </div>
-	                <div class="col-4 d-flex justify-content-start">
-	                    <button type="button" class="btn btn-warning" id="modifyBtn">수정</button>
-	                </div>
-	            </div>
-	            <div class="row justify-content-center btn-after d-none">
-	                <div class="col-4 d-flex justify-content-end">
-	                    <button type="button" class="btn btn-secondary" id="cancelBtn">취소</button>
-	                </div>
-	                <div class="col-4 d-flex justify-content-start">
-	                    <button type="button" class="btn btn-warning" id="completeBtn" data-bs-toggle="modal" data-bs-target="#completeModal">수정완료</button>
-	                </div>
-	            </div>
-			</form>
-		</div>
+	        </div>
+	    </div>
     </div>
-    <!-- 수정 완료 Modal -->
-	<div class="modal" id="completeModal" tabindex="-1">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	      <div class="modal-body">
-			<label for="ok" class="form-label"><strong>수정이 완료되었습니다.</strong></label><br>
-			<button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="OKBtn">확인</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<!-- 변경사항 없음 Modal -->
-	<div class="modal" id="signupModal" tabindex="-1">
-	  <div class="modal-dialog modal-dialog-centered">
-	    <div class="modal-content">
-	      <div class="modal-body">
-			<label for="no" class="form-label"><strong>변경사항이 없습니다.</strong></label><br>
-			<button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="NOBtn">확인</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-
     <script>
-	    // 수정화면에서 취소 버튼을 눌렀을때
-	    $("#cancelBtn").on("click", function() {
-	        location.href = "/mypage/toMypageModify2";
-	    });
     
-	    // 수정버튼을 눌렀을때
-	    $("#modifyBtn").on("click", function() {
-	        $("#profileInput").attr("disabled", false); // 프로필 사진 업로드 disabled 제거
-	        $("#btnPostCode").attr("disabled", false); // 우편번호찾기 버튼에 걸린 disabled 제거
-	        $("input").not("#user_id").attr("readonly", false); // 닉네임를 제외한 input readonly 제거
-	        $("#user_nickname").attr("readonly", false); // 닉네임 readonly 제거
-	        $(".btn-before").css("display", "none"); // 기존의 버튼들 감춰주기
-	        $(".btn-after").removeClass("d-none"); // 취소, 완료버튼 보여주기
-	    });
-    
-		// 뒤로 가기 버튼
-		document.getElementById("backBtn").onclick = function(){
-			location.href = "/mypage/toMyStore";
-		}
-		
-	 	// user_pw
-		$("#user_pw").on("keyup", function(e) {
-			let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
-			// 8 : Backspace / 13 : Enter
-			console.log(e.key);
-			if(e.key !== 'Backspace' && e.key !== 'Enter'){
-				if(!regexPw.test($("#user_pw").val())) {
-					$("#inputResult2").html("&nbsp;&nbsp;비밀번호는 6~12자 이내로 입력해주세요<br>&nbsp;&nbsp;(영어 대소문자, 숫자, 특수문자 포함 가능)").css({color:'#f44336', 'float':'left'})
-					$("#user_pw").focus();
-					return;
-				}else{
-					$("#inputResult2").html("&nbsp;&nbsp;사용 가능한 비밀번호입니다").css({color:'#04AA6D', 'float':'left'})
-				}
-			}
-		})
-		
-		// user_pwCheck
-		$("#user_pwCheck").on("keyup", function(e) {
-			let regexPw = /^[a-zA-Z0-9~!@#$%^&*]{6,12}$/;
-			// 8 : Backspace / 13 : Enter
-			console.log(e.key);
-			if(e.key !== 'Backspace' && e.key !== 'Enter'){
-				if($("#user_pw").val() !== $("#user_pwCheck").val()) {
-					$("#inputResult3").html("&nbsp;&nbsp;비밀번호가 일치하지 않습니다").css({color:'#f44336', 'float':'left'})
-					$("#user_pwCheck").focus();
-					return;
-				}else{
-					$("#inputResult3").html("&nbsp;&nbsp;비밀번호가 일치합니다").css({color:'#04AA6D', 'float':'left'})
-				}
-			}
-		})
-		
-		// user_nickname
-		$("#user_nickname").on("keyup", function(e) {
-			let regexNickname = /^[a-zA-Z0-9ㄱ-힣]{4,8}$/;
-			// 8 : Backspace / 13 : Enter
-			console.log(e.key);
-			if(e.key !== 'Backspace' && e.key !== 'Enter'){ 
-				if(!regexNickname.test($("#user_nickname").val())) {
-					$("#inputResult4").html("&nbsp;&nbsp;특수문자 제외 4~8자내로 입력해주세요(공백제외)").css({color:'#f44336', 'float':'left'})
-					$("#user_nickname").focus();
-					return;
-				}else{
-		   				
-					$.ajax({
-						url : "/member/checkNickname"
-						,type : "get"
-						,data : {user_nickname : $("#user_nickname").val()}
-						, success: function(data){
-							if(data == "available"){
-								$("#inputResult4").html("&nbsp;&nbsp;사용 가능한 닉네임입니다").css({color:'#04AA6D', 'float':'left'})
-							}else if(data == "unavailable"){
-								$("#inputResult4").html("&nbsp;&nbsp;중복된 닉네임입니다").css({color:'#f44336', 'float':'left'})
-							}
-						}, error : function(e){
-							console.log(e);
-						}
-					})
-				}
-			}
-		})
-		
-		// user_phone
-		$("#user_phone").on("keyup", function(e) {
-			let regexPhone = /^[0-9]{11}$/;
-			// 8 : Backspace / 13 : Enter
-			console.log(e.key);
-			if(e.key !== 'Backspace' && e.key !== 'Enter'){
-				if(!regexPhone.test($("#user_phone").val())) {
-					$("#inputResult7").html("&nbsp;&nbsp;예)010-1234-5678 -> 01012345678로 입력해주세요").css({color:'#f44336', 'float':'left'})
-					$("#user_phone").focus();
-					return;
-				}else{
-		   				
-					$.ajax({
-						url : "/member/checkPhone"
-						,type : "get"
-						,data : {user_phone : $("#user_phone").val()}
-						, success: function(data){
-							if(data == "available"){
-								$("#inputResult7").html("&nbsp;&nbsp;예)010-1234-5678 -> 01012345678로 입력해주세요").css({color:'#04AA6D', 'float':'left'})
-							}else if(data == "unavailable"){
-								$("#inputResult7").html("&nbsp;&nbsp;중복된 휴대폰번호입니다").css({color:'#f44336', 'float':'left'})
-							}
-						}, error : function(e){
-							console.log(e);
-						}
-					})
-				}
-			}
-		})
-		
-		// 다음 우편번호 api
-		$("#btnPostCode").on("click", function() {
-			new daum.Postcode({
-				oncomplete : function(data) {
-					var roadAddr = data.roadAddress; // 도로명 주소 변수
-					var extraRoadAddr = ''; // 참고 항목 변수
-	
-					if (data.bname !== ''
-							&& /[동|로|가]$/g
-									.test(data.bname)) {
-						extraRoadAddr += data.bname;
-					}
-					// 건물명이 있고, 공동주택일 경우 추가한다
-					if (data.buildingName !== ''
-							&& data.apartment === 'Y') {
-						extraRoadAddr += (extraRoadAddr !== '' ? ', '
-								+ data.buildingName
-								: data.buildingName);
-					}
-					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraRoadAddr !== '') {
-						extraRoadAddr = ' ('
-								+ extraRoadAddr + ')';
-					}
-	
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					$("#postcode").val(data.zonecode);
-					$("#roadAddr").val(roadAddr);
-	
-					// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-					if (roadAddr !== '') {
-						$("#extraAddr").val(
-								extraRoadAddr);
-					} else {
-						$("#extraAddr").val("");
-					}
-				}
-			}).open();
-		})
-		
-		// 팝업창
-    	// 로그인/회원가입 a 태그 id값 : linkLogin
-	    document.getElementById("linkLogin").onclick = function(){
-	    	
-	    	var popupX = (window.screen.width / 2) - (800 / 2);
-	      	var popupY= (window.screen.height / 2) - (600 / 2);
-	      	
-	      	window.open('/member/toLogin', '로그인', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
-	    }
     </script>
 
 
@@ -1119,14 +1097,14 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${loginSession.notification.size() == 0}">
+                	<c:if test="${notification.size() == 0}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
                 	
-                	<c:if test="${loginSession.notification.size() > 0}">
-                		<c:forEach items="${loginSession.notification}" var="notifi">
+                	<c:if test="${notification.size() > 0}">
+                		<c:forEach items="${notification}" var="notifi">
                 			<c:if test="${notifi.notification_type eq '채팅'}">
 			                    <div class="row p-1 ">
 			                        <div class="col-2 text-center n_logo">

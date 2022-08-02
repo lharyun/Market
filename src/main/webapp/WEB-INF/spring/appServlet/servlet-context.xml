@@ -21,6 +21,7 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/imgfiles/*" location="/imgfiles/"/>
+	<resources mapping="/user_profile/**" location="/user_profile/" />
 	
 	<!-- 스프링에서 기본으로 제공하는 multipartResolver는 CommonsMultipartResolver 이므로, 순수한 
 		multipartResolver를 사용하기 위해 빈 이름으로 "multipartResolver"를 등록해야함 + 프로퍼티를 이용 최대 
@@ -45,10 +46,10 @@
 
 <!-- 채팅관련 -->
 	<!-- 웹 소켓 핸들러 -->
-	<!-- <websocket:handlers>
+	<websocket:handlers>
         <websocket:mapping path="/websocket/echo.do" handler="myHandler"/>
     </websocket:handlers>
  
-    <beans:bean id="myHandler" class="com.market.chatting.WebSocketHandler"/> -->
+    <beans:bean id="myHandler" class="com.market.chatting.WebSocketHandler"/>
 
 </beans:beans>

@@ -129,8 +129,24 @@
                     <a href="tosignUp">&nbsp;회원가입</a>
                 </div>
             </div>
+            <input type="text" class="d-none" value="${user_id}" id="user_id1">
+            <input type="text" class="d-none" value="${user_nickname}" id="user_nickname1">
+			<input type="text" class="d-none" value="${user_k}" id="user_k1">
 		</form>
 	</div>
+	<c:choose>
+		<c:when test="${checkUser eq true}">
+			<script>
+				opener.parent.location.reload();
+				window.close();
+			</script>
+		</c:when>
+		<c:when test="${checkUser eq false}">
+			<script>
+				location.href="tokakaosignUp?user_id="+$('#user_id1').val()+"&user_nickname="+$("#user_nickname1").val()+"&user_k="+$("#user_k1").val();
+			</script>
+		</c:when>
+	</c:choose>
 	<script>
 	
     // 일반 로그인
@@ -156,25 +172,25 @@
 		
 		$.ajax({
 			url : "/member/login"
-			,type : "post"
-			,data : {user_id : $("#user_id").val(), user_pw : $("#user_pw").val()}
+			, type : "post"
+			, data : {user_id : $("#user_id").val(), user_pw : $("#user_pw").val()}
 			, success: function(data){
 				console.log(data);
 				if(data == "success"){
 					opener.parent.location.reload();
 					window.close();
-				}else if(data == "fail"){
-					alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+				}else if(data == "fail_1"){
+					alert("등록된 유저 정보가 없습니다.");
+				}else if(data == "fail_2"){
+					alert("블랙 리스트 인원은 로그인이 제한됩니다.");
+				}else if(data == "fail_3"){
+					alert("아이디 또는 비밀번호가 일치하지 않습니다.");
 				}
 			}, error : function(e){
 				console.log(e);
 			}
 		})
 	}
-	
-    // 카카오 로그인
-	</script>            
-
 	</script>
 </body>
 </html>

@@ -54,5 +54,4 @@ public class FileDTO {
 		return "FileDTO [file_seq=" + file_seq + ", client_seq=" + client_seq + ", ori_name=" + ori_name + ", sys_name="
 				+ sys_name + "]";
 	}
-	
 }

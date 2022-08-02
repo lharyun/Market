@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.market.blackList.BlackListDAO;
+
 @Repository
 public class MemberDAO {
 	@Autowired
@@ -18,6 +20,16 @@ public class MemberDAO {
 	// 로그인 유효성 검사
 	public MemberDTO login(String user_id) throws Exception {
 		return session.selectOne("memberMapper.login", user_id);
+	}
+	
+	// 회원탈퇴시 비밀번호 확인
+	public MemberDTO checkPw(String user_id) throws Exception {
+		return session.selectOne("memberMapper.checkPw", user_id);
+	}
+	
+	// 회원탈퇴
+	public int memberdelete(String user_id) throws Exception {
+		return session.delete("memberMapper.memberdelete", user_id);
 	}
 
 	// 아이디 중복확인
@@ -51,19 +63,6 @@ public class MemberDAO {
 		return session.insert("memberMapper.kakaoinsert", dto);
 	}
 	
-	// 회원탈퇴
-	public int delete(String user_id) throws Exception{
-		return session.delete("memberMapper.delete", user_id);
-	}
-	
-	// 회원탈퇴 아이디 & 비밀번호 확인
-	public MemberDTO checkPw(String user_id, String user_pw) throws Exception {
-		Map<String, String> map = new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("user_pw", user_pw);
-		return session.selectOne("memberMapper.checkPw", map);
-	}
-	
 	// 닉네임 중복확인
 	public boolean checkNickname(String user_nickname) throws Exception {
 		return session.selectOne("memberMapper.checkNickname", user_nickname);
@@ -76,7 +75,6 @@ public class MemberDAO {
 	
 	// 카카오
 
-	
 	//하륜
 	public List<MemberDTO> selectAll(int start,int end) throws Exception{
 		Map<String,Object> map= new HashMap<>();
@@ -95,6 +93,11 @@ public class MemberDAO {
 
 		public int getPageNavi() throws Exception{
 			return session.selectOne("memberMapper.getPageNavi");
+		}
+		
+		//준철
+		public String makeAddr(String user_id)throws Exception{
+			return session.selectOne("memberMapper.makeAddr",user_id);	
 		}
 
 }

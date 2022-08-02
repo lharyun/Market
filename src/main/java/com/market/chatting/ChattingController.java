@@ -29,7 +29,7 @@ public class ChattingController {
     
     @Autowired
     private ChattingSession cSession;
-    
+    */
 	public ChattingController() {
 		System.out.println("ChattingController 인스턴스 생성");
 	}
@@ -38,7 +38,7 @@ public class ChattingController {
 	public String toChatting() {
 		return "chatting/chatting";
 	}
-	
+	/*
 	// 해당 채팅방의 채팅 메세지 불러오기
     @RequestMapping(value="{roomId}.do")
     public void messageList(@PathVariable String roomId, Model model, HttpServletResponse response) throws JsonIOException, IOException {

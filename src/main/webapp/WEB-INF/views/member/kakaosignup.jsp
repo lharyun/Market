@@ -21,7 +21,7 @@
     <link href="/resources/css/header_footer.css" rel="stylesheet" type="text/css">
      <!-- 다음 우편찾기 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src="/resources/js/addressapi.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 	<style>
 	    /* 회원가입 */
@@ -196,7 +196,8 @@
 		</div>
             <div class="idBox">
                 <div class="idBox2">
-                    <input type="text" class="form-control" id="user_id" name="user_id" value="${user_id}" readonly>
+                	<label>&nbsp;아이디</label><br>
+                    <input type="text" class="form-control" id="user_id" name="user_id" value="${user_id }" readonly>
                 </div>
                 <div class="idBox2text">
                 	<span id="inputResult"></span>
@@ -205,6 +206,7 @@
             
             <div class="nicknameBox">
                 <div class="nicknameBox2">
+                	<label>&nbsp;닉네임</label><br>
                     <input type="text" class="form-control" id="user_nickname" name="user_nickname" value="${user_nickname}" readonly>
                 </div>
                 <div class="nicknameBox2text">
@@ -502,6 +504,7 @@
 				, success: function(data){
 					console.log(data);
 					alert("회원 가입이 완료되었습니다.");
+					window.opener.location.reload();
 					window.close();
 				}, error : function(e){
 					alert("입력값을 제대로 입력해주세요.")
