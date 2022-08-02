@@ -3,7 +3,30 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<<<<<<< HEAD
  <mapper namespace="memberMapper"> 
+=======
+ <mapper namespace="memberMapper">
+
+  <!-- 하륜 -->
+ 	<select id="selectAll" parameterType="int" resultType="com.market.member.MemberDTO">
+ 		select * from ( select tbl_member.*, row_number() over(order by user_seq desc)
+ 		 as num from tbl_member)where num between #{start} and #{end}	
+ 	</select>
+ 	
+ 	<select id="search" parameterType="string" resultType="com.market.member.MemberDTO">
+ 		select * from tbl_member where user_id like '%' || #{user_id} || '%'
+ 	</select>
+ 
+ 	<select id="getPageNavi" resultType="int">
+ 		select count(*) as totalCnt from tbl_member
+ 	</select>
+ 	
+ 	<delete id="mn_delete" parameterType="String">
+ 		delete from tbl_member where user_id=#{id}
+ 	</delete>
+
+>>>>>>> 997cd0621eecdda7a0648be46c89322f804edf0b
   <!-- 용현 -->
 	<!-- 로그인 -->
 	<select id="login" resultType="com.market.member.MemberDTO">
@@ -33,7 +56,7 @@
 		select user_id from tbl_member where user_name = #{user_name} and user_phone = #{user_phone}
 	</select>
 	
-	<!-- 비밀번호 찾기 + 비밀번호 변경-->
+	<!-- 비밀번호 찾기 + 비밀번호 변경 -->
 	<update id="update_pw" parameterType="map">
 		update tbl_member set user_pw = #{user_pw} where user_id = #{user_id}
 	</update>
@@ -45,14 +68,21 @@
 			 #{user_phone}, #{postcode}, #{roadAddr}, #{detailAddr}, #{extraAddr}, 0, 0, 'false', 0)
 	</insert>
 	
+	<!-- 카카오 회원가입 -->
+	<insert id="kakaoinsert" parameterType="com.market.member.MemberDTO">
+		insert into tbl_member values
+		(#{user_id}, '카카오톡회원', #{user_k}, #{user_pw}, #{user_birth}, #{user_nickname}, null, #{user_name},
+			 #{user_phone}, #{postcode}, #{roadAddr}, #{detailAddr}, #{extraAddr}, 0, 0, 'false', 0)
+	</insert>
+	
 	<!-- 회원탈퇴 -->
-	<delete id="delete" parameterType="com.market.member.MemberDTO">
-		delete from tbl_member where user_id = #{user_id} and user_pw = #{user_pw}
+	<delete id="memberdelete">
+		delete from tbl_member where user_id = #{user_id}
 	</delete>
 	
-	<!-- 회원탈퇴 비밀번호 확인 -->
-	<select id="checkPw" parameterType="map" resultType="com.market.member.MemberDTO">
-		select * from tbl_member where user_id = #{user_id} and user_pw = #{user_pw}
+	<!-- 회원탈퇴시 비밀번호 확인 -->
+	<select id="checkPw" resultType="com.market.member.MemberDTO">
+		select * from tbl_member where user_id = #{user_id}
 	</select>
 	
 	<!-- 카카오 -->
@@ -69,23 +99,7 @@
 		select * from tbl_member where user_nickname=#{user_nickname} and user_id=#{user_id}
 	</select>
 
- <!-- 하륜 -->
- 	<select id="selectAll" parameterType="int" resultType="com.market.member.MemberDTO">
- 		select * from ( select tbl_member.*, row_number() over(order by user_seq desc)
- 		 as num from tbl_member)where num between #{start} and #{end}	
- 	</select>
- 	
- 	<delete id="mn_delete" parameterType="String">
- 		delete from tbl_member where user_id=#{id}
- 	</delete>
- 	
- 	 <select id="getPageNavi" resultType="int">
- 		select count(*) as totalCnt from tbl_member
-	</select>
 
- 	<select id="search" parameterType="string" resultType="com.market.member.MemberDTO">
- 	select * from tbl_member where user_id like '%' || #{user_id} || '%'
- 	</select>
  	
  	<!-- 준철 -->
  	<select id="makeAddr" resultType="String">
@@ -93,6 +107,15 @@
 		    ,SUBSTR(extraAddr,3, INSTR(SUBSTR(extraAddr,3,3),'동'))) as post_addr
 		from tbl_member
 		    where user_id= #{user_id}
+ 	</select>
+	<select id="e_makeAddr" resultType="String">
+ 		select 
+		    SUBSTR(extraAddr,INSTR(extraAddr,'(')+1,INSTR(extraAddr,')')-INSTR(extraAddr,'(')-1)from 
+		tbl_member
+			where user_nickname=#{user_nickname}
+ 	</select>
+ 	<select id="selectByNickname" parameterType="string" resultType="com.market.member.MemberDTO">
+ 		select * from tbl_member where user_nickname=#{user_nickname}
  	</select>
 
  </mapper>

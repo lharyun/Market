@@ -24,6 +24,7 @@ public class BlackListService {
 		}
 	}
 	
+	
 	public void black(String user_id) throws Exception{	//멤버 블랙체크 설정
 		//만약에 블랙리스트에 이미 있다면? 업데이트로 바꿔서 실행	
 		blackListDAO.black(user_id);	
