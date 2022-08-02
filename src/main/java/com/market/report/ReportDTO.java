@@ -6,8 +6,8 @@ public class ReportDTO {
 	private String user_id;
 	private String user_category;
 	private String reported_id;
-	private String category;
-	private int category_seq;
+	private String category;//카테고리(댓글,후기,글번호)
+	private int category_seq;//카테고리 번호(댓글번호,후기번호,글번호)
 	
 	public ReportDTO() {}
 
