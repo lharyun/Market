@@ -34,10 +34,7 @@ public class ChattingController {
     @Autowired
     private ChattingSession cSession;
     
-<<<<<<< HEAD
-=======
     */
->>>>>>> 997cd0621eecdda7a0648be46c89322f804edf0b
 	public ChattingController() {
 		System.out.println("ChattingController 인스턴스 생성");
 	}
@@ -45,17 +42,17 @@ public class ChattingController {
 	@RequestMapping(value = "/toChatting")
 	public String toChatting(Model model) throws Exception{
 		String masterName= ((MemberDTO) session.getAttribute("loginSession")).getUser_nickname();
+		//로그인된 닉네임으로 멤버 조회
 		MemberDTO memdto = memberService.selectByNickname(masterName);
 		model.addAttribute("memdto", memdto);
 		System.out.println(memdto);
+		//로그인된 닉네임으로 채팅룸 조회
 		List<Map<String, Object>> list=cService.chat_mamberJoin(masterName);
 		model.addAttribute("list", list);
 		System.out.println(list);
 		return "chatting/chatting";
 	}
 	
-<<<<<<< HEAD
-=======
 	@RequestMapping(value = "/chat_insert")
 	public String chat_insert(ChattingRoomDTO dto) throws Exception{
 		String userName = dto.getUserName();//닉네임으로 조회
@@ -65,18 +62,25 @@ public class ChattingController {
 		System.out.println(dto.getPost_seq());
 		if(!cService.overlapping(userName, dto.getPost_seq())) {//중복값이 없다면
 			cService.chat_insert(dto);// 채팅방 만들기
+			// 포스트 조회수 업데이트
+			int post_chatting_cnt = cService.chatCount(dto.getPost_seq());
+			postService.update_chatting_cnt(dto.getPost_seq(), post_chatting_cnt);
 		};
 		return "redirect:/chatting/toChatting";
 	}
 	//채팅방 나가기
 	@RequestMapping(value = "/chat_m_exit")
-	public String toChatting(ChattingMessageDTO dto) throws Exception{
+	public String toChatting(ChattingMessageDTO dto, int post_seq) throws Exception{
 		System.out.println(dto);
 		
 		String message = "거래를 시작하세요!";
 		dto.setMessage(message);
 		cService.roomUpdate(dto);
 		cService.chat_m_exit(dto.getRoomId());
+		// 포스트 조회수 업데이트
+		int post_chatting_cnt = cService.chatCount(post_seq);
+		postService.update_chatting_cnt(post_seq, post_chatting_cnt);
+		
 		return "redirect:/chatting/toChatting";
 	}
 	

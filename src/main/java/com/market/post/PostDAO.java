@@ -33,6 +33,13 @@ public class PostDAO {
 	public void toPost_state(PostDTO dto) throws Exception{
 		session.delete("postMapper.toPost_state", dto);
 	}
+	//채팅수 업데이트
+	public void update_chatting_cnt(int post_seq, int post_chatting_cnt) throws Exception{
+		Map<String,Object> map= new HashMap<>();
+		map.put("post_seq", post_seq);
+		map.put("post_chatting_cnt", post_chatting_cnt);
+		session.delete("postMapper.update_chatting_cnt", map);
+	}
 	// 새로운 게시글 시퀀스 번호 생성
 	public int selectSeq() throws Exception{ 
 		return session.selectOne("postMapper.selectSeq");
@@ -41,19 +48,19 @@ public class PostDAO {
 	public PostDTO selectPost_seq(int post_seq) throws Exception{ 
 		return session.selectOne("postMapper.selectPost_seq", post_seq);
 	}
-	//페이지 계산
+	//페이지 계산 (메인페이지)
 	public int getPageNavi(String post_addr, String search) throws Exception{
 		Map<String,Object> map= new HashMap<>();
 		map.put("post_addr", post_addr);
 		map.put("search", search);
 		return session.selectOne("postMapper.getPageNavi",map);
 	}
-	//페이지 계산
+	//페이지 계산 (검색)
 	public int getPageNavi_s(String post_addr, String search) throws Exception{
 		Map<String,Object> map= new HashMap<>();
 		map.put("post_addr", post_addr);
 		map.put("search", search);
-		return session.selectOne("postMapper.getPageNavi",map);
+		return session.selectOne("postMapper.getPageNavi_s",map);
 	}
 	// 조인된 테이블 데이터 조회
 	public List<Map<String,Object>> selectJoin(int start,int end) throws Exception{ 

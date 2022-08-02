@@ -42,13 +42,17 @@ public class PostService {
 	public void inquiry_cnt(int post_seq) throws Exception{ 
 		postDao.inquiry_cnt(post_seq);
 	}
+	//채팅수 업데이트
+	public void update_chatting_cnt(int post_seq, int post_chatting_cnt) throws Exception{
+		postDao.update_chatting_cnt(post_seq, post_chatting_cnt);
+	}
 	
 	//총데이터 수를 가져와 페이지 계산
 		public HashMap<String,Object> getPageNavi(int curPage,String post_addr, String search) throws Exception{
 			int totalCnt = postDao.getPageNavi(post_addr,search); //전체 게시글의 개수
 			System.out.println(totalCnt);
 			int recordCntPerPage=12; //한페이지에 몇개의 데이터(게시글)을 띄워줄지
-			int naviCntPerPage=3; //네비바에 몇개 단위로 페이징을 구성할지
+			int naviCntPerPage=5; //네비바에 몇개 단위로 페이징을 구성할지
 			int pageTotalCnt =0;// 총 몇 페이지가 나올지			
 			if(totalCnt % recordCntPerPage >0) { // 나머지가 생김(10의 배수가 아님x)
 				pageTotalCnt =totalCnt/recordCntPerPage +1; //45개-> 4.5+1
@@ -91,10 +95,10 @@ public class PostService {
 					
 		}
 		public HashMap<String,Object> getPageNavi_s(int curPage,String post_addr, String search) throws Exception{
-			int totalCnt = postDao.getPageNavi(post_addr,search); //전체 게시글의 개수
-			System.out.println(totalCnt);
+			int totalCnt = postDao.getPageNavi_s(post_addr,search); //전체 게시글의 개수
+			System.out.println("search"+totalCnt);
 			int recordCntPerPage=12; //한페이지에 몇개의 데이터(게시글)을 띄워줄지
-			int naviCntPerPage=3; //네비바에 몇개 단위로 페이징을 구성할지
+			int naviCntPerPage=5; //네비바에 몇개 단위로 페이징을 구성할지
 			int pageTotalCnt =0;// 총 몇 페이지가 나올지			
 			if(totalCnt % recordCntPerPage >0) { // 나머지가 생김(10의 배수가 아님x)
 				pageTotalCnt =totalCnt/recordCntPerPage +1; //45개-> 4.5+1

@@ -924,7 +924,7 @@
                 <c:if test="${list.size() == 0}">
                 	<div class="yourProfile">
                         <div class="d-flex align-items-center">
-                			채팅 상대가 없습니다.
+                			<b>채팅 상대가 없습니다.</b>
                 		</div>
                 	</div>
                 </c:if>
@@ -932,7 +932,6 @@
                 	<c:forEach items="${list}" var="list">
 	                	<div class="yourProfile">
 	                        <div class="d-flex align-items-center">
-	                            
 		                        <c:if test="${loginSession.user_nickname ne list.username}">
 		                        	<c:if test="${empty list.user_profile_a}">
                         				<img src="/resources/images/chatting/NoImg.webp">
@@ -1344,7 +1343,9 @@
   	$("#chatExit").on("click", function(){
   		let roomId = $("#rooId_input").val();
   		console.log(roomId);
-  		location.href = "/chatting/chat_m_exit?roomId="+roomId;
+  		let post_seq = $("#post_seq_input").val();
+    	console.log(post_seq);
+  		location.href = "/chatting/chat_m_exit?roomId="+roomId+"&post_seq="+post_seq;
   	})
     //채팅멤버 클릭 -> 리스트 출력
     $(".yourProfile").on("click", function(e){

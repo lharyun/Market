@@ -2,7 +2,6 @@ package com.market.member;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.blackList.BlackListDTO;
 import com.market.blackList.BlackListService;
+import com.market.notification.NotificationDTO;
 import com.market.notification.NotificationService;
 import com.market.report.ReportDTO;
 import com.market.report.ReportService;
@@ -75,6 +75,8 @@ public class MemberController {
 			System.out.println(bkdto);
 			
 			if(dto != null && pwdMatch == true && bkdto == 0) { // db에 id와 pw가 있고, 암호화 pw 비교가 맞고, 블랙리스트에 속하지 않은 경우(로그인 성공)
+				List<NotificationDTO> notification = notifiService.nicknameSelect(dto.getUser_nickname());
+				session.setAttribute("notification", notification);
 				session.setAttribute("loginSession", dto);
 				System.out.println(((MemberDTO)session.getAttribute("loginSession")).toString());
 				return "success";

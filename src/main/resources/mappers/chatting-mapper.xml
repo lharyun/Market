@@ -27,6 +27,10 @@
 			where masterName = #{masterName} or userName = #{masterName}
 		order by last_date desc
 	</select>
+	<select id="chatCount"  resultType="int">
+		select count(*) from ChattingRoom 
+			where post_seq=#{post_seq}
+	</select>
 	<!-- insert시 같이업테이트 -->
 	<update id="roomUpdate" parameterType="com.market.chatting.ChattingMessageDTO">
 		update ChattingRoom set 
