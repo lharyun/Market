@@ -1835,7 +1835,7 @@ header {
 			function(e) {
 				if ($("#memberAll").is(":checked")) {
 					$(".check").prop("checked", true);
-					$(".check").parent().css("backgroundColor", "#ffafa1");
+					$(".check").parent().css("backgroundColor", "#f4ffe8");
 					$(".check").parent().parent().css("backgroundColor",
 							"#f4ffe8");
 				} else {
@@ -1854,7 +1854,7 @@ header {
 						if ($("#blackAll").is(":checked")) {
 							$(".bCheck").prop("checked", true);
 							$(".bCheck").parent().css("backgroundColor",
-									"#ffafa1");
+									"#f4ffe8");
 							$(".bCheck").parent().parent().css(
 									"backgroundColor", "#f4ffe8");
 						} else {
@@ -1874,7 +1874,7 @@ header {
 						if ($("#reportAll").is(":checked")) {
 							$(".rCheck").prop("checked", true);
 							$(".rCheck").parent().css("backgroundColor",
-									"#ffafa1");
+									"#f4ffe8");
 							$(".rCheck").parent().parent().css(
 									"backgroundColor", "#f4ffe8");
 						} else {
@@ -1889,7 +1889,7 @@ header {
 	/* 체크박스 클릭시 이벤트 */
 	function setBox(e) {
 		td = e.parentNode;
-		td.style.backgroundColor = (e.checked) ? "#ffafa1" : "white";
+		td.style.backgroundColor = (e.checked) ? "#f4ffe8" : "white";
 		tr = e.parentNode.parentNode;
 		tr.style.backgroundColor = (e.checked) ? "#f4ffe8" : "#fff";
 	}

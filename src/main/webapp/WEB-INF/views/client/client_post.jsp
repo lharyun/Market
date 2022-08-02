@@ -15,191 +15,10 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="/resources/css/header_footer.css" rel="stylesheet">
 <style>
-/* 헤더 푸터 UI */
-header {
-	position: sticky;
-	top: 0;
-	display: block;
-	background-color: white;
-	z-index: 1;
-}
-/* 헤더 상단 */
-.heder_top {
-	height: 40px;
-	margin: auto;
-	font-size: 13px;
-}
 
-.heder_top a {
-	color: gray;
-}
 
-.heder_top a:hover {
-	color: orange;
-}
-
-.heder_top .dropdown:hover .dropdown-menu {
-	display: block;
-	margin-top: 0;
-}
-/* 헤더 중간 */
-.heder_middleBox {
-	margin: auto;
-	border-bottom: 1px solid rgba(128, 128, 128, 0.233);
-	border-top: 1px solid rgba(128, 128, 128, 0.233);
-}
-
-.heder_middle {
-	height: 40px;
-	margin: auto;
-}
-
-.heder_middle a {
-	color: black;
-	display: inline-block;
-	font-weight: bold;
-}
-
-.menu_right>li::after {
-	color: #72787e;
-	content: "|";
-	align-items: center;
-}
-
-.menu_right>li:last-child::after {
-	content: "";
-}
-
-.menu_right a:hover {
-	color: orange;
-}
-
-.searchInput {
-	width: 100%;
-	height: 38px;
-	border-radius: 8px;
-	border: 1px solid #f47d39;
-	outline: 1px solid #f47d39;
-}
-
-.searchIcon {
-	position: absolute;
-	left: 91%;
-	top: 7px;
-}
-/* 헤더 하단 */
-.heder_bottom {
-	height: 70px;
-	margin: auto;
-	word-break: break-all
-}
-
-.heder_bottom a {
-	text-decoration: none;
-	color: black;
-}
-
-.category_line>div {
-	border-right: 1px solid #72787e4f;
-}
-
-.category_line>div:last-child {
-	border: 0;
-}
-
-.category_line .nav-link {
-	color: #36393b;
-}
-
-.category_line .nav-link:hover {
-	font-weight: 600;
-	background-color: #ffad0a2d;
-}
-/* ===contetnt 영역==== */
-/* ==================== */
-.logo2 {
-	position: fixed;
-	bottom: 60px;
-	right: 10px;
-	z-index: 2;
-}
-/* 푸터 */
-.middle {
-	height: 100%;
-}
-
-footer {
-	background-color: #495057;
-}
-
-footer .nav-link {
-	color: rgb(170, 170, 170);
-	text-decoration: none;
-}
-
-footer .nav-link:hover {
-	color: white;
-}
-
-.pooterLine {
-	border-bottom: 1px solid rgba(128, 128, 128, 0.479);
-}
-
-.pooterText {
-	color: gray;
-	font-size: 14px;
-}
-
-@media ( max-width : 992px) {
-	#Non_reaction {
-		display: none;
-	}
-	#checkBox {
-		width: 450px;
-	}
-	.category_line li {
-		height: 35px;
-	}
-	#searchBox {
-		width: 300px;
-		height: 40px;
-	}
-	.font_a {
-		color: red;
-		font-weight: 700;
-	}
-}
-
-@media ( max-width : 540px) {
-	.a_reaction {
-		display: none;
-	}
-}
-
-@media ( min-width : 992px) {
-	#reaction {
-		display: none;
-	}
-	#footerBox {
-		width: 992px;
-	}
-	.heder_top {
-		width: 992px;
-	}
-	.heder_middle {
-		width: 992px;
-	}
-	#checkBox {
-		width: 922px;
-	}
-	.heder_middleBox {
-		padding-top: 35px;
-	}
-	.heder_bottom {
-		width: 992px;
-	}
-}
 /* 콘테이너============================================== */
 #container {
 	border: 2px solid #f47d39;
@@ -945,15 +764,13 @@ footer .nav-link:hover {
 					</div>
 					<div class="col-2">
 						<!-- 만약 관리자 계정이면 버튼 활성화 -->
-						<%-- <c:if test="${loginSession.id == 'abc123'}"> --%>
+					 <c:if test="${loginSession.user_id eq 'asd123@naver.com'}">
 							<button type="button" class="btn btn-write fw-bold" id="writeBtn">
 								<img src="/resources/images/client/w33.png" class="write">
 								글쓰기
 							</button>
-						<%-- </c:if> --%>
-						 <a class="nav-link" href="/member/toManager?curPage=1">
-	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
-	         </a>
+					 </c:if>
+						
 					</div>
 					<hr style="border: 2px solid #f47d39" />
 
@@ -1570,88 +1387,8 @@ footer .nav-link:hover {
 			location.href = "/client/toWrite";
 		})
 
-		/* HEADER FOOTER 스크립트 */
 
-		$('#SearchForm').on('keypress', function(e) { // 인풋창 클릭후 엔터누르면 실행
-			if (e.keyCode == '13') {
-				if ($("#titleSearch").val() !== "") {//검색창이 널값이 아니라면
-					document.getElementById("SearchForm").submit();
-				}
-			}
-		});
-		// 게시글 검색
-		$("#searchIcon").on("click", function() {
-			if ($("#titleSearch").val() == "") { //검색창이 널값이라면
-				alert("물품을 입력해주세요!")
-			} else if ($("#titleSearch").val() != "") {//검색창이 널값이 아니라면
-				document.getElementById("SearchForm").submit();
-			}
-		})
-		$("#searchIcon2").on("click", function() {
-			if ($("#titleSearch2").val() == "") { //검색창이 널값이라면
-				alert("물품을 입력해주세요!")
-			} else if ($("#titleSearch2").val() != "") {//검색창이 널값이 아니라면
-				document.getElementById("SearchForm2").submit();
-			}
-		})
-		//즐겨찾기 버튼
-		$(".bookmark").on("click", function() {
-			alert(" Ctrl+D 키를 누르면 즐겨찾기에 추가하실 수 있습니다.")
-		})
-		//지역카테고리
-		$("#district").change(function() {
-			console.log($(this).val());
-			$(".b_dong").addClass('d-none');
-			$("#dong").addClass('d-none');
-			if ($(this).val() == "강남구") {
-				$("#gangnam").removeClass('d-none');
-			} else if ($(this).val() == "강동구") {
-				$("#gangdong").removeClass('d-none');
-			} else if ($(this).val() == "강서구") {
-				$("#gangseo").removeClass('d-none');
-			} else if ($(this).val() == "강북구") {
-				$("#gangbuk").removeClass('d-none');
-			} else if ($(this).val() == "관악구") {
-				$("#Gwanak").removeClass('d-none');
-			} else if ($(this).val() == "광진구") {
-				$("#Gwangjin").removeClass('d-none');
-			} else if ($(this).val() == "구로구") {
-				$("#Guro").removeClass('d-none');
-			} else if ($(this).val() == "금천구") {
-				$("#Geumcheon").removeClass('d-none');
-			} else if ($(this).val() == "노원구") {
-				$("#Nowon").removeClass('d-none');
-			} else if ($(this).val() == "동대문구") {
-				$("#Dongdaemun").removeClass('d-none');
-			} else if ($(this).val() == "동작구") {
-				$("#Dongjak").removeClass('d-none');
-			} else if ($(this).val() == "마포구") {
-				$("#Mapo").removeClass('d-none');
-			} else if ($(this).val() == "서대문구") {
-				$("#Seodaemun").removeClass('d-none');
-			} else if ($(this).val() == "송파구") {
-				$("#Songpa").removeClass('d-none');
-			} else if ($(this).val() == "영등포구") {
-				$("#Yeongdeungpo").removeClass('d-none');
-			} else if ($(this).val() == "용산구") {
-				$("#Yongsan").removeClass('d-none');
-			} else if ($(this).val() == "은평구") {
-				$("#Eunpyeong").removeClass('d-none');
-			} else if ($(this).val() == "종로구") {
-				$("#Jongno").removeClass('d-none');
-			} else if ($(this).val() == "지역을 선택하세요") {
-				$("#dong").removeClass('d-none');
-			}
-			$("#roadAddrInput").val($(this).val());
-			document.getElementById("districeForm").submit();
-		})
-		//동네카테고리
-		$(".a_dong").change(function() {
-			console.log($(this).val());
-			$("#extraAddrInput").val($(this).val());
-			document.getElementById("districeForm").submit();
-		})
 	</script>
 </body>
-
+<script src="/resources/js/header_footer.js"></script>
 </html>
