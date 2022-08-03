@@ -280,7 +280,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/todelete") // 회원탈퇴 페이지 요청
-	public String todelete() {
+	public String todelete(Model model) {
+		String user_k = ((MemberDTO)session.getAttribute("loginSession")).getUser_k();
+		System.out.println("user_k1 :" + user_k);
+		model.addAttribute("user_k", user_k);
+		System.out.println("user_k2 :" + user_k);
 		return "member/delete";
 	}
 	

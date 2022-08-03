@@ -1093,11 +1093,12 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${notification.size() == 0}">
+                	<c:if test="${notification.size() == 0 or empty notification}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
+                	
                 	
                 	<c:if test="${notification.size() > 0}">
                 		<c:forEach items="${notification}" var="notifi">
@@ -1107,7 +1108,7 @@
 			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1122,7 +1123,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1136,7 +1137,7 @@
 			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1185,28 +1186,28 @@
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0" target="_blank">믿을수 있는 중고거래</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1"" class="nav-link p-0" >자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0">싸다구페이</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">동네가게</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0" target="_blank">싸다구페이</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.mangoplate.com/top_lists/2960_seoul2022" class="nav-link p-0" target="_blank">동네가게</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0">회사소개</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">채용</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0" target="_blank">팀 소개</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.jobkorea.co.kr/Search/?stext=%EC%9B%B9%EA%B0%9C%EB%B0%9C" class="nav-link p-0" target="_blank">채용</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0">이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0">개인정보처리방침</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0">위치기반서비스 이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0">이용자보호 비전과 계획</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0" target="_blank">이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0" target="_blank">개인정보처리방침</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0" target="_blank">위치기반서비스 이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0" target="_blank">이용자보호 비전과 계획</a></li>
                     </ul>
                 </div>
             </div>

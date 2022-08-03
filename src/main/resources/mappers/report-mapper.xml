@@ -24,7 +24,7 @@
  	delete from tbl_report where report_seq = #{report_seq}
  	</delete>
  	
- 	<insert id="insert" parameterType="com.market.report.ReportDAO">
+ 	<insert id="insert" parameterType="com.market.report.ReportDTO">
  	<selectKey order="BEFORE" keyProperty="report_seq" resultType="int">
  		select report_seq.nextval from dual
  		</selectKey>
