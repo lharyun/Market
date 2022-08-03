@@ -932,6 +932,7 @@
                 	<c:forEach items="${list}" var="list">
 	                	<div class="yourProfile">
 	                        <div class="d-flex align-items-center">
+	                        <%-- 로그인정보값과 비교해서 다른 프로필 추출 --%>
 		                        <c:if test="${loginSession.user_nickname ne list.username}">
 		                        	<c:if test="${empty list.user_profile_a}">
                         				<img src="/resources/images/chatting/NoImg.webp">
@@ -949,7 +950,13 @@
 		                        	</c:if>
 		                        </c:if>
 	                            <div class="ms-2 member_textBox">
-	                                <span class="fw-bolder">${list.username}</span> 
+	                            	<%-- 로그인정보값과 비교해서 다른 닉네임 추출 --%>
+		                             <c:if test="${loginSession.user_nickname eq list.username}">
+		                             	<span class="fw-bolder">${list.mastername}</span> 
+		                             </c:if>
+		                              <c:if test="${loginSession.user_nickname ne list.username}">
+		                             	<span class="fw-bolder">${list.username}</span> 
+		                             </c:if>   
 	                                <span class="font_gray">${list.extraaddr}·${list.last_date}</span>
 	                                <div >
 	                                    ${list.last_chat}
@@ -1401,12 +1408,22 @@
     })
 	//이모티콘 클릭시
       $(".emoticon_gabal").on("click", function () {
+    	  var now = new Date();
+          // Date 객체의 getHours(시간) , getMinutes(분) 속성을 저장 합니다.
+          var nowHour = now.getHours();
+          var nowMt = now.getMinutes();
+     		if ( nowHour <= 11  &&  nowHour  >= 0 ) {
+     		  var date ='오전' + nowHour + ':' + nowMt;
+     		} else if (  nowHour >= 12  &&  nowHour  < 23  ) {
+    		    var date ='오후' + nowHour + ':' + nowMt;
+     		}
+     		let message2 = "이모티콘을 보냈어요."
     	  	let loginId= '${loginSession.user_id}';    
           	let roomId = $('#rooId_input').val();
           	let messageId= '${memdto.user_id}';
           	let name =  '${memdto.user_nickname}';
     	  	let message = "<span><img style='width:180px;height:180;' src=" + $(this).prop("src") + ">" + "</span>";
-            let newChat = "<div class='dynamicChat_r'><span class='font_gray_b'>" + "오후3:14" + "</span>" 
+            let newChat = "<div class='dynamicChat_r'><span class='font_gray_b'>" + date + "</span>" 
                 + message +"</div>";
             console.log(newChat);
             $(".contentDiv").append($(newChat).hide());
@@ -1420,7 +1437,7 @@
             		url: "/chatting/chat_m_insert"
             		, type: "post"
             		, data: {roomId:roomId, messageId : messageId, name:name,
-            				message : message}
+            				message : message, message2:message2}
             		, success: function(data){
             			console.log(data);
             			if(data =="success"){
@@ -1460,17 +1477,18 @@
     })
     
       function makeDynamicEl(){
+    	
     	let loginId= '${loginSession.user_id}';    
         let roomId = $('#rooId_input').val();
         let messageId= '${memdto.user_id}';
         let name =  '${memdto.user_nickname}';
         let message = '<span class="chat_text">' +$("#chatting_content").val() +'</span>';
-       
+       	let message2 = $("#chatting_content").val();
         $.ajax({
     		url: "/chatting/chat_m_insert"
     		, type: "post"
     		, data: {roomId:roomId, messageId : messageId, name:name,
-    				message : message}
+    				message : message, message2:message2}
     		, success: function(data){
     			console.log(data);
     			if(data =="success"){
@@ -1481,13 +1499,22 @@
     			console.log(e);
     		}
     	})  
+    	 var now = new Date();
+         // Date 객체의 getHours(시간) , getMinutes(분) 속성을 저장 합니다.
+         var nowHour = now.getHours();
+         var nowMt = now.getMinutes();
+    	if ( nowHour <= 11  &&  nowHour  >= 0 ) {
+    		  var date ='오전' + nowHour + ':' + nowMt;
+    		} else if (  nowHour >= 12  &&  nowHour  < 23  ) {
+    		    var date ='오후' + nowHour + ':' + nowMt;
+    		}
     	if(loginId==messageId){
-    		let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + "오후3:14" + 
+    		let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + date + 
             "</span>" + message + "</div>";
         	$(".contentDiv").append($(newChat).hide());
         	$(".dynamicChat_r").fadeIn("slow");
     	}else{
-    		let newChat = "<div class='dynamicChat_l'><span class='me-2 font_gray_b'>" + "오후3:14" + 
+    		let newChat = "<div class='dynamicChat_l'><span class='me-2 font_gray_b'>" + date + 
             "</span>" + message + "</div>";
 	        $(".contentDiv").append($(newChat).hide());
 	        $(".dynamicChat_l").fadeIn("slow");

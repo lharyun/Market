@@ -127,7 +127,7 @@ $(".a_dong").change(function () {
 	let test = $("#testSearch").val();
     console.log(test);
     console.log($(this).val());
-    $("#extraAddrInput").val(test +" "+ $(this).val()+"동");
+    $("#roadAddrInput").val(test +" "+ $(this).val()+"동");
     document.getElementById("districeForm").submit();
 })
 

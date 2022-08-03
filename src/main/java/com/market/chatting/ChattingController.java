@@ -56,11 +56,12 @@ public class ChattingController {
 	@RequestMapping(value = "/chat_insert")
 	public String chat_insert(ChattingRoomDTO dto) throws Exception{
 		String userName = dto.getUserName();//닉네임으로 조회
-		System.out.println(userName);
 		dto.setExtraAddr(memberService.e_makeAddr(userName));
 		System.out.println(dto);
 		System.out.println(dto.getPost_seq());
-		if(!cService.overlapping(userName, dto.getPost_seq())) {//중복값이 없다면
+		String loginName= ((MemberDTO) session.getAttribute("loginSession")).getUser_nickname();
+		System.out.println("user" + userName);
+		if(!cService.overlapping(dto.getMasterName(), dto.getPost_seq())) {//중복값이 없다면
 			cService.chat_insert(dto);// 채팅방 만들기
 			// 포스트 조회수 업데이트
 			int post_chatting_cnt = cService.chatCount(dto.getPost_seq());
@@ -99,10 +100,12 @@ public class ChattingController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/chat_m_insert")
-	public String chat_m_insert(ChattingMessageDTO dto) throws Exception{
+	public String chat_m_insert(ChattingMessageDTO dto,String message2) throws Exception{
+		System.out.println(message2);
 		System.out.println(dto);
 		if(dto != null) {
 			cService.chat_m_insert(dto);
+			dto.setMessage(message2);
 			cService.roomUpdate(dto);
 			return "success";
 		}
