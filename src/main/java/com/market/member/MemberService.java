@@ -376,5 +376,4 @@ import com.market.blackList.BlackListDTO;
 	public MemberDTO selectByNickname(String user_nickname)throws Exception{
 		return memberDAO.selectByNickname(user_nickname);	
 	}
-
 }

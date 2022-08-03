@@ -1,5 +1,9 @@
 package com.market.mypage;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -9,13 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.market.member.MemberDTO;
 import com.market.member.MemberService;
+import com.market.post.PostService;
 
 @RequestMapping(value = "/mypage")
 @Controller
@@ -26,6 +30,8 @@ public class MypageController {
 	private HttpSession session;
 	@Autowired
 	private MemberService mailService;
+	@Autowired
+	private PostService postService;
 	@Inject
 	private BCryptPasswordEncoder pwdEncoder;
 	
@@ -34,7 +40,57 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/toMyStore") // 내 상점 페이지 요청
-	public String toMyStore() {
+	public String toMyStore(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+		System.out.println("curPage" + curPage);
+		System.out.println("내 상점 페이지 접속");
+		
+		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
+		
+		model.addAttribute("list", service.searchmypost(user_id)); // 내 판매글 조회
+		System.out.println("아이디 :" + user_id);
+		
+		int pcnt = service.countpost(user_id); // 판매 글 수 출력
+		
+		model.addAttribute("pcnt", pcnt);
+		
+		System.out.println("게시글 수 :" + pcnt);
+		
+		System.out.println("페이지 :" + curPage);
+		String post_addr1 = null;
+		
+		HashMap<String,Object> map = service.getPageNavi(curPage, post_addr1, user_id);
+		System.out.println("출력3 :" + map);
+		
+		map.put("post_addr",post_addr1);
+		map.put("user_id", user_id);
+		model.addAttribute("naviMap",map);
+		System.out.println("네비맵 출력 : " + map);
+		
+		//post,img테이블 select*from
+		List<Map<String, Object>> list = service.myselectJoin(user_id, curPage*12-11, curPage*12);
+		model.addAttribute("list", list);
+		
+		return "mypage/myStore";
+	}
+	
+	//정확한검색 (카테고리, 지역)
+	@RequestMapping(value = "/toSearch")
+	public String toSearch(int curPage, String post_addr, String user_id, Model model) throws Exception{
+		System.out.println(post_addr);
+		System.out.println("curPage" + curPage);
+		//페이지 나누기
+		HashMap<String,Object> map = postService.getPageNavi_s(curPage,post_addr, user_id);
+		System.out.println("post_addr : " +post_addr);
+		System.out.println("user_id : " + user_id);
+		map.put("post_addr",post_addr);
+		map.put("user_id", user_id);
+		model.addAttribute("naviMap",map);
+		System.out.println("네비맵 출력 : " + map);
+		
+		//post,img테이블 select*from
+		List<Map<String, Object>> list = postService.search(curPage*12-11,curPage*12,post_addr, user_id);
+		model.addAttribute("list", list);
+		
 		return "mypage/myStore";
 	}
 	
@@ -45,6 +101,12 @@ public class MypageController {
 	
 	@RequestMapping(value = "/tochangepw") // 비밀번호 변경 페이지 요청
 	public String tochangepw(String user_id, String user_pw, Model model) {
+		
+		String user_k = ((MemberDTO)session.getAttribute("loginSession")).getUser_k();
+		System.out.println("user_k1 :" + user_k);
+		model.addAttribute("user_k", user_k);
+		System.out.println("user_k2 :" + user_k);
+		
 		return "mypage/changepw";
 	}
 	
@@ -60,9 +122,58 @@ public class MypageController {
 		
 	}
 	
-	
 	@RequestMapping(value = "/toBasket") // 찜목록 이동 페이지 요청
-	public String toBasket() {
+	public String toBasket(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+		System.out.println("curPage" + curPage);
+		System.out.println("내 찜 목록 페이지 접속");
+		
+		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
+		
+		model.addAttribute("list2", service.searchmybasket(user_id)); // 내 찜 글 조회
+		System.out.println("아이디 :" + user_id);
+		
+		int bcnt = service.countbasket(user_id); // 찜 수 출력
+		
+		model.addAttribute("bcnt", bcnt);
+		
+		System.out.println("찜 수 :" + bcnt);
+		
+		System.out.println("페이지 :" + curPage);
+		String post_addr1 = null;
+		
+		HashMap<String,Object> map = service.getPageNavi(curPage, post_addr1, user_id);
+		System.out.println("출력3 :" + map);
+		
+		map.put("post_addr",post_addr1);
+		map.put("user_id", user_id);
+		model.addAttribute("naviMap",map);
+		System.out.println("네비맵 출력 : " + map);
+		
+		//post,img테이블 select*from
+		List<Map<String, Object>> list2 = service.myselectJoin2(user_id, curPage*12-11, curPage*12);
+		model.addAttribute("list2", list2);
+		
+		return "mypage/basket";
+	}
+	
+	//정확한검색 (카테고리, 지역)
+	@RequestMapping(value = "/toSearch2")
+	public String toSearch2(int curPage, String post_addr, String user_id, Model model) throws Exception{
+		System.out.println(post_addr);
+		System.out.println("curPage" + curPage);
+		//페이지 나누기
+		HashMap<String,Object> map = postService.getPageNavi_s(curPage,post_addr, user_id);
+		System.out.println("post_addr : " +post_addr);
+		System.out.println("user_id : " + user_id);
+		map.put("post_addr",post_addr);
+		map.put("user_id", user_id);
+		model.addAttribute("naviMap",map);
+		System.out.println("네비맵 출력 : " + map);
+		
+		//post,img테이블 select*from
+		List<Map<String, Object>> list = postService.search(curPage*12-11,curPage*12,post_addr, user_id);
+		model.addAttribute("list", list);
+		
 		return "mypage/basket";
 	}
 	
@@ -107,7 +218,6 @@ public class MypageController {
 		
 		newdto.setUser_nickname(dto.getUser_nickname());
 		newdto.setUser_k(dto.getUser_category());
-		newdto.setUser_k(dto.getUser_k());
 		
 		newdto.setUser_pw(dto.getUser_pw());
 		

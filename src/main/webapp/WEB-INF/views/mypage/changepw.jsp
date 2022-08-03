@@ -65,6 +65,25 @@
             height: 50px;
             margin-top: 30px;
         }
+        .sorrybox{
+        	width: 400px;
+        	height:400px;
+        	text-align: center;
+        	margin-left: 25px;
+        }
+        #sorry_img{
+        	width: 200px;
+        	height: 200px;
+        }
+        #sorrytext{
+        	margin-top: 10px;
+        }
+        .sorrytextbox{
+        	margin-top: 15px;
+        }
+        .sorrybuttonbox{
+        	margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -75,6 +94,28 @@
 			</div>
 		</div>
 		<form id="deleteForm">
+				<input type="text" class="d-none" id="user_k" name="user_k" value="${user_k}">
+             <c:choose>
+				<c:when test="${not empty loginSession.user_k}">
+				<div class="sorrybox">
+					<div class="sorryimgbox">
+						<img src="/resources/images/mypage/fail.png" id="sorry_img">
+					</div>
+					<span style="font-size: 1.5em; color: red;" id="sorrytitle"><strong>카카오톡 비밀번호 변경 서비스 불가 안내</strong></span>
+					<div class="sorrytextbox">
+						<span id="sorrytext">카카오톡 회원은 비밀번호 변경이 불가능합니다.</span>
+					</div>
+					<div class="sorrybuttonbox">
+						<button type="button" id="cancelBtn" class="btn btn-warning">팝업창 닫기</button>
+					</div>
+				</div>
+				<script>
+					document.getElementById("cancelBtn").onclick = function(){ // 뒤로가기 버튼
+						window.close();
+					}
+				</script>
+					</c:when>
+						<c:otherwise>	
             <div class="pwBox">
             	<label>&nbsp;새 비밀번호</label><br>
 				<input type="password" class="form-control" id="user_pw" name="user_pw" value="">
@@ -97,8 +138,10 @@
                     <button type="button" id="cancelBtn" class="btn btn-warning">취소</button>
                 </div>
 			</div>
-			<input type="text" class="" value="${loginSession.user_id}" id="user_id">
+			<input type="text" class="d-none" value="${loginSession.user_id}" id="user_id">
 		</form>
+		</c:otherwise>
+	</c:choose>
 	</div>
 	<script>
 	 	// user_pw
