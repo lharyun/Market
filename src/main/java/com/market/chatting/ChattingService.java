@@ -34,6 +34,9 @@ public class ChattingService {
  	public void roomUpdate(ChattingMessageDTO dto) {
  		dao.roomUpdate(dto);
     }
+ 	 public int chatCount(int post_seq) throws Exception {
+     	return dao.chatCount(post_seq);
+ 	}
 	//메세지쪽
 	public List<ChattingMessageDTO> chat_m_select(int roomId) throws Exception{
 		return dao.chat_m_select(roomId);

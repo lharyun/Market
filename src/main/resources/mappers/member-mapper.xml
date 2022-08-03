@@ -23,7 +23,7 @@
  		delete from tbl_member where user_id=#{id}
  	</delete>
 
-  <!-- 용현 -->
+	  <!-- 용현 -->
 	<!-- 로그인 -->
 	<select id="login" resultType="com.market.member.MemberDTO">
 		select * from tbl_member where user_id = #{user_id}

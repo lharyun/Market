@@ -39,6 +39,12 @@
 			set post_state=#{post_state} 
 			where post_seq = #{post_seq}
 	</update>
+	<!-- 채팅수 -->
+	<update id="update_chatting_cnt" parameterType="map">
+		update tbl_post 
+			set post_chatting_cnt=#{post_chatting_cnt} 
+			where post_seq = #{post_seq}
+	</update>
 	
 	<!-- 페이지 찾기 -->
 	<!-- 판매중만 -->

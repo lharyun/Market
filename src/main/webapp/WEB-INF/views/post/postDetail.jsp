@@ -1163,7 +1163,13 @@
         		<div class="py-3 middle_profile yourPost">
                     <!-- 클릭시게시글로 이동 -->
                     <div class="d-flex align-items-center" id="yourPost">
-                        <img src="/resources/images/chatting/타블렛.jpeg">
+                        <%-- 프로필이미지 여부 --%>
+                        <c:if test="${empty memberDto.user_profile }">
+                        	<img src="/resources/images/chatting/NoImg.webp">
+                        </c:if>
+                        <c:if test="${not empty memberDto.user_profile}">
+                        	<img src="/user_profile/${memberDto.user_profile}">
+                        </c:if>
                         <div class="ms-2">
                             <span class="fw-bolder">${memberDto.user_nickname}</span> 
                             <div class="">
