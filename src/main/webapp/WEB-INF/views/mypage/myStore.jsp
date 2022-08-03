@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -15,7 +15,7 @@
     <!-- 제이쿼리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <title>싸다구 장터 : 내 정보 수정</title>
+    <title>싸다구 장터 : 내 상점</title>
     <link rel="shortcut icon" type="image/x-icon" href="/resources/images/header_pooter/pepoel.png">
      <!-- css -->
     <link href="/resources/css/header_footer.css" rel="stylesheet">
@@ -55,12 +55,12 @@
       }
       /* 내 정보(등록 상품, 거래후기) */
       .profileInfo{
-          width: 60%;
+          width: 68%;
           margin-top: 15px;
           display: inline-block;
       }
 	  .productInfo{
-          width: 38%;
+          width: 42%;
           text-align: left;
           float: left;
       }
@@ -70,11 +70,11 @@
           float: right;
       }
       .profileInfo2{
-          width: 60%;
+          width: 68%;
           display: inline-block;
       }
       .productInfo2{
-          width: 38%;
+          width: 42%;
           text-align: left;
           float: left;
       }
@@ -167,7 +167,7 @@
       .mypostfooter{
       width:100%;
           float: left;
-          margin-top: 50px;
+          margin-top: 220px;
       }
       /* 물품 박스 페이징 처리할 곳 */
       .mypostpaging{
@@ -343,6 +343,209 @@
 	  }
 
     /* ==================== */
+       .carousel-inner{
+        border-radius: 12px;
+    }
+    .slideBox>button {
+        border: 0;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    /* 캐러셀 중앙 3칸 */
+   
+
+    
+    #imgSlider2{
+            border-radius: 12px;
+    }
+
+    .carousel-item>img {
+        margin: auto;
+        height: 500px;
+        border-radius: 12px;
+    }
+   
+   /* 이미지관련 */
+   a{
+       text-decoration: none;
+   }
+
+   .middle_title{
+    color: black;
+   }
+   
+
+    .imgDiv {
+        position: relative;
+        background-color: #efefef;
+        width: 100%;
+        height: 150px;
+        border-radius: 12px;
+        border: 2px solid rgba(128, 128, 128, 0.233);
+        overflow: hidden;
+        transition: all 0.2s linear;
+    }
+    .hicary{
+        position:absolute;
+        z-index: 2;
+        top: -50%;
+        right: 0px;
+        width: 450px;
+        height: 350px;
+        
+        transition: all 0.09s linear;
+       
+    }
+    .hicary:hover{
+        position:absolute;
+        z-index: 2;
+        top: -50%;
+        right: -200%;
+        width: 450px;
+        height: 350px;
+    }
+    .hicary2{
+    	position:absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        text-align : center;
+  		line-height : 146px;
+        color: rgb(244, 244, 244);
+      	background-color:rgba(128, 128, 128, 0.538);
+      	transition: all 0.09s linear;
+    }
+    .hicary2:hover{
+    	opacity: 0;
+    }
+    .imgDiv:hover {
+        transform: scale(1.1);
+        border-radius: 16px;
+        box-shadow: 5px 5px 6px 0 rgba(58, 47, 38, 0.102);
+    }
+    
+
+    .imgDiv>.postImg {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+    }
+
+    /* 상세 글 관련 */
+    .postInformation {
+
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+    }
+   
+    .middle_lgText {
+        color: black;
+        font-weight: 600;
+        font-size: large;
+    }
+    .middle_lgText:hover {
+        color: orange;
+        font-weight: 600;
+        font-size: large;
+    }
+    
+
+    .middle_smText {
+        font-size: small;
+        color: gray;
+    }
+    
+    @media (max-width: 992px) {
+        #contentsBox {
+            width: 677px;
+        }
+        #imgSlider2{
+            width: 677px;
+    }
+    
+     /* 이미지관련 */
+   .middle_postBox{
+        width: 677px;
+   }
+   .postBox {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        border-radius: 12px;
+        width: calc(33.3% - 5px);
+        padding: 20px;
+        overflow: hidden;
+    }
+    }
+    /* 전 */
+    @media (min-width: 992px) {
+        #contentsBox {
+            width: 800px;
+        }
+        #imgSlider2{
+            width: 800px;
+    }
+    
+     /* 이미지관련 */
+   .middle_postBox{
+        width: 800px;
+   }
+   .postBox {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        border-radius: 12px;
+        width: calc(25% - 5px);
+        padding: 20px;
+        overflow: hidden;
+    }
+    }
+    
+     /* 페이징 디자인 */
+    .pagination {
+        padding: 30px 0;
+    }
+
+    .pagination ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 10px 18px;
+        color: #222;
+    }
+
+    /* ONE */
+
+    .p1 a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0;
+        text-align: center;
+        transition: all 0.3s linear;
+    }
+    .p1 .pBtn:hover{
+        background-color: #ffad0a2d;
+        border-radius: 50%;
+        transform: translateY( -6px )
+    }
+
+    .p1 a.is-active {
+        background-color: rgb(241, 143, 14);
+        border-radius: 100%;
+        color: #fff;
+    }
+    
+    .middleLine {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+        padding-bottom: 10px;
+    }
 	
 </style>
 
@@ -383,6 +586,7 @@
 		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
 		                                <ul class="dropdown-menu">
 		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
+		                                    
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
 		                                </ul>
@@ -1011,26 +1215,37 @@
 
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-    <div class="container middle" style="height: 1100px">
+    <div class="container middle" style="height: 1120px">
 	    <div class="mypageContainer">
 	        <div class="profileBox">
 	            <div class="profile_border">
-	                <img src="/user_profile/${loginSession.user_profile}" id="profile_image">
+	                <c:choose>
+						<c:when test="${empty loginSession.user_profile}">
+							<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+						</c:when>
+						<c:otherwise>
+							<img src="/user_profile/${loginSession.user_profile}" id="profile_image">
+						</c:otherwise>
+					</c:choose>
 	            </div>
 	            <div class="profileNickname">
 	                <strong>${loginSession.user_nickname}</strong>
 	            </div>
 	            <div class="profileInfo">
 	                <div class="productInfo">
-	                    <span><strong>상품</strong></span>
+	                    <span><strong>판매상품</strong></span>
 	                </div>
+	                <form id="countpost" action="mypage/toMyStore?curPage=1">
 	                <div class="productCount">
-	                    <span><strong>0</strong></span>
+	                    <span><strong>${pcnt}</strong></span>
+	                    <input type="text" class="d-none" value="${loginSession.user_id}" id="user_id">
 	                </div>
+	                </form>
 	            </div>
 	            <div class="profileInfo2">
 	                <div class="productInfo2">
-	                    <span><strong>거래후기</strong></span>
+	                    <span><strong>싸다구 점수</strong></span>
+	                    <input type="text" class="d-none" value="${loginSession.user_k}" id="user_k">
 	                </div>
 	                <div class="productCount2">
 	                    <form class="mb-3" name="starform" id="starform" method="post">
@@ -1052,19 +1267,23 @@
 	            <div class="buttonBox">
 	            	<c:if test="${not empty loginSession}">
 	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
-	                <c:if test="${empty loginSession.user_k}">
-	                <button type="button" class="btn btn-secondary" id="changepwBtn" href='javascript:void(0)' onclick='preventClick(event)'>비밀번호 변경</button>
-	                	<script>
-		                	// 비밀번호 변경 id값 : changepwBtn
-		            	    document.getElementById("changepwBtn").onclick = function(){
-		            	    	
-		            	    	var popupX = (window.screen.width / 2) - (800 / 2);
-		            	      	var popupY= (window.screen.height / 2) - (600 / 2);
-		            	      	
-		            	      	window.open('/mypage/tochangepw', '비밀번호 변경', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
-		            	    }
-	                	</script>
-	                </c:if>
+					<c:choose>
+	                	<c:when test="${empty loginSession.user_k}">
+	                		<button type="button" class="btn btn-secondary" id="changepwBtn" href='javascript:void(0)' onclick='preventClick(event)'>비밀번호 변경</button>
+			                	<script>
+				                	// 비밀번호 변경 id값 : changepwBtn
+				            	    document.getElementById("changepwBtn").onclick = function(){
+				            	    	
+				            	    	var popupX = (window.screen.width / 2) - (800 / 2);
+				            	      	var popupY= (window.screen.height / 2) - (600 / 2);
+				            	      	
+				            	      	window.open('/mypage/tochangepw', '비밀번호 변경', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+				            	    }
+			                	</script>
+	                	</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 	                	<button type="button" class="btn btn-danger" id="deleteBtn" href='javascript:void(0)' onclick='preventClick(event)'>회원 탈퇴</button>
 	                	<script>
 		                	// 회원탈퇴 id값 : deleteBtn
@@ -1080,9 +1299,12 @@
 	            </div>
 	        </div>
 	        <div class="categoryBox">
+
 	            <button class="btn btn-outline-primary" >판매글</button>
 	    		<button class="btn btn-outline-success" >찜 목록</button>
 	            <button id="reviewBtn" class="btn btn-outline-warning" >거래 후기</button>
+
+
 	        </div>
 			<input class="d-none" id="user_id" value="${loginSession.user_id }">
 	        <div class="content" id="content">
@@ -1090,64 +1312,63 @@
 	                <h3><strong>판매글</strong></h3>
 	            </div>
 	            <div class="totalCount">
-	                <span><strong>전체 8</strong></span>
+	                <span><strong>전체 ${pcnt}개</strong></span>
 	            </div>
 	            <div class="mypost">
-	                <div class="mypost1st">
-	                    <div class="postpriceBox">
-	                        <div class="postimage">
-	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
-	                        </div>
-	                        <div class="posttitle">
-	                            <span><strong>판매물품 제목</strong></span>
-	                        </div>
-	                        <div class="postprice">
-	                            <span><strong>2,500원</strong></span>
-	                        </div>
-	                    </div>
-	                    <div class="postpriceBox">
-	                        <div class="postimage">
-	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
-	                        </div>
-	                        <div class="posttitle">
-	                            <span><strong>판매물품 제목</strong></span>
-	                        </div>
-	                        <div class="postprice">
-	                            <span><strong>2,500원</strong></span>
-	                        </div>
-	                    </div>
-	                    <div class="postpriceBox">
-	                        <div class="postimage">
-	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
-	                        </div>
-	                        <div class="posttitle">
-	                            <span><strong>판매물품 제목</strong></span>
-	                        </div>
-	                        <div class="postprice">
-	                            <span><strong>2,500원</strong></span>
-	                        </div>
-	                    </div>
-	                    <div class="postpriceBox">
-	                        <div class="postimage">
-	                            <img src="/resources/images/mypage/default_profileimage.jpg" id="postimage">
-	                        </div>
-	                        <div class="posttitle">
-	                            <span><strong>판매물품 제목</strong></span>
-	                        </div>
-	                        <div class="postprice">
-	                            <span><strong>2,500원</strong></span>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="mypost2nd">
-	                    
-	                </div>
-	                <div class="mypostfooter">
-	                    <div class="mypostpaging">
-	                        <span>페이징 처리</span>
-	                    </div>
-	                </div>
+	            <form id="mypagepost"  style="height: 100px">
+	             <c:forEach items="${list}" var="list">
+			            <article class="postBox">
+			                <a href="/post/toPostDetail?post_seq=${list.post_seq}">
+			                    <div class="imgDiv">
+			                        <img class="hicary" src="/resources/images/post/반짝.png">
+				                    	<c:choose>
+					                    <c:when test="${list.post_sys_name ne null}">
+					                    	<img class="postImg" src="/imgfiles/${list.post_sys_name}">
+					                    </c:when>
+					                     <c:otherwise>
+					                    	<img class="postImg" src="/resources/images/post/NoImg.webp">
+					                    </c:otherwise>
+					                    </c:choose>
+			                        
+			                    </div>
+			                    <div class="postInformation">
+			                        <div class="mt-2 middle_title">${list.post_title}</div>
+			                        <div class="middle_lgText mt-1">${list.price_selling}원</div>
+			                        <div class="middle_smText mt-1">${list.post_addr}</div>
+			                        <div class="middle_smText mt-1">관심${list.post_interest_cnt}·채팅${list.post_chatting_cnt}
+			                        ·조회${list.post_inquiry_cnt}</div>
+			                    </div>
+			                </a>
+			            </article>
+		            </c:forEach>
+					</form>
 	            </div>
+	            <div class="mypostfooter">
+	            <nav class="pagination p1 justify-content-center">
+			<ul >
+				<c:if test="${naviMap.needPrev eq true }">
+					<a href="/mypage/toMyStore?curPage=${naviMap.startNavi-1}&post_addr=${naviMap.post_addr}&user_id=${naviMap.user_id}">
+					</a>
+				</c:if>
+				<c:forEach var="pageNum" begin="${naviMap.startNavi}" end="${naviMap.endNavi}" step="1">
+					<c:if test="${naviMap.curPage eq pageNum}">
+						<a class="is-active" href="/mypage/toMyStore?curPage=${pageNum}&post_addr=${naviMap.post_addr}&user_id=${naviMap.user_id}">
+							${pageNum}
+						</a>
+					</c:if>
+					<c:if test="${naviMap.curPage ne pageNum}">
+						<a class="pBtn" href="/mypage/toMyStore?curPage=${pageNum}&post_addr=${naviMap.post_addr}&user_id=${naviMap.user_id}">
+							${pageNum}
+						</a>
+					</c:if>	
+				</c:forEach>
+				<c:if test="${naviMap.needNext eq true }">
+					<a href="/mypage/toMyStore?curPage=${naviMap.endNavi+1}&post_addr=${naviMap.post_addr}&user_id=${naviMap.user_id}">
+					</a>
+				</c:if>
+			</ul>
+		</nav>
+		</div>
 	        </div>
 	    </div>
     </div>

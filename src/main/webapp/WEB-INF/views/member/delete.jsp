@@ -92,6 +92,7 @@
 			</div>
 		</div>
 		<form id="deleteForm">
+		<input type="text" class="d-none" id="user_k" name="user_k" value="${user_k}">
              <c:choose>
 				<c:when test="${not empty loginSession.user_k}">
 				<div class="sorrybox">

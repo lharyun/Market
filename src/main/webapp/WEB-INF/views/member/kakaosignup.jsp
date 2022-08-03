@@ -223,6 +223,7 @@
             <div class="pwBox">
                 <div class="pwBox2">
                     <input type="password" class="form-control" id="user_pw" name="user_pw" value="kakaoPw">
+                    <input type="text" class="d-none" id="user_category" name="user_category" value="카카오톡회원" >
                 </div>
             </div>
             
@@ -497,7 +498,7 @@
 			$.ajax({
 				url : "/member/kakaosignUp"
 				,type : "post"
-				,data : {user_id : $("#user_id").val(), user_k : $("#user_k").val(), user_pw : "kakaoPw",
+				,data : {user_id : $("#user_id").val(), user_k : $("#user_k").val(), user_pw : "kakaoPw", user_category : "카카오톡 회원",
 					 user_nickname : $("#user_nickname").val(), user_name : $("#user_name").val(), user_birth : $("#user_birth").val(),
 					 user_phone : $("#user_phone").val(), postcode : $("#postcode").val(), roadAddr : $("#roadAddr").val(),
 					 detailAddr : $("#detailAddr").val(), extraAddr : $("#extraAddr").val()}
