@@ -1247,9 +1247,10 @@
 	                    <input type="text" class="d-none" value="${loginSession.user_k}" id="user_k">
 	                </div>
 	                <div class="productCount2">
-						<span><strong>${loginSession.rating}</strong></span>
+						<span><strong>${myrating}</strong></span>
 	                </div>
 	            </div>
+				<!-- 숨겨야 하는 버튼 박스 목록입니다!(시작) -->
 	            <div class="buttonBox">
 	            	<c:if test="${not empty loginSession}">
 	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
@@ -1283,6 +1284,7 @@
 	                	</script>
 	                </c:if>
 	            </div>
+	            <!-- 숨겨야 하는 버튼 박스 목록입니다!(끝) -->
 	        </div>
 	        <div class="categoryBox">
 
@@ -1542,8 +1544,12 @@
 
     
     <script>
-        
-
+    	$("#reviewBtn").on("click",function(){
+    	
+    		let reviewed_id=$("#reviewed_id").val();
+    		window.open("/review/review?reviewed_id="+reviewed_id+"&&curPage=1","myReview","width=800,height=700");
+    	})    
+	
        
 
     </script>

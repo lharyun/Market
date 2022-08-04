@@ -47,9 +47,15 @@ public class MypageDAO {
 		return session.update("mypageMapper.changepw", dto);
 	}
 	
+	
 	// 평점 평균 구하기
 	public float reviewAvg(String user_id) throws Exception {
-		return session.selectOne("mypageMapper.reviewAvg", user_id);
+		Object rs = session.selectOne("mypageMapper.reviewAvg", user_id);
+		if(rs == null) {
+			return 0;
+		}else {
+			return (float)rs;
+		}
 	}
 	
 	// 내 게시글 수 세기

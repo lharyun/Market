@@ -53,13 +53,13 @@ public class MypageController {
 		model.addAttribute("list", service.searchmypost(user_id)); // 내 판매글 조회
 		System.out.println("아이디 :" + user_id);
 		
-//		float myrating = service.reviewAvg(user_id); // 내 평점 평균 구하기
-//		
-//		System.out.println("내 평점 평균 전:" + myrating);
-//		
-//		model.addAttribute("myrating", myrating);
-//		
-//		System.out.println("내 평점 평균 후:" + myrating);
+		float myrating = service.reviewAvg(user_id); // 내 평점 평균 구하기
+		
+		System.out.println("내 평점 평균 전:" + myrating);
+		
+		model.addAttribute("myrating", myrating);
+		
+		System.out.println("내 평점 평균 후:" + myrating);
 		
 		int pcnt = service.countpost(user_id); // 판매 글 수 출력
 		
@@ -143,6 +143,14 @@ public class MypageController {
 		
 		model.addAttribute("list2", service.searchmybasket(user_id)); // 내 찜 글 조회
 		System.out.println("아이디 :" + user_id);
+		
+		float myrating = service.reviewAvg(user_id); // 내 평점 평균 구하기
+		
+		System.out.println("내 평점 평균 전:" + myrating);
+		
+		model.addAttribute("myrating", myrating);
+		
+		System.out.println("내 평점 평균 후:" + myrating);
 		
 		int bcnt = service.countbasket(user_id); // 찜 수 출력
 		
