@@ -201,7 +201,7 @@
 		}
       
       /* 반응형 웹페이지 800px 이하일때 반응 */
-      @media (max-width: 992px) {
+      @media (max-width: 992px) {      
 			.mypageContainer{
 	          width: 100%;
 	          height: 850px;
@@ -340,6 +340,210 @@
 	      .mypostpaging{
 	          text-align: center;
 	      }
+	          /* ==================== */
+       .carousel-inner{
+        border-radius: 12px;
+    }
+    .slideBox>button {
+        border: 0;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    /* 캐러셀 중앙 3칸 */
+   
+
+    
+    #imgSlider2{
+            border-radius: 12px;
+    }
+
+    .carousel-item>img {
+        margin: auto;
+        height: 500px;
+        border-radius: 12px;
+    }
+   
+   /* 이미지관련 */
+   a{
+       text-decoration: none;
+   }
+
+   .middle_title{
+    color: black;
+   }
+   
+
+    .imgDiv {
+        position: relative;
+        background-color: #efefef;
+        width: 100%;
+        height: 150px;
+        border-radius: 12px;
+        border: 2px solid rgba(128, 128, 128, 0.233);
+        overflow: hidden;
+        transition: all 0.2s linear;
+    }
+    .hicary{
+        position:absolute;
+        z-index: 2;
+        top: -50%;
+        right: 0px;
+        width: 450px;
+        height: 350px;
+        
+        transition: all 0.09s linear;
+       
+    }
+    .hicary:hover{
+        position:absolute;
+        z-index: 2;
+        top: -50%;
+        right: -200%;
+        width: 450px;
+        height: 350px;
+    }
+    .hicary2{
+    	position:absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        text-align : center;
+  		line-height : 146px;
+        color: rgb(244, 244, 244);
+      	background-color:rgba(128, 128, 128, 0.538);
+      	transition: all 0.09s linear;
+    }
+    .hicary2:hover{
+    	opacity: 0;
+    }
+    .imgDiv:hover {
+        transform: scale(1.1);
+        border-radius: 16px;
+        box-shadow: 5px 5px 6px 0 rgba(58, 47, 38, 0.102);
+    }
+    
+
+    .imgDiv>.postImg {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+    }
+
+    /* 상세 글 관련 */
+    .postInformation {
+
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+    }
+   
+    .middle_lgText {
+        color: black;
+        font-weight: 600;
+        font-size: large;
+    }
+    .middle_lgText:hover {
+        color: orange;
+        font-weight: 600;
+        font-size: large;
+    }
+    
+
+    .middle_smText {
+        font-size: small;
+        color: gray;
+    }
+    
+    @media (max-width: 992px) {
+        #contentsBox {
+            width: 677px;
+        }
+        #imgSlider2{
+            width: 677px;
+    }
+    
+     /* 이미지관련 */
+   .middle_postBox{
+        width: 677px;
+   }
+   .postBox {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        border-radius: 12px;
+        width: calc(33.3% - 5px);
+        padding: 20px;
+        overflow: hidden;
+    }
+    }
+    /* 전 */
+    @media (min-width: 992px) {
+        #contentsBox {
+            width: 800px;
+        }
+        #imgSlider2{
+            width: 800px;
+    }
+    
+     /* 이미지관련 */
+   .middle_postBox{
+        width: 800px;
+   }
+   .postBox {
+        position: relative;
+        text-align: left;
+        display: inline-block;
+        border-radius: 12px;
+        width: calc(25% - 5px);
+        padding: 20px;
+        overflow: hidden;
+    }
+    }
+    
+     /* 페이징 디자인 */
+    .pagination {
+        padding: 30px 0;
+    }
+
+    .pagination ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 10px 18px;
+        color: #222;
+    }
+
+    /* ONE */
+
+    .p1 a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0;
+        text-align: center;
+        transition: all 0.3s linear;
+    }
+    .p1 .pBtn:hover{
+        background-color: #ffad0a2d;
+        border-radius: 50%;
+        transform: translateY( -6px )
+    }
+
+    .p1 a.is-active {
+        background-color: rgb(241, 143, 14);
+        border-radius: 100%;
+        color: #fff;
+    }
+    
+    .middleLine {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+        padding-bottom: 10px;
+    }
 	  }
 
     /* ==================== */
@@ -1215,7 +1419,7 @@
 
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-    <div class="container middle" style="height: 1120px">
+    <div class="container middle" style="height: 1150px">
 	    <div class="mypageContainer">
 	        <div class="profileBox">
 	            <div class="profile_border">
@@ -1248,20 +1452,7 @@
 	                    <input type="text" class="d-none" value="${loginSession.user_k}" id="user_k">
 	                </div>
 	                <div class="productCount2">
-	                    <form class="mb-3" name="starform" id="starform" method="post">
-							<fieldset>
-								<input type="radio" name="reviewStar" value="5" id="rate1"><label
-									for="rate1">★</label>
-								<input type="radio" name="reviewStar" value="4" id="rate2"><label
-									for="rate2">★</label>
-								<input type="radio" name="reviewStar" value="3" id="rate3"><label
-									for="rate3">★</label>
-								<input type="radio" name="reviewStar" value="2" id="rate4"><label
-									for="rate4">★</label>
-								<input type="radio" name="reviewStar" value="1" id="rate5"><label
-									for="rate5">★</label>
-							</fieldset>
-						</form>
+	                    <span><strong>${loginSession.rating}</strong></span>
 	                </div>
 	            </div>
 	            <div class="buttonBox">
@@ -1300,13 +1491,14 @@
 	        </div>
 	        <div class="categoryBox">
 
-	            <button class="btn btn-outline-primary" >판매글</button>
-	    		<button class="btn btn-outline-success" >찜 목록</button>
+	            <button id="storeBtn" class="btn btn-outline-primary" >판매글</button>
+	    		<button id="basketBtn" class="btn btn-outline-success" >찜 목록</button>
 	            <button id="reviewBtn" class="btn btn-outline-warning" >거래 후기</button>
 
 
 	        </div>
-			<input class="d-none" id="user_id" value="${loginSession.user_id }">
+	        <!-- 리뷰받는사람 아이디 -> 로그인세션이아니라 user_nickname을 기준으로 바꿔야함 -->
+			<input class="d-none" id="reviewed_id" value="${loginSession.user_id }">
 	        <div class="content" id="content">
 	            <div class="categoryText">
 	                <h3><strong>판매글</strong></h3>
@@ -1376,7 +1568,12 @@
     	document.getElementById("modifyBtn").onclick = function(){
     		location.href = "/mypage/toMypageModify";
     	}
-    
+    	document.getElementById("storeBtn").onclick = function(){
+    		location.href = "/mypage/toMyStore";
+    	}
+    	document.getElementById("basketBtn").onclick = function(){
+    		location.href = "/mypage/toBasket";
+    	}
     </script>
 
 
@@ -1554,60 +1751,8 @@
     <script>
     	$("#reviewBtn").on("click",function(){
     	
-    		let user_id=$("#user_id").val();
-    		console.log(user_id);
-    		$.ajax({
-    			url:"/review/review?user_id="+user_id,
-    			type:"get",
-    			success:function(data){
-    				$("#content").empty();
-    				console.log(data);
-    				if(data.length ==0){ //검색 결과 없음
-    					let row=$("<div>").addClass("row");
-    					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
-    					row.append(col);
-    					row.appendTo("#content");
-    			}else{
-    				
-    				for(let dto of data){
-    					let row=$("<div>").addClass("row");
-    					let row0=$("<div>").addClass("row");
-    					let row1=$("<div>").addClass("row");
-    					let row2=$("<div>").addClass("row");
-    					let row3=$("<div>").addClass("row");
-    					let row4=$("<div>").addClass("row");
-    					let row5=$("<div>").addClass("row");
-    					
-    					
-    					let col=$("<div>").addClass("col");
-    					let col0=$("<div>").addClass("col")
-    					let col1=$("<div>").addClass("col").append(dto.review_nickname);
-    					let col2=$("<div>").addClass("col").append("⭐".repeat(dto.rating));
-    					let col3=$("<div>").addClass("col").append(dto.post_seq);
-    					let col4=$("<div>").addClass("col").append(dto.review_comment);
-    					let col5=$("<div>").addClass("col").append(dto.review_seq);
-    					let hr=$("<hr>");
-    					
-    					row1.append(col1);
-    					row2.append(col2);
-    					row3.append(col3);
-    					row4.append(col4);
-    					row5.append(col5);
-    					
-    					row.append(col);
-    					col.append(row1,row2,row3,row4,row5,hr);
-    					
-    					row.appendTo("#content");
-    				}
-    				
-    			}
-    			},
-    			error:function(){
-    				
-    			}
-    			
-    			
-    		})
+    		let reviewed_id=$("#reviewed_id").val();
+    		window.open("/review/review?reviewed_id="+reviewed_id+"&&curPage=1","myReview","width=800,height=700");
     	})    
 	
        

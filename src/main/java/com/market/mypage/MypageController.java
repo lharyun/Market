@@ -43,11 +43,23 @@ public class MypageController {
 	public String toMyStore(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
 		System.out.println("curPage" + curPage);
 		System.out.println("내 상점 페이지 접속");
+		MemberDTO dto = ((MemberDTO)session.getAttribute("loginSession"));
+		
+		System.out.println("dto :" + dto);
+		System.out.println("닉네임 클릭시 넘어오는 값: ");
 		
 		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
 		
 		model.addAttribute("list", service.searchmypost(user_id)); // 내 판매글 조회
 		System.out.println("아이디 :" + user_id);
+		
+//		float myrating = service.reviewAvg(user_id); // 내 평점 평균 구하기
+//		
+//		System.out.println("내 평점 평균 전:" + myrating);
+//		
+//		model.addAttribute("myrating", myrating);
+//		
+//		System.out.println("내 평점 평균 후:" + myrating);
 		
 		int pcnt = service.countpost(user_id); // 판매 글 수 출력
 		
@@ -171,8 +183,8 @@ public class MypageController {
 		System.out.println("네비맵 출력 : " + map);
 		
 		//post,img테이블 select*from
-		List<Map<String, Object>> list = postService.search(curPage*12-11,curPage*12,post_addr, user_id);
-		model.addAttribute("list", list);
+		List<Map<String, Object>> list2 = postService.search(curPage*12-11,curPage*12,post_addr, user_id);
+		model.addAttribute("list2", list2);
 		
 		return "mypage/basket";
 	}
@@ -217,7 +229,6 @@ public class MypageController {
 		System.out.println("출력 dto: " + dto);
 		
 		newdto.setUser_nickname(dto.getUser_nickname());
-		newdto.setUser_k(dto.getUser_category());
 		
 		newdto.setUser_pw(dto.getUser_pw());
 		
