@@ -17,8 +17,8 @@
  		 as num from tbl_review)where (num between #{start} and #{end}) and (reviewed_id= #{reviewed_id}) 	
  	</select>
  
- 	<select id="getPageNavi" resultType="int">
- 		select count(*) as totalCnt from tbl_review
+ 	<select id="getPageNavi" parameterType="String" resultType="int">
+ 		select count(*) as totalCnt from tbl_review where reviewed_id= #{reviewed_id}
  	</select>
  
  	<delete id="delete" parameterType="int">

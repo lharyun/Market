@@ -23,8 +23,8 @@ public class ReviewDAO {
 		return session.selectList("reviewMapper.selectAll", map);
 	}
 
-	public int getPageNavi() throws Exception{
-		return session.selectOne("reviewMapper.getPageNavi");
+	public int getPageNavi(String reviewed_id) throws Exception{
+		return session.selectOne("reviewMapper.getPageNavi",reviewed_id);
 	}
 	
 	public void insert(ReviewDTO dto) throws Exception {

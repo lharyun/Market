@@ -22,7 +22,7 @@ public class ReviewController {
 	public String review(Model model,String reviewed_id,int curPage) throws Exception{
 		System.out.println("review실행");	
 		List<ReviewDTO> list =service.selectAll(curPage*10-9,curPage*10,reviewed_id);
-		HashMap<String,Object> map =service.getPageNavi(curPage);
+		HashMap<String,Object> map =service.getPageNavi(curPage,reviewed_id);
 		model.addAttribute("list",list);
 		model.addAttribute("naviMap",map);
 		return "mypage/review";

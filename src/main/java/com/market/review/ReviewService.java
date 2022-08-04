@@ -17,8 +17,8 @@ public class ReviewService {
 		
 	}
 	
-	public HashMap<String,Object> getPageNavi(int curPage) throws Exception{
-		int totalCnt = reviewDAO.getPageNavi(); //전체 게시글의 개수
+	public HashMap<String,Object> getPageNavi(int curPage,String reviewed_id) throws Exception{
+		int totalCnt = reviewDAO.getPageNavi(reviewed_id); //전체 게시글의 개수
 		int recordCntPerPage=10; //한페이지에 몇개의 데이터(게시글)을 띄워줄지
 		int naviCntPerPage=5; //네비바에 몇개 단위로 페이징을 구성할지
 		int pageTotalCnt =0;// 총 몇 페이지가 나올지			
