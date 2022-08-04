@@ -1556,7 +1556,7 @@
     	$("#reviewBtn").on("click",function(){
     	
     		let reviewed_id=$("#reviewed_id").val();
-    		window.open("/review/review?reviewed_id="+reviewed_id,"myReview","width=800,height=700");
+    		window.open("/review/review?reviewed_id="+reviewed_id+"&&curPage=1","myReview","width=800,height=700");
     	})    
 	
        

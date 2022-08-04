@@ -1,5 +1,6 @@
 package com.market.review;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,12 @@ public class ReviewController {
 	private ReviewService service;
 	
 	@RequestMapping(value= "/review")
-	public String review(Model model,String reviewed_id) throws Exception{
+	public String review(Model model,String reviewed_id,int curPage) throws Exception{
 		System.out.println("review실행");	
-		int curPage=1;
 		List<ReviewDTO> list =service.selectAll(curPage*10-9,curPage*10,reviewed_id);
+		HashMap<String,Object> map =service.getPageNavi(curPage);
 		model.addAttribute("list",list);
+		model.addAttribute("naviMap",map);
 		return "mypage/review";
 	}
 	
