@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.market.basket.BasketDTO;
 import com.market.basket.BasketService;
+import com.market.chatting.ChattingService;
 import com.market.member.MemberDTO;
 import com.market.member.MemberService;
 import com.market.notification.NotificationService;
@@ -34,6 +35,8 @@ public class PostController {
 	private NotificationService notifiService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private ChattingService chatService;
 	@Autowired
 	private HttpSession session;
 
@@ -101,7 +104,6 @@ public class PostController {
 		String realPath = session.getServletContext().getRealPath("imgfiles");
 		service.insert(dto, realPath, imgfiles);
 		
-		
 		System.out.println(dto.toString());
 		System.out.println("imgfiles : " + imgfiles);
 		return "redirect:/post/toPost?curPage=1";
@@ -146,7 +148,6 @@ public class PostController {
 		//post,img테이블 select*from
 		List<Map<String, Object>> list = service.selectJoin(1,10);
 		model.addAttribute("list", list);
-		
 		//해당 게시글 아이디 정보불러오기
 		String p_user_id = ((PostDTO)map.get("postDTO")).getUser_id();
 		System.out.println(p_user_id);

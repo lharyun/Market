@@ -55,11 +55,15 @@ public class ChattingDAO{
     public void chat_insert(ChattingRoomDTO room) {
         sqlSession.insert("chattingMapper.chat_insert", room);
     }
+    //있는지 확인
     public boolean overlapping(String userName, int post_seq) throws Exception {
     	Map<String, Object> map = new HashMap<>();
 		map.put("userName", userName);
 		map.put("post_seq", post_seq);
     	return sqlSession.selectOne("chattingMapper.overlapping", map);
+	}
+    public int chatCount(int post_seq) throws Exception {
+    	return sqlSession.selectOne("chattingMapper.chatCount", post_seq);
 	}
  // 프로파일,채팅룸 불러오기
  	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 

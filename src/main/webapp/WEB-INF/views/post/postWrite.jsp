@@ -1048,7 +1048,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <textarea class="form-control-plaintext font_style" id="post_content" name="post_content"
-                            placeholder=" 망원동에 올릴 게시글 내용을 작성해주세요. 가품 및 판매금지품목은 게시가 제한될 수 있어요."
+                            placeholder=" 해당지역에 올릴 게시글 내용을 작성해주세요. 가품 및 판매금지품목은 게시가 제한될 수 있어요."
                             style="height: 500px; "></textarea>
 
                     </div>

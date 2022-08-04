@@ -942,8 +942,10 @@
 	                <div class="col-4 d-flex justify-content-start">
 	                    <button type="button" class="btn btn-warning" id="completeBtn" data-bs-toggle="modal" data-bs-target="#completeModal">수정완료</button>
 	                </div>
-	                <input type="password" class="d-none" value="${user_pw}" id="user_pw">
-	                <input type="password" class="d-none" value="${user_profile}" id="user_profile">
+	                <input type="password" class="d-none" id="user_pw" name="user_pw" value="${user_pw}">
+	                <input type="text" class="d-none" id="user_k" name="user_k" value="${user_k}">
+	                <input type="text" class="d-none" id="user_category" name="user_category" value="${user_user_category}">
+	                <input type="text" class="d-none" id="user_profile" name="user_profile" value="${user_profile}">
 	            </div>
 			</form>
 		</div>
@@ -1180,17 +1182,43 @@
 			let detailAddr = $("#detailAddr").val();
 			let extraAddr = $("#extraAddr").val();
 			
+			if ($("#user_nickname").val() === "") {
+				$('#user_nickname').focus();
+				alert("닉네임를 입력해주세요");
+				return false;
+			} else if ($("#user_phone").val() === "") {
+				$('#user_phone').focus();
+				alert("휴대폰번호를 입력해주세요");
+				return false;
+			} else if ($("#postcode").val() === "") {
+				$('#postcode').focus();
+				alert("우편번호를 입력해주세요");
+				return false;
+			} else if ($("#roadAddr").val() === "") {
+				$('#roadAddr').focus();
+				alert("주소를 입력해주세요");
+				return false;
+			} else if ($("#detailAddr").val() === "") {
+				$('#detailAddr').focus();
+				alert("주소를 입력해주세요");
+				return false;
+			} else if ($("#extraAddr").val() === "") {
+				$('#extraAddr').focus();
+				alert("주소를 입력해주세요");
+				return false;
+			}
+			
 			$.ajax({
 				url : "/mypage/modifyInfo"
 				,type : "post"
 				,data :
-					 {user_id : $("#user_id").val(), user_nickname : $("#user_nickname").val(), user_pw : $("#user_pw").val(),
-					 user_phone : $("#user_phone").val(), postcode : $("#postcode").val(), roadAddr : $("#roadAddr").val(),
+					 {user_id : $("#user_id").val(), user_category : $("#user_category").val(), user_k : $("#user_k").val(), user_pw : $("#user_pw").val(),
+					 user_nickname : $("#user_nickname").val(), user_phone : $("#user_phone").val(), postcode : $("#postcode").val(), roadAddr : $("#roadAddr").val(),
 					 detailAddr : $("#detailAddr").val(), extraAddr : $("#extraAddr").val()}
 				, success: function(data){
 					console.log(data);
 					alert("정보 수정이 완료되었습니다.");
-					location.reload() // 페이지 새로 고침(수정된 사항 뿌려주기 위함)
+					window.location.reload() // 페이지 새로 고침(수정된 사항 뿌려주기 위함)
 				}, error : function(e){
 					alert("입력값을 제대로 입력해주세요.")
 					console.log(e);

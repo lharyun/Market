@@ -253,7 +253,7 @@ import com.market.blackList.BlackListDTO;
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
             URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
 
             //    요청에 필요한 Header에 포함될 내용
@@ -295,7 +295,7 @@ import com.market.blackList.BlackListDTO;
 	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
 	    try {
 	        URL url = new URL(reqURL);
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	        conn.setRequestMethod("POST");
 	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 	        
@@ -376,5 +376,4 @@ import com.market.blackList.BlackListDTO;
 	public MemberDTO selectByNickname(String user_nickname)throws Exception{
 		return memberDAO.selectByNickname(user_nickname);	
 	}
-
 }
