@@ -22,7 +22,7 @@ public class AuthLoginInterceptor implements HandlerInterceptor{
 		if(request.getSession().getAttribute("loginSession") == null) {
 			// 사용자 로그인이 안되어있음.
 			System.out.println("로그인 안됨");
-			// 로그인이 안되어있으면 /로 redirect 시켜버릴 것 
+			// 로그인이 안되어있으면 "/" 메인 페이지로 redirect 시켜버릴 것
 			response.sendRedirect("/");
 			return false;
 		}
