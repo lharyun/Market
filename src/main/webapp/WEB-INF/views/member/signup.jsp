@@ -254,7 +254,9 @@
             </div>
             <div class="row p-3 justify-content-center">
                 <div class="col-12 d-flex justify-content-center">
+                	<a href="https://kauth.kakao.com/oauth/authorize?client_id=78df7cab2093de0eb394ceeec542eb6e&redirect_uri=http://localhost:8099/member/kakaoLogin&response_type=code">
                     <img id="kakaoSignup" src="/resources/images/member/kakao login.png" onclick="">
+                    </a>
                 </div>
             </div>
 		</div>
