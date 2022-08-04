@@ -15,6 +15,19 @@ public class ReviewDAO {
 	@Autowired
 	private SqlSession session;
 
+	public void review_modify(String review_comment,int review_seq) throws Exception{
+		Map<String,Object> map = new HashMap<>();
+		map.put("review_comment",review_comment);
+		map.put("review_seq",review_seq);
+		session.update("reviewMapper.reviewModify",map);
+	}
+	
+	public void review_delete(int review_seq) throws Exception{
+		session.delete("reviewMapper.reviewDelete",review_seq);
+	}
+	
+	
+	
 	public List<ReviewDTO> selectAll(int start, int end, String reviewed_id) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", start);

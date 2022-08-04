@@ -12,18 +12,23 @@
 	select avg(review_rating) from tbl_review where reviewed_id=#{user_id} ;
 	</select>
 
+	<update id="reviewModify" parameterType="hashmap">
+	update tbl_review set review_comment= #{review_comment} where review_seq= #{review_seq}
+	</update>
+
+	<delete id="reviewDelete" parameterType="int">
+	delete from tbl_review where review_seq=#{review_seq}
+	</delete>
+
  	<select id="selectAll" parameterType="hashmap" resultType="com.market.review.ReviewDTO">
  	select * from ( select tbl_review.*, row_number() over(order by review_seq desc)
- 		 as num from tbl_review)where (num between #{start} and #{end}) and (reviewed_id= #{reviewed_id}) 	
+ 		 as num from tbl_review where reviewed_id= #{reviewed_id})where (num between #{start} and #{end})	
  	</select>
  
  	<select id="getPageNavi" parameterType="String" resultType="int">
  		select count(*) as totalCnt from tbl_review where reviewed_id= #{reviewed_id}
  	</select>
  
- 	<delete id="delete" parameterType="int">
- 	delete from tbl_review where review_seq = #{review_seq}
- 	</delete>
  	
  	<insert id="insert" parameterType="com.market.review.ReviewDTO">
  	<selectKey order="BEFORE" keyProperty="review_seq" resultType="int">

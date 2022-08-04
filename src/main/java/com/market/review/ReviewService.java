@@ -12,6 +12,15 @@ public class ReviewService {
 	@Autowired
 	private ReviewDAO reviewDAO;
 
+	public void review_modify(String review_comment,int review_seq) throws Exception{
+		reviewDAO.review_modify(review_comment,review_seq);
+	}
+	
+	public void review_delete(int review_seq) throws Exception{
+		reviewDAO.review_delete(review_seq);
+	}
+	
+	
 	public List<ReviewDTO> selectAll(int start,int end,String reviewed_id) throws Exception{
 		return reviewDAO.selectAll(start,end,reviewed_id);
 		
