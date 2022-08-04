@@ -40,15 +40,17 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/toMyStore") // 내 상점 페이지 요청
-	public String toMyStore(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+	public String toMyStore(@RequestParam(defaultValue="1")int curPage,String user_id, Model model) throws Exception {
 		System.out.println("curPage" + curPage);
 		System.out.println("내 상점 페이지 접속");
-		MemberDTO dto = ((MemberDTO)session.getAttribute("loginSession"));
+		/*준철 추가*/
+		MemberDTO memdto = mailService.login(user_id);//user_id값조회
+		model.addAttribute("memdto", memdto);
+		System.out.println("user_id값 조회 :" + memdto);
+		/**/
 		
-		System.out.println("dto :" + dto);
 		System.out.println("닉네임 클릭시 넘어오는 값: ");
 		
-		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
 		
 		model.addAttribute("list", service.searchmypost(user_id)); // 내 판매글 조회
 		System.out.println("아이디 :" + user_id);
@@ -135,11 +137,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/toBasket") // 찜목록 이동 페이지 요청
-	public String toBasket(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+	public String toBasket(@RequestParam(defaultValue="1") int curPage,String user_id, Model model) throws Exception {
 		System.out.println("curPage" + curPage);
 		System.out.println("내 찜 목록 페이지 접속");
 		
-		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
+		/*준철 추가*/
+		MemberDTO memdto = mailService.login(user_id);//user_id값조회
+		model.addAttribute("memdto", memdto);
+		System.out.println("user_id값 조회 :" + memdto);
+		/**/
 		
 		model.addAttribute("list2", service.searchmybasket(user_id)); // 내 찜 글 조회
 		System.out.println("아이디 :" + user_id);

@@ -21,6 +21,7 @@ import com.market.chatting.ChattingService;
 import com.market.member.MemberDTO;
 import com.market.member.MemberService;
 import com.market.notification.NotificationService;
+import com.market.review.ReviewService;
 
 
 @RequestMapping(value = "/post")
@@ -37,6 +38,8 @@ public class PostController {
 	private MemberService memberService;
 	@Autowired
 	private ChattingService chatService;
+	@Autowired
+	private ReviewService reviewService;
 	@Autowired
 	private HttpSession session;
 
@@ -154,6 +157,11 @@ public class PostController {
 		MemberDTO memberDto = memberService.login(p_user_id);
 		model.addAttribute("memberDto", memberDto);
 		
+		//user_id로 카운트값 가져오기
+		String review_user_id = ((PostDTO)map.get("postDTO")).getUser_id();
+		int reviewCnt = reviewService.reviewCnt(review_user_id);
+		System.out.println(reviewCnt);
+		model.addAttribute("reviewCnt", reviewCnt);
 		//해당게시글 찜목록에 로그인 아이디 있는지 확인
 		if(session.getAttribute("loginSession") != null) {
 			
