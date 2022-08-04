@@ -36,7 +36,13 @@
     vertical-align: bottom;
    }
 
-  
+  .modal-content {
+        height: 250px;
+        border-radius: 12px;
+        padding: 20px;
+    }
+    
+    
     /* 채팅쪽 */
    .chattingBox{
    margin: 0 auto;
@@ -141,7 +147,6 @@
             background-color: rgb(255, 177, 88);
             border: 2px solid rgb(137, 111, 58);
             border-radius: 6px;
-            width: 50px;
             height: 32px;
             font-size: small;
             box-shadow: 2px 2px 2px rgba(158, 136, 93, 0.712);
@@ -157,6 +162,11 @@
             /* margin-top: 3px; */
             box-shadow: none;
         }
+        
+        .middle_bottomLine {
+	        padding-top: 50px;
+	        border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+    	}
 
         /* 이모티콘 */
         .imoticonBox{
@@ -952,10 +962,10 @@
 	                            <div class="ms-2 member_textBox">
 	                            	<%-- 로그인정보값과 비교해서 다른 닉네임 추출 --%>
 		                             <c:if test="${loginSession.user_nickname eq list.username}">
-		                             	<span class="fw-bolder">${list.mastername}</span> 
+		                             	<span class="fw-bolder" id="report_nickname">${list.mastername}</span> 
 		                             </c:if>
 		                              <c:if test="${loginSession.user_nickname ne list.username}">
-		                             	<span class="fw-bolder">${list.username}</span> 
+		                             	<span class="fw-bolder" id="report_nickname">${list.username}</span> 
 		                             </c:if>   
 	                                <span class="font_gray">${list.extraaddr}·${list.last_date}</span>
 	                                <div >
@@ -963,6 +973,7 @@
 	                                </div>
 	                                 <input type="text" class="d-none" id="roomId" name="roomId" value="${list.roomId}">
 	                                 <input type="text" class="d-none" id="post_seq" name="post_seq"value="${list.post_seq}">
+	                                 <input type="text" class="d-none" id="" name="post_seq"value="${list.post_seq}">
 	                                 <input type="text" class="d-none" id="rooId_input" name="roomId">
 	                                 <input type="text" class="d-none" id="post_seq_input" name="post_seq">
 	                            </div>
@@ -1115,9 +1126,38 @@
                             <img src="/resources/images/chatting/navibar.png" height="35px">
                         </a>
                         <ul class="dropdown-menu no_index" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">신고하기</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModa3">신고하기</a></li>
                             <li><a class="dropdown-item" id="chatExit" href="#">채팅방 나가기</a></li>
-                          </ul>
+                        </ul>
+                        <!-- Modal -->
+                <div id="modal_delete">
+                    <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                            <div class="row align-items-center modal-content ">
+                                <div class="row align-items-center middle_bottomLine">
+                                	<form class="m-0" id="reportForm" action="/report/insert" method="post">
+	                                    <div class="col d-flex justify-content-center" id="modalTitle" style="width:auto;">
+	                                        <input type="text" class="form-control-plaintext fw-bolder" id="report_content"
+	                                            name="report_content" placeholder="내용을 입력하세요">
+	                                    </div>
+	                                     <div class="d-none">
+					                         <input type="text" name="user_id"  value="${loginSession.user_id}"> <%-- 신고보내는 사람 --%>
+					                         <input type="text" name="user_category"  value="${loginSession.user_category}"> <%-- 그사람 로그인 카테고리 --%>
+					                         <input type="text" name="reported_id"id="reported_id" > <%-- 신고받는 사람 --%>
+					                         <input type="text" name="category"  value="채팅"> <%-- 게시글 카테고리 --%>
+					                         <input type="text" name="category_seq"id="category_seq"  > <%-- 게시글 번호 --%>
+					                     </div>
+                                    </form>
+                                </div>
+
+                                <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                    <button type="button" class="middle_Btn" id="post_reportBtn"
+                                        data-bs-dismiss="modal">신고하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div class="messageBox">
@@ -1153,7 +1193,7 @@
                                 <span class="font_gray">
                                     <span class="length_num">0</span>/100
                                 </span>
-                                <button type="button" class="middle_Btn ms-2" id="writeBtn">전송</button>
+                                <button type="button" class="middle_Btn ms-2" id="writeBtn" style="width: 50px;">전송</button>
                             </div>
                         </div>
                     </div>
@@ -1340,6 +1380,11 @@
 
     
     <script>
+    //신고
+    $("#post_reportBtn").on("click",function(){
+    	 $("#reportForm").submit();
+    	
+    })
     //게시글 클릭시 디테일페이지 이동
     $("#yourPost").on("click",function(e){
     	let post_seq = $("#post_seq_input").val();
@@ -1383,6 +1428,9 @@
     					+			'<span>'+data.postMap.price_selling+'원</span>'
     					+		'</div>'
     					+'</div>');
+    			$("#reported_id").val(data.postMap.user_id);
+    			$("#category_seq").val(data.postMap.post_seq);
+    			console.log($("#reported_id").val()+$("#category_seq").val());
     			$(".contentDiv").empty();
     			for(var i=0; i<data.messagelist.length; i++){
     				if(data.messagelist[i].messageId==loginId){
@@ -1415,7 +1463,12 @@
      		if ( nowHour <= 11  &&  nowHour  >= 0 ) {
      		  var date ='오전' + nowHour + ':' + nowMt;
      		} else if (  nowHour >= 12  &&  nowHour  < 23  ) {
-    		    var date ='오후' + nowHour + ':' + nowMt;
+     			if(nowHour<20){
+     				var date ='오후0' + (nowHour-12) + ':' + nowMt;
+     			}else{
+     				var date ='오후' + (nowHour-12) + ':' + nowMt;
+     			}
+    		    
      		}
      		let message2 = "이모티콘을 보냈어요."
     	  	let loginId= '${loginSession.user_id}';    
@@ -1503,10 +1556,15 @@
          // Date 객체의 getHours(시간) , getMinutes(분) 속성을 저장 합니다.
          var nowHour = now.getHours();
          var nowMt = now.getMinutes();
-    	if ( nowHour <= 11  &&  nowHour  >= 0 ) {
+         if ( nowHour <= 11  &&  nowHour  >= 0 ) {
     		  var date ='오전' + nowHour + ':' + nowMt;
     		} else if (  nowHour >= 12  &&  nowHour  < 23  ) {
-    		    var date ='오후' + nowHour + ':' + nowMt;
+    			if(nowHour<20){
+    				var date ='오후0' + (nowHour-12) + ':' + nowMt;
+    			}else{
+    				var date ='오후' + (nowHour-12) + ':' + nowMt;
+    			}
+   		    
     		}
     	if(loginId==messageId){
     		let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + date + 

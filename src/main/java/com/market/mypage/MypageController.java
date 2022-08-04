@@ -223,15 +223,12 @@ public class MypageController {
 	
 	@RequestMapping(value = "/modifyInfo") // 내 정보 수정 요청	
 	public String infoUpdate(MemberDTO dto, Model model)throws Exception{
-		
 		service.modifyInfo(dto); // 정보 수정
 		MemberDTO newdto = (MemberDTO)session.getAttribute("loginSession");
 		System.out.println("출력 dto: " + dto);
 		
 		newdto.setUser_nickname(dto.getUser_nickname());
-		
 		newdto.setUser_pw(dto.getUser_pw());
-		
 		newdto.setUser_phone(dto.getUser_phone());
 		newdto.setPostcode(dto.getPostcode());
 		newdto.setRoadAddr(dto.getRoadAddr());

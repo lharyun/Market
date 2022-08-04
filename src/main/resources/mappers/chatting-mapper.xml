@@ -21,7 +21,7 @@
 	<select id="chat_mamberJoin" parameterType="String" resultType="org.apache.commons.collections4.map.CaseInsensitiveMap">
 			select 
 		roomId, userName, masterName, unreadCount, post_seq, 
-		TO_CHAR(last_date, 'AMHH24:MI')as "last_date", a.extraAddr, last_chat, 
+		TO_CHAR(last_date, 'HH:MI')as "last_date", a.extraAddr, last_chat, 
 		b.user_profile "user_profile_a" , c.user_profile "user_profile_b"
 			from ChattingRoom a join tbl_member b
 		on a.userName = b.user_nickname
@@ -45,11 +45,12 @@
 		delete from ChattingRoom where roomId = #{roomId}
 	</delete>
 	
+	
 	<!-- 메세지 쪽 -->
 	<select id="chat_m_select" parameterType="int" resultType="com.market.chatting.ChattingMessageDTO">
 		select 
 			roomId, messageId, message, name, unreadCount, sessionCount, 
-			TO_CHAR(upLoad_date, 'AMHH24:MI')as "upLoad_date" from ChattingMessage 
+			TO_CHAR(upLoad_date, 'AMHH:MI')as "upLoad_date" from ChattingMessage 
 		where roomId=#{roomId}
 			order by upload_date
 	</select>
