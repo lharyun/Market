@@ -1214,7 +1214,7 @@
 
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-    <div class="container middle" style="height: 1120px">
+    <div class="container middle" style="height: 1150px">
 	    <div class="mypageContainer">
 	        <div class="profileBox">
 	            <div class="profile_border">
@@ -1247,20 +1247,7 @@
 	                    <input type="text" class="d-none" value="${loginSession.user_k}" id="user_k">
 	                </div>
 	                <div class="productCount2">
-	                    <form class="mb-3" name="starform" id="starform" method="post">
-							<fieldset>
-								<input type="radio" name="reviewStar" value="5" id="rate1"><label
-									for="rate1">★</label>
-								<input type="radio" name="reviewStar" value="4" id="rate2"><label
-									for="rate2">★</label>
-								<input type="radio" name="reviewStar" value="3" id="rate3"><label
-									for="rate3">★</label>
-								<input type="radio" name="reviewStar" value="2" id="rate4"><label
-									for="rate4">★</label>
-								<input type="radio" name="reviewStar" value="1" id="rate5"><label
-									for="rate5">★</label>
-							</fieldset>
-						</form>
+						<span><strong>${loginSession.rating}</strong></span>
 	                </div>
 	            </div>
 	            <div class="buttonBox">
@@ -1298,9 +1285,12 @@
 	            </div>
 	        </div>
 	        <div class="categoryBox">
-	            <a href="/mypage/toMyStore"><strong>판매글</strong></a>
-	            <a href="/mypage/toBasket"><strong>찜 목록</strong></a>
-	            <a href="/"><strong>거래 후기</strong></a>
+
+	            <button id="storeBtn" class="btn btn-outline-primary" >판매글</button>
+	    		<button id="basketBtn" class="btn btn-outline-success" >찜 목록</button>
+	            <button id="reviewBtn" class="btn btn-outline-warning" >거래 후기</button>
+
+
 	        </div>
 	        <div class="content">
 	            <div class="categoryText">
@@ -1371,7 +1361,12 @@
     	document.getElementById("modifyBtn").onclick = function(){
     		location.href = "/mypage/toMypageModify";
     	}
-    
+    	document.getElementById("storeBtn").onclick = function(){
+    		location.href = "/mypage/toMyStore";
+    	}
+    	document.getElementById("basketBtn").onclick = function(){
+    		location.href = "/mypage/toBasket";
+    	}
     </script>
 
 
