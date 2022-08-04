@@ -170,7 +170,7 @@ public class MemberController {
 		return "member/kakaosignup";
 	}
 	
-	@RequestMapping(value = "signUp") // 일반 회원가입 요청
+	@RequestMapping(value = "/signUp") // 일반 회원가입 요청
 	public String signUp(MemberDTO dto) throws Exception{
 
 		String inputPass = dto.getUser_pw();
@@ -183,7 +183,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "kakaosignUp") // 카카오 회원가입 요청(추가 정보 입력)
+	@RequestMapping(value = "/kakaosignUp") // 카카오 회원가입 요청(추가 정보 입력)
 	public String kakaosignUp(MemberDTO dto) throws Exception{
 		
 		String inputPass = dto.getUser_pw();

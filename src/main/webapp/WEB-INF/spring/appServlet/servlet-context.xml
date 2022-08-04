@@ -31,6 +31,64 @@
 		<beans:property name="maxUploadSize" value="100000000"></beans:property>
 	</beans:bean>
 	
+	<!-- 로그인 검사 인터셉터 등록 -->
+	<!--  <interceptor>
+			1. 어떤 요청 url과 매핑시켜줄건지. 
+			/** 모든 요청값에 매핑
+			2. 어떤 인터셉터 클래스를 사용할건지 빈 등록
+			3. 만약 인터셉터가 동작할 필요가 없는 요청값이라면 그 url은 제외
+			path -> 이 경로는 클라이언트를 기준으로 url을 생각해야함 
+	</interceptor> /post/toPost?curPage=1-->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/post/toPost"/>
+			<!-- 메인 페이지 -->
+			<exclude-mapping path="/resources/**"/>
+			<exclude-mapping path="/imgfiles/*"/>
+			<exclude-mapping path="/user_profile/**"/>
+			<!-- 로그인 및 회원가입 -->
+			<exclude-mapping path="/member/toLogin"/>
+			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/member/kakaoLogin"/>
+			<exclude-mapping path="/member/tosignUp"/>
+			<exclude-mapping path="/member/tokakaosignUp"/>
+			<exclude-mapping path="/member/signUp"/>
+			<exclude-mapping path="/member/kakaosignUp"/>
+			<exclude-mapping path="/member/checkLogin"/>
+			<exclude-mapping path="/member/checkNickname"/>
+			<exclude-mapping path="/member/checkPhone"/>
+			<exclude-mapping path="/member/tofindId"/>
+			<exclude-mapping path="/member/findPage"/>
+			<exclude-mapping path="/member/findId"/>
+			<exclude-mapping path="/member/tofindPw"/>
+			<exclude-mapping path="/member/noticeMail"/>
+			<exclude-mapping path="/member/findPw"/>
+			<exclude-mapping path="/member/todelete"/>
+			<exclude-mapping path="/member/checkPw"/>
+			<!-- 상점 게시판 -->
+			<exclude-mapping path="/mypage/toMyStore"/>
+			<exclude-mapping path="/mypage/toSearch"/>
+			<exclude-mapping path="/mypage/toBasket"/>
+			<exclude-mapping path="/mypage/toSearch2"/>
+			<!-- 판매 게시판 -->
+			<exclude-mapping path="/post/toSearch"/>
+			<exclude-mapping path="/post/toPostDetail"/>
+			<!-- 고객 게시판 -->
+			<exclude-mapping path="/client/toClient_post"/>
+			<!-- 푸터 -->
+			<exclude-mapping path="/footer/toTrust"/>
+			<exclude-mapping path="/footer/toCheapPay"/>
+			<exclude-mapping path="/footer/toTeam"/>
+			<exclude-mapping path="/footer/toTerms"/>
+			<exclude-mapping path="/footer/toPrivacy"/>
+			<exclude-mapping path="/footer/toLocation"/>
+			<exclude-mapping path="/footer/toPlanned"/>
+			
+			<beans:bean class="com.market.utils.AuthLoginInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
