@@ -18,14 +18,24 @@ public class ReviewController {
 	private ReviewService service;
 	
 	@RequestMapping(value= "/review")
-	@ResponseBody
-	public List<ReviewDTO> review(Model model,String user_id) throws Exception{
-		System.out.println("review실행");
-		
+	public String review(Model model,String reviewed_id) throws Exception{
+		System.out.println("review실행");	
 		int curPage=1;
-		List<ReviewDTO> list =service.selectAll(curPage*10-9,curPage*10,user_id);
-		System.out.println(list);
-		return list;
+		List<ReviewDTO> list =service.selectAll(curPage*10-9,curPage*10,reviewed_id);
+		model.addAttribute("list",list);
+		return "mypage/review";
+	}
+	
+	@RequestMapping(value= "/review_write")
+	public String review_write(ReviewDTO dto) throws Exception{
+		System.out.println("write실행");
+		System.out.println(dto.toString());
+		 service.insert(dto);
+		 /* 
+		 * List<ReviewDTO> list =service.selectAll(curPage*10-9,curPage*10,user_id);
+		 * model.addAttribute("list",list);
+		 */
+		return "";
 	}
 	
 }

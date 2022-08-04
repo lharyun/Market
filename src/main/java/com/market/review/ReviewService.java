@@ -11,8 +11,12 @@ public class ReviewService {
 	@Autowired
 	private ReviewDAO reviewDAO;
 
-	public List<ReviewDTO> selectAll(int start,int end,String user_id) throws Exception{
-		return reviewDAO.selectAll(start,end,user_id);
+	public List<ReviewDTO> selectAll(int start,int end,String reviewed_id) throws Exception{
+		return reviewDAO.selectAll(start,end,reviewed_id);
 		
+	}
+	
+	public void insert(ReviewDTO dto) throws Exception{
+		reviewDAO.insert(dto);
 	}
 }

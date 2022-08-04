@@ -1084,7 +1084,8 @@
 	    		<button class="btn btn-outline-success" >찜 목록</button>
 	            <button id="reviewBtn" class="btn btn-outline-warning" >거래 후기</button>
 	        </div>
-			<input class="d-none" id="user_id" value="${loginSession.user_id }">
+	        <!-- 리뷰받는사람 아이디 -> 로그인세션이아니라 user_nickname을 기준으로 바꿔야함 -->
+			<input class="d-none" id="reviewed_id" value="${loginSession.user_id }">
 	        <div class="content" id="content">
 	            <div class="categoryText">
 	                <h3><strong>판매글</strong></h3>
@@ -1333,60 +1334,8 @@
     <script>
     	$("#reviewBtn").on("click",function(){
     	
-    		let user_id=$("#user_id").val();
-    		console.log(user_id);
-    		$.ajax({
-    			url:"/review/review?user_id="+user_id,
-    			type:"get",
-    			success:function(data){
-    				$("#content").empty();
-    				console.log(data);
-    				if(data.length ==0){ //검색 결과 없음
-    					let row=$("<div>").addClass("row");
-    					let col= $("<div>").addClass("col").append("검색 결과가 없습니다.");
-    					row.append(col);
-    					row.appendTo("#content");
-    			}else{
-    				
-    				for(let dto of data){
-    					let row=$("<div>").addClass("row");
-    					let row0=$("<div>").addClass("row");
-    					let row1=$("<div>").addClass("row");
-    					let row2=$("<div>").addClass("row");
-    					let row3=$("<div>").addClass("row");
-    					let row4=$("<div>").addClass("row");
-    					let row5=$("<div>").addClass("row");
-    					
-    					
-    					let col=$("<div>").addClass("col");
-    					let col0=$("<div>").addClass("col")
-    					let col1=$("<div>").addClass("col").append(dto.review_nickname);
-    					let col2=$("<div>").addClass("col").append("⭐".repeat(dto.rating));
-    					let col3=$("<div>").addClass("col").append(dto.post_seq);
-    					let col4=$("<div>").addClass("col").append(dto.review_comment);
-    					let col5=$("<div>").addClass("col").append(dto.review_seq);
-    					let hr=$("<hr>");
-    					
-    					row1.append(col1);
-    					row2.append(col2);
-    					row3.append(col3);
-    					row4.append(col4);
-    					row5.append(col5);
-    					
-    					row.append(col);
-    					col.append(row1,row2,row3,row4,row5,hr);
-    					
-    					row.appendTo("#content");
-    				}
-    				
-    			}
-    			},
-    			error:function(){
-    				
-    			}
-    			
-    			
-    		})
+    		let reviewed_id=$("#reviewed_id").val();
+    		window.open("/review/review?reviewed_id="+reviewed_id,"myReview","width=800,height=700");
     	})    
 	
        

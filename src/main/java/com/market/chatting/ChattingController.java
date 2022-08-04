@@ -34,10 +34,9 @@ public class ChattingController {
     @Autowired
     private ChattingSession cSession;
     
-<<<<<<< HEAD
+
 =======
     */
->>>>>>> 997cd0621eecdda7a0648be46c89322f804edf0b
 	public ChattingController() {
 		System.out.println("ChattingController 인스턴스 생성");
 	}
@@ -54,8 +53,7 @@ public class ChattingController {
 		return "chatting/chatting";
 	}
 	
-<<<<<<< HEAD
-=======
+
 	@RequestMapping(value = "/chat_insert")
 	public String chat_insert(ChattingRoomDTO dto) throws Exception{
 		String userName = dto.getUserName();//닉네임으로 조회
