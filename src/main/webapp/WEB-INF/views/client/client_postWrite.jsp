@@ -1,15 +1,17 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- include libraries(jQuery, bootstrap) -->
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+<!-- include libraries(jQuery, bootstrap) -->
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
 	rel="stylesheet" />
@@ -25,200 +27,47 @@
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script
 	src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
-	</head>
+<link href="/resources/css/header_footer.css" rel="stylesheet">
+
+
+</head>
 <style>
-/* 헤더 푸터 UI */
-header {
-	position: sticky;
-	top: 0;
-	display: block;
-	background-color: white;
-	z-index: 1;
-}
-/* 헤더 상단 */
-.heder_top {
-	height: 40px;
-	margin: auto;
-	font-size: 13px;
-}
-.heder_top a {
-	color: gray;
-}
-.heder_top a:hover {
-	color: orange;
-}
-.heder_top .dropdown:hover .dropdown-menu {
-	display: block;
-	margin-top: 0;
-}
-/* 헤더 중간 */
-.heder_middleBox {
-	margin: auto;
-	border-bottom: 1px solid rgba(128, 128, 128, 0.233);
-	border-top: 1px solid rgba(128, 128, 128, 0.233);
-}
-.heder_middle {
-	height: 40px;
-	margin: auto;
-}
-.heder_middle a {
-	color: black;
-	display: inline-block;
-	font-weight: bold;
-}
-.menu_right>li::after {
-	color: #72787e;
-	content: "|";
-	align-items: center;
-}
-.menu_right>li:last-child::after {
-	content: "";
-}
-.menu_right a:hover {
-	color: orange;
-}
-.searchInput {
-	width: 100%;
-	height: 38px;
-	border-radius: 8px;
-	border: 1px solid #f47d39;
-	outline: 1px solid #f47d39;
-}
-.searchIcon {
-	position: absolute;
-	left: 91%;
-	top: 7px;
-}
-/* 헤더 하단 */
-.heder_bottom {
-	height: 70px;
-	margin: auto;
-	word-break: break-all
-}
-.heder_bottom a {
-	text-decoration: none;
-	color: black;
-}
-.category_line>div {
-	border-right: 1px solid #72787e4f;
-}
-.category_line>div:last-child {
-	border: 0;
-}
-.category_line .nav-link {
-	color: #36393b;
-}
-.category_line .nav-link:hover {
-	font-weight: 600;
-	background-color: #ffad0a2d;
-}
-/* ===contetnt 영역==== */
-/* ==================== */
-.logo2 {
-	position: fixed;
-	bottom: 60px;
-	right: 10px;
-	z-index: 2;
-}
-/* 푸터 */
-.middle {
-	height: 100%;
-}
-footer {
-	background-color: #495057;
-}
-footer .nav-link {
-	color: rgb(170, 170, 170);
-	text-decoration: none;
-}
-footer .nav-link:hover {
-	color: white;
-}
-.pooterLine {
-	border-bottom: 1px solid rgba(128, 128, 128, 0.479);
-}
-.pooterText {
-	color: gray;
-	font-size: 14px;
-}
-@media ( max-width : 992px) {
-	#Non_reaction {
-		display: none;
-	}
-	#checkBox {
-		width: 450px;
-	}
-	.category_line li {
-		height: 35px;
-	}
-	#searchBox {
-		width: 300px;
-		height: 40px;
-	}
-	.font_a {
-		color: red;
-		font-weight: 700;
-	}
-}
-@media ( max-width : 540px) {
-	.a_reaction {
-		display: none;
-	}
-}
-@media ( min-width : 992px) {
-	#reaction {
-		display: none;
-	}
-	#footerBox {
-		width: 992px;
-	}
-	.heder_top {
-		width: 992px;
-	}
-	.heder_middle {
-		width: 992px;
-	}
-	#checkBox {
-		width: 922px;
-	}
-	.heder_middleBox {
-		padding-top: 35px;
-	}
-	.heder_bottom {
-		width: 992px;
-	}
-}
+
 /* container=========================================== */
-#container{
+#container {
 	border: 2px solid #f47d39;
-	border-radius: 15px;	
+	border-radius: 15px;
 	text-align: center;
 	margin: auto;
 	margin-top: 50px;
-	margin-bottom:50px;
+	margin-bottom: 50px;
 }
-.hr{
-color:#f47d39;
-border:3px solid #f47d39;
+
+.hr {
+	color: #f47d39;
+	border: 3px solid #f47d39;
 }
-.mainColor{
-color:#f47d39
+
+.mainColor {
+	color: #f47d39
 }
-.write{
-background-color:coral;
+
+.write {
+	background-color: coral;
 }
-.selectFont option{
-font-size:14px;
+
+.selectFont option {
+	font-size: 14px;
 }
-.selectFont{
-font-size:14px;
+
+.selectFont {
+	font-size: 14px;
 }
 </style>
 </head>
 <body>
-<!-- Header -->
+	<!-- Header -->
 	<header>
-
 		<div class="container-fluid p-0" id="Non-reaction">
 			<nav>
 				<div class="row align-items-center heder_top">
@@ -233,31 +82,32 @@ font-size:14px;
 					</div>
 					<div class="col d-flex justify-content-end">
 						<ul class="nav">
-							<!-- 로그인 안했을경우-->
-							<c:if test="${empty loginSession}">
-								<li class="nav-item"><a class="nav-link"
-									href="/member/toLogin">로그인/회원가입</a></li>
-							</c:if>
-
-							<!-- 로그인했을경우-->
-							<c:if test="${not empty loginSession}">
-								<li class="nav-item"><a class="nav-link"
-									href="/member/toLogout">로그아웃</a></li>
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="/mypage/toMyStore"
-									data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="/mypage/toMyStore">내
-												상품</a></li>
-										<li><a class="dropdown-item" href="/mypage/toBasket">찜한
-												상품</a></li>
-										<li><a class="dropdown-item"
-											href="/mypage/toMypageModify">계정 설정</a></li>
-									</ul></li>
-							</c:if>
-
-							<li class="nav-item"><a class="nav-link"
-								href="/mypage/toMyStore">내 상점</a></li>
+							<c:choose>
+								<c:when test="${empty loginSession}">
+									<li class="nav-item"><a class="nav-link" id="linkLogin"
+										href='javascript:void(0)' onclick='preventClick(event)'>로그인/회원가입</a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										href="/mypage/toMyStore">내 상점</a></li>
+								</c:when>
+								<c:otherwise>
+									<!-- 로그인했을경우 띄우기 -->
+									<li class="nav-item"><a class="nav-link"
+										href="/member/toLogout">로그아웃</a></li>
+									<li class="nav-item dropdown"><a
+										class="nav-link dropdown-toggle" href="/mypage/toMyStore"
+										data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname}
+											상점</a>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" href="/mypage/toMyStore">내
+													상품</a></li>
+											<li><a class="dropdown-item" href="/mypage/toBasket">찜한
+													상품</a></li>
+											<li><a class="dropdown-item"
+												href="/mypage/toMypageModify">계정 설정</a></li>
+										</ul></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 				</div>
@@ -270,18 +120,19 @@ font-size:14px;
 				<div>
 					<div class="row p-0 heder_middle" id="Non_reaction">
 						<div class="col-3 pe-0">
-							<a href="/post/toPost" class="mb-2 mb-lg-0"> <img
+							<a href="/post/toPost?curPage=1" class="mb-2 mb-lg-0"> <img
 								src="/resources/images/header_pooter/로고.png" height="40px"
 								alt="로고이미지">
 							</a>
 						</div>
 						<div class="col position-relative p-0">
 
-							<form id="SearchForm" action="/post/toSearch" method="post">
+							<form id="SearchForm" action="/post/toSearch?curPage=1"
+								method="post">
 								<a href="#" class="nav-link p-0 d-inline" id="searchIcon"><img
 									src="/resources/images/header_pooter/searchIcon.png"
 									class="searchIcon" height="22px"></a> <input type="text"
-									class="searchInput ps-2" id="titleSearch" name="post_title"
+									class="searchInput ps-2" id="titleSearch" name="search"
 									placeholder="물품, 동네이름을 입력해보세요.">
 							</form>
 
@@ -317,30 +168,30 @@ font-size:14px;
 							싸다구 카테고리 >
 						</a>
 						<div class="dropdown-menu mt-4 py-4" id="checkBox">
-							<div class="container" id="">
+							<div class="container " id="">
 								<div class="row category_line">
 									<div class="col">
 										<ul class="nav flex-column pt-2 ps-3">
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=남성의류"
+												href="/post/toSearch?curPage=1&search=남성의류"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/boy.png" height="26px"
 													width="26px"> 남성의류
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=여성의류"
+												href="/post/toSearch?curPage=1&search=여성의류"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/girl.png"
 													height="26px" width="26px"> 여성의류
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=신발,가방"
+												href="/post/toSearch?curPage=1&search=신발,가방"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/Shoes.png"
 													height="26px" width="26px"> 신발,가방
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=뷰티"
+												href="/post/toSearch?curPage=1&search=뷰티"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/beauty.png"
 													height="26px" width="26px"> 뷰티
@@ -351,25 +202,25 @@ font-size:14px;
 									<div class="col">
 										<ul class="nav flex-column pt-2 ps-3">
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=컴퓨터,주변기기"
+												href="/post/toSearch?curPage=1&search=컴퓨터,주변기기"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/computer.png"
 													height="26px" width="26px"> 컴퓨터, 주변기기
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=카메라"
+												href="/post/toSearch?curPage=1&search=카메라"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/camera.png"
 													height="26px" width="26px"> 카메라
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=디지털,가전"
+												href="/post/toSearch?curPage=1&search=디지털,가전"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/machine.png"
 													height="26px" width="26px"> 디지털,가전
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=음향기기"
+												href="/post/toSearch?curPage=1&search=음향기기"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/headset.png"
 													height="26px" width="26px"> 음향기기
@@ -380,25 +231,25 @@ font-size:14px;
 									<div class="col">
 										<ul class="nav flex-column pt-2 ps-3">
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=생활용품"
+												href="/post/toSearch?curPage=1&search=생활용품"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/toiletries.png"
 													height="26px" width="26px"> 생활용품
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=예술/희귀/수집품"
+												href="/post/toSearch?curPage=1&search=예술/희귀/수집품"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/museum.png"
 													height="26px" width="26px"> 예술/희귀/수집품
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=식품"
+												href="/post/toSearch?curPage=1&search=식품"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/food.png"
 													height="26px" width="26px"> 식품
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=가구/인테리어"
+												href="/post/toSearch?curPage=1&search=가구/인테리어"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/furniture.png"
 													height="26px" width="26px"> 가구/인테리어
@@ -409,25 +260,25 @@ font-size:14px;
 									<div class="col">
 										<ul class="nav flex-column pt-2 ps-3">
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=스포츠,레저"
+												href="/post/toSearch?curPage=1&search=스포츠,레저"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/sport.png"
 													height="26px" width="26px"> 스포츠,레저
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=게임"
+												href="/post/toSearch?curPage=1&search=게임"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/game.png"
 													height="26px" width="26px"> 게임
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=도서"
+												href="/post/toSearch?curPage=1&search=도서"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/book.png"
 													height="26px" width="26px"> 도서
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=여행,숙박"
+												href="/post/toSearch?curPage=1&search=여행,숙박"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/travel.png"
 													height="26px" width="26px"> 여행,숙박
@@ -447,7 +298,15 @@ font-size:14px;
 							<!--  동 같은경우 disabled 줘서 구 선택하면 그거에 맞게 뜨게-->
 							<select class="form-select district" id="district"
 								aria-label="Default select example" name="roadAddr">
-								<option selected>지역을 선택하세요</option>
+								<c:if
+									test="${not empty naviMap.post_addr and naviMap.post_addr ne '지역을 선택하세요'}">
+									<option value="지역을 선택하세요">지역을 선택하세요</option>
+									<option selected>${naviMap.post_addr}</option>
+								</c:if>
+								<c:if
+									test="${empty naviMap.post_addr or naviMap.post_addr eq '지역을 선택하세요'}">
+									<option selected>지역을 선택하세요</option>
+								</c:if>
 								<option value="강남구">강남구</option>
 								<option value="강동구">강동구</option>
 								<option value="강서구">강서구</option>
@@ -614,6 +473,18 @@ font-size:14px;
 								<option value="상계">상계동</option>
 							</select>
 						</div>
+						<!-- 동대문구 -->
+						<div class="col-5 p-1 d-none b_dong" id="Dongdaemun">
+							<select class="form-select a_dong"
+								aria-label="Default select example" name="extraAddr">
+								<option selected>동네를 선택하세요</option>
+								<option value="용신">용신동</option>
+								<option value="제기">제기동</option>
+								<option value="전농">전농동</option>
+								<option value="장안">장안동</option>
+								<option value="회기">회기동</option>
+							</select>
+						</div>
 						<!-- 동작 -->
 						<div class="col-5 p-1 d-none b_dong" id="Dongjak">
 							<select class="form-select a_dong"
@@ -733,12 +604,12 @@ font-size:14px;
 								<option value="창신">창신동</option>
 							</select>
 						</div>
-
 						<!-- 값 보내줄 input -->
-						<form id="districeForm" class="d-none" action="/toDistrict"
-							method="post">
-							<input type="text" id="roadAddrInput" name="roadAddr"> <input
-								type="text" id="extraAddrInput" name="extraAddr">
+						<form id="districeForm" class="d-none"
+							action="/post/toSearch?curPage=1" method="post">
+							<input type="text" id="roadAddrInput" name="post_addr"> <input
+								type="text" id="extraAddrInput" name="search"> <input
+								type="text" id="testSearch" value="${naviMap.post_addr}">
 						</form>
 
 					</div>
@@ -749,9 +620,10 @@ font-size:14px;
 					<div class="col p-0 dropdown">
 						<a href="#" class="naviIcon fw-bolder" data-bs-toggle="dropdown"
 							aria-expanded="false"> <img
-							src="/resources/images/header_pooter/navibar.png" height="35px"><img
-							class="a_reaction" src="/resources/images/header_pooter/로고.png"
-							height="40px" alt="로고이미지">
+							src="/resources/images/header_pooter/navibar.png" height="35px">
+						</a> <a href="/post/toPost?curPage=1"> <img class="a_reaction"
+							src="/resources/images/header_pooter/로고.png" height="40px"
+							alt="로고이미지">
 						</a>
 						<div class="dropdown-menu mt-4 py-4" id="checkBox">
 							<div class="container" id="">
@@ -777,49 +649,49 @@ font-size:14px;
 
 
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=남성의류"
+												href="/post/toSearch?curPage=1&search=남성의류"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/boy.png" height="26px"
 													width="26px"> 남성의류
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=여성의류"
+												href="/post/toSearch?curPage=1&search=여성의류"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/girl.png"
 													height="26px" width="26px"> 여성의류
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=신발,가방"
+												href="/post/toSearch?curPage=1&search=신발,가방"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/Shoes.png"
 													height="26px" width="26px"> 신발,가방
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=뷰티"
+												href="/post/toSearch?curPage=1&search=뷰티"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/beauty.png"
 													height="26px" width="26px"> 뷰티
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=컴퓨터,주변기기"
+												href="/post/toSearch?curPage=1&search=컴퓨터,주변기기"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/computer.png"
 													height="26px" width="26px"> 컴퓨터, 주변기기
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=카메라"
+												href="/post/toSearch?curPage=1&search=카메라"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/camera.png"
 													height="26px" width="26px"> 카메라
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=디지털,가전"
+												href="/post/toSearch?curPage=1&search=디지털,가전"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/machine.png"
 													height="26px" width="26px"> 디지털,가전
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=음향기기"
+												href="/post/toSearch?curPage=1&search=음향기기"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/headset.png"
 													height="26px" width="26px"> 음향기기
@@ -842,49 +714,49 @@ font-size:14px;
 											</a></li>
 
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=생활용품"
+												href="/post/toSearch?curPage=1&search=생활용품"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/toiletries.png"
 													height="26px" width="26px"> 생활용품
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=예술/희귀/수집품"
+												href="/post/toSearch?curPage=1&search=예술/희귀/수집품"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/museum.png"
 													height="26px" width="26px"> 예술/희귀/수집품
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=식품"
+												href="/post/toSearch?curPage=1&search=식품"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/food.png"
 													height="26px" width="26px"> 식품
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=가구/인테리어"
+												href="/post/toSearch?curPage=1&search=가구/인테리어"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/furniture.png"
 													height="26px" width="26px"> 가구/인테리어
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=스포츠,레저"
+												href="/post/toSearch?curPage=1&search=스포츠,레저"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/sport.png"
 													height="26px" width="26px"> 스포츠,레저
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=게임"
+												href="/post/toSearch?curPage=1&search=게임"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/game.png"
 													height="26px" width="26px"> 게임
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=도서"
+												href="/post/toSearch?curPage=1&search=도서"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/book.png"
 													height="26px" width="26px"> 도서
 											</a></li>
 											<li class="nav-item mb-2"><a
-												href="/post/select?curPage=1$category=여행,숙박"
+												href="/post/toSearch?curPage=1&search=여행,숙박"
 												class="nav-link p-0"> <img
 													src="/resources/images/header_pooter/travel.png"
 													height="26px" width="26px"> 여행,숙박
@@ -897,11 +769,12 @@ font-size:14px;
 					</div>
 
 					<div class="col-5 position-relative p-0" id="searchBox">
-						<form id="SearchForm2" action="/post/toSearch" method="post">
+						<form id="SearchForm2" class="m-0"
+							action="/post/toSearch?curPage=1" method="post">
 							<a href="#" class="nav-link p-0 d-inline" id="searchIcon2"><img
 								src="/resources/images/header_pooter/searchIcon.png"
 								class="searchIcon" height="22px"></a> <input type="text"
-								class="searchInput ps-2" id="titleSearch2" name="post_title"
+								class="searchInput ps-2" id="titleSearch2" name="search"
 								placeholder="물품, 동네이름을 입력해보세요.">
 						</form>
 					</div>
@@ -909,54 +782,54 @@ font-size:14px;
 			</div>
 		</div>
 	</header>
-<!-- 콘텐트 -->
+	<!-- 콘텐트 -->
 	<div class="container" id="container">
 		<div class="row justify-content-center">
-				<form action="/client/write" id="writeForm" method="post">
-					<div class="row">
-						<div class="col">
-							<h2 class="mainColor fw-bold">게시글 작성</h2>
-							<hr class="hr"/>
-						</div>
+			<form action="/client/write" id="writeForm" method="post">
+				<div class="row">
+					<div class="col">
+						<h2 class="mainColor fw-bold">게시글 작성</h2>
+						<hr class="hr" />
 					</div>
-					<div class="row">
-						<div class="col-9">
-							<input type="text" class="form-control" id="title"
-								name="client_title" placeholder="제목을 입력해 주세요." />
-						</div>
-						
-						<div class="col-2">
-							<select class="form-select selectFont" id="select" name="client_category" aria-label="Default select example">
-								<option value="" selected>-선택-</option>
-								<option value="buySell">구매/판매</option>
-								<option value="account">계정/인증</option>
-								<option value="items">거래 품목</option>
-								<option value="manner">거래매너</option>
-								<option value="sanction">이용제제</option>
-								<option value="addition">기타</option>
-							</select>
-						</div>
-						<div class="col-1">
-							<button type="button" id="submitBtn" class="btn write">
-								작성</button>
-						</div>
+				</div>
+				<div class="row">
+					<div class="col-9">
+						<input type="text" class="form-control" id="title"
+							name="client_title" placeholder="제목을 입력해 주세요." />
 					</div>
-					<br />
-					<div class="row">
-						<div class="col">
 
-							<textarea id="summernote" name="client_content"
-								class="summernote"></textarea>
-
-						</div>
+					<div class="col-2">
+						<select class="form-select selectFont" id="select"
+							name="client_category" aria-label="Default select example">
+							<option value="" selected>-선택-</option>
+							<option value="buySell">구매/판매</option>
+							<option value="account">계정/인증</option>
+							<option value="items">거래 품목</option>
+							<option value="manner">거래매너</option>
+							<option value="sanction">이용제제</option>
+							<option value="addition">기타</option>
+						</select>
 					</div>
-					<input style="display: none;" type="text" id="user_id"
-						name="user_id" value="${loginSession.user_id }"> <input
-						style="display: none;" type="text" id="user_category"
-						name="user_category" value="${loginSession.user_category }">
-				</form>
-			</div>
+					<div class="col-1">
+						<button type="button" id="submitBtn" class="btn write">
+							작성</button>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col">
+
+						<textarea id="summernote" name="client_content" class="summernote"></textarea>
+
+					</div>
+				</div>
+				<input style="display: none;" type="text" id="user_id"
+					name="user_id" value="${loginSession.user_id }"> <input
+					style="display: none;" type="text" id="user_category"
+					name="user_category" value="${loginSession.user_category }">
+			</form>
 		</div>
+	</div>
 
 	<!-- footer -->
 	<div class="logo2">
@@ -1048,7 +921,7 @@ font-size:14px;
 			</div>
 		</div>
 	</footer>
-	<script>	
+	<script>
 		$(document)
 				.ready(
 						function() {
@@ -1112,119 +985,34 @@ font-size:14px;
 			});
 		}
 		$("#submitBtn").on("click", function() {
-			if($("#title").val()==""){
+			if ($("#title").val() == "") {
 				alert("제목을 입력해 주세요");
 				$("#title").focus();
-				return;		
-			}else if($("#select").val()==""){
+				return;
+			} else if ($("#select").val() == "") {
 				alert("항목을 선택해 주세요");
 				$("#select").focus();
-				return;		
-			}else if($("#summernote").val()==""){
+				return;
+			} else if ($("#summernote").val() == "") {
 				alert("내용을 입력해 주세요");
 				$('#summernote').summernote({
-				     focus: true
+					focus : true
 				});
 				return;
 			}
-			if($("img").width() > 1000){
-				if(!confirm("최대사이즈(1000)을 초과했습니다. \n"+ 
-						"최대크기로 하시겠습니까?")){
-					return;	
+			if ($("img").width() > 1000) {
+				if (!confirm("최대사이즈(1000)을 초과했습니다. \n" + "최대크기로 하시겠습니까?")) {
+					return;
 				}
-				
+
 			}
-				
+
 			$("#writeForm").submit();
-				console.log($("#writeForm").submit);
-				
-			
-			
-			
+		
+
 		})
-		
-		
-		/* HEADER FOOTER 스크립트 */
-		
-        $('#SearchForm').on('keypress', function (e) { // 인풋창 클릭후 엔터누르면 실행
-            if (e.keyCode == '13') {
-                if ($("#titleSearch").val() !== "") {//검색창이 널값이 아니라면
-                    document.getElementById("SearchForm").submit();
-                }
-            }
-        });
-        // 게시글 검색
-        $("#searchIcon").on("click", function () {
-            if ($("#titleSearch").val() == "") { //검색창이 널값이라면
-                alert("물품을 입력해주세요!")
-            } else if ($("#titleSearch").val() != "") {//검색창이 널값이 아니라면
-                document.getElementById("SearchForm").submit();
-            }
-        })
-        $("#searchIcon2").on("click", function () {
-            if ($("#titleSearch2").val() == "") { //검색창이 널값이라면
-                alert("물품을 입력해주세요!")
-            } else if ($("#titleSearch2").val() != "") {//검색창이 널값이 아니라면
-                document.getElementById("SearchForm2").submit();
-            }
-        })
-        //즐겨찾기 버튼
-        $(".bookmark").on("click", function () {
-            alert(" Ctrl+D 키를 누르면 즐겨찾기에 추가하실 수 있습니다.")
-        })
-        //지역카테고리
-        $("#district").change(function () {
-            console.log($(this).val());
-            $(".b_dong").addClass('d-none');
-            $("#dong").addClass('d-none');
-            if ($(this).val() == "강남구") {
-                $("#gangnam").removeClass('d-none');
-            } else if ($(this).val() == "강동구") {
-                $("#gangdong").removeClass('d-none');
-            } else if ($(this).val() == "강서구") {
-                $("#gangseo").removeClass('d-none');
-            } else if ($(this).val() == "강북구") {
-                $("#gangbuk").removeClass('d-none');
-            } else if ($(this).val() == "관악구") {
-                $("#Gwanak").removeClass('d-none');
-            } else if ($(this).val() == "광진구") {
-                $("#Gwangjin").removeClass('d-none');
-            } else if ($(this).val() == "구로구") {
-                $("#Guro").removeClass('d-none');
-            } else if ($(this).val() == "금천구") {
-                $("#Geumcheon").removeClass('d-none');
-            } else if ($(this).val() == "노원구") {
-                $("#Nowon").removeClass('d-none');
-            } else if ($(this).val() == "동대문구") {
-                $("#Dongdaemun").removeClass('d-none');
-            } else if ($(this).val() == "동작구") {
-                $("#Dongjak").removeClass('d-none');
-            } else if ($(this).val() == "마포구") {
-                $("#Mapo").removeClass('d-none');
-            } else if ($(this).val() == "서대문구") {
-                $("#Seodaemun").removeClass('d-none');
-            } else if ($(this).val() == "송파구") {
-                $("#Songpa").removeClass('d-none');
-            } else if ($(this).val() == "영등포구") {
-                $("#Yeongdeungpo").removeClass('d-none');
-            } else if ($(this).val() == "용산구") {
-                $("#Yongsan").removeClass('d-none');
-            } else if ($(this).val() == "은평구") {
-                $("#Eunpyeong").removeClass('d-none');
-            } else if ($(this).val() == "종로구") {
-                $("#Jongno").removeClass('d-none');
-            } else if ($(this).val() == "지역을 선택하세요") {
-                $("#dong").removeClass('d-none');
-            }
-            $("#roadAddrInput").val($(this).val());
-            document.getElementById("districeForm").submit();
-        })
-        //동네카테고리
-        $(".a_dong").change(function () {
-            console.log($(this).val());
-            $("#extraAddrInput").val($(this).val());
-            document.getElementById("districeForm").submit();
-        })
+
+	
 	</script>
 </body>
 </html>
