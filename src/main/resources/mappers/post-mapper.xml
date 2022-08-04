@@ -111,8 +111,8 @@
 	    where NOT post_title is NULL
 		<if test="search != null and search != ''"> <!-- 검색 -->
 			and post_title like '%' || #{search} || '%'
-			or post_category like '%' || #{search} || '%'
 			or post_addr like '%' || #{search} || '%'
+			or post_category like '%' || #{search} || '%'
 		</if>
 		<if test="search == null or search == ''"> <!-- 검색 -->
 			<if test="post_addr != null and post_addr != ''"> <!-- 검색 -->

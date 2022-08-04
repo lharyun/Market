@@ -60,6 +60,11 @@ public class MypageService {
 		
 	}
 	
+	// 평점 평균 구하기
+	public float reviewAvg(String user_id) throws Exception{
+		return dao.reviewAvg(user_id);
+	}
+	
 	// 내 게시글 수 세기
 	public int countpost(String user_id) throws Exception{
 		return dao.countpost(user_id);

@@ -40,14 +40,28 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/toMyStore") // 내 상점 페이지 요청
-	public String toMyStore(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+	public String toMyStore(@RequestParam(defaultValue="1")int curPage,String user_id, Model model) throws Exception {
 		System.out.println("curPage" + curPage);
 		System.out.println("내 상점 페이지 접속");
+		/*준철 추가*/
+		MemberDTO memdto = mailService.login(user_id);//user_id값조회
+		model.addAttribute("memdto", memdto);
+		System.out.println("user_id값 조회 :" + memdto);
+		/**/
 		
-		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
+		System.out.println("닉네임 클릭시 넘어오는 값: ");
+		
 		
 		model.addAttribute("list", service.searchmypost(user_id)); // 내 판매글 조회
 		System.out.println("아이디 :" + user_id);
+		
+		float myrating = service.reviewAvg(user_id); // 내 평점 평균 구하기
+		
+		System.out.println("내 평점 평균 전:" + myrating);
+		
+		model.addAttribute("myrating", myrating);
+		
+		System.out.println("내 평점 평균 후:" + myrating);
 		
 		int pcnt = service.countpost(user_id); // 판매 글 수 출력
 		
@@ -123,14 +137,26 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/toBasket") // 찜목록 이동 페이지 요청
-	public String toBasket(@RequestParam(defaultValue="1") int curPage, Model model) throws Exception {
+	public String toBasket(@RequestParam(defaultValue="1") int curPage,String user_id, Model model) throws Exception {
 		System.out.println("curPage" + curPage);
 		System.out.println("내 찜 목록 페이지 접속");
 		
-		String user_id = ((MemberDTO)session.getAttribute("loginSession")).getUser_id();
+		/*준철 추가*/
+		MemberDTO memdto = mailService.login(user_id);//user_id값조회
+		model.addAttribute("memdto", memdto);
+		System.out.println("user_id값 조회 :" + memdto);
+		/**/
 		
 		model.addAttribute("list2", service.searchmybasket(user_id)); // 내 찜 글 조회
 		System.out.println("아이디 :" + user_id);
+		
+		float myrating = service.reviewAvg(user_id); // 내 평점 평균 구하기
+		
+		System.out.println("내 평점 평균 전:" + myrating);
+		
+		model.addAttribute("myrating", myrating);
+		
+		System.out.println("내 평점 평균 후:" + myrating);
 		
 		int bcnt = service.countbasket(user_id); // 찜 수 출력
 		
@@ -171,8 +197,8 @@ public class MypageController {
 		System.out.println("네비맵 출력 : " + map);
 		
 		//post,img테이블 select*from
-		List<Map<String, Object>> list = postService.search(curPage*12-11,curPage*12,post_addr, user_id);
-		model.addAttribute("list", list);
+		List<Map<String, Object>> list2 = postService.search(curPage*12-11,curPage*12,post_addr, user_id);
+		model.addAttribute("list2", list2);
 		
 		return "mypage/basket";
 	}
@@ -211,16 +237,12 @@ public class MypageController {
 	
 	@RequestMapping(value = "/modifyInfo") // 내 정보 수정 요청	
 	public String infoUpdate(MemberDTO dto, Model model)throws Exception{
-		
 		service.modifyInfo(dto); // 정보 수정
 		MemberDTO newdto = (MemberDTO)session.getAttribute("loginSession");
 		System.out.println("출력 dto: " + dto);
 		
 		newdto.setUser_nickname(dto.getUser_nickname());
-		newdto.setUser_k(dto.getUser_category());
-		
 		newdto.setUser_pw(dto.getUser_pw());
-		
 		newdto.setUser_phone(dto.getUser_phone());
 		newdto.setPostcode(dto.getPostcode());
 		newdto.setRoadAddr(dto.getRoadAddr());

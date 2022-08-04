@@ -58,4 +58,9 @@ public class ReviewService {
 	public void insert(ReviewDTO dto) throws Exception{
 		reviewDAO.insert(dto);
 	}
+	
+	//준철
+		public int reviewCnt(String user_id) throws Exception {
+			return reviewDAO.reviewCnt(user_id);
+		}
 }

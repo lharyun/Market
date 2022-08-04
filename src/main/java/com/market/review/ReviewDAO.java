@@ -30,4 +30,8 @@ public class ReviewDAO {
 	public void insert(ReviewDTO dto) throws Exception {
 		session.insert("reviewMapper.insert",dto);
 	}
+	//준철
+	public int reviewCnt(String user_id) throws Exception {
+		return session.selectOne("reviewMapper.reviewCnt",user_id);
+	}
 }

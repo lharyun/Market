@@ -23,8 +23,8 @@ public class ChattingService {
 		dao.chat_insert(dto);
 	}
 	//중복체크
-	public boolean overlapping(String userName, int post_seq) throws Exception{
-		return dao.overlapping(userName,post_seq);
+	public boolean overlapping(String masterName, int post_seq) throws Exception{
+		return dao.overlapping(masterName,post_seq);
 	}
 	// 프로파일,채팅룸 불러오기
 	public List<Map<String,Object>> chat_mamberJoin(String masterName) throws Exception{ 

@@ -549,7 +549,7 @@
 </style>
 
 <body>
-    <!-- Header -->
+     <!-- Header -->
     <header>
         <div class="container-fluid p-0" id="Non-reaction">
             <nav>
@@ -572,7 +572,7 @@
                                 		<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>로그인/회원가입</a>
                             		</li>
                             		<li class="nav-item">
-		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
+		                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>내 상점</a>
 		                            </li>
 								</c:when>
 								<c:otherwise>
@@ -582,10 +582,9 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">내 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore?user_id=${loginSession.user_id}" data-bs-toggle="dropdown" aria-expanded="false"><b>${loginSession.user_nickname}</b> 상점</a>
 		                                <ul class="dropdown-menu">
-		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
-		                                    
+		                                    <li><a class="dropdown-item" href="/mypage/toMyStore?user_id=${loginSession.user_id}">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
 		                                </ul>
@@ -621,21 +620,43 @@
                     </div>
                     <div class="col d-flex justify-content-end ps-0">
                         <ul class="nav menu_right">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/post/toPostWrite">
-                                    <img src="/resources/images/header_pooter/cash.png" height="20px">
-                                    판매하기</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mypage/toMyStore">
-                                    <img src="/resources/images/header_pooter/my.png" height="20px">
-                                    내상점</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/chatting/toChatting">
-                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
-                                    싸다톡</a>
-                            </li>
+	                        <c:choose>
+									<c:when test="${empty loginSession}">
+			                            <li class="nav-item">
+		                                	<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                    	<img src="/resources/images/header_pooter/cash.png" height="20px">
+		                                    	판매하기</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+			                                    <img src="/resources/images/header_pooter/my.png" height="20px">
+			                                    내상점</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+			                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
+			                                    싸다톡</a>
+			                            </li>
+									</c:when>
+									<c:otherwise>
+										<!-- 로그인했을경우 띄우기 -->
+					                    <li class="nav-item">
+			                                <a class="nav-link" href="/post/toPostWrite">
+			                                    <img src="/resources/images/header_pooter/cash.png" height="20px">
+			                                    판매하기</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="/mypage/toMyStore?user_id=${loginSession.user_id}">
+			                                    <img src="/resources/images/header_pooter/my.png" height="20px">
+			                                    내상점</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="/chatting/toChatting">
+			                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
+			                                    싸다톡</a>
+			                            </li>
+									</c:otherwise>
+								</c:choose>
                         </ul>
                     </div>
                 </div>
@@ -1068,22 +1089,38 @@
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
-                                
+                                			
                                 <div class="row category_line">
                                     
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
-                                            <li class="nav-item mb-2 font_a">
-                                                <a href="/post/toPostWrite" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
-                                                </a>
-                                            </li>
-                                            <li class="nav-item mb-2 font_a">
-                                                <a href="/mypage/toMyStore" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
-                                                </a>
-                                            </li>
-
+                                        	<c:choose>
+												<c:when test="${empty loginSession}">
+					                                <li class="nav-item mb-2 font_a">
+		                                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
+		                                                </a>
+		                                            </li>
+		                                            <li class="nav-item mb-2 font_a">
+		                                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
+		                                                </a>
+		                                            </li>
+												</c:when>
+												<c:otherwise>
+													<!-- 로그인했을경우 띄우기 -->
+													<li class="nav-item mb-2 font_a">
+		                                                <a href="/post/toPostWrite" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
+		                                                </a>
+		                                            </li>
+		                                            <li class="nav-item mb-2 font_a">
+		                                                <a href="/chatting/toChatting" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
+		                                                </a>
+		                                            </li>
+												</c:otherwise>
+											</c:choose>
                                             <li class="nav-item mb-2">
                                                 <a href="#" class="nav-link p-0">
                                                  <!-- 빈값 -->
@@ -1137,9 +1174,20 @@
                                     <div class="col ps-3">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2 font_a">
-                                                <a href="/mypage/toMyStore" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
-                                                </a>
+                                            	<c:choose>
+													<c:when test="${empty loginSession}">
+						                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
+		                                                </a>
+													</c:when>
+													<c:otherwise>
+														<!-- 로그인했을경우 띄우기 -->
+														<a href="/mypage/toMyStore?user_id=${loginSession.user_id}" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
+		                                                </a>
+													</c:otherwise>
+												</c:choose>
+                                                
                                             </li>
                                             <li class="nav-item mb-2">
                                                 <a href="#" class="nav-link p-0">
@@ -1214,94 +1262,152 @@
 
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
-    <div class="container middle" style="height: 1120px">
+    <div class="container middle" style="height: 1150px">
 	    <div class="mypageContainer">
-	        <div class="profileBox">
-	            <div class="profile_border">
-	                <c:choose>
-						<c:when test="${empty loginSession.user_profile}">
-							<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
-						</c:when>
-						<c:otherwise>
-							<img src="/user_profile/${loginSession.user_profile}" id="profile_image">
-						</c:otherwise>
-					</c:choose>
-	            </div>
-	            <div class="profileNickname">
-	                <strong>${loginSession.user_nickname}</strong>
-	            </div>
-	            <div class="profileInfo">
-	                <div class="productInfo">
-	                    <span><strong>찜한상품</strong></span>
-	                </div>
-	                <form id="countpost" action="mypage/toMyStore?curPage=1">
-	                <div class="productCount">
-	                    <span><strong>${bcnt}</strong></span>
-	                    <input type="text" class="d-none" value="${loginSession.user_id}" id="user_id">
-	                </div>
-	                </form>
-	            </div>
-	            <div class="profileInfo2">
-	                <div class="productInfo2">
-	                    <span><strong>싸다구 점수</strong></span>
-	                    <input type="text" class="d-none" value="${loginSession.user_k}" id="user_k">
-	                </div>
-	                <div class="productCount2">
-	                    <form class="mb-3" name="starform" id="starform" method="post">
-							<fieldset>
-								<input type="radio" name="reviewStar" value="5" id="rate1"><label
-									for="rate1">★</label>
-								<input type="radio" name="reviewStar" value="4" id="rate2"><label
-									for="rate2">★</label>
-								<input type="radio" name="reviewStar" value="3" id="rate3"><label
-									for="rate3">★</label>
-								<input type="radio" name="reviewStar" value="2" id="rate4"><label
-									for="rate4">★</label>
-								<input type="radio" name="reviewStar" value="1" id="rate5"><label
-									for="rate5">★</label>
-							</fieldset>
-						</form>
-	                </div>
-	            </div>
-	            <div class="buttonBox">
-	            	<c:if test="${not empty loginSession}">
-	                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
-					<c:choose>
-	                	<c:when test="${empty loginSession.user_k}">
-	                		<button type="button" class="btn btn-secondary" id="changepwBtn" href='javascript:void(0)' onclick='preventClick(event)'>비밀번호 변경</button>
-			                	<script>
-				                	// 비밀번호 변경 id값 : changepwBtn
-				            	    document.getElementById("changepwBtn").onclick = function(){
-				            	    	
-				            	    	var popupX = (window.screen.width / 2) - (800 / 2);
-				            	      	var popupY= (window.screen.height / 2) - (600 / 2);
-				            	      	
-				            	      	window.open('/mypage/tochangepw', '비밀번호 변경', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
-				            	    }
-			                	</script>
-	                	</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose>
-	                	<button type="button" class="btn btn-danger" id="deleteBtn" href='javascript:void(0)' onclick='preventClick(event)'>회원 탈퇴</button>
-	                	<script>
-		                	// 회원탈퇴 id값 : deleteBtn
-		            	    document.getElementById("deleteBtn").onclick = function(){
-		            	    	
-		            	    	var popupX = (window.screen.width / 2) - (800 / 2);
-		            	      	var popupY= (window.screen.height / 2) - (600 / 2);
-		            	      	
-		            	      	window.open('/member/todelete', '회원탈퇴', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
-		            	    }
-	                	</script>
-	                </c:if>
-	            </div>
-	        </div>
+	    	<c:if test="${memdto.user_id eq loginSession.user_id}">
+		        <div class="profileBox">
+		            <div class="profile_border">
+		                <c:choose>
+							<c:when test="${empty loginSession.user_profile}">
+								<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+							</c:when>
+							<c:otherwise>
+								<img src="/user_profile/${loginSession.user_profile}" id="profile_image">
+							</c:otherwise>
+						</c:choose>
+		            </div>
+		            <div class="profileNickname">
+		                <strong>${loginSession.user_nickname}</strong>
+		            </div>
+		            <div class="profileInfo">
+		                <div class="productInfo">
+		                    <span><strong>찜한상품</strong></span>
+		                </div>
+		                <form id="countpost" action="mypage/toMyStore?curPage=1">
+		                <div class="productCount">
+		                    <span><strong>${bcnt}</strong></span>
+		                    <input type="text" class="d-none" value="${loginSession.user_id}" id="user_id">
+		                </div>
+		                </form>
+		            </div>
+		            <div class="profileInfo2">
+		                <div class="productInfo2">
+		                    <span><strong>싸다구 점수</strong></span>
+		                    <input type="text" class="d-none" value="${loginSession.user_k}" id="user_k">
+		                </div>
+		                <div class="productCount2">
+							<span><strong>${myrating}</strong></span>
+		                </div>
+		            </div>
+					<!-- 숨겨야 하는 버튼 박스 목록입니다!(시작) -->
+		            <div class="buttonBox">
+		            	<c:if test="${not empty loginSession}">
+		                <button type="button" class="btn btn-warning" id="modifyBtn">내 정보 수정하기</button>
+						<c:choose>
+		                	<c:when test="${empty loginSession.user_k}">
+		                		<button type="button" class="btn btn-secondary" id="changepwBtn" href='javascript:void(0)' onclick='preventClick(event)'>비밀번호 변경</button>
+				                	<script>
+					                	// 비밀번호 변경 id값 : changepwBtn
+					            	    document.getElementById("changepwBtn").onclick = function(){
+					            	    	
+					            	    	var popupX = (window.screen.width / 2) - (800 / 2);
+					            	      	var popupY= (window.screen.height / 2) - (600 / 2);
+					            	      	
+					            	      	window.open('/mypage/tochangepw', '비밀번호 변경', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+					            	    }
+				                	</script>
+		                	</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+		                	<button type="button" class="btn btn-danger" id="deleteBtn" href='javascript:void(0)' onclick='preventClick(event)'>회원 탈퇴</button>
+		                	<script>
+			                	// 회원탈퇴 id값 : deleteBtn
+			            	    document.getElementById("deleteBtn").onclick = function(){
+			            	    	
+			            	    	var popupX = (window.screen.width / 2) - (800 / 2);
+			            	      	var popupY= (window.screen.height / 2) - (600 / 2);
+			            	      	
+			            	      	window.open('/member/todelete', '회원탈퇴', 'status=no, height=600, width=800, left='+ popupX + ', top='+ popupY);
+			            	    }
+		                	</script>
+		                </c:if>
+		            </div>
+		            <!-- 숨겨야 하는 버튼 박스 목록입니다!(끝) -->
+		        </div>
+		    </c:if>
+		    <!-- 아이디값이 다르다면 판매자페이지 -->
+	        <c:if test="${memdto.user_id ne loginSession.user_id}">
+		        <div class="profileBox">
+		            <div class="profile_border">
+		                <c:choose>
+							<c:when test="${empty memdto.user_profile}">
+								<img src="/resources/images/mypage/default_profileimage.jpg" id="profile_image">
+							</c:when>
+							<c:otherwise>
+								<img src="/user_profile/${memdto.user_profile}" id="profile_image">
+							</c:otherwise>
+						</c:choose>
+		            </div>
+		            <div class="profileNickname">
+		                <strong>${memdto.user_nickname}</strong>
+		            </div>
+		            <div class="profileInfo">
+		                <div class="productInfo">
+		                    <span><strong>판매상품</strong></span>
+		                </div>
+		                <form id="countpost" action="mypage/toMyStore?curPage=1">
+		                <div class="productCount">
+		                    <span><strong>${pcnt}</strong></span>
+		                    <input type="text" class="d-none" value="${memdto.user_id}" id="user_id">
+		                </div>
+		                </form>
+		            </div>
+		            <div class="profileInfo2">
+		                <div class="productInfo2">
+		                    <span><strong>싸다구 점수</strong></span>
+		                    <input type="text" class="d-none" value="${memdto.user_k}" id="user_k">
+		                </div>
+		                <div class="productCount2">
+		                    <span><strong>${myrating}</strong></span>
+		                </div>
+		            </div>
+		            <!-- 숨겨야 하는 버튼 박스 목록입니다!(시작) -->
+		            <div class="buttonBox">
+						<c:if test="${not empty loginSession}">
+							<button type="button" class="btn btn-warning d-none" id="modifyBtn">내
+								정보 수정하기</button>
+							<c:choose>
+								<c:when test="${empty loginSession.user_k}">
+									<button type="button" class="btn btn-secondary d-none"
+										id="changepwBtn" href='javascript:void(0)'
+										onclick='preventClick(event)'>비밀번호 변경</button>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+							<button type="button" class="btn btn-danger d-none"
+								id="deleteBtn" href='javascript:void(0)'
+								onclick='preventClick(event)'>회원 탈퇴</button>
+						</c:if>
+					</div>
+		            <!-- 숨겨야 하는 버튼 박스 목록입니다!(끝) -->
+		        </div>
+	        </c:if>
 	        <div class="categoryBox">
-	            <a href="/mypage/toMyStore"><strong>판매글</strong></a>
-	            <a href="/mypage/toBasket"><strong>찜 목록</strong></a>
-	            <a href="/"><strong>거래 후기</strong></a>
+
+	            <button id="storeBtn" class="btn btn-outline-primary" >판매글</button>
+	           <c:if test="${memdto.user_id eq loginSession.user_id}">
+	    			<button id="basketBtn" class="btn btn-outline-success" >찜 목록</button>
+	    		</c:if>
+	    		<c:if test="${memdto.user_id ne loginSession.user_id}">
+	    			<button id="basketBtn" class="btn btn-outline-success d-none" >찜 목록</button>
+	    		</c:if>
+	            <button id="reviewBtn" class="btn btn-outline-warning" >거래 후기</button>
+
+
 	        </div>
+	        <input class="d-none" id="reviewed_id" value="${memdto.user_id }">
 	        <div class="content">
 	            <div class="categoryText">
 	                <h3><strong>찜 목록</strong></h3>
@@ -1368,10 +1474,15 @@
 	    </div>
     </div>
     <script>
-    	document.getElementById("modifyBtn").onclick = function(){
-    		location.href = "/mypage/toMypageModify";
-    	}
-    
+	    document.getElementById("modifyBtn").onclick = function(){
+			location.href = "/mypage/toMypageModify?user_id=${memdto.user_id}";
+		}
+		document.getElementById("storeBtn").onclick = function(){
+			location.href = "/mypage/toMyStore?user_id=${memdto.user_id}";
+		}
+		document.getElementById("basketBtn").onclick = function(){
+			location.href = "/mypage/toBasket?user_id=${memdto.user_id}";
+		}
     </script>
 
 
@@ -1392,11 +1503,12 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${notification.size() == 0}">
+                	<c:if test="${notification.size() == 0 or empty notification}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
+                	
                 	
                 	<c:if test="${notification.size() > 0}">
                 		<c:forEach items="${notification}" var="notifi">
@@ -1406,7 +1518,7 @@
 			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1421,7 +1533,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1435,7 +1547,7 @@
 			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1463,7 +1575,7 @@
          </a>
     </div>
     <%-- 관리자 아이디와 같다면 --%>
-	<c:if test="${loginSession.user_id eq 'abc123'}">
+	<c:if test="${loginSession.user_id eq 'asd123@naver.com'}">
 	    <div class="logo4">
 	        <a class="nav-link" href="/member/toManager?curPage=1">
 	            <img src="/resources/images/header_pooter/관리자.png" height="56px" width="56px">
@@ -1484,28 +1596,28 @@
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0" target="_blank">믿을수 있는 중고거래</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1"" class="nav-link p-0" >자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0">싸다구페이</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">동네가게</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0" target="_blank">싸다구페이</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.mangoplate.com/top_lists/2960_seoul2022" class="nav-link p-0" target="_blank">동네가게</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0">회사소개</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">채용</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0" target="_blank">팀 소개</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.jobkorea.co.kr/Search/?stext=%EC%9B%B9%EA%B0%9C%EB%B0%9C" class="nav-link p-0" target="_blank">채용</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0">이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0">개인정보처리방침</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0">위치기반서비스 이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0">이용자보호 비전과 계획</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0" target="_blank">이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0" target="_blank">개인정보처리방침</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0" target="_blank">위치기반서비스 이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0" target="_blank">이용자보호 비전과 계획</a></li>
                     </ul>
                 </div>
             </div>
@@ -1547,8 +1659,12 @@
 
     
     <script>
-        
-
+    	$("#reviewBtn").on("click",function(){
+    	
+    		let reviewed_id=$("#reviewed_id").val();
+    		window.open("/review/review?reviewed_id="+reviewed_id+"&&curPage=1","myReview","width=800,height=700");
+    	})    
+	
        
 
     </script>

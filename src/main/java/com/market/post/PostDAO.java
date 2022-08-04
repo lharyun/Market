@@ -76,6 +76,7 @@ public class PostDAO {
 		map.put("end", end);
 		map.put("post_addr", post_addr);
 		map.put("search", search);
+		System.out.println(start+ end);
 		return session.selectList("postMapper.search",map);
 	}
 	// 조회수 업

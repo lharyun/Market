@@ -406,7 +406,6 @@
 
 <body>
     <!-- Header -->
-   <!-- Header -->
     <header>
         <div class="container-fluid p-0" id="Non-reaction">
             <nav>
@@ -429,7 +428,7 @@
                                 		<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>로그인/회원가입</a>
                             		</li>
                             		<li class="nav-item">
-		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
+		                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>내 상점</a>
 		                            </li>
 								</c:when>
 								<c:otherwise>
@@ -439,9 +438,9 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname} 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore?user_id=${loginSession.user_id}" data-bs-toggle="dropdown" aria-expanded="false"><b>${loginSession.user_nickname}</b> 상점</a>
 		                                <ul class="dropdown-menu">
-		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toMyStore?user_id=${loginSession.user_id}">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
 		                                </ul>
@@ -477,21 +476,43 @@
                     </div>
                     <div class="col d-flex justify-content-end ps-0">
                         <ul class="nav menu_right">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/post/toPostWrite">
-                                    <img src="/resources/images/header_pooter/cash.png" height="20px">
-                                    판매하기</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mypage/toMyStore">
-                                    <img src="/resources/images/header_pooter/my.png" height="20px">
-                                    내상점</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/chatting/toChatting">
-                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
-                                    싸다톡</a>
-                            </li>
+	                        <c:choose>
+									<c:when test="${empty loginSession}">
+			                            <li class="nav-item">
+		                                	<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                    	<img src="/resources/images/header_pooter/cash.png" height="20px">
+		                                    	판매하기</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+			                                    <img src="/resources/images/header_pooter/my.png" height="20px">
+			                                    내상점</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+			                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
+			                                    싸다톡</a>
+			                            </li>
+									</c:when>
+									<c:otherwise>
+										<!-- 로그인했을경우 띄우기 -->
+					                    <li class="nav-item">
+			                                <a class="nav-link" href="/post/toPostWrite">
+			                                    <img src="/resources/images/header_pooter/cash.png" height="20px">
+			                                    판매하기</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="/mypage/toMyStore?user_id=${loginSession.user_id}">
+			                                    <img src="/resources/images/header_pooter/my.png" height="20px">
+			                                    내상점</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="/chatting/toChatting">
+			                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
+			                                    싸다톡</a>
+			                            </li>
+									</c:otherwise>
+								</c:choose>
                         </ul>
                     </div>
                 </div>
@@ -924,22 +945,38 @@
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
-                                
+                                			
                                 <div class="row category_line">
                                     
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
-                                            <li class="nav-item mb-2 font_a">
-                                                <a href="/post/toPostWrite" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
-                                                </a>
-                                            </li>
-                                            <li class="nav-item mb-2 font_a">
-                                                <a href="/mypage/toMyStore" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
-                                                </a>
-                                            </li>
-
+                                        	<c:choose>
+												<c:when test="${empty loginSession}">
+					                                <li class="nav-item mb-2 font_a">
+		                                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
+		                                                </a>
+		                                            </li>
+		                                            <li class="nav-item mb-2 font_a">
+		                                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
+		                                                </a>
+		                                            </li>
+												</c:when>
+												<c:otherwise>
+													<!-- 로그인했을경우 띄우기 -->
+													<li class="nav-item mb-2 font_a">
+		                                                <a href="/post/toPostWrite" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
+		                                                </a>
+		                                            </li>
+		                                            <li class="nav-item mb-2 font_a">
+		                                                <a href="/chatting/toChatting" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
+		                                                </a>
+		                                            </li>
+												</c:otherwise>
+											</c:choose>
                                             <li class="nav-item mb-2">
                                                 <a href="#" class="nav-link p-0">
                                                  <!-- 빈값 -->
@@ -993,9 +1030,20 @@
                                     <div class="col ps-3">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2 font_a">
-                                                <a href="/mypage/toMyStore" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
-                                                </a>
+                                            	<c:choose>
+													<c:when test="${empty loginSession}">
+						                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
+		                                                </a>
+													</c:when>
+													<c:otherwise>
+														<!-- 로그인했을경우 띄우기 -->
+														<a href="/mypage/toMyStore?user_id=${loginSession.user_id}" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
+		                                                </a>
+													</c:otherwise>
+												</c:choose>
+                                                
                                             </li>
                                             <li class="nav-item mb-2">
                                                 <a href="#" class="nav-link p-0">
@@ -1181,7 +1229,7 @@
                         <a href="#" class="naviIcon fw-bolder">
                             <img src="/resources/images/post/star.png" height="20px">
                             <span class="align-middle" style="color:black;">${memberDto.grade}</span>
-                            <span class="align-middle" style="color:gray;">리뷰22 ></span>
+                            <span class="align-middle" id="reviewBtn" style="color:gray;">리뷰${reviewCnt} ></span>
                         </a>
                     </div>
                     
@@ -1685,10 +1733,20 @@
 
 
     <script>
+    //리뷰페이지 불러오기
+    $("#reviewBtn").on("click",function(){
+    	
+		let reviewed_id= '${map.postDTO.user_id}';
+		window.open("/review/review?reviewed_id="+reviewed_id+"&&curPage=1","myReview","width=800,height=700");
+	})    
+    //마이페이지 이동
+    
+    $("#yourPost").on("click",function(){
+    	location.href = "/mypage/toMyStore?user_id=${map.postDTO.user_id}"
+   })
     //신고
     $("#post_reportBtn").on("click",function(){
     	 $("#reportForm").submit();
-    	
     })
  	// 입력하면 버튼활성화 후 클릭 서브밋
     $("#price_restriction").keyup(function() {

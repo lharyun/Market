@@ -36,7 +36,13 @@
     vertical-align: bottom;
    }
 
-  
+  .modal-content {
+        height: 250px;
+        border-radius: 12px;
+        padding: 20px;
+    }
+    
+    
     /* 채팅쪽 */
    .chattingBox{
    margin: 0 auto;
@@ -79,6 +85,7 @@
     border-bottom: 1px solid rgb(222, 224, 225);
     height: 80px;
     padding: 10px;
+    cursor: pointer;
     
    }
    #yourPost{
@@ -141,7 +148,6 @@
             background-color: rgb(255, 177, 88);
             border: 2px solid rgb(137, 111, 58);
             border-radius: 6px;
-            width: 50px;
             height: 32px;
             font-size: small;
             box-shadow: 2px 2px 2px rgba(158, 136, 93, 0.712);
@@ -157,6 +163,11 @@
             /* margin-top: 3px; */
             box-shadow: none;
         }
+        
+        .middle_bottomLine {
+	        padding-top: 50px;
+	        border-bottom: 1px solid rgba(128, 128, 128, 0.233);
+    	}
 
         /* 이모티콘 */
         .imoticonBox{
@@ -260,7 +271,7 @@
                                 		<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>로그인/회원가입</a>
                             		</li>
                             		<li class="nav-item">
-		                                <a class="nav-link" href="/mypage/toMyStore">내 상점</a>
+		                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>내 상점</a>
 		                            </li>
 								</c:when>
 								<c:otherwise>
@@ -270,9 +281,9 @@
 		                             </li>
 		                            <li class="nav-item dropdown">
 		                                
-		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore" data-bs-toggle="dropdown" aria-expanded="false">${loginSession.user_nickname} 상점</a>
+		                                <a class="nav-link dropdown-toggle" href="/mypage/toMyStore?user_id=${loginSession.user_id}" data-bs-toggle="dropdown" aria-expanded="false"><b>${loginSession.user_nickname}</b> 상점</a>
 		                                <ul class="dropdown-menu">
-		                                    <li><a class="dropdown-item" href="/mypage/toMyStore">내 상품</a></li>
+		                                    <li><a class="dropdown-item" href="/mypage/toMyStore?user_id=${loginSession.user_id}">내 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toBasket">찜한 상품</a></li>
 		                                    <li><a class="dropdown-item" href="/mypage/toMypageModify">계정 설정</a></li>
 		                                </ul>
@@ -308,21 +319,43 @@
                     </div>
                     <div class="col d-flex justify-content-end ps-0">
                         <ul class="nav menu_right">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/post/toPostWrite">
-                                    <img src="/resources/images/header_pooter/cash.png" height="20px">
-                                    판매하기</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mypage/toMyStore">
-                                    <img src="/resources/images/header_pooter/my.png" height="20px">
-                                    내상점</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/chatting/toChatting">
-                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
-                                    싸다톡</a>
-                            </li>
+	                        <c:choose>
+									<c:when test="${empty loginSession}">
+			                            <li class="nav-item">
+		                                	<a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                    	<img src="/resources/images/header_pooter/cash.png" height="20px">
+		                                    	판매하기</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+			                                    <img src="/resources/images/header_pooter/my.png" height="20px">
+			                                    내상점</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+			                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
+			                                    싸다톡</a>
+			                            </li>
+									</c:when>
+									<c:otherwise>
+										<!-- 로그인했을경우 띄우기 -->
+					                    <li class="nav-item">
+			                                <a class="nav-link" href="/post/toPostWrite">
+			                                    <img src="/resources/images/header_pooter/cash.png" height="20px">
+			                                    판매하기</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="/mypage/toMyStore?user_id=${loginSession.user_id}">
+			                                    <img src="/resources/images/header_pooter/my.png" height="20px">
+			                                    내상점</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="/chatting/toChatting">
+			                                    <img src="/resources/images/header_pooter/talk2.png" height="24px">
+			                                    싸다톡</a>
+			                            </li>
+									</c:otherwise>
+								</c:choose>
                         </ul>
                     </div>
                 </div>
@@ -755,22 +788,38 @@
                         </a>
                         <div class="dropdown-menu mt-4 py-4" id="checkBox">
                             <div class="container" id="">
-                                
+                                			
                                 <div class="row category_line">
                                     
                                     <div class="col">
                                         <ul class="nav flex-column pt-2 ps-3">
-                                            <li class="nav-item mb-2 font_a">
-                                                <a href="/post/toPostWrite" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
-                                                </a>
-                                            </li>
-                                            <li class="nav-item mb-2 font_a">
-                                                <a href="/mypage/toMyStore" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
-                                                </a>
-                                            </li>
-
+                                        	<c:choose>
+												<c:when test="${empty loginSession}">
+					                                <li class="nav-item mb-2 font_a">
+		                                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
+		                                                </a>
+		                                            </li>
+		                                            <li class="nav-item mb-2 font_a">
+		                                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
+		                                                </a>
+		                                            </li>
+												</c:when>
+												<c:otherwise>
+													<!-- 로그인했을경우 띄우기 -->
+													<li class="nav-item mb-2 font_a">
+		                                                <a href="/post/toPostWrite" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/cash.png" height="20px"> 판매하기
+		                                                </a>
+		                                            </li>
+		                                            <li class="nav-item mb-2 font_a">
+		                                                <a href="/chatting/toChatting" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/talk2.png" height="24px"> 싸다톡
+		                                                </a>
+		                                            </li>
+												</c:otherwise>
+											</c:choose>
                                             <li class="nav-item mb-2">
                                                 <a href="#" class="nav-link p-0">
                                                  <!-- 빈값 -->
@@ -824,9 +873,20 @@
                                     <div class="col ps-3">
                                         <ul class="nav flex-column pt-2 ps-3">
                                             <li class="nav-item mb-2 font_a">
-                                                <a href="/mypage/toMyStore" class="nav-link p-0">
-                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
-                                                </a>
+                                            	<c:choose>
+													<c:when test="${empty loginSession}">
+						                                <a class="nav-link p-0" id="linkLogin" href='javascript:void(0)' onclick='preventClick(event)'>
+		                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
+		                                                </a>
+													</c:when>
+													<c:otherwise>
+														<!-- 로그인했을경우 띄우기 -->
+														<a href="/mypage/toMyStore?user_id=${loginSession.user_id}" class="nav-link p-0">
+		                                                    <img src="/resources/images/header_pooter/my.png" height="20px"> 내상점
+		                                                </a>
+													</c:otherwise>
+												</c:choose>
+                                                
                                             </li>
                                             <li class="nav-item mb-2">
                                                 <a href="#" class="nav-link p-0">
@@ -898,7 +958,6 @@
             </div>
         </div>
     </header>
-
     <!-- Contents -->
     <!-- 시작하기전 밑에 middle 스타일 제거해주세용 -->
     <div class="container middle" >
@@ -932,6 +991,7 @@
                 	<c:forEach items="${list}" var="list">
 	                	<div class="yourProfile">
 	                        <div class="d-flex align-items-center">
+	                        <%-- 로그인정보값과 비교해서 다른 프로필 추출 --%>
 		                        <c:if test="${loginSession.user_nickname ne list.username}">
 		                        	<c:if test="${empty list.user_profile_a}">
                         				<img src="/resources/images/chatting/NoImg.webp">
@@ -949,13 +1009,20 @@
 		                        	</c:if>
 		                        </c:if>
 	                            <div class="ms-2 member_textBox">
-	                                <span class="fw-bolder">${list.username}</span> 
+	                            	<%-- 로그인정보값과 비교해서 다른 닉네임 추출 --%>
+		                             <c:if test="${loginSession.user_nickname eq list.username}">
+		                             	<span class="fw-bolder" id="report_nickname">${list.mastername}</span> 
+		                             </c:if>
+		                              <c:if test="${loginSession.user_nickname ne list.username}">
+		                             	<span class="fw-bolder" id="report_nickname">${list.username}</span> 
+		                             </c:if>   
 	                                <span class="font_gray">${list.extraaddr}·${list.last_date}</span>
 	                                <div >
 	                                    ${list.last_chat}
 	                                </div>
 	                                 <input type="text" class="d-none" id="roomId" name="roomId" value="${list.roomId}">
 	                                 <input type="text" class="d-none" id="post_seq" name="post_seq"value="${list.post_seq}">
+	                                 <input type="text" class="d-none" id="" name="post_seq"value="${list.post_seq}">
 	                                 <input type="text" class="d-none" id="rooId_input" name="roomId">
 	                                 <input type="text" class="d-none" id="post_seq_input" name="post_seq">
 	                            </div>
@@ -1108,9 +1175,38 @@
                             <img src="/resources/images/chatting/navibar.png" height="35px">
                         </a>
                         <ul class="dropdown-menu no_index" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">신고하기</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModa3">신고하기</a></li>
                             <li><a class="dropdown-item" id="chatExit" href="#">채팅방 나가기</a></li>
-                          </ul>
+                        </ul>
+                        <!-- Modal -->
+                <div id="modal_delete">
+                    <div class="modal fade" id="exampleModa3" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="width: 350px;">
+                            <div class="row align-items-center modal-content ">
+                                <div class="row align-items-center middle_bottomLine">
+                                	<form class="m-0" id="reportForm" action="/report/insert" method="post">
+	                                    <div class="col d-flex justify-content-center" id="modalTitle" style="width:auto;">
+	                                        <input type="text" class="form-control-plaintext fw-bolder" id="report_content"
+	                                            name="report_content" placeholder="내용을 입력하세요">
+	                                    </div>
+	                                     <div class="d-none">
+					                         <input type="text" name="user_id"  value="${loginSession.user_id}"> <%-- 신고보내는 사람 --%>
+					                         <input type="text" name="user_category"  value="${loginSession.user_category}"> <%-- 그사람 로그인 카테고리 --%>
+					                         <input type="text" name="reported_id"id="reported_id" > <%-- 신고받는 사람 --%>
+					                         <input type="text" name="category"  value="채팅"> <%-- 게시글 카테고리 --%>
+					                         <input type="text" name="category_seq"id="category_seq"  > <%-- 게시글 번호 --%>
+					                     </div>
+                                    </form>
+                                </div>
+
+                                <div class="col d-flex justify-content-center pt-5" id="modalBtn">
+                                    <button type="button" class="middle_Btn" id="post_reportBtn"
+                                        data-bs-dismiss="modal">신고하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div class="messageBox">
@@ -1146,7 +1242,7 @@
                                 <span class="font_gray">
                                     <span class="length_num">0</span>/100
                                 </span>
-                                <button type="button" class="middle_Btn ms-2" id="writeBtn">전송</button>
+                                <button type="button" class="middle_Btn ms-2" id="writeBtn" style="width: 50px;">전송</button>
                             </div>
                         </div>
                     </div>
@@ -1160,8 +1256,7 @@
     </div>
 
 
-    <!-- footer --> 
-       <!-- Modal -->
+   <!-- footer --> 
        <!-- Modal -->
        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered">
@@ -1178,11 +1273,12 @@
                     
                 </div>
                 <div class="modal-body container n_content">
-                	<c:if test="${notification.size() == 0}">
+                	<c:if test="${notification.size() == 0 or empty notification}">
                 		<div class="row p-1 d-flex justify-content-center fw-bold">
                 			새로운 알림이 없습니다.
                 		</div>
                 	</c:if>
+                	
                 	
                 	<c:if test="${notification.size() > 0}">
                 		<c:forEach items="${notification}" var="notifi">
@@ -1192,7 +1288,7 @@
 			                            <img src="/resources/images/header_pooter/채팅.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 채팅메세지를 보내셨습니다.</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1207,7 +1303,7 @@
 			                            <img src="/resources/images/header_pooter/가격.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 ${notifi.price_restriction}원 가격제안했습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1221,7 +1317,7 @@
 			                            <img src="/resources/images/header_pooter/후기.png" height="40px">
 			                        </div>
 			                        <div class="col p-0">
-			                            <p>${notifi.user_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
+			                            <p>${notifi.from_nickname}님께서 "${notifi.post_title}.."글에 후기를 남기셨습니다</p>
 			                            <p class="n_date">${notifi.notification_time}</p>
 			                        </div>
 			                        <div class="col-1">
@@ -1270,28 +1366,28 @@
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0">믿을수 있는 중고거래</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">자주 묻는 질문</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTrust" class="nav-link p-0" target="_blank">믿을수 있는 중고거래</a></li>
+                        <li class="nav-item mb-2"><a href="/client/toClient_post?curPage=1"" class="nav-link p-0" >자주 묻는 질문</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0">싸다구페이</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">동네가게</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toCheapPay" class="nav-link p-0" target="_blank">싸다구페이</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.mangoplate.com/top_lists/2960_seoul2022" class="nav-link p-0" target="_blank">동네가게</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0">회사소개</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">채용</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTeam" class="nav-link p-0" target="_blank">팀 소개</a></li>
+                        <li class="nav-item mb-2"><a href="https://www.jobkorea.co.kr/Search/?stext=%EC%9B%B9%EA%B0%9C%EB%B0%9C" class="nav-link p-0" target="_blank">채용</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul class="nav flex-column pt-3">
-                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0">이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0">개인정보처리방침</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0">위치기반서비스 이용약관</a></li>
-                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0">이용자보호 비전과 계획</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toTerms" class="nav-link p-0" target="_blank">이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPrivacy" class="nav-link p-0" target="_blank">개인정보처리방침</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toLocation" class="nav-link p-0" target="_blank">위치기반서비스 이용약관</a></li>
+                        <li class="nav-item mb-2"><a href="/footer/toPlanned" class="nav-link p-0" target="_blank">이용자보호 비전과 계획</a></li>
                     </ul>
                 </div>
             </div>
@@ -1333,6 +1429,14 @@
 
     
     <script>
+    $(".myProfile").on("click",function(){
+		location.href = "/mypage/toMyStore?user_id=${loginSession.user_id}";
+	})
+    //신고
+    $("#post_reportBtn").on("click",function(){
+    	 $("#reportForm").submit();
+    	
+    })
     //게시글 클릭시 디테일페이지 이동
     $("#yourPost").on("click",function(e){
     	let post_seq = $("#post_seq_input").val();
@@ -1376,6 +1480,9 @@
     					+			'<span>'+data.postMap.price_selling+'원</span>'
     					+		'</div>'
     					+'</div>');
+    			$("#reported_id").val(data.postMap.user_id);
+    			$("#category_seq").val(data.postMap.post_seq);
+    			console.log($("#reported_id").val()+$("#category_seq").val());
     			$(".contentDiv").empty();
     			for(var i=0; i<data.messagelist.length; i++){
     				if(data.messagelist[i].messageId==loginId){
@@ -1401,12 +1508,27 @@
     })
 	//이모티콘 클릭시
       $(".emoticon_gabal").on("click", function () {
+    	  var now = new Date();
+          // Date 객체의 getHours(시간) , getMinutes(분) 속성을 저장 합니다.
+          var nowHour = now.getHours();
+          var nowMt = now.getMinutes();
+     		if ( nowHour <= 11  &&  nowHour  >= 0 ) {
+     		  var date ='오전' + nowHour + ':' + nowMt;
+     		} else if (  nowHour >= 12  &&  nowHour  < 23  ) {
+     			if(nowHour<20){
+     				var date ='오후0' + (nowHour-12) + ':' + nowMt;
+     			}else{
+     				var date ='오후' + (nowHour-12) + ':' + nowMt;
+     			}
+    		    
+     		}
+     		let message2 = "이모티콘을 보냈어요."
     	  	let loginId= '${loginSession.user_id}';    
           	let roomId = $('#rooId_input').val();
           	let messageId= '${memdto.user_id}';
           	let name =  '${memdto.user_nickname}';
     	  	let message = "<span><img style='width:180px;height:180;' src=" + $(this).prop("src") + ">" + "</span>";
-            let newChat = "<div class='dynamicChat_r'><span class='font_gray_b'>" + "오후3:14" + "</span>" 
+            let newChat = "<div class='dynamicChat_r'><span class='font_gray_b'>" + date + "</span>" 
                 + message +"</div>";
             console.log(newChat);
             $(".contentDiv").append($(newChat).hide());
@@ -1420,7 +1542,7 @@
             		url: "/chatting/chat_m_insert"
             		, type: "post"
             		, data: {roomId:roomId, messageId : messageId, name:name,
-            				message : message}
+            				message : message, message2:message2}
             		, success: function(data){
             			console.log(data);
             			if(data =="success"){
@@ -1460,17 +1582,18 @@
     })
     
       function makeDynamicEl(){
+    	
     	let loginId= '${loginSession.user_id}';    
         let roomId = $('#rooId_input').val();
         let messageId= '${memdto.user_id}';
         let name =  '${memdto.user_nickname}';
         let message = '<span class="chat_text">' +$("#chatting_content").val() +'</span>';
-       
+       	let message2 = $("#chatting_content").val();
         $.ajax({
     		url: "/chatting/chat_m_insert"
     		, type: "post"
     		, data: {roomId:roomId, messageId : messageId, name:name,
-    				message : message}
+    				message : message, message2:message2}
     		, success: function(data){
     			console.log(data);
     			if(data =="success"){
@@ -1481,13 +1604,27 @@
     			console.log(e);
     		}
     	})  
+    	 var now = new Date();
+         // Date 객체의 getHours(시간) , getMinutes(분) 속성을 저장 합니다.
+         var nowHour = now.getHours();
+         var nowMt = now.getMinutes();
+         if ( nowHour <= 11  &&  nowHour  >= 0 ) {
+    		  var date ='오전' + nowHour + ':' + nowMt;
+    		} else if (  nowHour >= 12  &&  nowHour  < 23  ) {
+    			if(nowHour<20){
+    				var date ='오후0' + (nowHour-12) + ':' + nowMt;
+    			}else{
+    				var date ='오후' + (nowHour-12) + ':' + nowMt;
+    			}
+   		    
+    		}
     	if(loginId==messageId){
-    		let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + "오후3:14" + 
+    		let newChat = "<div class='dynamicChat_r'><span class='me-2 font_gray_b'>" + date + 
             "</span>" + message + "</div>";
         	$(".contentDiv").append($(newChat).hide());
         	$(".dynamicChat_r").fadeIn("slow");
     	}else{
-    		let newChat = "<div class='dynamicChat_l'><span class='me-2 font_gray_b'>" + "오후3:14" + 
+    		let newChat = "<div class='dynamicChat_l'><span class='me-2 font_gray_b'>" + date + 
             "</span>" + message + "</div>";
 	        $(".contentDiv").append($(newChat).hide());
 	        $(".dynamicChat_l").fadeIn("slow");
