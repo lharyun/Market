@@ -26,6 +26,11 @@
 		update tbl_member set user_pw = #{user_pw} where user_id = #{user_id}
 	</update>
 	
+	<!-- 평점 평균 구하기 -->
+	<select id="reviewAvg" parameterType="String" resultType="float">
+		select avg(review_rating) from tbl_review where reviewed_id = #{user_id}
+	</select>
+	
 	<!-- 내 게시글 수 세기 -->
 	<select id="countpost" resultType="int">
 		select count(*) from tbl_post where user_id = #{user_id}
